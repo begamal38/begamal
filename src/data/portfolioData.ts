@@ -248,7 +248,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     discipline: "Academic Identity · Platform Engineering",
     accentHex: "#3173B8",
     image: "/assets/clients/hossam-fekry.png",
-    imageBg: "#0D1520",
+    imageBg: "#F2F0EB",
     isLogoMark: true,
     summary:
       "Academic visual identity (#3173B8 and gold) and ongoing web platform engineering and maintenance for the Hossam Fikry educational ecosystem.",
@@ -272,7 +272,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     discipline: "Creative Direction · Digital Growth",
     accentHex: "#C5A572",
     image: "/assets/clients/mohamed-samy.png",
-    imageBg: "#111114",
+    imageBg: "#F2F0EB",
     isLogoMark: true,
     summary:
       "Creative direction and digital growth across Mohamed Samy and an active roster of diverse commercial accounts.",

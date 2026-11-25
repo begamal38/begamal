@@ -18,15 +18,15 @@ export function StatementSection() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".scrub-word",
-        { opacity: 0.16 },
+        { opacity: 0.36 },
         {
           opacity: 1,
-          stagger: 0.08,
+          stagger: 0.06,
           ease: "none",
           scrollTrigger: {
             trigger: ".statement-block",
-            start: "top 80%",
-            end: "bottom 42%",
+            start: "top 86%",
+            end: "center 52%",
             scrub: true,
           },
         }

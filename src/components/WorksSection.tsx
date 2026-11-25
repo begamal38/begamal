@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { ArrowUpRight, X } from "@phosphor-icons/react";
 import {
   CASE_STUDIES,
@@ -39,11 +40,16 @@ export function WorksSection() {
 
   useEffect(() => {
     if (!selectedStudy) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedStudy(null);
     };
     window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKey);
+    };
   }, [selectedStudy]);
 
   return (
@@ -185,122 +191,126 @@ export function WorksSection() {
         </div>
       </div>
 
-      {/* Case Study Detail Modal */}
-      {selectedStudy && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-study-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#050505]/85 p-4 backdrop-blur-xl sm:p-6"
-          onClick={() => setSelectedStudy(null)}
-        >
+      {/* Case Study Detail Modal (portaled above fixed navbar) */}
+      {selectedStudy &&
+        createPortal(
           <div
-            className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#111114] p-6 sm:p-8"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-study-title"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#050505]/88 p-4 backdrop-blur-xl sm:p-6"
+            onClick={() => setSelectedStudy(null)}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-5">
-              <div>
-                <p className="font-mono-code text-xs uppercase tracking-[0.18em] text-[#C5A572]">
-                  {selectedStudy.period} · {selectedStudy.category}
-                </p>
-                <div className="mt-2 flex flex-wrap items-baseline gap-x-3">
-                  <h3
-                    id="modal-study-title"
-                    className="font-display text-2xl font-medium text-[#F2F0EB] sm:text-3xl"
-                  >
-                    {selectedStudy.title}
-                  </h3>
-                  {selectedStudy.titleAr && (
-                    <span
-                      lang="ar"
-                      dir="rtl"
-                      className="font-arabic text-lg font-semibold text-[#C5A572]"
+            <div
+              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#111114] p-6 sm:p-8"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-5">
+                <div>
+                  <p className="font-mono-code text-xs uppercase tracking-[0.18em] text-[#C5A572]">
+                    {selectedStudy.period} · {selectedStudy.category}
+                  </p>
+                  <div className="mt-2 flex flex-wrap items-baseline gap-x-3">
+                    <h3
+                      id="modal-study-title"
+                      className="font-display text-2xl font-medium text-[#F2F0EB] sm:text-3xl"
                     >
-                      {selectedStudy.titleAr}
-                    </span>
-                  )}
+                      {selectedStudy.title}
+                    </h3>
+                    {selectedStudy.titleAr && (
+                      <span
+                        lang="ar"
+                        dir="rtl"
+                        className="font-arabic text-lg font-semibold text-[#C5A572]"
+                      >
+                        {selectedStudy.titleAr}
+                      </span>
+                    )}
+                  </div>
                 </div>
+
+                <button
+                  type="button"
+                  aria-label="Close case study dossier"
+                  onClick={() => setSelectedStudy(null)}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0C] text-[#F2F0EB] transition-colors hover:border-[#C5A572]/50 hover:text-[#C5A572]"
+                >
+                  <X size={18} weight="bold" />
+                </button>
               </div>
 
-              <button
-                type="button"
-                aria-label="Close case study dossier"
-                onClick={() => setSelectedStudy(null)}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0C] text-[#F2F0EB] transition-colors hover:border-[#C5A572]/50 hover:text-[#C5A572]"
-              >
-                <X size={18} weight="bold" />
-              </button>
-            </div>
+              {selectedStudy.image && (
+                <div
+                  className={`mt-6 flex w-full items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] ${
+                    selectedStudy.isLogoMark ? "h-52 p-5" : "aspect-video"
+                  }`}
+                  style={{ backgroundColor: selectedStudy.imageBg ?? "#0A0A0C" }}
+                >
+                  <img
+                    src={selectedStudy.image}
+                    alt={`${selectedStudy.title} preview`}
+                    className={
+                      selectedStudy.isLogoMark
+                        ? "h-36 w-auto max-w-[78%] rounded-xl object-contain"
+                        : "h-full w-full object-cover"
+                    }
+                  />
+                </div>
+              )}
 
-            {selectedStudy.image && (
-              <div
-                className="mt-6 flex h-52 w-full items-center justify-center overflow-hidden rounded-xl border border-white/[0.08]"
-                style={{ backgroundColor: selectedStudy.imageBg ?? "#0A0A0C" }}
-              >
-                <img
-                  src={selectedStudy.image}
-                  alt={`${selectedStudy.title} preview`}
-                  className={
-                    selectedStudy.isLogoMark
-                      ? "h-36 w-auto max-w-[78%] object-contain"
-                      : "h-full w-full object-cover"
-                  }
-                />
+              <p className="mt-6 text-base leading-relaxed text-[#F2F0EB]/90">
+                {selectedStudy.summary}
+              </p>
+
+              <div className="mt-6 space-y-3 border-t border-white/[0.08] pt-5">
+                <h4 className="font-mono-code text-xs uppercase tracking-[0.18em] text-[#C5A572]">
+                  Verified Scope &amp; Execution
+                </h4>
+                <ul className="space-y-2.5">
+                  {selectedStudy.deliverables.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm leading-relaxed text-[#8E8A82]"
+                    >
+                      <span
+                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                        style={{ backgroundColor: selectedStudy.accentHex }}
+                        aria-hidden="true"
+                      />
+                      <span className="text-[#F2F0EB]/85">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )}
 
-            <p className="mt-6 text-base leading-relaxed text-[#F2F0EB]/90">
-              {selectedStudy.summary}
-            </p>
-
-            <div className="mt-6 space-y-3 border-t border-white/[0.08] pt-5">
-              <h4 className="font-mono-code text-xs uppercase tracking-[0.18em] text-[#C5A572]">
-                Verified Scope &amp; Execution
-              </h4>
-              <ul className="space-y-2.5">
-                {selectedStudy.deliverables.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 text-sm leading-relaxed text-[#8E8A82]"
+              <div className="mt-6 flex flex-wrap gap-2 border-t border-white/[0.08] pt-5">
+                {selectedStudy.campaigns.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-white/10 bg-[#0A0A0C] px-3.5 py-1.5 font-mono-code text-xs text-[#F2F0EB]/80"
                   >
-                    <span
-                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
-                      style={{ backgroundColor: selectedStudy.accentHex }}
-                      aria-hidden="true"
-                    />
-                    <span className="text-[#F2F0EB]/85">{item}</span>
-                  </li>
+                    {tag}
+                  </span>
                 ))}
-              </ul>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-2 border-t border-white/[0.08] pt-5">
-              {selectedStudy.campaigns.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-white/10 bg-[#0A0A0C] px-3.5 py-1.5 font-mono-code text-xs text-[#F2F0EB]/80"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {selectedStudy.link && (
-              <div className="mt-6 border-t border-white/[0.08] pt-5">
-                <a
-                  href={selectedStudy.link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#C5A572] px-5 py-2.5 text-xs font-semibold text-[#050505] transition-colors hover:bg-[#d2b586]"
-                >
-                  <span>Visit {selectedStudy.link.label}</span>
-                  <ArrowUpRight size={14} weight="bold" />
-                </a>
               </div>
-            )}
-          </div>
-        </div>
-      )}
+
+              {selectedStudy.link && (
+                <div className="mt-6 border-t border-white/[0.08] pt-5">
+                  <a
+                    href={selectedStudy.link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#C5A572] px-5 py-2.5 text-xs font-semibold text-[#050505] transition-colors hover:bg-[#d2b586]"
+                  >
+                    <span>Visit {selectedStudy.link.label}</span>
+                    <ArrowUpRight size={14} weight="bold" />
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 }
