@@ -9,9 +9,12 @@
 @import "@fontsource/plus-jakarta-sans/400.css";
 @import "@fontsource/plus-jakarta-sans/500.css";
 @import "@fontsource/plus-jakarta-sans/600.css";
-@import "@fontsource/cairo/500.css";
-@import "@fontsource/cairo/600.css";
-@import "@fontsource/cairo/700.css";
+@import "@fontsource/alexandria/500.css";
+@import "@fontsource/alexandria/600.css";
+@import "@fontsource/alexandria/700.css";
+@import "@fontsource/ibm-plex-sans-arabic/400.css";
+@import "@fontsource/ibm-plex-sans-arabic/500.css";
+@import "@fontsource/ibm-plex-sans-arabic/600.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
@@ -43,20 +46,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html[lang="ar"] body {
+  font-family: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+}
+
+html[lang="ar"] * {
+  letter-spacing: 0 !important;
+}
+
+html[lang="ar"] .font-mono-code {
+  font-family: "IBM Plex Sans Arabic", "JetBrains Mono", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
 .font-display {
   font-family: "Cinzel", Georgia, serif;
+}
+
+html[lang="ar"] .font-display {
+  font-family: "Alexandria", "IBM Plex Sans Arabic", sans-serif;
+  letter-spacing: 0 !important;
 }
 
 .font-editorial {
   font-family: "Cormorant Garamond", Georgia, serif;
 }
 
-.font-sans-body {
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+html[lang="ar"] .font-editorial {
+  font-family: "Alexandria", "IBM Plex Sans Arabic", sans-serif;
+  font-style: normal !important;
+  letter-spacing: 0 !important;
 }
 
-.font-arabic {
-  font-family: "Cairo", "Plus Jakarta Sans", sans-serif;
+.font-sans-body {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
 .font-mono-code {
@@ -108,7 +131,6 @@ body {
   background: rgba(197, 165, 114, 0.52);
 }
 
-/* Focus ring */
 :focus-visible {
   outline: 1.5px solid var(--accent-gold);
   outline-offset: 3px;

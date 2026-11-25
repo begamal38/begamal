@@ -1,13 +1,17 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PORTFOLIO_IDENTITY } from "../data/portfolioData";
+import { Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function StatementSection() {
+interface StatementSectionProps {
+  lang: Lang;
+}
+
+export function StatementSection({ lang }: StatementSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const words = PORTFOLIO_IDENTITY.pointOfView.split(" ");
+  const words = PORTFOLIO_IDENTITY.pointOfView[lang].split(" ");
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -34,7 +38,7 @@ export function StatementSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [lang]);
 
   return (
     <section
@@ -44,9 +48,12 @@ export function StatementSection() {
     >
       <div className="mx-auto max-w-6xl">
         <div className="statement-block max-w-4xl">
-          <h2 className="font-editorial text-3xl font-normal leading-[1.3] tracking-[-0.01em] text-[#F2F0EB] sm:text-4xl lg:text-[2.85rem]">
+          <h2 className="font-editorial text-2xl font-medium leading-[1.45] tracking-[-0.01em] text-[#F2F0EB] sm:text-4xl lg:text-[2.65rem]">
             {words.map((word, index) => (
-              <span key={`${word}-${index}`} className="scrub-word inline-block mr-[0.28em]">
+              <span
+                key={`${lang}-${word}-${index}`}
+                className="scrub-word inline-block me-[0.28em]"
+              >
                 {word}
               </span>
             ))}
@@ -56,38 +63,38 @@ export function StatementSection() {
         {/* Architectural Identity Coordinates */}
         <div className="mt-16 grid grid-cols-1 gap-6 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
           <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#C5A572]">
-              Coordinates
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#C5A572]">
+              {UI_COPY.statement.coordinates[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F2F0EB]">
-              Born {PORTFOLIO_IDENTITY.born}
+              {PORTFOLIO_IDENTITY.bornLabel[lang]}
             </p>
             <p className="mt-1 font-mono-code text-xs text-[#8E8A82]">
-              {PORTFOLIO_IDENTITY.bornCompact} · {PORTFOLIO_IDENTITY.base}
+              {PORTFOLIO_IDENTITY.bornCompact} · {PORTFOLIO_IDENTITY.base[lang]}
             </p>
           </div>
 
           <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#C5A572]">
-              Academic Foundation
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#C5A572]">
+              {UI_COPY.statement.education[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F2F0EB]">
-              B.Sc. in Commerce
+              {PORTFOLIO_IDENTITY.educationTitle[lang]}
             </p>
             <p className="mt-1 text-sm text-[#8E8A82]">
-              Business Administration (English Section), Beni Suef University
+              {PORTFOLIO_IDENTITY.educationSub[lang]}
             </p>
           </div>
 
           <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#C5A572]">
-              Practice Scope
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#C5A572]">
+              {UI_COPY.statement.scope[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F2F0EB]">
-              {PORTFOLIO_IDENTITY.reach}
+              {PORTFOLIO_IDENTITY.reach[lang]}
             </p>
             <p className="mt-1 text-sm text-[#8E8A82]">
-              {PORTFOLIO_IDENTITY.secondaryDisciplines.join(" · ")}
+              {PORTFOLIO_IDENTITY.secondaryDisciplines[lang]}
             </p>
           </div>
         </div>

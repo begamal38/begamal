@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Lang, PORTFOLIO_IDENTITY } from "./data/portfolioData";
 import { MonolithScene } from "./components/MonolithScene";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
@@ -13,8 +14,16 @@ import { SystemsAndContactSection } from "./components/SystemsAndContactSection"
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
+  const [lang, setLang] = useState<Lang>("en");
   const scrollProgressRef = useRef<number>(0);
   const lenisRef = useRef<Lenis | null>(null);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.title = PORTFOLIO_IDENTITY.pageTitle[lang];
+    ScrollTrigger.refresh();
+  }, [lang]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -63,18 +72,26 @@ export default function App() {
     }
   }, []);
 
+  const handleToggleLang = useCallback(() => {
+    setLang((prev) => (prev === "en" ? "ar" : "en"));
+  }, []);
+
   return (
     <div className="relative min-h-[100dvh] bg-[#050505] text-[#F2F0EB]">
       <div className="noise-overlay" aria-hidden="true" />
       <MonolithScene scrollProgressRef={scrollProgressRef} />
-      <Navbar onNavigate={handleNavigate} />
+      <Navbar
+        lang={lang}
+        onToggleLang={handleToggleLang}
+        onNavigate={handleNavigate}
+      />
 
       <main className="relative z-10 w-full overflow-x-hidden">
-        <HeroSection onNavigate={handleNavigate} />
-        <StatementSection />
-        <ChronicleSection />
-        <WorksSection />
-        <SystemsAndContactSection />
+        <HeroSection lang={lang} onNavigate={handleNavigate} />
+        <StatementSection lang={lang} />
+        <ChronicleSection lang={lang} />
+        <WorksSection lang={lang} />
+        <SystemsAndContactSection lang={lang} />
       </main>
     </div>
   );
