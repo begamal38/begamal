@@ -84,7 +84,7 @@ export const PORTFOLIO_IDENTITY = {
   },
   heroSubtext: {
     en: "Creative Director, Digital Marketing Strategist, and AI Production Architect. Building brands, high-converting campaigns, and automated media systems since 2016.",
-    ar: "بمسك البراند من جذوره لحد ما يبيع. من إعلانات التلفزيون وتوظيف مئات الكفاءات في الشركات العالمية، لبناء علامات تجارية تقيلة وقنوات يوتيوب شغالة بالذكاء الاصطناعي.",
+    ar: "ببني البراند من الأساس لحد ما يحقق مبيعات. من إعلانات التلفزيون وتوظيف مئات الكفاءات في الشركات العالمية، لقيادة علامات تجارية وقنوات عالمية بأنظمة الذكاء الاصطناعي.",
   },
   bornLabel: { en: "Born July 20, 1995", ar: "مواليد 20 يوليو 1995" },
   bornCompact: "20.07.1995",
@@ -98,15 +98,15 @@ export const PORTFOLIO_IDENTITY = {
   },
   trackTitle: {
     en: "10 Years · Multi-Sector Execution",
-    ar: "عشر سنين شغل حقيقي في كل القطاعات",
+    ar: "عشر سنين تنفيذ في قطاعات متنوعة",
   },
   trackSub: {
     en: "Telecom, TV & Film, Retail, QSR, Beauty, Architecture, EdTech & AI Media",
-    ar: "اتصالات · دراما وإعلانات · موبايلات · مطاعم · تجميل · تشطيبات · تعليم · وقنوات عالمية",
+    ar: "اتصالات · إعلانات تلفزيون · موبايلات · مطاعم · تجميل · تشطيبات · تعليم · وقنوات عالمية",
   },
   pointOfView: {
     en: "I do not build noise or chase short-lived trends. Every brand, campaign, and media system I direct is built from commercial conviction, real market psychology, and disciplined execution.",
-    ar: "الموضوع عمري ما كان شوية ألوان أو ترند يعدي ويخلص. من أول يوم دخلت فيه السوق في 2016 وأنا ببني شغلي على قاعدة واحدة: افهم دماغ اللي قدامك، اظبطله رسالة تلمس وجعه الحقيقي، وحط وراها سيستم يخليه يشتري وهو مقتنع.",
+    ar: "عمري ما اشتغلت على شوية ألوان أو ترند يعدي ويخلص. من أول يوم دخلت فيه السوق سنة 2016 والقاعدة واحدة: افهم العميل اللي قدامك، صيغ رسالة تلمس احتياجه الحقيقي، وابني وراها منظومة تخليه يشتري وهو مقتنع.",
   },
   portraitPath: "/assets/portrait.jpg",
   liveDomain: "https://begamal.pages.dev",
@@ -160,11 +160,11 @@ export const UI_COPY = {
     },
   },
   contact: {
-    eyebrow: { en: "Direct Channel", ar: "الخط المباشر" },
-    title: { en: "Ready to Scale Your Brand?", ar: "جاهز نكبر شغلك بجد؟" },
+    eyebrow: { en: "Direct Channel", ar: "التواصل المباشر" },
+    title: { en: "Ready to Scale Your Brand?", ar: "عايز تكبّر شغلك بجد؟" },
     subtitle: {
       en: "If you want clear creative direction, campaigns built on real buyer psychology, or an AI media pipeline that actually delivers, start the conversation directly.",
-      ar: "لو بتدور على إدارة إبداعية تقيلة، حملات فاهمة السوق وتجيب مبيعات، أو سيستم إنتاج يفرقك عن كل المنافسين، ابعتلي رسالة مباشرة أو اتفرج على الأرشيف.",
+      ar: "لشغل الإدارة الإبداعية، الحملات المبنية على فهم السوق، أو أنظمة الإنتاج بالذكاء الاصطناعي، تواصل معايا مباشرة أو اتفرج على أرشيف الأعمال.",
     },
     facebookCta: { en: "Message on Facebook", ar: "ابعتلي على فيسبوك" },
     vimeoCta: { en: "Watch Showreel on Vimeo", ar: "أرشيف الأعمال على فيميو" },
@@ -186,7 +186,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     location: { en: "Egypt", ar: "مصر" },
     summary: {
       en: "Entered digital marketing and commercial content creation in 2016 while still in university, alongside community moderation for TECNO Mobile, building a decade-long foundation in audience psychology and conversion.",
-      ar: "نزلت السوق في 2016 وأنا لسه طالب في تجارة إنجليزي. اشتغلت تسويق رقمي ومحتوى تجاري، ومعاهم إدارة مجتمعات لعلامة تكنو موبايل، ومن هنا اتبنت عندي عين السوق: إزاي الكلام يحرك العميل ويجيب بيعة.",
+      ar: "نزلت السوق في 2016 وأنا لسه طالب في تجارة إنجليزي. اشتغلت تسويق رقمي ومحتوى تجاري، ومعاهم إدارة مجتمعات لعلامة تكنو موبايل، ومن هنا اتبنت عندي عين السوق: إزاي الرسالة الصح تحوّل المتابع لعميل ومبيعات حقيقية.",
     },
     highlights: {
       en: [
@@ -197,7 +197,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: [
         "عشر سنين متواصلة من الشغل الفعلي في السوق من 2016",
         "إدارة مجتمعات تكنو موبايل وفهم سلوك المشتري لحظة بلحظة",
-        "تركيز من أول يوم على إن كل محتوى وراه هدف بيعي واضح",
+        "من أول يوم وكل محتوى وراه هدف بيعي واضح",
       ],
     },
   },
@@ -225,7 +225,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     ],
     summary: {
       en: "Frontline enterprise customer operations for Vodafone Business in Cairo, mastering high-stakes communication, objection handling, and client psychology.",
-      ar: "الخطوة اللي صقلت طريقة كلامي وإقناعي. في الكوربة بمصر الجديدة كنت في وش عملاء الشركات مباشرة على حساب فودافون بيزنس، وده علمني إزاي تدير أي نقاش صعب وتفك اعتراضات أصحاب الشركات في وقتها.",
+      ar: "الخطوة اللي صقلت طريقة كلامي وإقناعي. في الكوربة بمصر الجديدة كنت على خط المواجهة الأول مع عملاء قطاع الأعمال في فودافون بيزنس، وده بنى عندي قدرة حاسمة في إدارة النقاشات المعقدة وحسم اعتراضات أصحاب الشركات في وقتها.",
     },
     highlights: {
       en: [
@@ -234,9 +234,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Real-time commercial client psychology",
       ],
       ar: [
-        "الاحتكاك المباشر مع أصحاب الشركات والبيزنس في الكوربة",
+        "التعامل المباشر مع أصحاب الشركات وعملاء قطاع الأعمال في الكوربة",
         "إتقان فنون التفاوض والرد على الاعتراضات تحت الضغط",
-        "فهم عقلية العميل التجاري قبل ما تتكلم معاه كلمة واحدة",
+        "فهم عقلية العميل التجاري قبل ما تبدأ معاه أي عرض بيعي",
       ],
     },
   },
@@ -254,7 +254,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     location: { en: "Cairo / Beni Suef", ar: "القاهرة وبني سويف" },
     summary: {
       en: "Served as Creative Director at Chance Media (founded by renowned actor Ahmed Akl), leading commercial concepts, TV ad scripts, and campaign direction, alongside launching independent agency SECTOR 09 and directing narrative short films.",
-      ar: "هنا مسكت الدفة الإبداعية بدري. اشتغلت مدير إبداعي في شركة تشانس ميديا اللي أسسها الفنان أحمد عقل، وكتبت اسكربتات إعلانات تلفزيون وأشرفت على حملات عقارية وطبية، وبالتوازي أسست وكالتي الخاصة سيكتور 09 وأخرجت أفلام قصيرة.",
+      ar: "في 2018 مسكت القيادة الإبداعية بدري. اشتغلت مدير إبداعي في شركة تشانس ميديا اللي أسسها الفنان أحمد عقل، وكتبت اسكربتات إعلانات تلفزيون وأشرفت على حملات عقارية وطبية، وبالتوازي أسست وكالتي الخاصة سيكتور 09 وأخرجت أفلام قصيرة.",
     },
     highlights: {
       en: [
@@ -280,7 +280,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     location: { en: "Commercial Retail", ar: "تجارة الهواتف والإكسسوارات" },
     summary: {
       en: "Led digital marketing, content creation, and high-volume commercial ad campaigns for Al-Attar Group through 2021.",
-      ar: "تلات سنين من الشغل التقيل مع مجموعة العطار من 2018 لـ 2021. كنت مسؤول عن التسويق الرقمي، صناعة المحتوى، وتوجيه الحملات الإعلانية اللي بتحرك المبيعات بشكل مباشر.",
+      ar: "تلات سنين من الشغل المستمر مع مجموعة العطار من 2018 لـ 2021. توليت التسويق الرقمي، صناعة المحتوى، وتوجيه الحملات الإعلانية اللي بتحرك المبيعات بشكل مباشر.",
     },
     highlights: {
       en: [
@@ -336,9 +336,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Hired ~550 employees in 2020 and recognized as Top Achiever (Beni Suef Recruitment Team)",
       ],
       ar: [
-        "البداية في القرية الذكية ببني سويف سنة 2019 على صف 888 ثم الترقية لقسم الموارد البشرية في ماجوريل",
-        "توظيف كوادر حسابات أوبر بالكامل: ركاب أوبر، كباتن أوبر، وأوبر إيتس",
-        "تغطية احتياجات صفوف فودافون: 888، فودافون كاش، خدمة العملاء والقيمة، والإنترنت الأرضي",
+        "البداية في القرية الذكية ببني سويف سنة 2019 على صف 888 ثم الترقية لقسم التوظيف في ماجوريل",
+        "إدارة التوظيف لحسابات أوبر بالكامل: العملاء، السائقين، وأوبر إيتس",
+        "تغطية احتياجات صفوف فودافون: 888، فودافون كاش، الاحتفاظ بالعملاء، والإنترنت الأرضي",
         "تعيين نحو 550 موظف في 2020 والتتويج بلقب الأعلى تحقيقاً في فريق توظيف بني سويف",
       ],
     },
@@ -357,7 +357,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     summary: {
       en: "Partnering with leading businesses across mobile retail, QSR hospitality, gaming lounges, beauty, interior architecture, and EdTech, driving brand clarity and direct sales.",
-      ar: "بعد خبرة الشركات والوكالات، دخلت في شراكات استراتيجية مع براندات تقيلة في كل المجالات: من الموبايلات والمطاعم والكافيهات، للتجميل والديكور، لحد المنصات التعليمية والحضانات. كل عميل ليه هوية لوحده وخطة بتجيب عميل حقيقي.",
+      ar: "بعد خبرة الشركات والوكالات، دخلت في شراكات استراتيجية مع علامات تجارية في قطاعات مختلفة: الهواتف، المطاعم، صالات الألعاب، التجميل، الديكور، والمنصات التعليمية والحضانات. كل علامة ليها هويتها المستقلة وخطة بتجيب عميل حقيقي.",
     },
     highlights: {
       en: [
@@ -367,8 +367,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ],
       ar: [
         "قيادة الهوية والحملات لبراند القرش موبايل من 2022 لحد النهاردة",
-        "تنوع حقيقي بين المطاعم، صالات الألعاب، التجميل، التشطيبات، والتعليم",
-        "كل مشروع مربوط بنتايج ومبيعات فعلية مش مجرد شكل حلو",
+        "تنوع عملي بين المطاعم، صالات الألعاب، التجميل، التشطيبات، والتعليم",
+        "ربط التوجيه الإبداعي مباشرة بنتايج ومبيعات فعلية",
       ],
     },
   },
@@ -427,7 +427,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     isLogoMark: true,
     summary: {
       en: "Directing brand discipline and commercial campaigns across 3 branches in Beni Suef since 2022, turning product launches, seasonal promotions, and after-sales trust into steady retail growth.",
-      ar: "ماسك دفة التسويق والإبداع لـ 3 فروع في بني سويف من 2022. بنينا شخصية قوية في السوق تخلي العميل يثق ويشتري في المواسم الكبرى زي الذكرى الثامنة والبلاك فرايدي، وحولنا خدمة ما بعد البيع لأقوى دعاية مجانية.",
+      ar: "توجيه الهوية والحملات التجارية لـ 3 فروع في بني سويف من 2022، وبناء حضور قوي في السوق خلال مواسم الذروة زي الذكرى الثامنة والبلاك فرايدي مع تحويل خدمة ما بعد البيع لنقطة ثقة أساسية.",
     },
     deliverables: {
       en: [
@@ -466,7 +466,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     isLogoMark: true,
     summary: {
       en: "Complete 140+ item menu redesign paired with high-tempo food craft reels and Facebook Messages conversion funnels engineered to turn views into direct orders.",
-      ar: "إعادة هيكلة وتصميم منيو كامل يضم أكتر من 140 صنف عشان يفتح نفس العميل ويزود قيمة الفاتورة، مع ريلز أكل سريعة وحملات رسائل فيسبوك بتقفل الأوردر على طول.",
+      ar: "إعادة هيكلة وتصميم منيو كامل يضم أكتر من 140 صنف بشكل يسهل الاختيار ويرفع قيمة الفاتورة، مع ريلز مطاعم سريعة الإيقاع وحملات رسائل فيسبوك موجهة للطلب المباشر.",
     },
     deliverables: {
       en: [
@@ -505,7 +505,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     isLogoMark: true,
     summary: {
       en: "Commercial entertainment marketing and youth-focused digital campaigns designed to keep gaming lounges and café seating consistently active.",
-      ar: "شغل موجه بذكاء لجمهور الشباب والجيمنج. محتوى مرئي وحملات محلية تخلي القعدة والحجز في المكان شغالين طول الأسبوع.",
+      ar: "محتوى مرئي وحملات محلية موجهة لجمهور الشباب والألعاب تحافظ على حركة الزيارات والحجوزات في الصالة والكافيه طول الأسبوع.",
     },
     deliverables: {
       en: [
@@ -541,7 +541,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     summary: {
       en: "Strategic social positioning and digital growth for Makeup Artist Yasmine Salah, connecting high-craft beauty showcases directly with bridal and client bookings.",
-      ar: "بناء حضور رقمي يليق بشغل خبيرة التجميل ياسمين صلاح، بحيث إن كل ظهور على السوشيال ميديا يعكس جودة اللوك ويحوله لاستفسارات وحجوزات عرائس حقيقية.",
+      ar: "بناء حضور رقمي يليق بمستوى خبيرة التجميل ياسمين صلاح، يعكس دقة الشغل ويحوّل التفاعل لاستفسارات وحجوزات عرائس مؤهلة.",
     },
     deliverables: {
       en: [
@@ -705,7 +705,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     isLogoMark: true,
     summary: {
       en: "Tier-1 English faceless 2D animated documentary channel covering Economic History and Money Systems, built end-to-end with a custom local AI production stack.",
-      ar: "قناة وثائقية إنجليزية موجهة للجمهور العالمي في التاريخ الاقتصادي وأنظمة الفلوس، مبنية بالكامل على خط إنتاج ذكاء اصطناعي محلي من البحث والكتابة لحد الصوت والصورة والمونتاج.",
+      ar: "قناة وثائقية إنجليزية موجهة للجمهور العالمي في التاريخ الاقتصادي وأنظمة المال والأسواق، مبنية بالكامل على خط إنتاج ذكاء اصطناعي محلي من البحث والكتابة لحد الصوت والصورة والمونتاج.",
     },
     deliverables: {
       en: [
@@ -844,7 +844,7 @@ export const CASE_STUDIES: CaseStudy[] = [
 export const AI_PRODUCTION_STACK: StackTool[] = [
   {
     name: { en: "Creative System Orchestration", ar: "تخطيط وتنفيذ الأنظمة" },
-    domain: { en: "Google Antigravity & Claude", ar: "أنتيجرافيتي وكلود" },
+    domain: { en: "Google Antigravity & Claude", ar: "بناء المنصات والأنظمة" },
     role: {
       en: "Turning strategic briefs into full-stack web platforms, automated visual checks, and production-ready code.",
       ar: "تحويل الفكرة التجارية لمنصات ويب سريعة ومراجعة بصرية دقيقة بدون انتظار فرق كبيرة.",
@@ -852,7 +852,7 @@ export const AI_PRODUCTION_STACK: StackTool[] = [
   },
   {
     name: { en: "Programmatic Video Engines", ar: "محركات الفيديو المبرمجة" },
-    domain: { en: "HyperFrames & Remotion Studio", ar: "هايبر فريمز وريموشن" },
+    domain: { en: "HyperFrames & Remotion Studio", ar: "إنتاج الريلز والإعلانات آلياً" },
     role: {
       en: "Frame-accurate commercial reels and modular video systems engineered for consistent brand identity.",
       ar: "إنتاج ريلز وفيديوهات تجارية بدقة الفريم الواحد وهوية بصرية ثابتة لكل عميل.",
