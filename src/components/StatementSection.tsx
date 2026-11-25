@@ -48,7 +48,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
     >
       <div className="mx-auto max-w-6xl">
         <div className="statement-block max-w-4xl">
-          <h2 className="font-editorial text-2xl font-medium leading-[1.45] tracking-[-0.01em] text-[#F2F0EB] sm:text-4xl lg:text-[2.65rem]">
+          <h2 className="font-editorial text-2xl font-medium leading-[1.48] tracking-[-0.01em] text-[#F2F0EB] sm:text-4xl lg:text-[2.6rem]">
             {words.map((word, index) => (
               <span
                 key={`${lang}-${word}-${index}`}
@@ -60,17 +60,17 @@ export function StatementSection({ lang }: StatementSectionProps) {
           </h2>
         </div>
 
-        {/* Architectural Identity Coordinates */}
+        {/* Verified Milestones & Academic Foundation */}
         <div className="mt-16 grid grid-cols-1 gap-6 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
           <div>
             <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#C5A572]">
-              {UI_COPY.statement.coordinates[lang]}
+              {UI_COPY.statement.origin[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F2F0EB]">
               {PORTFOLIO_IDENTITY.bornLabel[lang]}
             </p>
             <p className="mt-1 font-mono-code text-xs text-[#8E8A82]">
-              {PORTFOLIO_IDENTITY.bornCompact} · {PORTFOLIO_IDENTITY.base[lang]}
+              {PORTFOLIO_IDENTITY.bornCompact}
             </p>
           </div>
 
@@ -91,10 +91,10 @@ export function StatementSection({ lang }: StatementSectionProps) {
               {UI_COPY.statement.scope[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F2F0EB]">
-              {PORTFOLIO_IDENTITY.reach[lang]}
+              {PORTFOLIO_IDENTITY.trackTitle[lang]}
             </p>
             <p className="mt-1 text-sm text-[#8E8A82]">
-              {PORTFOLIO_IDENTITY.secondaryDisciplines[lang]}
+              {PORTFOLIO_IDENTITY.trackSub[lang]}
             </p>
           </div>
         </div>

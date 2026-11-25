@@ -135,7 +135,7 @@ export function Navbar({ lang, onToggleLang, onNavigate }: NavbarProps) {
           ))}
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           <button
             type="button"
             onClick={() => handleLinkClick("contact")}
@@ -144,9 +144,6 @@ export function Navbar({ lang, onToggleLang, onNavigate }: NavbarProps) {
             <span>{UI_COPY.nav.cta[lang]}</span>
             <ArrowUpRight size={18} weight="bold" />
           </button>
-          <p className="font-mono-code text-xs text-[#8E8A82]">
-            {PORTFOLIO_IDENTITY.email} · {PORTFOLIO_IDENTITY.base[lang]}
-          </p>
         </div>
       </div>
     </>
