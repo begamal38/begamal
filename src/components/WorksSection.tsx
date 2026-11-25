@@ -64,6 +64,65 @@ function getBentoSpanClass(index: number, total: number): string {
   return index % 2 === 0 ? "lg:col-span-7" : "lg:col-span-5";
 }
 
+function CaseStudyVisualStage({
+  study,
+  lang,
+  tall = false,
+}: {
+  study: CaseStudy;
+  lang: Lang;
+  tall?: boolean;
+}) {
+  const heightClass = tall ? "h-52" : "h-44";
+
+  if (study.image) {
+    if (study.isWhitePlate) {
+      return (
+        <div
+          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0B0D] p-4`}
+        >
+          <div className="flex h-32 w-56 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white px-5 py-3 shadow-lg">
+            <img
+              src={study.image}
+              alt={study.title[lang]}
+              loading="lazy"
+              className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div
+        className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0B0D] p-4`}
+      >
+        <div className="h-32 w-32 overflow-hidden rounded-2xl border border-white/15 shadow-lg">
+          <img
+            src={study.image}
+            alt={study.title[lang]}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`${heightClass} flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/[0.08] bg-[#0B0B0D] p-5 text-center`}
+    >
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#C5A572]/40 bg-[#141418] font-display text-lg font-semibold tracking-wider text-[#C5A572]">
+        {study.monogram ?? study.title.en.slice(0, 2).toUpperCase()}
+      </div>
+      <span className="font-display text-base tracking-wide text-[#F2F0EB]">
+        {study.title[lang]}
+      </span>
+    </div>
+  );
+}
+
 export function WorksSection({ lang }: WorksSectionProps) {
   const [activeCategory, setActiveCategory] = useState<CaseStudyCategoryId>("all");
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
@@ -127,7 +186,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                   className={`rounded-full border px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.98] whitespace-nowrap ${
                     selected
                       ? "border-[#C5A572] bg-[#C5A572] text-[#050505]"
-                      : "border-white/10 bg-[#111114] text-[#8E8A82] hover:border-white/25 hover:text-[#F2F0EB]"
+                      : "border-white/10 bg-[#111114] text-[#D6D3CD]/80 hover:border-white/25 hover:text-[#F2F0EB]"
                   }`}
                 >
                   {category.label[lang]}
@@ -153,36 +212,9 @@ export function WorksSection({ lang }: WorksSectionProps) {
                     onClick={() => setSelectedStudy(study)}
                     className="w-full text-start"
                   >
-                    {/* Visual Header or Typographic Monogram */}
-                    {study.image ? (
-                      <div
-                        className={`mb-6 flex w-full items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] ${
-                          study.isLogoMark ? "h-44 p-4" : "aspect-video"
-                        }`}
-                        style={{ backgroundColor: study.imageBg ?? "#FFFFFF" }}
-                      >
-                        <img
-                          src={study.image}
-                          alt={study.title[lang]}
-                          loading="lazy"
-                          className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
-                            study.isLogoMark
-                              ? "h-32 w-auto max-w-[82%] object-contain"
-                              : "h-full w-full object-cover"
-                          }`}
-                        />
-                      </div>
-                    ) : (
-                      <div className="mb-6 flex h-32 w-full items-center justify-between rounded-xl border border-white/[0.08] bg-[#111114] px-6">
-                        <span className="font-display text-2xl tracking-wide text-[#F2F0EB]">
-                          {study.title[lang]}
-                        </span>
-                        <span
-                          className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#C5A572]"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    )}
+                    <div className="mb-6">
+                      <CaseStudyVisualStage study={study} lang={lang} />
+                    </div>
 
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <span className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#C5A572]">
@@ -201,17 +233,17 @@ export function WorksSection({ lang }: WorksSectionProps) {
                       {study.discipline[lang]}
                     </p>
 
-                    <p className="mt-4 text-sm leading-relaxed text-[#F2F0EB]/80">
+                    <p className="mt-4 text-sm leading-relaxed text-[#F2F0EB]/85">
                       {study.summary[lang]}
                     </p>
                   </button>
 
-                  {/* Card Action Bar: Brief + Direct Client Page Link */}
+                  {/* Card Action Bar: Interactive Project Brief + Direct Client Page / Case Study */}
                   <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.07] pt-4">
                     <button
                       type="button"
                       onClick={() => setSelectedStudy(study)}
-                      className="text-xs font-medium text-[#8E8A82] transition-colors hover:text-[#F2F0EB]"
+                      className="text-xs font-medium text-[#D6D3CD]/80 underline decoration-white/20 underline-offset-4 transition-colors hover:text-[#C5A572] hover:decoration-[#C5A572]"
                     >
                       {UI_COPY.works.openDossier[lang]}
                     </button>
@@ -229,11 +261,11 @@ export function WorksSection({ lang }: WorksSectionProps) {
                     ) : (
                       <button
                         type="button"
-                        aria-label={UI_COPY.works.openDossier[lang]}
                         onClick={() => setSelectedStudy(study)}
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-[#111114] text-[#F2F0EB] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:border-[#C5A572]/50 group-hover:text-[#C5A572]"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-[#C5A572]/35 bg-[#111114] px-3.5 py-1.5 text-xs font-medium text-[#C5A572] transition-colors hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-[#050505]"
                       >
-                        <ArrowUpRight size={15} weight="bold" />
+                        <span>{UI_COPY.works.caseStudyCta[lang]}</span>
+                        <ArrowUpRight size={13} weight="bold" />
                       </button>
                     )}
                   </div>
@@ -275,30 +307,15 @@ export function WorksSection({ lang }: WorksSectionProps) {
                   type="button"
                   aria-label={UI_COPY.works.closeModal[lang]}
                   onClick={() => setSelectedStudy(null)}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0C] text-[#F2F0EB] transition-colors hover:border-[#C5A572]/50 hover:text-[#C5A572]"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#0A0A0C] text-[#F2F0EB] transition-colors hover:border-[#C5A572]/60 hover:text-[#C5A572]"
                 >
                   <X size={18} weight="bold" />
                 </button>
               </div>
 
-              {selectedStudy.image && (
-                <div
-                  className={`mt-6 flex w-full items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] ${
-                    selectedStudy.isLogoMark ? "h-52 p-5" : "aspect-video"
-                  }`}
-                  style={{ backgroundColor: selectedStudy.imageBg ?? "#FFFFFF" }}
-                >
-                  <img
-                    src={selectedStudy.image}
-                    alt={selectedStudy.title[lang]}
-                    className={
-                      selectedStudy.isLogoMark
-                        ? "h-36 w-auto max-w-[80%] object-contain"
-                        : "h-full w-full object-cover"
-                    }
-                  />
-                </div>
-              )}
+              <div className="mt-6">
+                <CaseStudyVisualStage study={selectedStudy} lang={lang} tall />
+              </div>
 
               <p className="mt-6 text-base leading-relaxed text-[#F2F0EB]/90">
                 {selectedStudy.summary[lang]}

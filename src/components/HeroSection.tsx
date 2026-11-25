@@ -1,5 +1,3 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
 
@@ -9,53 +7,30 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReducedMotion || !sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(".hero-reveal", {
-        y: 22,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.09,
-        ease: "power3.out",
-        clearProps: "transform",
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       id="hero"
-      ref={sectionRef}
-      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-14 pt-20 sm:px-8 lg:pt-24"
+      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-12 pt-20 sm:px-8 lg:pt-24"
     >
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
-        {/* Left/Start: Typography Stack (Max 4 text elements) */}
-        <div className="order-2 flex flex-col items-start lg:order-1 lg:col-span-7">
-          <p className="hero-reveal font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#C5A572]">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-8">
+        {/* Left/Start: Typography Stack (Immediately visible at scroll = 0, opacity: 1) */}
+        <div className="order-2 flex flex-col items-start opacity-100 lg:order-1 lg:col-span-7">
+          <p className="font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#C5A572]">
             {PORTFOLIO_IDENTITY.heroEyebrow[lang]}
           </p>
 
-          <h1 className="hero-reveal mt-5 font-display text-4xl font-semibold uppercase leading-[1.08] tracking-[0.06em] text-[#F2F0EB] sm:text-5xl lg:text-[3.75rem]">
+          <h1 className="mt-4 font-display text-4xl font-semibold uppercase leading-[1.08] tracking-[0.06em] text-[#F2F0EB] sm:text-5xl lg:text-[3.75rem]">
             {PORTFOLIO_IDENTITY.name[lang]}
             <span className="mt-2 block font-editorial text-2xl font-normal italic tracking-[0.02em] text-[#C5A572] sm:text-3xl lg:text-[2.25rem] leading-[1.2] pb-1">
               {PORTFOLIO_IDENTITY.heroSubtitle[lang]}
             </span>
           </h1>
 
-          <p className="hero-reveal mt-5 max-w-[48ch] text-base leading-relaxed text-[#8E8A82] sm:text-[17px]">
+          <p className="mt-4 max-w-[48ch] text-base leading-relaxed text-[#D6D3CD] sm:text-[17px]">
             {PORTFOLIO_IDENTITY.heroSubtext[lang]}
           </p>
 
-          <div className="hero-reveal mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-7 flex flex-wrap items-center gap-4 opacity-100">
             <button
               type="button"
               onClick={() => onNavigate("contact")}
@@ -70,16 +45,16 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
             <button
               type="button"
               onClick={() => onNavigate("works")}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#111114]/70 px-6 py-3 text-sm font-medium text-[#F2F0EB] transition-colors duration-200 hover:border-[#C5A572]/50 hover:text-[#C5A572] active:scale-[0.98] whitespace-nowrap"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111114]/85 px-6 py-3 text-sm font-medium text-[#F2F0EB] transition-colors duration-200 hover:border-[#C5A572]/60 hover:text-[#C5A572] active:scale-[0.98] whitespace-nowrap"
             >
               <span>{UI_COPY.hero.secondaryCta[lang]}</span>
             </button>
           </div>
         </div>
 
-        {/* Right/End: Chiaroscuro Monochrome Portrait Dissolving into #050505 */}
-        <div className="hero-reveal order-1 flex justify-center lg:order-2 lg:col-span-5 lg:justify-end">
-          <div className="relative w-[210px] sm:w-[290px] lg:w-[370px]">
+        {/* Right/End: Chiaroscuro Monochrome Portrait (Immediately opacity: 1 at scroll = 0) */}
+        <div className="order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
+          <div className="relative w-[195px] sm:w-[275px] lg:w-[365px]">
             <div
               className="pointer-events-none absolute -inset-6 rounded-full opacity-45 blur-3xl"
               style={{
@@ -95,14 +70,14 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
                 width={740}
                 height={925}
                 loading="eager"
-                decoding="async"
-                className="h-full w-full object-cover object-top grayscale contrast-[1.24] brightness-[0.84] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                decoding="sync"
+                className="h-full w-full object-cover object-top grayscale contrast-[1.24] brightness-[0.88] opacity-100"
               />
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(ellipse 68% 72% at 50% 45%, rgba(5,5,5,0) 44%, rgba(5,5,5,0.75) 78%, rgba(5,5,5,1) 100%)",
+                    "radial-gradient(ellipse 68% 72% at 50% 45%, rgba(5,5,5,0) 44%, rgba(5,5,5,0.72) 78%, rgba(5,5,5,1) 100%)",
                 }}
                 aria-hidden="true"
               />

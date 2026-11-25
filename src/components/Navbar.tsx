@@ -35,7 +35,7 @@ export function Navbar({ lang, onToggleLang, onNavigate }: NavbarProps) {
       <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
         <nav
           aria-label="Primary Navigation"
-          className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border border-white/10 bg-[#111114]/88 px-4 backdrop-blur-xl sm:px-6"
+          className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border border-white/10 bg-[#111114]/90 px-4 backdrop-blur-xl sm:px-6"
         >
           <button
             type="button"
@@ -54,7 +54,7 @@ export function Navbar({ lang, onToggleLang, onNavigate }: NavbarProps) {
                 key={item.target}
                 type="button"
                 onClick={() => handleLinkClick(item.target)}
-                className="text-xs font-medium tracking-[0.12em] text-[#8E8A82] uppercase transition-colors duration-200 hover:text-[#F2F0EB]"
+                className="text-xs font-medium tracking-[0.12em] text-[#D6D3CD] uppercase transition-colors duration-200 hover:text-[#C5A572]"
               >
                 {item.label}
               </button>
@@ -62,14 +62,14 @@ export function Navbar({ lang, onToggleLang, onNavigate }: NavbarProps) {
           </div>
 
           <div className="flex items-center gap-2.5 sm:gap-3">
-            {/* Pure Language Switcher */}
+            {/* High-Contrast Language Toggle Button */}
             <button
               type="button"
               onClick={onToggleLang}
               aria-label={lang === "en" ? "Switch to Arabic" : "Switch to English"}
-              className="rounded-full border border-white/15 bg-[#0A0A0C] px-3 py-1.5 text-xs font-medium text-[#F2F0EB] transition-colors duration-200 hover:border-[#C5A572]/60 hover:text-[#C5A572] active:scale-[0.98]"
+              className="font-arabic-toggle inline-flex min-w-[66px] items-center justify-center rounded-full border border-white/25 bg-[#18181C] px-3.5 py-1.5 text-xs font-semibold text-[#F2F0EB] transition-colors duration-200 hover:border-[#C5A572] hover:text-[#C5A572] active:scale-[0.98] whitespace-nowrap"
             >
-              {lang === "en" ? "عربي" : "EN"}
+              {lang === "en" ? "العربية" : "EN"}
             </button>
 
             <button
@@ -88,7 +88,7 @@ export function Navbar({ lang, onToggleLang, onNavigate }: NavbarProps) {
               aria-label={menuOpen ? UI_COPY.nav.closeMenu[lang] : UI_COPY.nav.openMenu[lang]}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0C] md:hidden"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-[#0A0A0C] md:hidden"
             >
               <span
                 className={`absolute h-[1.5px] w-4 bg-[#F2F0EB] transition-transform duration-300 ${

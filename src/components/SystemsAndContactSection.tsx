@@ -1,4 +1,5 @@
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { useState } from "react";
+import { ArrowUpRight, Check, Copy } from "@phosphor-icons/react";
 import {
   AI_PRODUCTION_STACK,
   Lang,
@@ -11,6 +12,18 @@ interface SystemsAndContactSectionProps {
 }
 
 export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PORTFOLIO_IDENTITY.email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch {
+      window.location.href = `mailto:${PORTFOLIO_IDENTITY.email}`;
+    }
+  };
+
   return (
     <>
       {/* AI Production Systems Architecture */}
@@ -23,7 +36,7 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
             <h2 className="font-display text-3xl font-semibold uppercase tracking-[0.06em] text-[#F2F0EB] sm:text-4xl">
               {UI_COPY.systems.title[lang]}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-[#8E8A82]">
+            <p className="mt-4 text-base leading-relaxed text-[#D6D3CD]/85">
               {UI_COPY.systems.subtitle[lang]}
             </p>
           </div>
@@ -51,7 +64,7 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
         </div>
       </section>
 
-      {/* Re-engineered Closing Band (Zero Boilerplate Filler) */}
+      {/* Direct Channel & Clean Closing Band */}
       <footer
         id="contact"
         className="relative z-10 border-t border-white/[0.08] bg-[#050505]/95 px-5 pb-14 pt-24 sm:px-8 md:pt-32"
@@ -65,12 +78,12 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
               <h2 className="mt-3 font-display text-3xl font-semibold uppercase leading-[1.15] tracking-[0.04em] text-[#F2F0EB] sm:text-5xl">
                 {UI_COPY.contact.title[lang]}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#8E8A82]">
+              <p className="mt-4 text-base leading-relaxed text-[#D6D3CD]/85">
                 {UI_COPY.contact.subtitle[lang]}
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3.5">
               <a
                 href={PORTFOLIO_IDENTITY.facebookUrl}
                 target="_blank"
@@ -87,11 +100,32 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
                 href={PORTFOLIO_IDENTITY.vimeoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#111114] px-6 py-3 text-sm font-medium text-[#F2F0EB] transition-colors hover:border-[#C5A572]/50 hover:text-[#C5A572] active:scale-[0.98] whitespace-nowrap"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111114] px-5 py-3 text-sm font-medium text-[#F2F0EB] transition-colors hover:border-[#C5A572]/60 hover:text-[#C5A572] active:scale-[0.98] whitespace-nowrap"
               >
                 <span>{UI_COPY.contact.vimeoCta[lang]}</span>
                 <ArrowUpRight size={15} weight="bold" />
               </a>
+
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111114] px-5 py-3 font-mono-code text-xs font-medium text-[#F2F0EB] transition-colors hover:border-[#C5A572]/60 hover:text-[#C5A572] active:scale-[0.98] whitespace-nowrap"
+              >
+                {copied ? (
+                  <>
+                    <Check size={14} weight="bold" className="text-[#C5A572]" />
+                    <span>{UI_COPY.contact.copiedEmail[lang]}</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={14} weight="regular" />
+                    <span>
+                      {lang === "en" ? "Copy " : "نسخ "}
+                      <span dir="ltr">{PORTFOLIO_IDENTITY.email}</span>
+                    </span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
 

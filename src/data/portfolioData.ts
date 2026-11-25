@@ -45,8 +45,8 @@ export interface CaseStudy {
   category: Exclude<CaseStudyCategoryId, "all">;
   discipline: LocalizedText;
   image?: string;
-  imageBg?: string;
-  isLogoMark?: boolean;
+  isWhitePlate?: boolean;
+  monogram?: string;
   summary: LocalizedText;
   deliverables: {
     en: string[];
@@ -110,6 +110,7 @@ export const PORTFOLIO_IDENTITY = {
   },
   portraitPath: "/assets/portrait.jpg",
   liveDomain: "https://begamal.pages.dev",
+  email: "1@begamal.com",
   vimeoUrl: "https://vimeo.com/begamal",
   vimeoLabel: "vimeo.com/begamal",
   facebookUrl: "https://www.facebook.com/begamal",
@@ -149,6 +150,7 @@ export const UI_COPY = {
     title: { en: "Selected Works", ar: "نماذج من أرض الواقع" },
     openDossier: { en: "Project Brief", ar: "تفاصيل الدور" },
     visitPage: { en: "Visit Client Page", ar: "ادخل على الصفحة" },
+    caseStudyCta: { en: "Case Study", ar: "دراسة الحالة" },
     scopeHeading: { en: "Scope & Execution", ar: "اللي اتنفذ على الأرض" },
     closeModal: { en: "Close project brief", ar: "إغلاق" },
   },
@@ -168,6 +170,8 @@ export const UI_COPY = {
     },
     facebookCta: { en: "Message on Facebook", ar: "ابعتلي على فيسبوك" },
     vimeoCta: { en: "Watch Showreel on Vimeo", ar: "أرشيف الأعمال على فيميو" },
+    copyEmail: { en: "Copy 1@begamal.com", ar: "نسخ 1@begamal.com" },
+    copiedEmail: { en: "Copied 1@begamal.com", ar: "تم نسخ البريد" },
   },
 };
 
@@ -423,8 +427,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "إدارة إبداعية · ريلز تجاري · توسع الفروع",
     },
     image: "/assets/clients/alqersh.jpg",
-    imageBg: "#0036B8",
-    isLogoMark: true,
+    isWhitePlate: false,
     summary: {
       en: "Directing brand discipline and commercial campaigns across 3 branches in Beni Suef since 2022, turning product launches, seasonal promotions, and after-sales trust into steady retail growth.",
       ar: "توجيه الهوية والحملات التجارية لـ 3 فروع في بني سويف من 2022، وبناء حضور قوي في السوق خلال مواسم الذروة زي الذكرى الثامنة والبلاك فرايدي مع تحويل خدمة ما بعد البيع لنقطة ثقة أساسية.",
@@ -455,15 +458,14 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "el3sal",
     title: { en: "EL3SAL Crepe & Pizza", ar: "مطعم العسال" },
-    period: { en: "2022 - Present", ar: "2022 - مستمر" },
+    period: { en: "ACTIVE CLIENT", ar: "عميل حالي" },
     category: "retail_hospitality",
     discipline: {
       en: "Menu Architecture · QSR Campaigns · Conversion",
       ar: "هندسة المنيو · حملات مطاعم · مسارات الطلب",
     },
     image: "/assets/clients/el3sal.jpg",
-    imageBg: "#ED6C18",
-    isLogoMark: true,
+    isWhitePlate: false,
     summary: {
       en: "Complete 140+ item menu redesign paired with high-tempo food craft reels and Facebook Messages conversion funnels engineered to turn views into direct orders.",
       ar: "إعادة هيكلة وتصميم منيو كامل يضم أكتر من 140 صنف بشكل يسهل الاختيار ويرفع قيمة الفاتورة، مع ريلز مطاعم سريعة الإيقاع وحملات رسائل فيسبوك موجهة للطلب المباشر.",
@@ -501,8 +503,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "محتوى ترفيهي · تسويق صالات ألعاب",
     },
     image: "/assets/clients/sanhok.jpg",
-    imageBg: "#02132A",
-    isLogoMark: true,
+    isWhitePlate: false,
     summary: {
       en: "Commercial entertainment marketing and youth-focused digital campaigns designed to keep gaming lounges and café seating consistently active.",
       ar: "محتوى مرئي وحملات محلية موجهة لجمهور الشباب والألعاب تحافظ على حركة الزيارات والحجوزات في الصالة والكافيه طول الأسبوع.",
@@ -539,6 +540,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Beauty Positioning · Social Growth · Bookings",
       ar: "التموضع في التجميل · نمو السوشيال · الحجوزات",
     },
+    monogram: "YS",
     summary: {
       en: "Strategic social positioning and digital growth for Makeup Artist Yasmine Salah, connecting high-craft beauty showcases directly with bridal and client bookings.",
       ar: "بناء حضور رقمي يليق بمستوى خبيرة التجميل ياسمين صلاح، يعكس دقة الشغل ويحوّل التفاعل لاستفسارات وحجوزات عرائس مؤهلة.",
@@ -576,8 +578,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "إدارة إبداعية · تطوير المنصة · حملات الطلاب",
     },
     image: "/assets/clients/hossam-fekry.png",
-    imageBg: "#FFFFFF",
-    isLogoMark: true,
+    isWhitePlate: true,
     summary: {
       en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fikry educational platform.",
       ar: "قيادة الصورة البصرية للمنصة التعليمية، وتوجيه حملات استقطاب الطلاب على مستوى الجمهورية، مع متابعة وتطوير واجهة المنصة عشان تستوعب آلاف الطلاب بسلاسة.",
@@ -619,8 +620,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "تموضع معماري · معرض رقمي · حملات مشاريع",
     },
     image: "/assets/clients/mohamed-samy.png",
-    imageBg: "#FFFFFF",
-    isLogoMark: true,
+    isWhitePlate: true,
     summary: {
       en: "Creative direction, high-ticket digital positioning, and promotional showcase direction across Mohamed Samy's interior contracting portfolio.",
       ar: "نقلنا البراند لمستوى يخاطب أصحاب الفلل والمشاريع التجارية الكبيرة. من تأسيس واجهة الويب الرسمية لإدارة الحملات الترويجية للمشاريع المنفذة على الأرض.",
@@ -662,8 +662,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "تسويق رقمي · حملات تجارية",
     },
     image: "/assets/clients/attar-group.jpg",
-    imageBg: "#FFFFFF",
-    isLogoMark: true,
+    isWhitePlate: true,
     summary: {
       en: "Full-scale digital marketing, content creation, and commercial advertising campaigns executed for Al-Attar Group across 2018 through 2021.",
       ar: "تلات سنين قيادة للتسويق الرقمي وصناعة المحتوى وإطلاق الحملات التجارية لمجموعة العطار، وبناء تواجد قوي في سوق الموبايلات والإكسسوارات.",
@@ -701,8 +700,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "أفلام وثائقية إنجليزية · منظومة إنتاج آلية",
     },
     image: "/assets/clients/obolus-mark.jpg",
-    imageBg: "#0E6B47",
-    isLogoMark: true,
+    isWhitePlate: false,
     summary: {
       en: "Tier-1 English faceless 2D animated documentary channel covering Economic History and Money Systems, built end-to-end with a custom local AI production stack.",
       ar: "قناة وثائقية إنجليزية موجهة للجمهور العالمي في التاريخ الاقتصادي وأنظمة المال والأسواق، مبنية بالكامل على خط إنتاج ذكاء اصطناعي محلي من البحث والكتابة لحد الصوت والصورة والمونتاج.",
@@ -740,8 +738,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "قناة إنجليزية عالمية · تحريك برمجي طويل النفس",
     },
     image: "/assets/clients/architect-of-reality.png",
-    imageBg: "#FFFFFF",
-    isLogoMark: true,
+    isWhitePlate: true,
     summary: {
       en: "Flagship English YouTube channel built for Tier-1 international viewers, combining deep psychological and philosophical storytelling with a custom programmatic animation engine.",
       ar: "مشروعي الشخصي على يوتيوب باللغة الإنجليزية للجمهور العالمي. محتوى عميق في علم النفس والفلسفة التطبيقية، مبني على محرك تحريك برمجي خاص مصمم لوقت المشاهدة الطويل.",
@@ -779,8 +776,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "تسويق تعليمي · ريلز واقعي · استقطاب أولياء الأمور",
     },
     image: "/assets/clients/khatwa.png",
-    imageBg: "#FFFFFF",
-    isLogoMark: true,
+    isWhitePlate: true,
     summary: {
       en: "Marketing direction and real-activity video reels for Khatwa Academy and Nursery, structuring clear stage-by-stage parent messaging that drives qualified enrollment inquiries.",
       ar: "تسويق ذكي بيخاطب الأم بالمنطق مش بالكلام الإنشائي. عملنا ريلز توثق الأنشطة الحقيقية جوه الحضانة وقسمنا المراحل العمرية بوضوح، عشان استفسارات التسجيل تيجي جاهزة.",
@@ -817,6 +813,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Creative Direction · TV Ad Scripts · Real Estate & Medical",
       ar: "إدارة إبداعية · إعلانات تلفزيون · عقارات ومراكز طبية",
     },
+    monogram: "CM",
     summary: {
       en: "Creative Direction, TV ad scriptwriting, and campaign leadership for real-estate and medical brand accounts at Chance Media, founded by actor Ahmed Akl.",
       ar: "توليت الإدارة الإبداعية وكتابة اسكربتات إعلانات التلفزيون وتوجيه الحملات الإعلانية لقطاعي العقارات والمراكز الطبية في تشانس ميديا مع الفنان أحمد عقل.",

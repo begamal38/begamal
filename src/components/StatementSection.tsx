@@ -22,7 +22,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".scrub-word",
-        { opacity: 0.36 },
+        { opacity: 0.38 },
         {
           opacity: 1,
           stagger: 0.06,
