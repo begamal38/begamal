@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowUpRight, X } from "@phosphor-icons/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   CASE_STUDIES,
   CASE_STUDY_CATEGORIES,
@@ -9,6 +11,8 @@ import {
   Lang,
   UI_COPY,
 } from "../data/portfolioData";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface WorksSectionProps {
   lang: Lang;
@@ -124,6 +128,7 @@ function CaseStudyVisualStage({
 }
 
 export function WorksSection({ lang }: WorksSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
   const [activeCategory, setActiveCategory] = useState<CaseStudyCategoryId>("all");
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
 
@@ -137,6 +142,34 @@ export function WorksSection({ lang }: WorksSectionProps) {
     CASE_STUDY_CATEGORIES.forEach((c) => map.set(c.id, c.label[lang]));
     return map;
   }, [lang]);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion || !sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".works-card",
+        { y: 22, opacity: 0.65 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.05,
+          duration: 0.55,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".works-grid",
+            start: "top 86%",
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [activeCategory, lang]);
 
   useEffect(() => {
     if (!selectedStudy) return;
@@ -155,7 +188,8 @@ export function WorksSection({ lang }: WorksSectionProps) {
   return (
     <section
       id="works"
-      className="relative z-10 border-t border-white/[0.06] bg-[#050505]/85 px-5 py-24 sm:px-8 md:py-36"
+      ref={sectionRef}
+      className="relative z-10 border-t border-white/[0.06] bg-[#050505]/45 px-5 py-24 sm:px-8 md:py-36"
     >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -197,14 +231,14 @@ export function WorksSection({ lang }: WorksSectionProps) {
         </div>
 
         {/* Gapless Asymmetric Bento Grid */}
-        <div className="mt-12 grid grid-flow-dense grid-cols-1 gap-5 lg:grid-cols-12">
+        <div className="works-grid mt-12 grid grid-flow-dense grid-cols-1 gap-5 lg:grid-cols-12">
           {filteredStudies.map((study, index) => {
             const spanClass = getBentoSpanClass(index, filteredStudies.length);
             const primaryLink = study.links[0];
             return (
               <article
                 key={study.id}
-                className={`${spanClass} group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.08] bg-[#111114]/90 p-1.5 transition-colors duration-300 hover:border-[#C5A572]/45`}
+                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.08] bg-[#111114]/82 p-1.5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C5A572]/50`}
               >
                 <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#0A0A0C] p-6 transition-colors duration-300 group-hover:bg-[#0D0D10]">
                   <button

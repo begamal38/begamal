@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Check, Copy } from "@phosphor-icons/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   AI_PRODUCTION_STACK,
   Lang,
@@ -7,12 +9,43 @@ import {
   UI_COPY,
 } from "../data/portfolioData";
 
+gsap.registerPlugin(ScrollTrigger);
+
 interface SystemsAndContactSectionProps {
   lang: Lang;
 }
 
 export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps) {
+  const systemsRef = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion || !systemsRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".system-pillar",
+        { y: 20, opacity: 0.55 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".system-pillar-grid",
+            start: "top 86%",
+            once: true,
+          },
+        }
+      );
+    }, systemsRef);
+
+    return () => ctx.revert();
+  }, [lang]);
 
   const handleCopyEmail = async () => {
     try {
@@ -29,7 +62,8 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
       {/* AI Production Systems Architecture */}
       <section
         id="systems"
-        className="relative z-10 border-t border-white/[0.06] bg-[#0A0A0C]/80 px-5 py-24 sm:px-8 md:py-36"
+        ref={systemsRef}
+        className="relative z-10 border-t border-white/[0.06] bg-[#0A0A0C]/40 px-5 py-24 sm:px-8 md:py-36"
       >
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
@@ -41,11 +75,11 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.08] lg:grid-cols-3">
+          <div className="system-pillar-grid mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.08] lg:grid-cols-3">
             {AI_PRODUCTION_STACK.map((pillar) => (
               <div
                 key={pillar.name.en}
-                className="flex flex-col justify-between bg-[#111114] p-7 transition-colors duration-300 hover:bg-[#141418]"
+                className="system-pillar flex flex-col justify-between bg-[#111114]/88 p-7 backdrop-blur-md transition-colors duration-300 hover:bg-[#141418]"
               >
                 <div>
                   <p className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#C5A572]">
@@ -55,7 +89,7 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
                     {pillar.name[lang]}
                   </h3>
                 </div>
-                <p className="mt-5 text-sm leading-relaxed text-[#8E8A82]">
+                <p className="mt-5 text-sm leading-relaxed text-[#D6D3CD]/75">
                   {pillar.role[lang]}
                 </p>
               </div>
@@ -67,7 +101,7 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
       {/* Direct Channel & Clean Closing Band */}
       <footer
         id="contact"
-        className="relative z-10 border-t border-white/[0.08] bg-[#050505]/95 px-5 pb-14 pt-24 sm:px-8 md:pt-32"
+        className="relative z-10 border-t border-white/[0.08] bg-[#050505]/65 px-5 pb-14 pt-24 backdrop-blur-sm sm:px-8 md:pt-32"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">

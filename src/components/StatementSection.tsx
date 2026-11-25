@@ -25,13 +25,30 @@ export function StatementSection({ lang }: StatementSectionProps) {
         { opacity: 0.38 },
         {
           opacity: 1,
-          stagger: 0.06,
+          stagger: 0.05,
           ease: "none",
           scrollTrigger: {
             trigger: ".statement-block",
             start: "top 86%",
-            end: "center 52%",
+            end: "center 50%",
             scrub: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".milestone-card",
+        { y: 18, opacity: 0.55 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.65,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".milestone-grid",
+            start: "top 88%",
+            once: true,
           },
         }
       );
@@ -44,11 +61,11 @@ export function StatementSection({ lang }: StatementSectionProps) {
     <section
       id="perspective"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.06] bg-[#050505]/70 px-5 py-24 sm:px-8 md:py-36"
+      className="relative z-10 border-t border-white/[0.06] bg-[#050505]/30 px-5 py-24 sm:px-8 md:py-36"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="statement-block max-w-4xl">
-          <h2 className="font-editorial text-2xl font-medium leading-[1.48] tracking-[-0.01em] text-[#F2F0EB] sm:text-4xl lg:text-[2.6rem]">
+        <div className="statement-block max-w-4xl rounded-3xl border border-white/[0.06] bg-[#0A0A0C]/55 p-6 backdrop-blur-md sm:p-10">
+          <h2 className="font-editorial text-2xl font-medium leading-[1.48] tracking-[-0.01em] text-[#F2F0EB] sm:text-4xl lg:text-[2.5rem]">
             {words.map((word, index) => (
               <span
                 key={`${lang}-${word}-${index}`}
@@ -61,8 +78,8 @@ export function StatementSection({ lang }: StatementSectionProps) {
         </div>
 
         {/* Verified Milestones & Academic Foundation */}
-        <div className="mt-16 grid grid-cols-1 gap-6 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
-          <div>
+        <div className="milestone-grid mt-14 grid grid-cols-1 gap-6 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
+          <div className="milestone-card rounded-2xl border border-white/[0.06] bg-[#0A0A0C]/55 p-5 backdrop-blur-md">
             <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#C5A572]">
               {UI_COPY.statement.origin[lang]}
             </p>
@@ -74,7 +91,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
             </p>
           </div>
 
-          <div>
+          <div className="milestone-card rounded-2xl border border-white/[0.06] bg-[#0A0A0C]/55 p-5 backdrop-blur-md">
             <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#C5A572]">
               {UI_COPY.statement.education[lang]}
             </p>
@@ -86,7 +103,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
             </p>
           </div>
 
-          <div>
+          <div className="milestone-card rounded-2xl border border-white/[0.06] bg-[#0A0A0C]/55 p-5 backdrop-blur-md">
             <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#C5A572]">
               {UI_COPY.statement.scope[lang]}
             </p>

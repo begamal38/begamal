@@ -1,5 +1,10 @@
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { useEffect, useRef } from "react";
+import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface HeroSectionProps {
   lang: Lang;
@@ -7,10 +12,49 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Parallax drift ONLY as user scrolls past the Hero; opacity stays 1 at scroll = 0
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion || !sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(".hero-portrait-parallax", {
+        yPercent: -9,
+        scale: 0.96,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      });
+
+      gsap.to(".hero-scroll-cue", {
+        opacity: 0,
+        y: 12,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "28% top",
+          scrub: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [lang]);
+
   return (
     <section
       id="hero"
-      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-12 pt-20 sm:px-8 lg:pt-24"
+      ref={sectionRef}
+      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-14 pt-20 sm:px-8 lg:pt-24"
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-8">
         {/* Left/Start: Typography Stack (Immediately visible at scroll = 0, opacity: 1) */}
@@ -21,7 +65,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
 
           <h1 className="mt-4 font-display text-4xl font-semibold uppercase leading-[1.08] tracking-[0.06em] text-[#F2F0EB] sm:text-5xl lg:text-[3.75rem]">
             {PORTFOLIO_IDENTITY.name[lang]}
-            <span className="mt-2 block font-editorial text-2xl font-normal italic tracking-[0.02em] text-[#C5A572] sm:text-3xl lg:text-[2.25rem] leading-[1.2] pb-1">
+            <span className="mt-2 block font-editorial text-2xl font-normal italic leading-[1.2] tracking-[0.02em] text-[#C5A572] pb-1 sm:text-3xl lg:text-[2.25rem]">
               {PORTFOLIO_IDENTITY.heroSubtitle[lang]}
             </span>
           </h1>
@@ -53,7 +97,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
         </div>
 
         {/* Right/End: Chiaroscuro Monochrome Portrait (Immediately opacity: 1 at scroll = 0) */}
-        <div className="order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
+        <div className="hero-portrait-parallax order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
           <div className="relative w-[195px] sm:w-[275px] lg:w-[365px]">
             <div
               className="pointer-events-none absolute -inset-6 rounded-full opacity-45 blur-3xl"
@@ -85,6 +129,16 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
           </div>
         </div>
       </div>
+
+      {/* Minimal Scroll Exploration Cue */}
+      <button
+        type="button"
+        onClick={() => onNavigate("perspective")}
+        className="hero-scroll-cue absolute bottom-5 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/10 bg-[#111114]/65 px-4 py-1.5 font-mono-code text-[10px] uppercase tracking-[0.18em] text-[#D6D3CD]/80 backdrop-blur-md transition-colors hover:border-[#C5A572]/50 hover:text-[#C5A572] sm:inline-flex"
+      >
+        <span>{lang === "en" ? "Scroll" : "استكشف المسيرة"}</span>
+        <ArrowDown size={12} weight="bold" className="text-[#C5A572]" />
+      </button>
     </section>
   );
 }

@@ -65,6 +65,21 @@ export interface StackTool {
   role: LocalizedText;
 }
 
+export interface ScrollSectionMeta {
+  id: string;
+  index: string;
+  label: LocalizedText;
+}
+
+export const SCROLL_SECTIONS: ScrollSectionMeta[] = [
+  { id: "hero", index: "01", label: { en: "Overview", ar: "المقدمة" } },
+  { id: "perspective", index: "02", label: { en: "Manifesto", ar: "المنهجية" } },
+  { id: "chronicle", index: "03", label: { en: "Chronicle", ar: "المسيرة" } },
+  { id: "works", index: "04", label: { en: "Works", ar: "الأعمال" } },
+  { id: "systems", index: "05", label: { en: "Systems", ar: "الأنظمة" } },
+  { id: "contact", index: "06", label: { en: "Contact", ar: "التواصل" } },
+];
+
 export const PORTFOLIO_IDENTITY = {
   handle: "begamal",
   brandMark: { en: "BEGAMAL", ar: "بلال جمال" },
@@ -76,15 +91,15 @@ export const PORTFOLIO_IDENTITY = {
   primaryTitle: { en: "Creative Director", ar: "مدير إبداعي" },
   heroSubtitle: {
     en: "Creative Direction & AI Systems",
-    ar: "إدارة إبداعية · تسويق بيعي · أنظمة ذكاء اصطناعي",
+    ar: "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي",
   },
   heroEyebrow: {
     en: "Creative Director · Digital Strategist · AI Architect",
-    ar: "من 2016 لحد النهاردة · خبرة عشر سنين في السوق",
+    ar: "مدير إبداعي · مخطط تسويق رقمي · مهندس أنظمة إنتاج",
   },
   heroSubtext: {
     en: "Creative Director, Digital Marketing Strategist, and AI Production Architect. Building brands, high-converting campaigns, and automated media systems since 2016.",
-    ar: "ببني البراند من الأساس لحد ما يحقق مبيعات. من إعلانات التلفزيون وتوظيف مئات الكفاءات في الشركات العالمية، لقيادة علامات تجارية وقنوات عالمية بأنظمة الذكاء الاصطناعي.",
+    ar: "مدير إبداعي، ومخطط استراتيجيات تسويق رقمي، ومهندس أنظمة إنتاج بالذكاء الاصطناعي. أقود بناء العلامات التجارية والحملات الإعلانية عالية التحويل ومنظومات الإنتاج الإعلامي المؤتمتة منذ عام 2016.",
   },
   bornLabel: { en: "Born July 20, 1995", ar: "مواليد 20 يوليو 1995" },
   bornCompact: "20.07.1995",
@@ -98,15 +113,15 @@ export const PORTFOLIO_IDENTITY = {
   },
   trackTitle: {
     en: "10 Years · Multi-Sector Execution",
-    ar: "عشر سنين تنفيذ في قطاعات متنوعة",
+    ar: "عشر سنوات · تنفيذ عبر قطاعات متعددة",
   },
   trackSub: {
     en: "Telecom, TV & Film, Retail, QSR, Beauty, Architecture, EdTech & AI Media",
-    ar: "اتصالات · إعلانات تلفزيون · موبايلات · مطاعم · تجميل · تشطيبات · تعليم · وقنوات عالمية",
+    ar: "الاتصالات · التلفزيون والسينما · التجزئة · المطاعم · التجميل · الديكور · التعليم · وميديا الذكاء الاصطناعي",
   },
   pointOfView: {
     en: "I do not build noise or chase short-lived trends. Every brand, campaign, and media system I direct is built from commercial conviction, real market psychology, and disciplined execution.",
-    ar: "عمري ما اشتغلت على شوية ألوان أو ترند يعدي ويخلص. من أول يوم دخلت فيه السوق سنة 2016 والقاعدة واحدة: افهم العميل اللي قدامك، صيغ رسالة تلمس احتياجه الحقيقي، وابني وراها منظومة تخليه يشتري وهو مقتنع.",
+    ar: "لا أصنع ضجيجاً عابراً ولا ألهث وراء المظاهر المؤقتة. منذ دخولي السوق عام 2016، تنطلق كل علامة تجارية وحملة إعلانية ومنظومة إنتاجية أقودها من قناعة تجارية راسخة، وفهم عميق لنفسية السوق، وتنفيذ منضبط يحقق نتائج ملموسة.",
   },
   portraitPath: "/assets/portrait.jpg",
   liveDomain: "https://begamal.pages.dev",
@@ -119,78 +134,78 @@ export const PORTFOLIO_IDENTITY = {
 
 export const UI_COPY = {
   nav: {
-    chronicle: { en: "Chronicle", ar: "الرحلة" },
+    chronicle: { en: "Chronicle", ar: "المسيرة" },
     works: { en: "Works", ar: "الأعمال" },
-    systems: { en: "Systems", ar: "المنظومة" },
-    cta: { en: "Connect", ar: "تواصل معايا" },
-    openMenu: { en: "Open navigation menu", ar: "فتح القائمة" },
-    closeMenu: { en: "Close navigation menu", ar: "إغلاق القائمة" },
+    systems: { en: "Systems", ar: "الأنظمة" },
+    cta: { en: "Connect", ar: "تواصل الآن" },
+    openMenu: { en: "Open navigation menu", ar: "فتح قائمة التنقل" },
+    closeMenu: { en: "Close navigation menu", ar: "إغلاق قائمة التنقل" },
   },
   hero: {
-    secondaryCta: { en: "Selected Works", ar: "شوف الشغل" },
+    secondaryCta: { en: "Selected Works", ar: "استعراض الأعمال" },
     portraitAlt: {
       en: "Belal Gamal portrait in low-key monochrome studio light",
-      ar: "صورة بلال جمال",
+      ar: "صورة شخصية لبلال جمال بإضاءة استوديو أحادية اللون",
     },
   },
   statement: {
-    origin: { en: "Origin", ar: "البداية" },
-    education: { en: "Academic Foundation", ar: "الأساس العلمي" },
+    origin: { en: "Origin", ar: "النشأة" },
+    education: { en: "Academic Foundation", ar: "الأساس الأكاديمي" },
     scope: { en: "Field Reach", ar: "نطاق الخبرة" },
   },
   chronicle: {
-    title: { en: "Career Chronicle", ar: "تدرج الرحلة من أول يوم" },
+    title: { en: "Career Chronicle", ar: "المسيرة المهنية" },
     subtitle: {
       en: "Ten years across commercial marketing, enterprise operations, large-scale corporate recruitment, brand direction, and AI production systems.",
-      ar: "الخبرة مبتجيش في يوم وليلة. دي خطوات حقيقية بالترتيب من أيام الجامعة لحد إدارة شركات وعلامات تجارية ومنظومات إنتاج كاملة.",
+      ar: "عشر سنوات متدرجة في التسويق التجاري، وعمليات الشركات الكبرى، والتوظيف المؤسسي واسع النطاق، والإدارة الإبداعية، وهندسة أنظمة الإنتاج بالذكاء الاصطناعي.",
     },
   },
   works: {
-    eyebrow: { en: "Client Roster & Case Studies", ar: "شركاء النجاح والمشاريع" },
-    title: { en: "Selected Works", ar: "نماذج من أرض الواقع" },
-    openDossier: { en: "Project Brief", ar: "تفاصيل الدور" },
-    visitPage: { en: "Visit Client Page", ar: "ادخل على الصفحة" },
+    eyebrow: { en: "Client Roster & Case Studies", ar: "قائمة الشركاء ودراسات الحالة" },
+    title: { en: "Selected Works", ar: "أعمال مختارة" },
+    openDossier: { en: "Project Brief", ar: "ملخص المشروع" },
+    visitPage: { en: "Visit Client Page", ar: "زيارة صفحة العميل" },
     caseStudyCta: { en: "Case Study", ar: "دراسة الحالة" },
-    scopeHeading: { en: "Scope & Execution", ar: "اللي اتنفذ على الأرض" },
-    closeModal: { en: "Close project brief", ar: "إغلاق" },
+    scopeHeading: { en: "Scope & Execution", ar: "نطاق العمل والتنفيذ" },
+    closeModal: { en: "Close project brief", ar: "إغلاق ملخص المشروع" },
   },
   systems: {
-    title: { en: "AI Production Architecture", ar: "ماكينة الإنتاج بالذكاء الاصطناعي" },
+    title: { en: "AI Production Architecture", ar: "هندسة الإنتاج بالذكاء الاصطناعي" },
     subtitle: {
       en: "Since the 2023 wave, I have built full production engines that turn strategy into finished documentaries, commercials, and custom web experiences at scale.",
-      ar: "من أول موجة 2023 وأنا شغال على الأرض في بناء سيستم كامل يطلع أفلام وثائقية، وإعلانات، ومواقع متفصلة بالذكاء الاصطناعي من الفكرة لحد التسليم النهائي.",
+      ar: "منذ انطلاق موجة الذكاء الاصطناعي عام 2023، طورت محركات إنتاج متكاملة تحول الرؤية الاستراتيجية إلى أفلام وثائقية مكتملة، وحملات إعلانية، ومنصات ويب مخصصة بمعايير احترافية.",
     },
   },
   contact: {
-    eyebrow: { en: "Direct Channel", ar: "التواصل المباشر" },
-    title: { en: "Ready to Scale Your Brand?", ar: "عايز تكبّر شغلك بجد؟" },
+    eyebrow: { en: "Direct Channel", ar: "القناة المباشرة" },
+    title: { en: "Ready to Scale Your Brand?", ar: "هل أنت مستعد لتطوير علامتك التجارية؟" },
     subtitle: {
       en: "If you want clear creative direction, campaigns built on real buyer psychology, or an AI media pipeline that actually delivers, start the conversation directly.",
-      ar: "لشغل الإدارة الإبداعية، الحملات المبنية على فهم السوق، أو أنظمة الإنتاج بالذكاء الاصطناعي، تواصل معايا مباشرة أو اتفرج على أرشيف الأعمال.",
+      ar: "لقيادة الإدارة الإبداعية، أو صياغة حملات ترتكز على سيكولوجية المشتري، أو بناء منظومة إنتاج إعلامي بالذكاء الاصطناعي تحقق نتائج فعلية، يمكنك بدء التواصل مباشرة.",
     },
-    facebookCta: { en: "Message on Facebook", ar: "ابعتلي على فيسبوك" },
-    vimeoCta: { en: "Watch Showreel on Vimeo", ar: "أرشيف الأعمال على فيميو" },
+    facebookCta: { en: "Message on Facebook", ar: "التواصل عبر فيسبوك" },
+    vimeoCta: { en: "Watch Showreel on Vimeo", ar: "معرض الأعمال على فيميو" },
     copyEmail: { en: "Copy 1@begamal.com", ar: "نسخ 1@begamal.com" },
-    copiedEmail: { en: "Copied 1@begamal.com", ar: "تم نسخ البريد" },
+    copiedEmail: { en: "Copied 1@begamal.com", ar: "تم نسخ 1@begamal.com" },
   },
 };
 
 export const CAREER_CHRONICLE: ChronicleEntry[] = [
   {
     id: "digital-marketing-2016",
-    period: { en: "2016 - Present", ar: "2016 - لحد النهاردة" },
+    period: { en: "2016 - Present", ar: "2016 - حتى الآن" },
     role: {
       en: "Digital Marketing & Content Creation (10 Years)",
-      ar: "أول نزول للسوق · تسويق رقمي وصناعة محتوى",
+      ar: "التسويق الرقمي وصناعة المحتوى (10 سنوات)",
     },
     organization: {
       en: "Commercial Foundations & TECNO Mobile Moderation",
-      ar: "البداية أثناء الجامعة وإدارة مجتمعات تكنو موبايل",
+      ar: "الأسس التجارية وإدارة مجتمعات تكنو موبايل",
     },
     location: { en: "Egypt", ar: "مصر" },
     summary: {
       en: "Entered digital marketing and commercial content creation in 2016 while still in university, alongside community moderation for TECNO Mobile, building a decade-long foundation in audience psychology and conversion.",
-      ar: "نزلت السوق في 2016 وأنا لسه طالب في تجارة إنجليزي. اشتغلت تسويق رقمي ومحتوى تجاري، ومعاهم إدارة مجتمعات لعلامة تكنو موبايل، ومن هنا اتبنت عندي عين السوق: إزاي الرسالة الصح تحوّل المتابع لعميل ومبيعات حقيقية.",
+      ar: "انطلقت في مجال التسويق الرقمي وصناعة المحتوى التجاري عام 2016 بالتوازي مع الدراسة الجامعية، إلى جانب إدارة المجتمعات الرقمية لعلامة تكنو موبايل، مما أرسى أساساً مهنياً يمتد لعشر سنوات في فهم سيكولوجية الجمهور وتحويل التفاعل إلى مبيعات.",
     },
     highlights: {
       en: [
@@ -199,9 +214,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Grounded in audience psychology and measurable conversion",
       ],
       ar: [
-        "عشر سنين متواصلة من الشغل الفعلي في السوق من 2016",
-        "إدارة مجتمعات تكنو موبايل وفهم سلوك المشتري لحظة بلحظة",
-        "من أول يوم وكل محتوى وراه هدف بيعي واضح",
+        "عشر سنوات من الممارسة التجارية المتواصلة منذ عام 2016",
+        "إدارة المجتمعات الرقمية لعلامة تكنو موبايل خلال المرحلة الجامعية",
+        "الارتكاز على سيكولوجية الجمهور وتحقيق معدلات تحويل قابلة للقياس",
       ],
     },
   },
@@ -210,11 +225,11 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     period: { en: "2017", ar: "2017" },
     role: {
       en: "Enterprise Customer Operations",
-      ar: "عمليات عملاء الشركات · فودافون بيزنس",
+      ar: "عمليات عملاء الشركات (قطاع الأعمال)",
     },
     organization: {
       en: "Vodafone Business Call Center, Wasla",
-      ar: "شركة وصلة · حساب فودافون بيزنس",
+      ar: "مركز اتصال فودافون بيزنس · شركة وصلة",
     },
     location: {
       en: "Al-Korba, Heliopolis, Cairo",
@@ -229,7 +244,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     ],
     summary: {
       en: "Frontline enterprise customer operations for Vodafone Business in Cairo, mastering high-stakes communication, objection handling, and client psychology.",
-      ar: "الخطوة اللي صقلت طريقة كلامي وإقناعي. في الكوربة بمصر الجديدة كنت على خط المواجهة الأول مع عملاء قطاع الأعمال في فودافون بيزنس، وده بنى عندي قدرة حاسمة في إدارة النقاشات المعقدة وحسم اعتراضات أصحاب الشركات في وقتها.",
+      ar: "العمل في الخطوط الأمامية لعمليات عملاء الشركات في فودافون بيزنس بالقاهرة، وإتقان مهارات التواصل المهني تحت الضغط، ومعالجة الاعتراضات، وفهم سيكولوجية صناع القرار.",
     },
     highlights: {
       en: [
@@ -238,9 +253,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Real-time commercial client psychology",
       ],
       ar: [
-        "التعامل المباشر مع أصحاب الشركات وعملاء قطاع الأعمال في الكوربة",
-        "إتقان فنون التفاوض والرد على الاعتراضات تحت الضغط",
-        "فهم عقلية العميل التجاري قبل ما تبدأ معاه أي عرض بيعي",
+        "العمل الميداني بمركز عمليات الكوربة في مصر الجديدة",
+        "إتقان التواصل المؤسسي ومعالجة اعتراضات العملاء بكفاءة",
+        "فهم سيكولوجية العميل التجاري في المواقف التفاوضية المباشرة",
       ],
     },
   },
@@ -249,16 +264,16 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     period: { en: "2018", ar: "2018" },
     role: {
       en: "Creative Director & Independent Founder",
-      ar: "مدير إبداعي وتأسيس وكالة سيكتور 09",
+      ar: "مدير إبداعي ومؤسس وكالة مستقلة",
     },
     organization: {
       en: "Chance Media (Ahmed Akl) & SECTOR 09",
-      ar: "تشانس ميديا (مع الفنان أحمد عقل) ووكالة سيكتور 09",
+      ar: "تشانس ميديا (تأسيس الفنان أحمد عقل) ووكالة سيكتور 09",
     },
-    location: { en: "Cairo / Beni Suef", ar: "القاهرة وبني سويف" },
+    location: { en: "Cairo / Beni Suef", ar: "القاهرة / بني سويف" },
     summary: {
       en: "Served as Creative Director at Chance Media (founded by renowned actor Ahmed Akl), leading commercial concepts, TV ad scripts, and campaign direction, alongside launching independent agency SECTOR 09 and directing narrative short films.",
-      ar: "في 2018 مسكت القيادة الإبداعية بدري. اشتغلت مدير إبداعي في شركة تشانس ميديا اللي أسسها الفنان أحمد عقل، وكتبت اسكربتات إعلانات تلفزيون وأشرفت على حملات عقارية وطبية، وبالتوازي أسست وكالتي الخاصة سيكتور 09 وأخرجت أفلام قصيرة.",
+      ar: "توليت منصب المدير الإبداعي في وكالة تشانس ميديا (التي أسسها الفنان أحمد عقل)، حيث قدت صياغة المفاهيم الإعلانية وكتابة نصوص الإعلانات التلفزيونية والتوجيه الإبداعي للحملات، بالتوازي مع تأسيس وكالتي المستقلة سيكتور 09 وإخراج أفلام روائية قصيرة.",
     },
     highlights: {
       en: [
@@ -267,8 +282,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Founded independent agency SECTOR 09 and directed narrative short films",
       ],
       ar: [
-        "مدير إبداعي في تشانس ميديا (تأسيس الفنان أحمد عقل)",
-        "تأليف اسكربتات إعلانات التلفزيون ووضع الكونسبت الرئيسي للحملات",
+        "مدير إبداعي في وكالة تشانس ميديا (تأسيس الفنان أحمد عقل)",
+        "تطوير المفاهيم التجارية وكتابة نصوص الإعلانات التلفزيونية وتوجيه الحملات",
         "تأسيس وكالة سيكتور 09 المستقلة وإخراج أفلام روائية قصيرة",
       ],
     },
@@ -278,13 +293,13 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     period: { en: "2018 - 2021", ar: "2018 - 2021" },
     role: {
       en: "Digital Marketing & Content Creation",
-      ar: "قيادة التسويق الرقمي والحملات الإعلانية",
+      ar: "التسويق الرقمي وصناعة المحتوى",
     },
     organization: { en: "Al-Attar Group", ar: "مجموعة العطار" },
-    location: { en: "Commercial Retail", ar: "تجارة الهواتف والإكسسوارات" },
+    location: { en: "Commercial Retail", ar: "تجارة التجزئة" },
     summary: {
       en: "Led digital marketing, content creation, and high-volume commercial ad campaigns for Al-Attar Group through 2021.",
-      ar: "تلات سنين من الشغل المستمر مع مجموعة العطار من 2018 لـ 2021. توليت التسويق الرقمي، صناعة المحتوى، وتوجيه الحملات الإعلانية اللي بتحرك المبيعات بشكل مباشر.",
+      ar: "قيادة استراتيجيات التسويق الرقمي، وصناعة المحتوى، وإدارة الحملات الإعلانية التجارية عالية الكثافة لمجموعة العطار حتى عام 2021.",
     },
     highlights: {
       en: [
@@ -293,9 +308,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Multi-year brand growth through 2021",
       ],
       ar: [
-        "إدارة شاملة للتسويق الرقمي وصناعة المحتوى التجاري",
-        "تنفيذ حملات إعلانية مكثفة عالية الانتشار والتحويل",
-        "استمرارية وتوسع في السوق على مدار تلات سنوات",
+        "إدارة متكاملة للتسويق الرقمي والإنتاج الإعلاني",
+        "تنفيذ حملات إعلانية تجارية واسعة النطاق",
+        "دعم نمو العلامة التجارية على مدار عدة سنوات حتى عام 2021",
       ],
     },
   },
@@ -304,11 +319,11 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     period: { en: "2019 - 2022", ar: "2019 - 2022" },
     role: {
       en: "HR Recruitment Specialist (3 Years) · Majorel BPO (Vodafone & Uber)",
-      ar: "القرية الذكية · أخصائي توظيف بشركة ماجوريل العالمية (فودافون وأوبر)",
+      ar: "أخصائي توظيف وموارد بشرية (3 سنوات) · شركة ماجوريل (فودافون وأوبر)",
     },
     organization: {
       en: "Majorel Egypt (Global CX & BPO) · Smart Village, Beni Suef",
-      ar: "شركة ماجوريل العالمية لتعهيد الأعمال · القرية الذكية ببني سويف",
+      ar: "ماجوريل مصر (الرائدة عالمياً في تعهيد الأعمال وتجربة العملاء) · القرية الذكية، بني سويف",
     },
     location: { en: "Smart Village, Beni Suef", ar: "القرية الذكية، بني سويف" },
     logos: [
@@ -330,7 +345,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     ],
     summary: {
       en: "Joined Smart Village in Beni Suef in 2019 on Vodafone's 888 queue, then earned promotion to HR Recruitment Specialist at global CX & BPO leader Majorel, spending 3 years leading high-volume recruitment for enterprise accounts including Vodafone and Uber.",
-      ar: "محطة فارقة في مساري. بدأت في القرية الذكية ببني سويف سنة 2019 على خط 888 في فودافون، وبعدها اترقيت لأخصائي توظيف في شركة ماجوريل العالمية (رائدة الكول سنتر وتعهيد الأعمال). فضلت 3 سنين أدير ملف التوظيف لأكبر حسابين في الشركة: فودافون وأوبر، وفي 2020 لوحدها عينت حوالي 550 موظف وخدت لقب الأعلى تحقيقاً في فريق توظيف بني سويف.",
+      ar: "التحقت بالقرية الذكية في بني سويف عام 2019 ضمن صف 888 في فودافون، ثم تمت ترقيتي إلى أخصائي توظيف وموارد بشرية في شركة ماجوريل العالمية (رائدة خدمات مراكز الاتصال وتعهيد الأعمال)، حيث أدرت على مدار 3 سنوات عمليات التوظيف عالية الكثافة لحسابات كبرى تشمل فودافون وأوبر.",
     },
     highlights: {
       en: [
@@ -340,28 +355,28 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Hired ~550 employees in 2020 and recognized as Top Achiever (Beni Suef Recruitment Team)",
       ],
       ar: [
-        "البداية في القرية الذكية ببني سويف سنة 2019 على صف 888 ثم الترقية لقسم التوظيف في ماجوريل",
-        "إدارة التوظيف لحسابات أوبر بالكامل: العملاء، السائقين، وأوبر إيتس",
-        "تغطية احتياجات صفوف فودافون: 888، فودافون كاش، الاحتفاظ بالعملاء، والإنترنت الأرضي",
-        "تعيين نحو 550 موظف في 2020 والتتويج بلقب الأعلى تحقيقاً في فريق توظيف بني سويف",
+        "الانطلاق عام 2019 في القرية الذكية ببني سويف على خط 888 في فودافون قبل الترقية لقسم التوظيف في ماجوريل",
+        "إدارة ملفات التوظيف لحسابات أوبر المؤسسية: أوبر للركاب، وأوبر للسائقين، وأوبر إيتس",
+        "إدارة التوظيف لصفوف فودافون: 888، وفودافون كاش، والاحتفاظ بالعملاء، والإنترنت الأرضي",
+        "تعيين نحو 550 موظفاً في عام 2020 والحصول على تكريم الأعلى تحقيقاً في فريق توظيف بني سويف",
       ],
     },
   },
   {
     id: "independent-director-2022",
-    period: { en: "2022 - Present", ar: "2022 - لحد النهاردة" },
+    period: { en: "2022 - Present", ar: "2022 - حتى الآن" },
     role: {
       en: "Creative Director & Growth Partner",
-      ar: "الشراكات التجارية وإدارة العلامات الكبرى",
+      ar: "مدير إبداعي وشريك نمو تجاري",
     },
     organization: {
       en: "Multi-Sector Commercial Roster",
-      ar: "القرش · العسال · سانهوك · ياسمين صلاح · محمد سامي · حسام فكري · خطوة",
+      ar: "محفظة عملاء عبر قطاعات تجارية متعددة",
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     summary: {
       en: "Partnering with leading businesses across mobile retail, QSR hospitality, gaming lounges, beauty, interior architecture, and EdTech, driving brand clarity and direct sales.",
-      ar: "بعد خبرة الشركات والوكالات، دخلت في شراكات استراتيجية مع علامات تجارية في قطاعات مختلفة: الهواتف، المطاعم، صالات الألعاب، التجميل، الديكور، والمنصات التعليمية والحضانات. كل علامة ليها هويتها المستقلة وخطة بتجيب عميل حقيقي.",
+      ar: "شراكات تنفيذية مع علامات بارزة في قطاعات تجارة الهواتف، والمطاعم، وصالات الألعاب، والتجميل، والتشطيبات المعمارية، وتقنية التعليم، لترسيخ وضوح الهوية وتحقيق المبيعات المباشرة.",
     },
     highlights: {
       en: [
@@ -370,27 +385,27 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Full alignment between brand identity and commercial revenue",
       ],
       ar: [
-        "قيادة الهوية والحملات لبراند القرش موبايل من 2022 لحد النهاردة",
-        "تنوع عملي بين المطاعم، صالات الألعاب، التجميل، التشطيبات، والتعليم",
-        "ربط التوجيه الإبداعي مباشرة بنتايج ومبيعات فعلية",
+        "إدارة إبداعية طويلة الأمد لعلامة القرش موبايل منذ عام 2022",
+        "تنفيذ ميداني عبر قطاعات التجزئة، والضيافة، والتجميل، والديكور، والتعليم",
+        "مواءمة كاملة بين الهوية البصرية والعوائد التجارية الفعلية",
       ],
     },
   },
   {
     id: "ai-systems-2023",
-    period: { en: "2023 - Present", ar: "2023 - لحد النهاردة" },
+    period: { en: "2023 - Present", ar: "2023 - حتى الآن" },
     role: {
       en: "AI Creative & Production Systems",
-      ar: "ثورة الذكاء الاصطناعي وبناء أنظمة الإنتاج",
+      ar: "الإبداع المؤسسي وأنظمة الإنتاج بالذكاء الاصطناعي",
     },
     organization: {
       en: "Automated Documentary, Video & Web Systems",
-      ar: "أوبولوس · ذا أركيتيكت أوف ريالتي · ومنصات ويب متكاملة",
+      ar: "أنظمة الوثائقيات والفيديو والمواقع المؤتمتة",
     },
     location: { en: "Global Audiences", ar: "جمهور عالمي ومحلي" },
     summary: {
       en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels, programmatic commercial video pipelines, and custom web platforms.",
-      ar: "من أول موجة الذكاء الاصطناعي في 2023 وأنا في قلب اللعبة مش بتفرج من بره. بنيت منظومات إنتاج كاملة بتطلع حلقات وثائقية عالمية بالإنجليزي زي أوبولوس وذا أركيتيكت أوف ريالتي، جنب برمجة مواقع ومنصات سريعة وشغالة.",
+      ar: "إتقان عملي معمق لأنظمة الإنتاج بالذكاء الاصطناعي منذ موجة 2023، وتصميم وبناء قنوات وثائقية إنجليزية مؤتمتة، وخطوط إنتاج فيديو تجاري مبرمجة، ومنصات ويب مخصصة.",
     },
     highlights: {
       en: [
@@ -399,9 +414,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Custom web architecture and rapid interactive deployment",
       ],
       ar: [
-        "تأسيس وإنتاج قناتين باللغة الإنجليزية للجمهور العالمي بأسلوب آلي دقيق",
-        "خطوط إنتاج فيديو وريلز تجارية مبرمجة بسرعة وجودة ثابتة",
-        "تصميم وبناء منصات ويب متكاملة من الفكرة لحد الإطلاق",
+        "بناء وإدارة قنوات وثائقية إنجليزية متكاملة (أوبولوس وذا أركيتيكت أوف ريالتي)",
+        "تطوير محركات مبرمجة لإنتاج المقاطع التجارية بدقة وسرعة عالية",
+        "هندسة واجهات ومنصات ويب تفاعلية مخصصة وسريعة الإطلاق",
       ],
     },
   },
@@ -409,10 +424,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
 
 export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedText }[] = [
   { id: "all", label: { en: "All", ar: "الكل" } },
-  { id: "retail_hospitality", label: { en: "Retail & Hospitality", ar: "تجارة ومطاعم" } },
-  { id: "brand_growth", label: { en: "Brand & Campaigns", ar: "براندات وحملات" } },
-  { id: "beauty_lifestyle", label: { en: "Beauty & Lifestyle", ar: "تجميل ولايف ستايل" } },
-  { id: "education_tech", label: { en: "Education & Tech", ar: "تعليم وتقنية" } },
+  { id: "retail_hospitality", label: { en: "Retail & Hospitality", ar: "التجزئة والضيافة" } },
+  { id: "brand_growth", label: { en: "Brand & Campaigns", ar: "العلامات والحملات" } },
+  { id: "beauty_lifestyle", label: { en: "Beauty & Lifestyle", ar: "التجميل وأسلوب الحياة" } },
+  { id: "education_tech", label: { en: "Education & Tech", ar: "التعليم والتقنية" } },
   { id: "ai_systems", label: { en: "AI Media", ar: "ميديا الذكاء الاصطناعي" } },
 ];
 
@@ -420,17 +435,17 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "al-qersh-mobile",
     title: { en: "Al-Qersh Mobile", ar: "القرش موبايل" },
-    period: { en: "2022 - Present", ar: "2022 - مستمر" },
+    period: { en: "2022 - Present", ar: "2022 - حتى الآن" },
     category: "retail_hospitality",
     discipline: {
       en: "Creative Direction · Commercial Reels · Retail Growth",
-      ar: "إدارة إبداعية · ريلز تجاري · توسع الفروع",
+      ar: "إدارة إبداعية · مقاطع تجارية · توسع الفروع",
     },
     image: "/assets/clients/alqersh.jpg",
     isWhitePlate: false,
     summary: {
       en: "Directing brand discipline and commercial campaigns across 3 branches in Beni Suef since 2022, turning product launches, seasonal promotions, and after-sales trust into steady retail growth.",
-      ar: "توجيه الهوية والحملات التجارية لـ 3 فروع في بني سويف من 2022، وبناء حضور قوي في السوق خلال مواسم الذروة زي الذكرى الثامنة والبلاك فرايدي مع تحويل خدمة ما بعد البيع لنقطة ثقة أساسية.",
+      ar: "توجيه انضباط العلامة التجارية والحملات الإعلانية عبر 3 فروع في بني سويف منذ عام 2022، مع تحويل إطلاقات المنتجات والمواسم الترويجية وخدمة ما بعد البيع إلى نمو تجاري مستقر.",
     },
     deliverables: {
       en: [
@@ -439,14 +454,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Commercial audio product reels and after-sales customer authority",
       ],
       ar: [
-        "توحيد هوية وصوت البراند في الثلاث فروع بأسلوب مميز وسط المنافسين",
-        "حملات الذكرى الثامنة والبلاك فرايدي اللي حققت أعلى تفاعل ومبيعات",
-        "ريلز تجارية لمنتجات الصوت والأكسسوارات وبناء ثقة ما بعد البيع",
+        "توحيد التموضع البصري وصوت العلامة عبر 3 فروع بيع بالتجزئة",
+        "حملات الذكرى الثامنة والجمعة البيضاء واسعة الانتشار والتفاعل",
+        "إنتاج مقاطع تجارية لمنتجات الصوت وترسيخ الثقة بخدمات ما بعد البيع",
       ],
     },
     campaigns: {
       en: ["8th Anniversary", "Black Friday", "Product Reels", "After-Sales Authority"],
-      ar: ["#كلم_القرش", "القرش عض في الأسعار", "الذكرى الثامنة", "بلاك فرايدي"],
+      ar: ["الذكرى الثامنة", "الجمعة البيضاء", "مقاطع المنتجات", "موثوقية ما بعد البيع"],
     },
     links: [
       {
@@ -462,13 +477,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     category: "retail_hospitality",
     discipline: {
       en: "Menu Architecture · QSR Campaigns · Conversion",
-      ar: "هندسة المنيو · حملات مطاعم · مسارات الطلب",
+      ar: "هندسة القائمة · حملات المطاعم · رفع المبيعات",
     },
     image: "/assets/clients/el3sal.jpg",
     isWhitePlate: false,
     summary: {
       en: "Complete 140+ item menu redesign paired with high-tempo food craft reels and Facebook Messages conversion funnels engineered to turn views into direct orders.",
-      ar: "إعادة هيكلة وتصميم منيو كامل يضم أكتر من 140 صنف بشكل يسهل الاختيار ويرفع قيمة الفاتورة، مع ريلز مطاعم سريعة الإيقاع وحملات رسائل فيسبوك موجهة للطلب المباشر.",
+      ar: "إعادة تصميم شاملة لقائمة طعام تضم أكثر من 140 صنفاً لتعزيز وضوح الاختيار ورفع متوسط قيمة الطلب، مقترنة بمقاطع مرئية سريعة الإيقاع ومسارات تحويل عبر رسائل فيسبوك للطلب المباشر.",
     },
     deliverables: {
       en: [
@@ -477,14 +492,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Craft food reels paired with direct Facebook Messages conversion funnels",
       ],
       ar: [
-        "إعادة تنظيم وتصميم منيو من 140+ صنف بشكل احترافي يسهل الاختيار",
-        "حملات إطلاق قوية لمنتجات وصوصات جديدة في السوق",
-        "ريلز تصوير طعام احترافي مربوط بمسارات رسائل تجيب طلبات فورية",
+        "إعادة هيكلة قائمة طعام تضم أكثر من 140 صنفاً بوضوح يرفع متوسط الفاتورة",
+        "حملات إطلاق رئيسية تركز على المنتجات المميزة والنكهات الجديدة",
+        "مقاطع مرئية احترافية مرتبطة بمسارات رسائل مباشرة لتحقيق الطلبات",
       ],
     },
     campaigns: {
       en: ["THE CRAVING STANDARD", "RANCH TAKES OVER", "140+ Item Menu"],
-      ar: ["معيار الطعم الحقيقي", "حملة صوص الرانش", "منيو 140+ صنف"],
+      ar: ["معيار المذاق الرفيع", "حملة صوص الرانش", "قائمة 140+ صنف"],
     },
     links: [
       {
@@ -495,18 +510,18 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: "sanhok",
-    title: { en: "Sanhok PlayStation & Café", ar: "سانهوك بلايستيشن وكافيه" },
+    title: { en: "Sanhok PlayStation & Café", ar: "سانهوك للترفيه والكافيه" },
     period: { en: "Commercial Partner", ar: "شريك تجاري" },
     category: "retail_hospitality",
     discipline: {
       en: "Commercial Media · Entertainment Marketing",
-      ar: "محتوى ترفيهي · تسويق صالات ألعاب",
+      ar: "إنتاج تجاري · تسويق الوجهات الترفيهية",
     },
     image: "/assets/clients/sanhok.jpg",
     isWhitePlate: false,
     summary: {
       en: "Commercial entertainment marketing and youth-focused digital campaigns designed to keep gaming lounges and café seating consistently active.",
-      ar: "محتوى مرئي وحملات محلية موجهة لجمهور الشباب والألعاب تحافظ على حركة الزيارات والحجوزات في الصالة والكافيه طول الأسبوع.",
+      ar: "تسويق ترفيهي وحملات رقمية موجهة لفئة الشباب، مصممة للحفاظ على الإقبال المستمر على صالات الألعاب الإلكترونية ومقاعد الكافيه طوال أيام الأسبوع.",
     },
     deliverables: {
       en: [
@@ -515,14 +530,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Cohesive digital presence across entertainment offerings",
       ],
       ar: [
-        "فيديوهات وخطافات إعلانية بتخاطب الشباب بلغة الجيمنج الصح",
-        "حملات جغرافية موجهة تزود الإقبال اليومي على الصالة والكافيه",
-        "هوية رقمية متماسكة تبرز مستوى المكان وسط المنافسين",
+        "سرد بصري موجه للشباب وصياغة مشاهد افتتاحية جاذبة في الفيديو الإعلاني",
+        "حملات جغرافية مستهدفة لتعزيز الإقبال المباشر على المكان",
+        "حضور رقمي متماسك يعكس هوية الصالة والكافيه",
       ],
     },
     campaigns: {
       en: ["Gaming Lounge", "Local Traffic", "Commercial Media"],
-      ar: ["صالات بلايستيشن", "إقبال محلي", "محتوى ترفيهي"],
+      ar: ["صالة الألعاب", "الاستقطاب المحلي", "الإعلام التجاري"],
     },
     links: [
       {
@@ -533,17 +548,17 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: "yasmine-salah",
-    title: { en: "Yasmine Salah Makeup Artist", ar: "ياسمين صلاح ميك أب أرتيست" },
-    period: { en: "Commercial Partner", ar: "شريكة نجاح" },
+    title: { en: "Yasmine Salah Makeup Artist", ar: "ياسمين صلاح · خبيرة تجميل" },
+    period: { en: "Commercial Partner", ar: "شريك تجاري" },
     category: "beauty_lifestyle",
     discipline: {
       en: "Beauty Positioning · Social Growth · Bookings",
-      ar: "التموضع في التجميل · نمو السوشيال · الحجوزات",
+      ar: "تموضع قطاع التجميل · النمو الرقمي · الحجوزات",
     },
     monogram: "YS",
     summary: {
       en: "Strategic social positioning and digital growth for Makeup Artist Yasmine Salah, connecting high-craft beauty showcases directly with bridal and client bookings.",
-      ar: "بناء حضور رقمي يليق بمستوى خبيرة التجميل ياسمين صلاح، يعكس دقة الشغل ويحوّل التفاعل لاستفسارات وحجوزات عرائس مؤهلة.",
+      ar: "بناء تموضع استراتيجي وحضور رقمي رفيع المستوى لخبيرة التجميل ياسمين صلاح، يربط جودة الأعمال المقدمة مباشرة باستقطاب حجوزات العرائس والعميلات.",
     },
     deliverables: {
       en: [
@@ -552,14 +567,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Consistent visual storytelling across showcase deliverables",
       ],
       ar: [
-        "تموضع بصري راقي يناسب جمهور التجميل وحفلات الزفاف",
-        "حملات مستهدفة تستقطب عميلات جادات للحجز المباشر",
-        "إدارة عرض الأعمال بأسلوب يحافظ على ثقة العميلات",
+        "تقديم بصري أنيق يلائم تطلعات قطاع التجميل والعرائس",
+        "حملات موجهة لاستقطاب طلبات الحجز المؤهلة",
+        "سرد بصري متسق عبر مختلف نماذج العرض",
       ],
     },
     campaigns: {
       en: ["Beauty Positioning", "Bridal Bookings", "Social Growth"],
-      ar: ["قطاع التجميل", "حجوزات العرائس", "نمو رقمي"],
+      ar: ["تموضع قطاع التجميل", "حجوزات العرائس", "النمو الرقمي"],
     },
     links: [
       {
@@ -570,18 +585,18 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: "hossam-fikry",
-    title: { en: "Hossam Fikry Platform", ar: "منصة حسام فكري" },
-    period: { en: "EdTech Platform", ar: "منصة تعليمية" },
+    title: { en: "Hossam Fikry Platform", ar: "منصة حسام فكري التعليمية" },
+    period: { en: "EdTech Platform", ar: "منصة تقنية تعليمية" },
     category: "education_tech",
     discipline: {
       en: "Academic Identity · Platform Direction · Campaigns",
-      ar: "إدارة إبداعية · تطوير المنصة · حملات الطلاب",
+      ar: "الهوية الأكاديمية · توجيه المنصة · الحملات الطلابية",
     },
     image: "/assets/clients/hossam-fekry.png",
     isWhitePlate: true,
     summary: {
       en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fikry educational platform.",
-      ar: "قيادة الصورة البصرية للمنصة التعليمية، وتوجيه حملات استقطاب الطلاب على مستوى الجمهورية، مع متابعة وتطوير واجهة المنصة عشان تستوعب آلاف الطلاب بسلاسة.",
+      ar: "التوجيه البصري، وحملات التسجيل الطلابي على مستوى الجمهورية، والهندسة المستمرة لتجربة المستخدم على منصة حسام فكري التعليمية.",
     },
     deliverables: {
       en: [
@@ -590,14 +605,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Student-focused reels and seasonal enrollment campaigns",
       ],
       ar: [
-        "توحيد الهوية الأكاديمية للمحتوى والإعلانات وحملات الحجز",
-        "تطوير مستمر لتجربة المستخدم على المنصة الإلكترونية",
-        "إخراج ريلز تعليمية وترويجية ترفع ارتباط الطلاب بالمنصة",
+        "توحيد الهوية البصرية الأكاديمية وصياغة الرسائل الإعلانية للحملات",
+        "تطوير وصيانة تجربة المستخدم عبر المنصة الإلكترونية",
+        "إنتاج مقاطع تعليمية وترويجية وحملات تسجيل موسمية للطلاب",
       ],
     },
     campaigns: {
       en: ["Academic Identity", "Web Engineering", "Student Enrollment"],
-      ar: ["هوية تعليمية", "تطوير المنصة", "استقطاب الطلاب"],
+      ar: ["الهوية الأكاديمية", "تطوير المنصة", "تسجيل الطلاب"],
     },
     links: [
       {
@@ -613,17 +628,17 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "mohamed-samy",
     title: { en: "Mohamed Samy Works", ar: "محمد سامي للديكور والتشطيبات" },
-    period: { en: "2022 - Present", ar: "2022 - مستمر" },
+    period: { en: "2022 - Present", ar: "2022 - حتى الآن" },
     category: "brand_growth",
     discipline: {
       en: "Creative Direction · Architecture Positioning · Web",
-      ar: "تموضع معماري · معرض رقمي · حملات مشاريع",
+      ar: "إدارة إبداعية · تموضع معماري · منصة رقمية",
     },
     image: "/assets/clients/mohamed-samy.png",
     isWhitePlate: true,
     summary: {
       en: "Creative direction, high-ticket digital positioning, and promotional showcase direction across Mohamed Samy's interior contracting portfolio.",
-      ar: "نقلنا البراند لمستوى يخاطب أصحاب الفلل والمشاريع التجارية الكبيرة. من تأسيس واجهة الويب الرسمية لإدارة الحملات الترويجية للمشاريع المنفذة على الأرض.",
+      ar: "الإدارة الإبداعية، والتموضع الرقمي للمشاريع عالية القيمة، وتوجيه العرض الترويجي لمحفظة أعمال محمد سامي في الديكور والمقاولات الداخلية.",
     },
     deliverables: {
       en: [
@@ -632,14 +647,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Promotional direction for flagship interior showcase projects",
       ],
       ar: [
-        "صياغة تموضع يستهدف تعاقدات الفلل والكافيهات والمشاريع الكبرى",
-        "بناء الموقع الرسمي كمعرض رقمي يجلب عملاء مؤهلين",
-        "إخراج الحملات التعريفية لأحدث مشاريع التشطيبات والديكور",
+        "تموضع رقمي يخاطب مشاريع المنشآت التجارية والفيلات السكنية",
+        "إطلاق المعرض الرقمي الرسمي والإشراف الإبداعي على الحملات",
+        "توجيه العرض الترويجي لأبرز مشاريع التشطيبات الداخلية",
       ],
     },
     campaigns: {
       en: ["Interior Positioning", "Digital Showroom", "Commercial Roster"],
-      ar: ["تموضع الديكور", "الموقع الرسمي", "حملات المشاريع"],
+      ar: ["التموضع المعماري", "المعرض الرقمي", "المشاريع التجارية"],
     },
     links: [
       {
@@ -659,13 +674,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     category: "brand_growth",
     discipline: {
       en: "Digital Marketing · Commercial Advertising",
-      ar: "تسويق رقمي · حملات تجارية",
+      ar: "التسويق الرقمي · الإعلانات التجارية",
     },
     image: "/assets/clients/attar-group.jpg",
     isWhitePlate: true,
     summary: {
       en: "Full-scale digital marketing, content creation, and commercial advertising campaigns executed for Al-Attar Group across 2018 through 2021.",
-      ar: "تلات سنين قيادة للتسويق الرقمي وصناعة المحتوى وإطلاق الحملات التجارية لمجموعة العطار، وبناء تواجد قوي في سوق الموبايلات والإكسسوارات.",
+      ar: "إدارة متكاملة للتسويق الرقمي وصناعة المحتوى وتنفيذ الحملات الإعلانية التجارية لمجموعة العطار خلال الفترة من 2018 حتى 2021.",
     },
     deliverables: {
       en: [
@@ -674,14 +689,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Sustained regional market visibility and customer acquisition",
       ],
       ar: [
-        "إدارة التسويق الرقمي والمحتوى الإعلاني على مدار 3 سنوات",
-        "إطلاق حملات إعلانية تجارية لمختلف خطوط المنتجات",
-        "توسيع الانتشار في السوق وزيادة تدفق العملاء",
+        "تسويق رقمي ممتد لثلاث سنوات وإنتاج محتوى تجاري متخصص",
+        "حملات إعلانية ممولة عالية الكثافة عبر مختلف خطوط المنتجات",
+        "تعزيز الانتشار الإقليمي واستقطاب العملاء بصورة مستدامة",
       ],
     },
     campaigns: {
       en: ["Digital Marketing", "Commercial Campaigns", "2018 - 2021"],
-      ar: ["تسويق رقمي", "حملات إعلانية", "2018 - 2021"],
+      ar: ["التسويق الرقمي", "الحملات التجارية", "2018 - 2021"],
     },
     links: [
       {
@@ -692,18 +707,18 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: "obolus",
-    title: { en: "Obolus (@obolus.explains)", ar: "أوبولوس" },
+    title: { en: "Obolus (@obolus.explains)", ar: "أوبولوس (Obolus)" },
     period: { en: "AI Media Studio", ar: "استوديو إنتاج ذكي" },
     category: "ai_systems",
     discipline: {
       en: "English 2D Documentary · Automated Production Stack",
-      ar: "أفلام وثائقية إنجليزية · منظومة إنتاج آلية",
+      ar: "وثائقيات إنجليزية ثنائية الأبعاد · خط إنتاج مؤتمت",
     },
     image: "/assets/clients/obolus-mark.jpg",
     isWhitePlate: false,
     summary: {
       en: "Tier-1 English faceless 2D animated documentary channel covering Economic History and Money Systems, built end-to-end with a custom local AI production stack.",
-      ar: "قناة وثائقية إنجليزية موجهة للجمهور العالمي في التاريخ الاقتصادي وأنظمة المال والأسواق، مبنية بالكامل على خط إنتاج ذكاء اصطناعي محلي من البحث والكتابة لحد الصوت والصورة والمونتاج.",
+      ar: "قناة وثائقية إنجليزية بالرسوم المتحركة الثنائية الأبعاد، تتناول التاريخ الاقتصادي والأنظمة النقدية، ومبنية بالكامل عبر منظومة إنتاج محلية مخصصة بالذكاء الاصطناعي.",
     },
     deliverables: {
       en: [
@@ -712,14 +727,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Deterministic vector animation, voiceover alignment, and sound design",
       ],
       ar: [
-        "بناء خط إنتاج كامل يشتغل محلياً من أول الفكرة لحد النسخة النهائية",
-        "أفلام وثائقية طويلة بالرسوم المتحركة عن تاريخ الاقتصاد والمال",
-        "ضبط التحريك الفيكتور والصوت والمؤثرات بأعلى دقة",
+        "بناء خط إنتاج محلي متكامل يبدأ من البحث وينتهي بالتصدير النهائي",
+        "أفلام وثائقية طويلة بالرسوم المتحركة حول تاريخ الاقتصاد والمال",
+        "تحريك متجهي منضبط ومزامنة دقيقة للتعليق الصوتي والمؤثرات",
       ],
     },
     campaigns: {
       en: ["1971 Monetary Shift", "1602 Stock Market Origins", "2D Documentary Engine"],
-      ar: ["وثائقي 1971", "أول بورصة في 1602", "محرك الوثائقيات"],
+      ar: ["التحول النقدي 1971", "نشأة البورصة 1602", "محرك الوثائقيات"],
     },
     links: [
       {
@@ -735,13 +750,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     category: "ai_systems",
     discipline: {
       en: "Tier-1 English Channel · Long-Form Visual Systems",
-      ar: "قناة إنجليزية عالمية · تحريك برمجي طويل النفس",
+      ar: "قناة إنجليزية عالمية · منظومات سرد بصري طويلة",
     },
     image: "/assets/clients/architect-of-reality.png",
     isWhitePlate: true,
     summary: {
       en: "Flagship English YouTube channel built for Tier-1 international viewers, combining deep psychological and philosophical storytelling with a custom programmatic animation engine.",
-      ar: "مشروعي الشخصي على يوتيوب باللغة الإنجليزية للجمهور العالمي. محتوى عميق في علم النفس والفلسفة التطبيقية، مبني على محرك تحريك برمجي خاص مصمم لوقت المشاهدة الطويل.",
+      ar: "قناة يوتيوب رئيسية باللغة الإنجليزية موجهة للجمهور الدولي، تجمع بين السرد النفسي والفلسفي العميق ومحرك تحريك برمجي مخصص لإنتاج الحلقات الطويلة.",
     },
     deliverables: {
       en: [
@@ -750,14 +765,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Packaging and hook strategy built for international audiences",
       ],
       ar: [
-        "سلسلة حلقات طويلة مبنية على العمق الفكري وجودة السرد",
-        "محرك تحريك وتصدير برمجي بمراجعات بصرية وصوتية صارمة",
-        "هندسة العناوين والخطافات الأولية لرفع نسبة النقر والاحتفاظ",
+        "هندسة حلقات وثائقية طويلة تركز على العمق الفكري ومعدل الاحتفاظ بالمشاهد",
+        "خط معالجة وتصدير برمجي مخصص يخضع لبوابات فحص بصري صارمة",
+        "استراتيجية تغليف وافتتاحيات مصممة للجمهور الدولي",
       ],
     },
     campaigns: {
       en: ["THE MIND MANUAL", "Long-Form Retention", "Programmatic Animation"],
-      ar: ["سلسلة دليل العقل", "إنتاج طويل النفس", "تحريك برمجي"],
+      ar: ["دليل العقل", "الاحتفاظ طويل المدى", "التحريك البرمجي"],
     },
     links: [
       {
@@ -773,13 +788,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     category: "education_tech",
     discipline: {
       en: "Nursery Marketing · Reels Production · Parent Conversion",
-      ar: "تسويق تعليمي · ريلز واقعي · استقطاب أولياء الأمور",
+      ar: "تسويق تعليمي · إنتاج مرئي · استقطاب أولياء الأمور",
     },
     image: "/assets/clients/khatwa.png",
     isWhitePlate: true,
     summary: {
       en: "Marketing direction and real-activity video reels for Khatwa Academy and Nursery, structuring clear stage-by-stage parent messaging that drives qualified enrollment inquiries.",
-      ar: "تسويق ذكي بيخاطب الأم بالمنطق مش بالكلام الإنشائي. عملنا ريلز توثق الأنشطة الحقيقية جوه الحضانة وقسمنا المراحل العمرية بوضوح، عشان استفسارات التسجيل تيجي جاهزة.",
+      ar: "التوجيه التسويقي وإنتاج المقاطع التوثيقية للأنشطة الفعلية في أكاديمية وحضانة خطوة، عبر صياغة رسائل واضحة لكل مرحلة عمرية تستقطب استفسارات التسجيل الجادة من أولياء الأمور.",
     },
     deliverables: {
       en: [
@@ -788,14 +803,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Direct Messenger and WhatsApp qualification funnels for parents",
       ],
       ar: [
-        "توضيح كل مرحلة تعليمية وعمرية قدام ولي الأمر بدون تشتيت",
-        "إنتاج ريلز واقعي من جوه الأنشطة الفعلية لبناء الثقة",
-        "مسار تواصل وتأهيل مباشر لاستفسارات التسجيل",
+        "صياغة تموضع تعليمي واضح لكل مرحلة عمرية عبر برامج الحضانة ورياض الأطفال",
+        "إنتاج مقاطع واقعية توثق الأنشطة الصفية والتطبيقية الفعلية",
+        "بناء مسارات تواصل وتأهيل مباشر لاستفسارات أولياء الأمور",
       ],
     },
     campaigns: {
       en: ["Stage-by-Stage Clarity", "Real Activity Reels", "Parent Funnel"],
-      ar: ["كل سن ليه خطوته", "أنشطة حقيقية", "مسار التسجيل"],
+      ar: ["وضوح المراحل العمرية", "توثيق الأنشطة الواقعية", "مسار التسجيل"],
     },
     links: [
       {
@@ -811,12 +826,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     category: "brand_growth",
     discipline: {
       en: "Creative Direction · TV Ad Scripts · Real Estate & Medical",
-      ar: "إدارة إبداعية · إعلانات تلفزيون · عقارات ومراكز طبية",
+      ar: "إدارة إبداعية · إعلانات تلفزيون · العقارات والمراكز الطبية",
     },
     monogram: "CM",
     summary: {
       en: "Creative Direction, TV ad scriptwriting, and campaign leadership for real-estate and medical brand accounts at Chance Media, founded by actor Ahmed Akl.",
-      ar: "توليت الإدارة الإبداعية وكتابة اسكربتات إعلانات التلفزيون وتوجيه الحملات الإعلانية لقطاعي العقارات والمراكز الطبية في تشانس ميديا مع الفنان أحمد عقل.",
+      ar: "تولي الإدارة الإبداعية، وكتابة نصوص الإعلانات التلفزيونية، وقيادة الحملات الإعلانية لحسابات العقارات والمراكز الطبية لدى وكالة تشانس ميديا التي أسسها الفنان أحمد عقل.",
     },
     deliverables: {
       en: [
@@ -825,14 +840,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         "Real-estate and medical sector brand campaign execution",
       ],
       ar: [
-        "الإدارة الإبداعية لحسابات الوكالة التجارية",
-        "كتابة سيناريوهات إعلانات التلفزيون وتطوير الفكرة",
-        "قيادة حملات العقارات والعلامات الطبية",
+        "الإدارة الإبداعية الشاملة لحسابات الوكالة التجارية",
+        "كتابة سيناريوهات الإعلانات التلفزيونية وتطوير المفاهيم الإبداعية",
+        "تنفيذ حملات العلامات التجارية في قطاعي العقارات والخدمات الطبية",
       ],
     },
     campaigns: {
       en: ["TV Ad Scripts", "Real Estate", "Medical Brands"],
-      ar: ["اسكربتات تلفزيون", "عقارات", "مراكز طبية"],
+      ar: ["الإعلانات التلفزيونية", "القطاع العقاري", "العلامات الطبية"],
     },
     links: [],
   },
@@ -840,19 +855,19 @@ export const CASE_STUDIES: CaseStudy[] = [
 
 export const AI_PRODUCTION_STACK: StackTool[] = [
   {
-    name: { en: "Creative System Orchestration", ar: "تخطيط وتنفيذ الأنظمة" },
+    name: { en: "Creative System Orchestration", ar: "تخطيط وهندسة الأنظمة" },
     domain: { en: "Google Antigravity & Claude", ar: "بناء المنصات والأنظمة" },
     role: {
       en: "Turning strategic briefs into full-stack web platforms, automated visual checks, and production-ready code.",
-      ar: "تحويل الفكرة التجارية لمنصات ويب سريعة ومراجعة بصرية دقيقة بدون انتظار فرق كبيرة.",
+      ar: "تحويل الموجزات الاستراتيجية إلى منصات ويب متكاملة، ومراجعات بصرية مؤتمتة، وشيفرة برمجية جاهزة للإطلاق.",
     },
   },
   {
     name: { en: "Programmatic Video Engines", ar: "محركات الفيديو المبرمجة" },
-    domain: { en: "HyperFrames & Remotion Studio", ar: "إنتاج الريلز والإعلانات آلياً" },
+    domain: { en: "HyperFrames & Remotion Studio", ar: "إنتاج الفيديو التجاري آلياً" },
     role: {
       en: "Frame-accurate commercial reels and modular video systems engineered for consistent brand identity.",
-      ar: "إنتاج ريلز وفيديوهات تجارية بدقة الفريم الواحد وهوية بصرية ثابتة لكل عميل.",
+      ar: "إنتاج مقاطع إعلانية بدقة الإطار الواحد ومنظومات فيديو معيارية تحافظ على اتساق الهوية البصرية لكل علامة.",
     },
   },
   {
@@ -860,7 +875,7 @@ export const AI_PRODUCTION_STACK: StackTool[] = [
     domain: { en: "Grounded Source Synthesis", ar: "بحث موثق وسرد بصري" },
     role: {
       en: "Fact-checked long-form scripts, voice pacing, and animated documentary worlds built for international channels.",
-      ar: "تحويل المصادر الموثوقة لاسكربتات طويلة وأفلام وثائقية متكاملة للجمهور العالمي.",
+      ar: "إعداد نصوص طويلة مدققة الحقائق، وضبط إيقاع التعليق الصوتي، وبناء عوالم وثائقية متحركة لقنوات دولية.",
     },
   },
 ];

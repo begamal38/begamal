@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lang, PORTFOLIO_IDENTITY } from "./data/portfolioData";
 import { MonolithScene } from "./components/MonolithScene";
 import { Navbar } from "./components/Navbar";
+import { ScrollTelemetry } from "./components/ScrollTelemetry";
 import { HeroSection } from "./components/HeroSection";
 import { StatementSection } from "./components/StatementSection";
 import { ChronicleSection } from "./components/ChronicleSection";
@@ -16,13 +17,17 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
   const scrollProgressRef = useRef<number>(0);
+  const scrollVelocityRef = useRef<number>(0);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     document.title = PORTFOLIO_IDENTITY.pageTitle[lang];
-    ScrollTrigger.refresh();
+    const id = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+    return () => window.cancelAnimationFrame(id);
   }, [lang]);
 
   useEffect(() => {
@@ -30,20 +35,38 @@ export default function App() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
+    const updateFallbackProgress = () => {
+      const maxScroll = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+      scrollProgressRef.current = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+    };
+
     if (prefersReducedMotion) {
-      return;
+      window.addEventListener("scroll", updateFallbackProgress, { passive: true });
+      updateFallbackProgress();
+      return () => window.removeEventListener("scroll", updateFallbackProgress);
     }
 
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: 1.05,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.35,
     });
     lenisRef.current = lenis;
 
-    const handleScrollUpdate = ({ progress }: { progress: number }) => {
+    const handleScrollUpdate = ({
+      progress,
+      velocity,
+    }: {
+      progress: number;
+      velocity: number;
+    }) => {
       scrollProgressRef.current = progress;
+      scrollVelocityRef.current = velocity;
       ScrollTrigger.update();
     };
     lenis.on("scroll", handleScrollUpdate);
@@ -66,7 +89,7 @@ export default function App() {
     const el = document.getElementById(sectionId);
     if (!el) return;
     if (lenisRef.current) {
-      lenisRef.current.scrollTo(el, { offset: -20 });
+      lenisRef.current.scrollTo(el, { offset: -18, duration: 1.1 });
     } else {
       el.scrollIntoView({ behavior: "smooth" });
     }
@@ -79,14 +102,23 @@ export default function App() {
   return (
     <div className="relative min-h-[100dvh] bg-[#050505] text-[#F2F0EB]">
       <div className="noise-overlay" aria-hidden="true" />
-      <MonolithScene scrollProgressRef={scrollProgressRef} />
+      <MonolithScene
+        scrollProgressRef={scrollProgressRef}
+        scrollVelocityRef={scrollVelocityRef}
+        lang={lang}
+      />
+      <ScrollTelemetry
+        lang={lang}
+        scrollProgressRef={scrollProgressRef}
+        onNavigate={handleNavigate}
+      />
       <Navbar
         lang={lang}
         onToggleLang={handleToggleLang}
         onNavigate={handleNavigate}
       />
 
-      <main className="relative z-10 w-full overflow-x-hidden">
+      <main className="relative z-10 w-full overflow-x-clip">
         <HeroSection lang={lang} onNavigate={handleNavigate} />
         <StatementSection lang={lang} />
         <ChronicleSection lang={lang} />
