@@ -19,8 +19,8 @@ interface WorksSectionProps {
 }
 
 /**
- * Computes gapless 12-column spans for any filtered count so no row
- * leaves trailing dead space.
+ * Computes gapless 12-column spans for any filtered count (1..13+)
+ * so no row leaves trailing dead space.
  */
 function getBentoSpanClass(index: number, total: number): string {
   if (total === 1) return "lg:col-span-12";
@@ -56,14 +56,19 @@ function getBentoSpanClass(index: number, total: number): string {
   if (total === 10) {
     if (index === 0) return "lg:col-span-7";
     if (index === 1) return "lg:col-span-5";
-    if (index >= 2 && index <= 4) return "lg:col-span-4";
-    if (index >= 5 && index <= 7) return "lg:col-span-4";
-    return "lg:col-span-6";
+    return index >= 2 && index <= 7 ? "lg:col-span-4" : "lg:col-span-6";
   }
   if (total === 11) {
     if (index === 0) return "lg:col-span-7";
     if (index === 1) return "lg:col-span-5";
     return "lg:col-span-4";
+  }
+  if (total === 12) return "lg:col-span-4";
+  if (total === 13) {
+    if (index === 0) return "lg:col-span-7";
+    if (index === 1) return "lg:col-span-5";
+    if (index >= 2 && index <= 10) return "lg:col-span-4";
+    return "lg:col-span-6";
   }
   return index % 2 === 0 ? "lg:col-span-7" : "lg:col-span-5";
 }
@@ -83,7 +88,7 @@ function CaseStudyVisualStage({
     if (study.isWhitePlate) {
       return (
         <div
-          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0B0D] p-4`}
+          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#09090C] p-4`}
         >
           <div className="flex h-32 w-56 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white px-5 py-3 shadow-lg">
             <img
@@ -97,16 +102,25 @@ function CaseStudyVisualStage({
       );
     }
 
+    const isWideWordmark = study.id === "chance-media";
     return (
       <div
-        className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0B0D] p-4`}
+        className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#09090C] p-4`}
       >
-        <div className="h-32 w-32 overflow-hidden rounded-2xl border border-white/15 shadow-lg">
+        <div
+          className={
+            isWideWordmark
+              ? "flex h-28 w-56 items-center justify-center overflow-hidden px-4 py-2"
+              : "h-32 w-32 overflow-hidden rounded-2xl border border-white/15 shadow-lg"
+          }
+        >
           <img
             src={study.image}
             alt={study.title[lang]}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className={`h-full w-full transition-transform duration-700 ease-out group-hover:scale-105 ${
+              isWideWordmark ? "object-contain" : "object-cover"
+            }`}
           />
         </div>
       </div>
@@ -115,12 +129,12 @@ function CaseStudyVisualStage({
 
   return (
     <div
-      className={`${heightClass} flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/[0.08] bg-[#0B0B0D] p-5 text-center`}
+      className={`${heightClass} flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/[0.08] bg-[#09090C] p-5 text-center`}
     >
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#C5A572]/40 bg-[#141418] font-display text-lg font-semibold tracking-wider text-[#C5A572]">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#C81E32]/45 bg-[#121216] font-display text-lg font-semibold tracking-wider text-[#E11D38]">
         {study.monogram ?? study.title.en.slice(0, 2).toUpperCase()}
       </div>
-      <span className="font-display text-base tracking-wide text-[#F2F0EB]">
+      <span className="font-display text-base tracking-wide text-[#F1F2F4]">
         {study.title[lang]}
       </span>
     </div>
@@ -189,15 +203,15 @@ export function WorksSection({ lang }: WorksSectionProps) {
     <section
       id="works"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.06] bg-[#050505]/45 px-5 py-24 sm:px-8 md:py-36"
+      className="relative z-10 border-t border-white/[0.08] bg-[#050505]/45 px-5 py-24 sm:px-8 md:py-36"
     >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#C5A572]">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#E11D38]">
               {UI_COPY.works.eyebrow[lang]}
             </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold uppercase tracking-[0.06em] text-[#F2F0EB] sm:text-4xl">
+            <h2 className="mt-3 font-display text-3xl font-semibold uppercase tracking-[0.06em] text-[#F1F2F4] sm:text-4xl">
               {UI_COPY.works.title[lang]}
             </h2>
           </div>
@@ -219,8 +233,8 @@ export function WorksSection({ lang }: WorksSectionProps) {
                   onClick={() => setActiveCategory(category.id)}
                   className={`rounded-full border px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.98] whitespace-nowrap ${
                     selected
-                      ? "border-[#C5A572] bg-[#C5A572] text-[#050505]"
-                      : "border-white/10 bg-[#111114] text-[#D6D3CD]/80 hover:border-white/25 hover:text-[#F2F0EB]"
+                      ? "border-[#C81E32] bg-[#C81E32] text-[#F1F2F4]"
+                      : "border-white/10 bg-[#121216] text-[#A1A1AA] hover:border-white/25 hover:text-[#F1F2F4]"
                   }`}
                 >
                   {category.label[lang]}
@@ -230,7 +244,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
           </div>
         </div>
 
-        {/* Gapless Asymmetric Bento Grid */}
+        {/* Double-Bezel Gapless Asymmetric Bento Grid */}
         <div className="works-grid mt-12 grid grid-flow-dense grid-cols-1 gap-5 lg:grid-cols-12">
           {filteredStudies.map((study, index) => {
             const spanClass = getBentoSpanClass(index, filteredStudies.length);
@@ -238,9 +252,9 @@ export function WorksSection({ lang }: WorksSectionProps) {
             return (
               <article
                 key={study.id}
-                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.08] bg-[#111114]/82 p-1.5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C5A572]/50`}
+                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.09] bg-[#121216]/90 p-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C81E32]/55`}
               >
-                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#0A0A0C] p-6 transition-colors duration-300 group-hover:bg-[#0D0D10]">
+                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#0A0A0D] p-6 transition-colors duration-300 group-hover:bg-[#0D0D11]">
                   <button
                     type="button"
                     onClick={() => setSelectedStudy(study)}
@@ -251,33 +265,33 @@ export function WorksSection({ lang }: WorksSectionProps) {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#C5A572]">
+                      <span className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#E11D38]">
                         {study.period[lang]}
                       </span>
-                      <span className="text-[11px] text-[#8E8A82]">
+                      <span className="text-[11px] text-[#A1A1AA]">
                         {categoryLabelMap.get(study.category)}
                       </span>
                     </div>
 
-                    <h3 className="mt-3 text-xl font-semibold text-[#F2F0EB] sm:text-2xl">
+                    <h3 className="mt-3 text-xl font-semibold text-[#F1F2F4] sm:text-2xl">
                       {study.title[lang]}
                     </h3>
 
-                    <p className="mt-2 text-xs font-medium tracking-wide text-[#8E8A82]">
+                    <p className="mt-2 text-xs font-medium tracking-wide text-[#A1A1AA]">
                       {study.discipline[lang]}
                     </p>
 
-                    <p className="mt-4 text-sm leading-relaxed text-[#F2F0EB]/85">
+                    <p className="mt-4 text-sm leading-relaxed text-[#F1F2F4]/85">
                       {study.summary[lang]}
                     </p>
                   </button>
 
-                  {/* Card Action Bar: Interactive Project Brief + Direct Client Page / Case Study */}
+                  {/* Interactive Project Brief + Direct Client Page */}
                   <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.07] pt-4">
                     <button
                       type="button"
                       onClick={() => setSelectedStudy(study)}
-                      className="text-xs font-medium text-[#D6D3CD]/80 underline decoration-white/20 underline-offset-4 transition-colors hover:text-[#C5A572] hover:decoration-[#C5A572]"
+                      className="text-xs font-medium text-[#E4E4E7]/85 underline decoration-white/20 underline-offset-4 transition-colors hover:text-[#E11D38] hover:decoration-[#E11D38]"
                     >
                       {UI_COPY.works.openDossier[lang]}
                     </button>
@@ -287,7 +301,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                         href={primaryLink.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-[#C5A572]/35 bg-[#111114] px-3.5 py-1.5 text-xs font-medium text-[#C5A572] transition-colors hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-[#050505]"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-[#C81E32]/40 bg-[#121216] px-3.5 py-1.5 text-xs font-medium text-[#F1F2F4] transition-colors hover:border-[#E11D38] hover:bg-[#C81E32]"
                       >
                         <span>{UI_COPY.works.visitPage[lang]}</span>
                         <ArrowUpRight size={13} weight="bold" />
@@ -296,7 +310,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                       <button
                         type="button"
                         onClick={() => setSelectedStudy(study)}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-[#C5A572]/35 bg-[#111114] px-3.5 py-1.5 text-xs font-medium text-[#C5A572] transition-colors hover:border-[#C5A572] hover:bg-[#C5A572] hover:text-[#050505]"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-[#C81E32]/40 bg-[#121216] px-3.5 py-1.5 text-xs font-medium text-[#F1F2F4] transition-colors hover:border-[#E11D38] hover:bg-[#C81E32]"
                       >
                         <span>{UI_COPY.works.caseStudyCta[lang]}</span>
                         <ArrowUpRight size={13} weight="bold" />
@@ -310,7 +324,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
         </div>
       </div>
 
-      {/* Case Study Detail Modal (portaled above fixed navbar) */}
+      {/* Interactive Case Study Modal */}
       {selectedStudy &&
         createPortal(
           <div
@@ -321,17 +335,17 @@ export function WorksSection({ lang }: WorksSectionProps) {
             onClick={() => setSelectedStudy(null)}
           >
             <div
-              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#111114] p-6 sm:p-8"
+              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-[#C81E32]/35 bg-[#121216] p-6 sm:p-8"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-5">
                 <div>
-                  <p className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#C5A572]">
+                  <p className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#E11D38]">
                     {selectedStudy.period[lang]} · {categoryLabelMap.get(selectedStudy.category)}
                   </p>
                   <h3
                     id="modal-study-title"
-                    className="mt-2 font-display text-2xl font-semibold text-[#F2F0EB] sm:text-3xl"
+                    className="mt-2 font-display text-2xl font-semibold text-[#F1F2F4] sm:text-3xl"
                   >
                     {selectedStudy.title[lang]}
                   </h3>
@@ -341,7 +355,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                   type="button"
                   aria-label={UI_COPY.works.closeModal[lang]}
                   onClick={() => setSelectedStudy(null)}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#0A0A0C] text-[#F2F0EB] transition-colors hover:border-[#C5A572]/60 hover:text-[#C5A572]"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#0A0A0D] text-[#F1F2F4] transition-colors hover:border-[#E11D38] hover:text-[#E11D38]"
                 >
                   <X size={18} weight="bold" />
                 </button>
@@ -351,25 +365,25 @@ export function WorksSection({ lang }: WorksSectionProps) {
                 <CaseStudyVisualStage study={selectedStudy} lang={lang} tall />
               </div>
 
-              <p className="mt-6 text-base leading-relaxed text-[#F2F0EB]/90">
+              <p className="mt-6 text-base leading-relaxed text-[#F1F2F4]/90">
                 {selectedStudy.summary[lang]}
               </p>
 
               <div className="mt-6 space-y-3 border-t border-white/[0.08] pt-5">
-                <h4 className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#C5A572]">
+                <h4 className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#E11D38]">
                   {UI_COPY.works.scopeHeading[lang]}
                 </h4>
                 <ul className="space-y-2.5">
                   {selectedStudy.deliverables[lang].map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-3 text-sm leading-relaxed text-[#8E8A82]"
+                      className="flex items-start gap-3 text-sm leading-relaxed text-[#A1A1AA]"
                     >
                       <span
-                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#C5A572]"
+                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#E11D38]"
                         aria-hidden="true"
                       />
-                      <span className="text-[#F2F0EB]/85">{item}</span>
+                      <span className="text-[#F1F2F4]/85">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -379,7 +393,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                 {selectedStudy.campaigns[lang].map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-white/10 bg-[#0A0A0C] px-3.5 py-1.5 text-xs text-[#F2F0EB]/80"
+                    className="rounded-full border border-white/10 bg-[#0A0A0D] px-3.5 py-1.5 text-xs text-[#F1F2F4]/80"
                   >
                     {tag}
                   </span>
@@ -394,7 +408,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-[#C5A572] px-5 py-2.5 text-xs font-semibold text-[#050505] transition-colors hover:bg-[#d2b586]"
+                      className="inline-flex items-center gap-2 rounded-full bg-[#C81E32] px-5 py-2.5 text-xs font-semibold text-[#F1F2F4] transition-colors hover:bg-[#E11D38]"
                     >
                       <span>{item.label[lang]}</span>
                       <ArrowUpRight size={14} weight="bold" />

@@ -23,18 +23,19 @@
 
 :root {
   --bg-void: #050505;
-  --bg-onyx: #0a0a0c;
-  --surface-carbon: #111114;
-  --border-hairline: rgba(255, 255, 255, 0.08);
-  --ink-ivory: #f2f0eb;
-  --ink-ash: #8e8a82;
-  --accent-gold: #c5a572;
+  --bg-onyx: #0a0a0d;
+  --surface-carbon: #121216;
+  --border-hairline: rgba(255, 255, 255, 0.09);
+  --ink-platinum: #f1f2f4;
+  --ink-silver: #a1a1aa;
+  --accent-crimson: #c81e32;
+  --accent-crimson-bright: #e11d38;
   --ease-architectural: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 html {
   background-color: var(--bg-void);
-  color: var(--ink-ivory);
+  color: var(--ink-platinum);
   scroll-behavior: auto;
   color-scheme: dark;
 }
@@ -42,7 +43,7 @@ html {
 body {
   margin: 0;
   background-color: var(--bg-void);
-  color: var(--ink-ivory);
+  color: var(--ink-platinum);
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -95,6 +96,11 @@ html[lang="ar"] .font-editorial {
   font-variant-numeric: tabular-nums;
 }
 
+.crimson-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 30, 50, 0.55), transparent);
+}
+
 /* Subtle fixed film grain overlay without scrolling-container repaints */
 .noise-overlay {
   position: fixed;
@@ -131,16 +137,16 @@ html[lang="ar"] .font-editorial {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(197, 165, 114, 0.28);
+  background: rgba(200, 30, 50, 0.42);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(197, 165, 114, 0.52);
+  background: rgba(225, 29, 56, 0.72);
 }
 
 :focus-visible {
-  outline: 1.5px solid var(--accent-gold);
+  outline: 1.5px solid var(--accent-crimson-bright);
   outline-offset: 3px;
 }
 

@@ -6,12 +6,13 @@ interface MonolithSceneProps {
   scrollProgressRef: React.MutableRefObject<number>;
   scrollVelocityRef: React.MutableRefObject<number>;
   lang: Lang;
+  wireframeMode: boolean;
 }
 
 /**
  * Generates a lightweight studio reflection environment map (obsidian void +
- * warm champagne-gold and crisp ivory light panels) so physical glass and
- * brushed gold metals gleam with crisp highlights without external HDR assets.
+ * imperial crimson and brushed platinum studio panels) so physical surfaces
+ * gleam with sharp chiaroscuro highlights without external HDR downloads.
  */
 function createArchitecturalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -20,35 +21,35 @@ function createArchitecturalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture
   const envScene = new THREE.Scene();
   envScene.background = new THREE.Color(0x050507);
 
-  const softboxIvory = new THREE.Mesh(
+  const softboxPlatinum = new THREE.Mesh(
     new THREE.PlaneGeometry(8, 12),
-    new THREE.MeshBasicMaterial({ color: 0x7c7972, side: THREE.DoubleSide })
+    new THREE.MeshBasicMaterial({ color: 0x9ca3af, side: THREE.DoubleSide })
   );
-  softboxIvory.position.set(-7, 5, 4);
-  softboxIvory.lookAt(0, 0, 0);
-  envScene.add(softboxIvory);
+  softboxPlatinum.position.set(-7, 5, 4);
+  softboxPlatinum.lookAt(0, 0, 0);
+  envScene.add(softboxPlatinum);
 
-  const softboxGold = new THREE.Mesh(
+  const softboxCrimson = new THREE.Mesh(
     new THREE.PlaneGeometry(9, 10),
-    new THREE.MeshBasicMaterial({ color: 0xc5a572, side: THREE.DoubleSide })
+    new THREE.MeshBasicMaterial({ color: 0xc81e32, side: THREE.DoubleSide })
   );
-  softboxGold.position.set(7.5, 2.5, -3);
-  softboxGold.lookAt(0, 0, 0);
-  envScene.add(softboxGold);
+  softboxCrimson.position.set(7.5, 2.5, -3);
+  softboxCrimson.lookAt(0, 0, 0);
+  envScene.add(softboxCrimson);
 
   const rimStrip = new THREE.Mesh(
     new THREE.PlaneGeometry(12, 2.2),
-    new THREE.MeshBasicMaterial({ color: 0xc5a572, side: THREE.DoubleSide })
+    new THREE.MeshBasicMaterial({ color: 0xe11d38, side: THREE.DoubleSide })
   );
   rimStrip.position.set(0, -6.5, 3);
   rimStrip.lookAt(0, 0, 0);
   envScene.add(rimStrip);
 
   const renderTarget = pmrem.fromScene(envScene, 0.035);
-  softboxIvory.geometry.dispose();
-  (softboxIvory.material as THREE.Material).dispose();
-  softboxGold.geometry.dispose();
-  (softboxGold.material as THREE.Material).dispose();
+  softboxPlatinum.geometry.dispose();
+  (softboxPlatinum.material as THREE.Material).dispose();
+  softboxCrimson.geometry.dispose();
+  (softboxCrimson.material as THREE.Material).dispose();
   rimStrip.geometry.dispose();
   (rimStrip.material as THREE.Material).dispose();
   pmrem.dispose();
@@ -57,22 +58,38 @@ function createArchitecturalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture
 }
 
 /**
- * Full-viewport fixed WebGL canvas rendering an architectural kinetic
- * obsidian-and-gold astrolabe sculpture with procedural studio reflections,
- * custom GLSL volumetric corona, instanced precision calibration ticks,
- * floating obsidian satellites, and scroll-velocity choreography.
+ * Full-viewport fixed WebGL canvas rendering an architectural obsidian
+ * monolith with imperial crimson + brushed platinum orbital gimbal rings,
+ * custom GLSL corona aura, live Obsidian/Wireframe switch, and scroll choreography.
  */
 export function MonolithScene({
   scrollProgressRef,
   scrollVelocityRef,
   lang,
+  wireframeMode,
 }: MonolithSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const langDirRef = useRef<number>(lang === "ar" ? -1 : 1);
+  const wireframeRef = useRef<boolean>(wireframeMode);
+  const materialToggleRef = useRef<{
+    outerMat: THREE.MeshPhysicalMaterial;
+    edgeMat: THREE.LineBasicMaterial;
+    renderNow: () => void;
+  } | null>(null);
 
   useEffect(() => {
     langDirRef.current = lang === "ar" ? -1 : 1;
   }, [lang]);
+
+  useEffect(() => {
+    wireframeRef.current = wireframeMode;
+    const handles = materialToggleRef.current;
+    if (handles) {
+      handles.outerMat.wireframe = wireframeMode;
+      handles.edgeMat.opacity = wireframeMode ? 0.72 : 0.44;
+      handles.renderNow();
+    }
+  }, [wireframeMode]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -84,7 +101,7 @@ export function MonolithScene({
     const isMobile = window.innerWidth < 768;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x050505, 0.055);
+    scene.fog = new THREE.FogExp2(0x050505, 0.058);
 
     const camera = new THREE.PerspectiveCamera(
       isMobile ? 46 : 38,
@@ -109,17 +126,16 @@ export function MonolithScene({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.28;
+    renderer.toneMappingExposure = 1.24;
     container.appendChild(renderer.domElement);
 
     const envMap = createArchitecturalEnvMap(renderer);
     scene.environment = envMap;
 
-    // Master rig positioned across sections (laterally mirrored cleanly for RTL)
     const rig = new THREE.Group();
     scene.add(rig);
 
-    // 1. Custom GLSL Volumetric Champagne-Gold Corona Plane behind sculpture
+    // 1. Custom GLSL Volumetric Crimson & Platinum Corona Plane behind sculpture
     const coronaUniforms = {
       uTime: { value: 0 },
       uScroll: { value: 0 },
@@ -150,12 +166,12 @@ export function MonolithScene({
           float pulse = 0.5 + 0.5 * sin(uTime * 0.8 + uScroll * 6.2831);
           float rays = 0.5 + 0.5 * sin(angle * 6.0 + uTime * 0.35 + uScroll * 4.0);
           float ring = smoothstep(0.62, 0.24, abs(r - (0.34 + 0.04 * pulse)));
-          float glow = exp(-r * 2.6) * (0.28 + 0.12 * pulse + 0.18 * uVelocity);
-          float beam = ring * (0.08 + 0.07 * rays + 0.14 * uVelocity);
-          vec3 gold = vec3(0.773, 0.647, 0.447);
-          vec3 ivory = vec3(0.949, 0.941, 0.922);
-          vec3 col = mix(gold, ivory, beam * 0.65);
-          float alpha = clamp((glow + beam) * smoothstep(1.0, 0.15, r), 0.0, 0.52);
+          float glow = exp(-r * 2.75) * (0.24 + 0.10 * pulse + 0.16 * uVelocity);
+          float beam = ring * (0.07 + 0.06 * rays + 0.14 * uVelocity);
+          vec3 crimson = vec3(0.784, 0.118, 0.196);
+          vec3 platinum = vec3(0.945, 0.949, 0.957);
+          vec3 col = mix(crimson, platinum, beam * 0.45);
+          float alpha = clamp((glow + beam) * smoothstep(1.0, 0.15, r), 0.0, 0.48);
           gl_FragColor = vec4(col, alpha);
         }
       `,
@@ -164,7 +180,7 @@ export function MonolithScene({
     coronaPlane.position.z = -1.15;
     rig.add(coronaPlane);
 
-    // 2. Sculpted Dual-Layer Obsidian & Gold Core
+    // 2. Sculpted Dual-Layer Obsidian & Imperial Crimson Core
     const coreGroup = new THREE.Group();
     rig.add(coreGroup);
 
@@ -172,82 +188,79 @@ export function MonolithScene({
     outerCoreGeom.scale(0.56, 1.32, 0.56);
     const outerObsidianMat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#07070a"),
-      metalness: 0.72,
-      roughness: 0.28,
-      clearcoat: 0.75,
-      clearcoatRoughness: 0.18,
-      reflectivity: 0.8,
-      envMapIntensity: 0.9,
+      metalness: 0.78,
+      roughness: 0.24,
+      clearcoat: 0.85,
+      clearcoatRoughness: 0.16,
+      reflectivity: 0.85,
+      envMapIntensity: 0.95,
       flatShading: true,
+      wireframe: wireframeRef.current,
     });
     const outerMonolith = new THREE.Mesh(outerCoreGeom, outerObsidianMat);
     coreGroup.add(outerMonolith);
 
-    // Inner counter-rotating brushed-gold crystalline heart
-    const innerCoreGeom = new THREE.OctahedronGeometry(0.78, 0);
-    innerCoreGeom.scale(0.55, 1.35, 0.55);
-    const innerGoldMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#c5a572"),
-      metalness: 0.96,
-      roughness: 0.2,
-      clearcoat: 0.8,
-      envMapIntensity: 2.2,
-      emissive: new THREE.Color("#3a2b14"),
-      emissiveIntensity: 0.45,
+    const innerCoreGeom = new THREE.OctahedronGeometry(0.74, 0);
+    innerCoreGeom.scale(0.54, 1.3, 0.54);
+    const innerCrimsonMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#C81E32"),
+      metalness: 0.9,
+      roughness: 0.24,
+      clearcoat: 0.75,
+      envMapIntensity: 1.8,
+      emissive: new THREE.Color("#450811"),
+      emissiveIntensity: 0.65,
       flatShading: true,
     });
-    const innerCore = new THREE.Mesh(innerCoreGeom, innerGoldMat);
+    const innerCore = new THREE.Mesh(innerCoreGeom, innerCrimsonMat);
     coreGroup.add(innerCore);
 
-    // Subtle champagne-gold architectural wireframe cage around core
     const edgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
     const edgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#d9b984"),
+      color: new THREE.Color("#E11D38"),
       transparent: true,
-      opacity: 0.48,
+      opacity: wireframeRef.current ? 0.72 : 0.44,
     });
     const edgeLines = new THREE.LineSegments(edgeGeom, edgeMat);
     edgeLines.scale.setScalar(1.006);
     coreGroup.add(edgeLines);
 
-    // Precision vertical axis needle
-    const axisGeom = new THREE.CylinderGeometry(0.004, 0.004, 4.6, 8);
+    const axisGeom = new THREE.CylinderGeometry(0.004, 0.004, 4.5, 8);
     const axisMat = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#c5a572"),
+      color: new THREE.Color("#E11D38"),
       transparent: true,
       opacity: 0.34,
     });
     const axisRod = new THREE.Mesh(axisGeom, axisMat);
     coreGroup.add(axisRod);
 
-    // 3. Three-Axis Calibrated Astrolabe Gimbal System
-    const goldMetalMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#c5a572"),
-      metalness: 0.95,
+    // 3. Three-Axis Calibrated Crimson & Platinum Gimbal System
+    const crimsonMetalMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#E11D38"),
+      metalness: 0.92,
       roughness: 0.22,
-      clearcoat: 0.9,
-      envMapIntensity: 2.0,
+      clearcoat: 0.85,
+      envMapIntensity: 1.8,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.88,
     });
-    const silverHairlineMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#f2f0eb"),
-      metalness: 0.88,
+    const platinumHairlineMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#A1A1AA"),
+      metalness: 0.86,
       roughness: 0.28,
-      envMapIntensity: 1.5,
+      envMapIntensity: 1.4,
       transparent: true,
-      opacity: 0.32,
+      opacity: 0.34,
     });
 
     const ringOuterGroup = new THREE.Group();
     const ringOuterGeom = new THREE.TorusGeometry(2.15, 0.011, 14, isMobile ? 72 : 128);
-    const ringOuter = new THREE.Mesh(ringOuterGeom, goldMetalMat);
+    const ringOuter = new THREE.Mesh(ringOuterGeom, crimsonMetalMat);
     ringOuterGroup.add(ringOuter);
 
-    // Instanced calibration tick marks along the outer gimbal (1 draw call)
     const tickCount = 36;
     const tickGeom = new THREE.BoxGeometry(0.014, 0.09, 0.014);
-    const tickInstanced = new THREE.InstancedMesh(tickGeom, goldMetalMat, tickCount);
+    const tickInstanced = new THREE.InstancedMesh(tickGeom, crimsonMetalMat, tickCount);
     const dummy = new THREE.Object3D();
     for (let i = 0; i < tickCount; i++) {
       const a = (i / tickCount) * Math.PI * 2;
@@ -263,12 +276,12 @@ export function MonolithScene({
     rig.add(ringOuterGroup);
 
     const ringMidGeom = new THREE.TorusGeometry(1.76, 0.007, 12, isMobile ? 72 : 120);
-    const ringMid = new THREE.Mesh(ringMidGeom, silverHairlineMat);
+    const ringMid = new THREE.Mesh(ringMidGeom, platinumHairlineMat);
     ringMid.rotation.set(-Math.PI * 0.32, 0, Math.PI * 0.24);
     rig.add(ringMid);
 
     const ringInnerGeom = new THREE.TorusGeometry(2.58, 0.005, 10, isMobile ? 64 : 110);
-    const ringInner = new THREE.Mesh(ringInnerGeom, silverHairlineMat);
+    const ringInner = new THREE.Mesh(ringInnerGeom, platinumHairlineMat);
     ringInner.rotation.set(Math.PI * 0.18, -Math.PI * 0.4, 0);
     rig.add(ringInner);
 
@@ -290,8 +303,8 @@ export function MonolithScene({
     }));
     rig.add(shardInstanced);
 
-    // 5. Atmospheric Depth Particles (single draw call)
-    const particleCount = isMobile ? 160 : 380;
+    // 5. Atmospheric Crimson Depth Particles
+    const particleCount = isMobile ? 140 : 340;
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
@@ -305,7 +318,7 @@ export function MonolithScene({
     const particleGeom = new THREE.BufferGeometry();
     particleGeom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     const particleMat = new THREE.PointsMaterial({
-      color: new THREE.Color("#d9b984"),
+      color: new THREE.Color("#E11D38"),
       size: isMobile ? 0.025 : 0.022,
       transparent: true,
       opacity: 0.48,
@@ -315,22 +328,21 @@ export function MonolithScene({
     scene.add(particles);
 
     // 6. Chiaroscuro Studio Lighting
-    const ambient = new THREE.AmbientLight(0x1b1b22, 1.5);
+    const ambient = new THREE.AmbientLight(0x1b1b22, 1.45);
     scene.add(ambient);
 
-    const keyLight = new THREE.DirectionalLight(0xf2f0eb, 2.4);
+    const keyLight = new THREE.DirectionalLight(0xf1f2f4, 2.2);
     keyLight.position.set(-4.5, 5.5, 4.5);
     scene.add(keyLight);
 
-    const goldRim = new THREE.DirectionalLight(0xc5a572, 3.6);
-    goldRim.position.set(4.8, 2.0, -2.5);
-    scene.add(goldRim);
+    const crimsonRim = new THREE.DirectionalLight(0xe11d38, 3.8);
+    crimsonRim.position.set(4.8, 2.0, -2.5);
+    scene.add(crimsonRim);
 
-    const underFill = new THREE.PointLight(0xc5a572, 2.2, 14);
+    const underFill = new THREE.PointLight(0xc81e32, 2.4, 14);
     underFill.position.set(0, -3.5, 2.8);
     scene.add(underFill);
 
-    // Pointer parallax state (desktop fine pointer only)
     const targetPointer = { x: 0, y: 0 };
     const currentPointer = { x: 0, y: 0 };
     const hasFinePointer = window.matchMedia(
@@ -362,7 +374,6 @@ export function MonolithScene({
 
     window.addEventListener("resize", handleResize);
 
-    // Smoothly interpolated choreography helper
     let smoothedScroll = scrollProgressRef.current;
     let smoothedVelocity = 0;
     let smoothedDir = langDirRef.current;
@@ -384,7 +395,6 @@ export function MonolithScene({
       let ringSpread = mobile ? 1.18 : 1.08;
 
       if (p < 0.2) {
-        // Hero -> Statement: orbits smoothly out from behind portrait into manifesto open space
         const t = p / 0.2;
         targetX = THREE.MathUtils.lerp(
           mobile ? 0 : 2.28 * dirSign,
@@ -396,7 +406,6 @@ export function MonolithScene({
         rigScale = THREE.MathUtils.lerp(mobile ? 0.66 : 0.92, mobile ? 0.84 : 1.0, t);
         ringSpread = THREE.MathUtils.lerp(mobile ? 1.18 : 1.08, 1.15, t);
       } else if (p < 0.5) {
-        // Statement -> Chronicle: frames sticky chronicle sidebar cleanly
         const t = (p - 0.2) / 0.3;
         targetX = THREE.MathUtils.lerp(
           mobile ? 0 : -1.65 * dirSign,
@@ -405,18 +414,16 @@ export function MonolithScene({
         );
         targetY = THREE.MathUtils.lerp(0.08, -0.04, t);
         targetZ = THREE.MathUtils.lerp(-0.55, -0.45, t);
-        rigScale = mobile ? 0.86 : 1.0;
+        rigScale = mobile ? 0.84 : 1.0;
         ringSpread = THREE.MathUtils.lerp(1.15, 1.06, t);
       } else if (p < 0.82) {
-        // Chronicle -> Selected Works: expands into a luminous central orbital halo
         const t = (p - 0.5) / 0.32;
         targetX = THREE.MathUtils.lerp(mobile ? 0 : -1.35 * dirSign, 0, t);
         targetY = THREE.MathUtils.lerp(-0.04, 0.2, t);
         targetZ = THREE.MathUtils.lerp(-0.45, -1.75, t);
-        rigScale = THREE.MathUtils.lerp(mobile ? 0.86 : 1.0, mobile ? 0.95 : 1.16, t);
+        rigScale = THREE.MathUtils.lerp(mobile ? 0.84 : 1.0, mobile ? 0.95 : 1.16, t);
         ringSpread = THREE.MathUtils.lerp(1.06, 1.32, t);
       } else {
-        // Works -> AI Systems & Closing equilibrium
         const t = (p - 0.82) / 0.18;
         targetX = THREE.MathUtils.lerp(0, mobile ? 0 : 1.45 * dirSign, t);
         targetY = THREE.MathUtils.lerp(0.2, -0.02, t);
@@ -430,7 +437,6 @@ export function MonolithScene({
       rig.position.z = targetZ;
       rig.scale.setScalar(rigScale);
 
-      // Subtle camera FOV breathing with scroll velocity
       const baseFov = mobile ? 46 : 38;
       const targetFov = baseFov + Math.min(vel * 3.8, 4.5);
       if (Math.abs(camera.fov - targetFov) > 0.02) {
@@ -439,7 +445,6 @@ export function MonolithScene({
       }
       camera.lookAt(currentPointer.x * 0.12, -currentPointer.y * 0.08, 0);
 
-      // Dual-counter-rotation of outer obsidian shell and inner gold core
       const velocityBoost = vel * 0.45;
       outerMonolith.rotation.y = p * Math.PI * 2.8 + elapsed * 0.14 + velocityBoost;
       outerMonolith.rotation.x =
@@ -450,9 +455,8 @@ export function MonolithScene({
 
       innerCore.rotation.y = -(p * Math.PI * 3.6 + elapsed * 0.24 + velocityBoost * 1.4);
       innerCore.rotation.x = Math.cos(p * Math.PI * 2.0) * 0.22;
-      innerGoldMat.emissiveIntensity = 0.42 + Math.min(vel * 0.9, 0.8);
+      innerCrimsonMat.emissiveIntensity = 0.62 + Math.min(vel * 0.95, 0.9);
 
-      // 3-Axis Astrolabe Gimbal choreography
       ringOuterGroup.scale.setScalar(ringSpread);
       ringOuterGroup.rotation.z = elapsed * 0.18 + p * Math.PI * 1.6 + velocityBoost * 0.6;
       ringOuterGroup.rotation.y = Math.PI * 0.14 + p * 1.15;
@@ -465,7 +469,6 @@ export function MonolithScene({
       ringInner.rotation.z = -elapsed * 0.09 + p * Math.PI * 0.9;
       ringInner.rotation.x = Math.PI * 0.18 + Math.cos(p * Math.PI) * 0.25;
 
-      // Update orbiting shards cleanly via single InstancedMesh
       for (let i = 0; i < shardCount; i++) {
         const s = shardData[i];
         const angle = s.phase + elapsed * s.speed + p * Math.PI * 2.2;
@@ -482,13 +485,18 @@ export function MonolithScene({
       }
       shardInstanced.instanceMatrix.needsUpdate = true;
 
-      // Corona shader uniforms + depth dust drift
       coronaUniforms.uTime.value = elapsed;
       coronaUniforms.uScroll.value = p;
       coronaUniforms.uVelocity.value = Math.min(vel, 1.2);
 
       particles.rotation.y = elapsed * 0.03 + p * 0.85;
       particles.position.y = -p * 1.6;
+    };
+
+    materialToggleRef.current = {
+      outerMat: outerObsidianMat,
+      edgeMat,
+      renderNow: () => renderer.render(scene, camera),
     };
 
     const stepFrame = () => {
@@ -539,6 +547,7 @@ export function MonolithScene({
     document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
+      materialToggleRef.current = null;
       if (frameId) window.cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibility);
@@ -551,7 +560,7 @@ export function MonolithScene({
       outerCoreGeom.dispose();
       outerObsidianMat.dispose();
       innerCoreGeom.dispose();
-      innerGoldMat.dispose();
+      innerCrimsonMat.dispose();
       edgeGeom.dispose();
       edgeMat.dispose();
       axisGeom.dispose();
@@ -561,8 +570,8 @@ export function MonolithScene({
       ringInnerGeom.dispose();
       tickGeom.dispose();
       tickInstanced.dispose();
-      goldMetalMat.dispose();
-      silverHairlineMat.dispose();
+      crimsonMetalMat.dispose();
+      platinumHairlineMat.dispose();
       shardGeom.dispose();
       shardInstanced.dispose();
       particleGeom.dispose();

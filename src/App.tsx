@@ -16,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
+  const [wireframeMode, setWireframeMode] = useState(false);
   const scrollProgressRef = useRef<number>(0);
   const scrollVelocityRef = useRef<number>(0);
   const lenisRef = useRef<Lenis | null>(null);
@@ -99,13 +100,18 @@ export default function App() {
     setLang((prev) => (prev === "en" ? "ar" : "en"));
   }, []);
 
+  const handleToggle3dMode = useCallback(() => {
+    setWireframeMode((prev) => !prev);
+  }, []);
+
   return (
-    <div className="relative min-h-[100dvh] bg-[#050505] text-[#F2F0EB]">
+    <div className="relative min-h-[100dvh] bg-[#050505] text-[#F1F2F4]">
       <div className="noise-overlay" aria-hidden="true" />
       <MonolithScene
         scrollProgressRef={scrollProgressRef}
         scrollVelocityRef={scrollVelocityRef}
         lang={lang}
+        wireframeMode={wireframeMode}
       />
       <ScrollTelemetry
         lang={lang}
@@ -114,7 +120,9 @@ export default function App() {
       />
       <Navbar
         lang={lang}
+        wireframeMode={wireframeMode}
         onToggleLang={handleToggleLang}
+        onToggle3dMode={handleToggle3dMode}
         onNavigate={handleNavigate}
       />
 
