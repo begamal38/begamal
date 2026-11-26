@@ -548,8 +548,8 @@ export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedT
 ];
 
 /**
- * Sorted by lifecycle tier: Active partners first (Al-Qersh, Mohamed Samy, EL3SAL,
- * Hossam Fekry, Khatwa), followed by New studios (Obolus, THE ARCHITECT OF REALITY),
+ * Sorted by lifecycle tier: Active partners first (Al-Qersh, Mohamed Samy, Hossam Fekry,
+ * EL3SAL, Khatwa), followed by New studios (Obolus, THE ARCHITECT OF REALITY),
  * and Ended corporate/commercial engagements cleanly labeled.
  */
 export const CASE_STUDIES: CaseStudy[] = [
@@ -636,45 +636,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    id: "el3sal",
-    title: { en: "EL3SAL Crepe & Pizza", ar: "مطعم العسال" },
-    status: "active",
-    period: { en: "QSR Partner", ar: "شريك قطاع المطاعم" },
-    category: "retail_hospitality",
-    discipline: {
-      en: "Menu Architecture · QSR Campaigns · Meta Funnels",
-      ar: "هندسة القائمة · حملات المطاعم · مسارات الطلب",
-    },
-    image: "/assets/clients/el3sal.jpg",
-    isMedallion: true,
-    summary: {
-      en: "Complete 140+ item menu redesign paired with high-tempo food craft reels and Meta CTR Messages conversion funnels engineered to turn views into direct orders.",
-      ar: "إعادة تصميم شاملة لقائمة طعام تضم أكثر من 140 صنفاً لتعزيز وضوح الاختيار ورفع متوسط قيمة الطلب، مقترنة بمقاطع مرئية سريعة الإيقاع ومسارات تحويل عبر رسائل ميتا للطلب المباشر.",
-    },
-    deliverables: {
-      en: [
-        "Full 140+ item menu restructuring for clarity and higher ticket value",
-        "Signature QSR campaigns built around bold seasonal launches",
-        "Craft food reels paired with direct Meta CTR Messages conversion funnels",
-      ],
-      ar: [
-        "إعادة هيكلة قائمة طعام تضم أكثر من 140 صنفاً بوضوح يرفع متوسط الفاتورة",
-        "حملات إطلاق رئيسية تركز على المنتجات المميزة والنكهات الجديدة",
-        "مقاطع مرئية احترافية مرتبطة بمسارات رسائل مباشرة لتحقيق الطلبات",
-      ],
-    },
-    campaigns: {
-      en: ["THE CRAVING STANDARD", "RANCH TAKES OVER", "140+ Item Menu"],
-      ar: ["معيار المذاق الرفيع", "حملة صوص الرانش", "قائمة 140+ صنف"],
-    },
-    links: [
-      {
-        label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
-        url: "https://www.facebook.com/EL3salFoods/",
-      },
-    ],
-  },
-  {
     id: "hossam-fekry",
     title: { en: "Hossam Fekry Platform", ar: "منصة حسام فكري التعليمية" },
     status: "active",
@@ -714,6 +675,45 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
         url: "https://www.facebook.com/mr.hossamfekry/",
+      },
+    ],
+  },
+  {
+    id: "el3sal",
+    title: { en: "EL3SAL Crepe & Pizza", ar: "مطعم العسال" },
+    status: "active",
+    period: { en: "QSR Partner", ar: "شريك قطاع المطاعم" },
+    category: "retail_hospitality",
+    discipline: {
+      en: "Menu Architecture · QSR Campaigns · Meta Funnels",
+      ar: "هندسة القائمة · حملات المطاعم · مسارات الطلب",
+    },
+    image: "/assets/clients/el3sal.jpg",
+    isMedallion: true,
+    summary: {
+      en: "Complete 140+ item menu redesign paired with high-tempo food craft reels and Meta CTR Messages conversion funnels engineered to turn views into direct orders.",
+      ar: "إعادة تصميم شاملة لقائمة طعام تضم أكثر من 140 صنفاً لتعزيز وضوح الاختيار ورفع متوسط قيمة الطلب، مقترنة بمقاطع مرئية سريعة الإيقاع ومسارات تحويل عبر رسائل ميتا للطلب المباشر.",
+    },
+    deliverables: {
+      en: [
+        "Full 140+ item menu restructuring for clarity and higher ticket value",
+        "Signature QSR campaigns built around bold seasonal launches",
+        "Craft food reels paired with direct Meta CTR Messages conversion funnels",
+      ],
+      ar: [
+        "إعادة هيكلة قائمة طعام تضم أكثر من 140 صنفاً بوضوح يرفع متوسط الفاتورة",
+        "حملات إطلاق رئيسية تركز على المنتجات المميزة والنكهات الجديدة",
+        "مقاطع مرئية احترافية مرتبطة بمسارات رسائل مباشرة لتحقيق الطلبات",
+      ],
+    },
+    campaigns: {
+      en: ["THE CRAVING STANDARD", "RANCH TAKES OVER", "140+ Item Menu"],
+      ar: ["معيار المذاق الرفيع", "حملة صوص الرانش", "قائمة 140+ صنف"],
+    },
+    links: [
+      {
+        label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
+        url: "https://www.facebook.com/EL3salFoods/",
       },
     ],
   },
