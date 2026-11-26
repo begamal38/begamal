@@ -1,8 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   ArrowUpRight,
-  Check,
-  Copy,
   FacebookLogo,
   InstagramLogo,
   Play,
@@ -29,7 +27,6 @@ export function SystemsAndContactSection({
   onToggleLang,
 }: SystemsAndContactSectionProps) {
   const systemsRef = useRef<HTMLElement>(null);
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -58,16 +55,6 @@ export function SystemsAndContactSection({
 
     return () => ctx.revert();
   }, [lang]);
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(PORTFOLIO_IDENTITY.email);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2200);
-    } catch {
-      window.location.href = `mailto:${PORTFOLIO_IDENTITY.email}`;
-    }
-  };
 
   return (
     <>
@@ -129,85 +116,54 @@ export function SystemsAndContactSection({
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 lg:items-end">
-              {/* Primary Direct Channels */}
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href={PORTFOLIO_IDENTITY.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-titanium group inline-flex items-center gap-2.5 rounded-full py-2.5 ps-5 pe-2.5 text-sm font-semibold transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
-                >
+            <div className="grid w-full grid-cols-2 gap-3 lg:w-auto lg:shrink-0">
+              <a
+                href={PORTFOLIO_IDENTITY.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-titanium group inline-flex items-center justify-between gap-2.5 rounded-full py-2.5 ps-4 pe-2.5 text-sm font-semibold transition-all duration-300 active:scale-[0.98] whitespace-nowrap sm:justify-center sm:ps-5"
+              >
+                <span className="inline-flex items-center gap-2">
                   <WhatsappLogo size={18} weight="fill" className="text-[#050505]" />
                   <span>{UI_COPY.contact.whatsappCta[lang]}</span>
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                    <ArrowUpRight size={14} weight="bold" />
-                  </span>
-                </a>
+                </span>
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <ArrowUpRight size={14} weight="bold" />
+                </span>
+              </a>
 
-                <a
-                  href={PORTFOLIO_IDENTITY.facebookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#151822] px-4 py-2.5 text-xs font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap sm:text-sm"
-                >
-                  <FacebookLogo size={16} weight="regular" className="text-[#D4D7DD]" />
-                  <span>{UI_COPY.contact.facebookCta[lang]}</span>
-                  <span dir="ltr" className="font-mono-code text-[11px] text-[#9AA2B0]">
-                    @begamal
-                  </span>
-                  <ArrowUpRight size={14} weight="bold" className="opacity-70" />
-                </a>
+              <a
+                href={PORTFOLIO_IDENTITY.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
+              >
+                <FacebookLogo size={17} weight="regular" className="text-[#D4D7DD]" />
+                <span>{UI_COPY.contact.facebookCta[lang]}</span>
+                <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+              </a>
 
-                <a
-                  href={PORTFOLIO_IDENTITY.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#151822] px-4 py-2.5 text-xs font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap sm:text-sm"
-                >
-                  <InstagramLogo size={16} weight="regular" className="text-[#D4D7DD]" />
-                  <span>{UI_COPY.contact.instagramCta[lang]}</span>
-                  <span dir="ltr" className="font-mono-code text-[11px] text-[#9AA2B0]">
-                    @begamal
-                  </span>
-                  <ArrowUpRight size={14} weight="bold" className="opacity-70" />
-                </a>
-              </div>
+              <a
+                href={PORTFOLIO_IDENTITY.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
+              >
+                <InstagramLogo size={17} weight="regular" className="text-[#D4D7DD]" />
+                <span>{UI_COPY.contact.instagramCta[lang]}</span>
+                <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+              </a>
 
-              {/* Portfolio Reel & Email Copy Row */}
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href={PORTFOLIO_IDENTITY.vimeoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#12151E] px-4 py-2.5 text-xs font-medium text-[#D4D7DD] transition-all hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
-                >
-                  <Play size={13} weight="fill" />
-                  <span>{UI_COPY.contact.vimeoCta[lang]}</span>
-                  <ArrowUpRight size={13} weight="bold" className="opacity-70" />
-                </a>
-
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#12151E] px-4 py-2.5 font-mono-code text-xs font-medium text-[#D4D7DD] transition-all hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
-                >
-                  {copied ? (
-                    <>
-                      <Check size={14} weight="bold" className="text-[#F4F5F7]" />
-                      <span>{UI_COPY.contact.copiedEmail[lang]}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={14} weight="regular" />
-                      <span>
-                        {lang === "en" ? "Copy " : "نسخ "}
-                        <span dir="ltr">{PORTFOLIO_IDENTITY.email}</span>
-                      </span>
-                    </>
-                  )}
-                </button>
-              </div>
+              <a
+                href={PORTFOLIO_IDENTITY.vimeoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
+              >
+                <Play size={14} weight="fill" className="text-[#D4D7DD]" />
+                <span>{UI_COPY.contact.vimeoCta[lang]}</span>
+                <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+              </a>
             </div>
           </div>
 
@@ -220,8 +176,8 @@ export function SystemsAndContactSection({
             <div className="flex items-center gap-4">
               <span className="font-mono-code text-xs text-[#9CA3AF]">
                 {lang === "en"
-                  ? "Creative Direction & AI Systems"
-                  : "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي"}
+                  ? "Marketing Direction & AI Systems"
+                  : "الـ Marketing Direction وأنظمة الذكاء الاصطناعي"}
               </span>
 
               <button

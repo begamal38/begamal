@@ -95,7 +95,10 @@ export function StatementSection({ lang }: StatementSectionProps) {
             <line x1="187.5" y1="81" x2="52.5" y2="159" opacity="0.6" />
           </svg>
           <div className="statement-block relative rounded-[calc(2rem-0.375rem)] bg-[#11141B]/94 p-6 sm:p-10">
-            <h2 className="font-editorial text-2xl font-medium leading-[1.48] tracking-[-0.01em] text-[#F4F5F7] sm:text-4xl lg:text-[2.45rem]">
+            <p className="mb-4 font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#9CA3AF]">
+              {UI_COPY.statement.eyebrow[lang]}
+            </p>
+            <h2 className="font-editorial text-2xl font-medium leading-[1.45] tracking-[-0.01em] text-[#F4F5F7] sm:text-4xl lg:text-[2.35rem]">
               {words.map((word, index) => (
                 <span key={`${lang}-${word}-${index}`}>
                   <span className="scrub-word inline-block">{word}</span>
