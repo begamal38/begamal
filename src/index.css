@@ -128,19 +128,19 @@ html[lang="ar"] .font-editorial {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Portrait low-key chiaroscuro dissolve into #050505 */
+/* Portrait low-key studio vignette dissolving cleanly without crystal bleed */
 .portrait-mask {
   -webkit-mask-image: radial-gradient(
-    ellipse 64% 68% at 50% 46%,
-    rgba(0, 0, 0, 1) 28%,
-    rgba(0, 0, 0, 0.55) 56%,
-    rgba(0, 0, 0, 0) 86%
+    ellipse 68% 72% at 50% 45%,
+    rgba(0, 0, 0, 1) 48%,
+    rgba(0, 0, 0, 0.68) 68%,
+    rgba(0, 0, 0, 0) 94%
   );
   mask-image: radial-gradient(
-    ellipse 64% 68% at 50% 46%,
-    rgba(0, 0, 0, 1) 28%,
-    rgba(0, 0, 0, 0.55) 56%,
-    rgba(0, 0, 0, 0) 86%
+    ellipse 68% 72% at 50% 45%,
+    rgba(0, 0, 0, 1) 48%,
+    rgba(0, 0, 0, 0.68) 68%,
+    rgba(0, 0, 0, 0) 94%
   );
 }
 

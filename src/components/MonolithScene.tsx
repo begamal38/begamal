@@ -242,18 +242,18 @@ export function MonolithScene({
     const outerCoreGeom = new THREE.OctahedronGeometry(1.36, 1);
     outerCoreGeom.scale(0.56, 1.36, 0.56);
     const outerQuartzMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#cfd6e6"),
-      metalness: 0.18,
-      roughness: 0.09,
-      transmission: isMobile ? 0.62 : 0.84,
-      thickness: 1.45,
+      color: new THREE.Color("#7f899d"),
+      metalness: 0.2,
+      roughness: 0.12,
+      transmission: isMobile ? 0.58 : 0.78,
+      thickness: 1.5,
       ior: 1.544,
-      attenuationColor: new THREE.Color("#646c7d"),
-      attenuationDistance: 3.1,
+      attenuationColor: new THREE.Color("#3a4254"),
+      attenuationDistance: 2.6,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.06,
-      reflectivity: 0.96,
-      envMapIntensity: 2.1,
+      clearcoatRoughness: 0.08,
+      reflectivity: 0.94,
+      envMapIntensity: 1.95,
       flatShading: true,
     });
     const outerMonolith = new THREE.Mesh(outerCoreGeom, outerQuartzMat);
@@ -261,9 +261,9 @@ export function MonolithScene({
 
     const outerEdgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
     const outerEdgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#E8ECF5"),
+      color: new THREE.Color("#DCE2EE"),
       transparent: true,
-      opacity: 0.52,
+      opacity: 0.44,
     });
     const outerEdges = new THREE.LineSegments(outerEdgeGeom, outerEdgeMat);
     outerEdges.scale.setScalar(1.006);
@@ -561,27 +561,27 @@ export function MonolithScene({
       dirSign: number
     ) => {
       const mobile = window.innerWidth < 768;
-      let targetX = mobile ? 0.0 : 2.42 * dirSign;
-      let targetY = mobile ? 1.42 : 0.02;
-      let targetZ = mobile ? -2.45 : -1.48;
-      let rigScale = mobile ? 0.66 : 0.92;
-      let ringSpread = mobile ? 1.18 : 1.08;
+      let targetX = mobile ? 0.0 : 2.52 * dirSign;
+      let targetY = mobile ? 1.54 : -0.06;
+      let targetZ = mobile ? -2.95 : -2.05;
+      let rigScale = mobile ? 0.64 : 0.96;
+      let ringSpread = mobile ? 1.24 : 1.18;
 
       if (p < 0.2) {
         const t = p / 0.2;
         targetX = THREE.MathUtils.lerp(
-          mobile ? 0 : 2.42 * dirSign,
+          mobile ? 0 : 2.52 * dirSign,
           mobile ? 0 : -1.65 * dirSign,
           t
         );
-        targetY = THREE.MathUtils.lerp(mobile ? 1.42 : 0.02, 0.08, t);
-        targetZ = THREE.MathUtils.lerp(mobile ? -2.45 : -1.48, -0.55, t);
+        targetY = THREE.MathUtils.lerp(mobile ? 1.54 : -0.06, 0.08, t);
+        targetZ = THREE.MathUtils.lerp(mobile ? -2.95 : -2.05, -0.55, t);
         rigScale = THREE.MathUtils.lerp(
-          mobile ? 0.66 : 0.92,
+          mobile ? 0.64 : 0.96,
           mobile ? 0.84 : 1.0,
           t
         );
-        ringSpread = THREE.MathUtils.lerp(mobile ? 1.18 : 1.08, 1.15, t);
+        ringSpread = THREE.MathUtils.lerp(mobile ? 1.24 : 1.18, 1.15, t);
       } else if (p < 0.5) {
         const t = (p - 0.2) / 0.3;
         targetX = THREE.MathUtils.lerp(

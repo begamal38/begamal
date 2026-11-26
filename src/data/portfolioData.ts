@@ -34,6 +34,7 @@ export interface ChronicleEntry {
     en: string[];
     ar: string[];
   };
+  links?: ClientLink[];
 }
 
 export interface ClientLink {
@@ -103,8 +104,8 @@ export const PORTFOLIO_IDENTITY = {
     ar: "Marketing Direction · مدير إبداعي · مهندس أنظمة إنتاج",
   },
   heroSubtext: {
-    en: "Marketing Direction Architect, Creative Director, and AI Production Systems Builder. Self-started in 2016 running Facebook ad campaigns independently before corporate leadership (Vodafone, Majorel, Chubb Life) and building subconscious brand positioning that leaves an unshakeable commanding impression.",
-    ar: "مهندس Marketing Direction، ومدير إبداعي، وباني أنظمة إنتاج بالذكاء الاصطناعي. بدأت رحلتي في التسويق الإلكتروني عام 2016 بإطلاق حملات إعلانات فيسبوك لنفسي قبل القيادة المؤسسية، أصمم الرسائل الباطنية والتوجيه التسويقي الذي يترك انطباعاً قيادياً سيادياً حاسماً في ذهن العميل.",
+    en: "Marketing Direction Architect, Creative Director, and AI Production Systems Builder. Self-started in 2016 running Facebook ad campaigns independently before corporate leadership (Vodafone, Majorel, Chubb Life) and building commercial positioning systems that drive measurable demand.",
+    ar: "مهندس Marketing Direction، ومدير إبداعي، وباني أنظمة إنتاج بالذكاء الاصطناعي. بدأت رحلتي في التسويق الإلكتروني عام 2016 بإطلاق حملات إعلانات فيسبوك لنفسي قبل القيادة المؤسسية، أبني استراتيجيات الـ Marketing Direction وحملات النمو لتعزيز حضور العلامات التجارية وتحقيق مبيعات مباشرة.",
   },
   bornLabel: { en: "Born July 20, 1995", ar: "مواليد 20 يوليو 1995" },
   originLocation: { en: "Beni Suef, Egypt", ar: "بني سويف، مصر" },
@@ -121,12 +122,12 @@ export const PORTFOLIO_IDENTITY = {
     ar: "عشر سنوات · Marketing Direction وتنفيذ",
   },
   trackSub: {
-    en: "Telecom, Firmware QA, Insurance, TV & Film, Retail, QSR, Beauty, EdTech & AI Media",
+    en: "Telecom, Firmware QA, Insurance, TV & Film, Retail, F&B, Beauty, EdTech & AI Media",
     ar: "الاتصالات · اختبار البرمجيات · التأمين · التلفزيون · التجزئة · المطاعم · التجميل · التعليم · وميديا الذكاء الاصطناعي",
   },
   pointOfView: {
-    en: "Marketing Direction starts below the surface. I engineer the subtle subconscious cues and psychological framing that leave buyers with one unquestioned final impression of brand authority.",
-    ar: "التوجيه التسويقي الحقيقي (Marketing Direction) يبدأ تحت السطح: أصمم الرسائل الباطنية والإشارات النفسية الدقيقة التي تصنع انطباعاً سيادياً نهائياً لا يتزعزع لسلطة العلامة في ذهن المشتري.",
+    en: "Clarity beats noise. Every brand I lead starts with sharp Marketing Direction, grounded buyer insight, and disciplined execution that earns lasting market trust.",
+    ar: "الفكرة الواضحة تغلب الزحمة. كل براند أقوده يبدأ بـ Marketing Direction حاسم، وفهم حقيقي للسوق والمشتري، وتنفيذ منضبط يصنع ثقة دائمة وحضوراً قوياً للعلامة.",
   },
   inspirationLabel: { en: "Creative Influence", ar: "الإلهام الإبداعي" },
   inspirationText: {
@@ -135,8 +136,8 @@ export const PORTFOLIO_IDENTITY = {
   },
   lensLabel: { en: "Marketing Direction Lens", ar: "عدسة الـ Marketing Direction" },
   lensText: {
-    en: "Fuses subconscious buyer psychology, commanding market positioning, commercial sales discipline, and automated production systems so every visual and word reinforces ultimate brand authority.",
-    ar: "دمج الرسائل الباطنية وسيكولوجية المشتري مع الانضباط التجاري الميداني ومنظومات الإنتاج، بحيث يرسخ كل مشهد وكل جملة الانطباع السيادي النهائي للعلامة.",
+    en: "Combines frontline commercial sales leadership with crisp market positioning and automated production systems across brands and documentary channels.",
+    ar: "دمج القيادة التجارية الميدانية مع بناء التموضع التسويقي الدقيق ومنظومات الإنتاج الحديثة عبر العلامات التجارية والقنوات.",
   },
   portraitPath: "/assets/portrait.jpg",
   showreelPosterPath: "/assets/showreel-poster.jpg",
@@ -184,8 +185,8 @@ export const UI_COPY = {
       ar: "مختارات الإعلانات والأفلام والإخراج الإبداعي",
     },
     showreelSubtitle: {
-      en: "Campaign films, commercial spots, and visual storytelling directed across hospitality, retail, corporate, and architecture accounts.",
-      ar: "حملات مصورة وإعلانات تجارية وأفلام علامات تجارية عبر قطاعات الضيافة والتجزئة والشركات والمشاريع المعمارية.",
+      en: "Campaign films, commercial spots, and visual storytelling directed across commercial retail, F&B, corporate, and architecture accounts.",
+      ar: "حملات مصورة وإعلانات تجارية وأفلام علامات تجارية عبر قطاعات التجزئة والمطاعم والشركات والمشاريع المعمارية.",
     },
     showreelCta: {
       en: "Watch Full Showreel on Vimeo",
@@ -210,8 +211,8 @@ export const UI_COPY = {
     eyebrow: { en: "Direct Channel", ar: "القناة المباشرة" },
     title: { en: "Work With Belal", ar: "التعاون والعمل المباشر" },
     subtitle: {
-      en: "For Marketing Direction built on subconscious buyer psychology and commanding market authority, or automated AI production pipelines, initiate direct contact below.",
-      ar: "لقيادة الـ Marketing Direction المبني على الرسائل الباطنية وبناء الانطباع السيادي النهائي لعلامتك، أو هندسة منظومات الإنتاج بالذكاء الاصطناعي، يمكنك بدء التواصل مباشرة.",
+      en: "For Marketing Direction anchored in clear positioning and commercial growth, or automated AI media pipelines, initiate direct contact below.",
+      ar: "لقيادة الـ Marketing Direction وبناء تموضع تجاري مؤثر لعلامتك، أو هندسة منظومات الإنتاج بالذكاء الاصطناعي، يمكنك بدء التواصل مباشرة.",
     },
     whatsappCta: { en: "WhatsApp Direct", ar: "واتساب مباشر" },
     facebookCta: { en: "Facebook", ar: "فيسبوك" },
@@ -319,12 +320,12 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     id: "vodafone-wasla-2017",
     period: { en: "2017", ar: "2017" },
     role: {
-      en: "Enterprise Customer Operations",
-      ar: "عمليات عملاء الشركات (قطاع الأعمال)",
+      en: "Corporate Authorized Customer Operations (Queue 247)",
+      ar: "خدمة عملاء مفوضي الشركات Authorized · أكونت 247",
     },
     organization: {
-      en: "Vodafone Business Call Center, Wasla",
-      ar: "مركز اتصال فودافون بيزنس · شركة وصلة",
+      en: "Vodafone Business 247 · Authorized Corporate Accounts (Wasla)",
+      ar: "فودافون بيزنس 247 · مفوضو الشركات Authorized (شركة وصلة)",
     },
     location: {
       en: "Al-Korba, Heliopolis, Cairo",
@@ -338,19 +339,19 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Frontline enterprise customer operations for Vodafone Business in Cairo, mastering high-stakes communication, objection handling, and commercial client psychology.",
-      ar: "العمل في الخطوط الأمامية لعمليات عملاء الشركات في فودافون بيزنس بالقاهرة، وإتقان مهارات التواصل المهني تحت الضغط، ومعالجة الاعتراضات، وفهم سيكولوجية صناع القرار.",
+      en: "Served on Vodafone Business Queue 247 in Cairo handling Corporate Authorized representatives exclusively, mastering high-stakes B2B account resolution, objection handling, and direct decision-maker communication.",
+      ar: "العمل على أكونت 247 في فودافون بيزنس بالقاهرة المخصص لخدمة عملاء مفوضي الشركات (Authorized)، مع إدارة حسابات قطاع الأعمال وحل الاعتراضات والتواصل المباشر مع مسؤولي ومفوضي الشركات.",
     },
     highlights: {
       en: [
-        "Al-Korba, Heliopolis operations floor",
-        "Enterprise communication and objection handling",
-        "Real-time commercial client psychology",
+        "Vodafone Business Queue 247 · Corporate Authorized Representatives desk at Al-Korba, Heliopolis",
+        "High-stakes B2B account communication and direct objection resolution",
+        "Real-world fluency with corporate decision-makers prior to leading agency and HR accounts",
       ],
       ar: [
-        "العمل الميداني بمركز عمليات الكوربة في مصر الجديدة",
-        "إتقان التواصل المؤسسي ومعالجة اعتراضات العملاء بكفاءة",
-        "فهم سيكولوجية العميل التجاري في المواقف التفاوضية المباشرة",
+        "أكونت فودافون بيزنس 247 المخصص لخدمة عملاء مفوضي الشركات (Authorized) بمقر الكوربة، مصر الجديدة",
+        "إدارة استفسارات وطلبات حسابات قطاع الأعمال والتفاوض الاحترافي وحل الاعتراضات",
+        "خبرة مباشرة في التعامل مع صناع القرار بالشركات قبل الانتقال لإدارة الوكالات والتوظيف",
       ],
     },
   },
@@ -375,7 +376,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Served as Creative Director at Chance Media (founded by actor Ahmed Akl), crafting TV scripts and conceptual Marketing Direction, notably writing and directing the 3-version ad campaign for Noorina LED bulbs factory built around the subconscious hook «Before changing your clothes, change your lighting», alongside launching SECTOR 09 Advertising Agency.",
+      en: "Served as Creative Director at Chance Media (founded by actor Ahmed Akl), crafting TV scripts and Marketing Direction, notably writing and directing the 3-version ad campaign for Noorina LED bulbs factory built around the creative hook «Before changing your clothes, change your lighting», alongside launching SECTOR 09 Advertising Agency.",
       ar: "توليت منصب المدير الإبداعي في وكالة تشانس ميديا (التي أسسها الفنان أحمد عقل)، قدت خلالها صياغة المفاهيم الإعلانية والـ Marketing Direction ونصوص الإعلانات التلفزيونية، وأبرزها كتابة وتنفيذ حملة إعلانية من 3 نسخ لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بالتوازي مع تأسيس وكالة سيكتور 09.",
     },
     highlights: {
@@ -408,7 +409,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Led Marketing Direction, content production, and high-volume campaigns for Al-Attar Group through August 2021, closing the engagement with the bold flagship campaign «Whoever Doesn't Renew Dies Out» (archived on Vimeo).",
+      en: "Led Marketing Direction, content production, and high-volume campaigns for Al-Attar Group through August 2021, closing the engagement with the flagship campaign «Elly Magadedsh Mat» («Whoever Doesn't Renew Dies Out»).",
       ar: "قيادة الـ Marketing Direction وصناعة المحتوى والحملات التجارية عالية الكثافة لمجموعة العطار حتى ختام التعاقد في أغسطس 2021 بحملة «اللي مجددش مات» الموثقة على Vimeo.",
     },
     highlights: {
@@ -423,13 +424,22 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "تعزيز الانتشار الإقليمي عبر خطوط التجزئة والجملة على مدار ثلاث سنوات",
       ],
     },
+    links: [
+      {
+        label: {
+          en: "Watch «Elly Magadedsh Mat» (Vimeo)",
+          ar: "شاهد حملة «اللي مجددش مات» · Vimeo",
+        },
+        url: "https://vimeo.com/476741375",
+      },
+    ],
   },
   {
     id: "majorel-vodafone-2019-2021",
     period: { en: "2019 - Aug 2021", ar: "2019 - أغسطس 2021" },
     role: {
-      en: "HR Recruitment Specialist (Through Aug 2021 · Top Achiever)",
-      ar: "أخصائي توظيف وموارد بشرية (حتى أغسطس 2021 · الأعلى تحقيقاً)",
+      en: "HR Recruitment Specialist · High-Attrition BPO Hiring (Top Achiever)",
+      ar: "أخصائي توظيف وموارد بشرية · بيئات الكول سنتر عالية الدوران (الأعلى تحقيقاً)",
     },
     organization: {
       en: "Majorel Egypt (Global CX & BPO) · Smart Village, Beni Suef",
@@ -456,21 +466,30 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Joined Smart Village in Beni Suef in 2019 on Vodafone's 888 queue before earning promotion to HR Recruitment Specialist at global BPO leader Majorel, recruiting for Vodafone and Uber through August 2021 and hiring ~550 employees in 2020 as Top Achiever.",
-      ar: "التحقت بالقرية الذكية في بني سويف عام 2019 ضمن صف 888 في فودافون، ثم تمت ترقيتي إلى أخصائي توظيف وموارد بشرية في شركة ماجوريل العالمية لحسابات فودافون وأوبر حتى أغسطس 2021، حيث عينت نحو 550 موظفاً في عام 2020 كالأعلى تحقيقاً في الفريق.",
+      en: "Started at Smart Village in Beni Suef in 2019 on Vodafone's 888 queue, then promoted to HR Recruitment Specialist at global BPO leader Majorel through August 2021. Solved high-attrition and retention-challenged call center staffing for Vodafone and Uber, hiring ~550 employees in 2020 as Top Achiever, and even produced an employer-branding promo film showcasing the Smart Village work environment to attract and retain talent.",
+      ar: "انطلقت بالقرية الذكية في بني سويف عام 2019 على خط 888 في فودافون، ثم ترقيت إلى أخصائي توظيف وموارد بشرية في ماجوريل العالمية حتى أغسطس 2021. قدت استقطاب وتعيين الكوادر في بيئة كول سنتر ذات معدل دوران وظيفي (Attrition) مرتفع وتحديات استبقاء (Retention) حقيقية لحسابات فودافون وأوبر، وحققت ~550 تعييناً في 2020 كالأعلى تحقيقاً، كما أخرجت فيديو ترويجي يبرز بيئة العمل والأجواء داخل القرية الذكية لجذب الكفاءات.",
     },
     highlights: {
       en: [
-        "Started in 2019 at Smart Village (Beni Suef) on Vodafone 888 before promotion to Majorel HR Recruitment",
-        "Managed recruitment for Uber enterprise accounts (Rider, Driver, Uber Eats) & Vodafone queues (888, Cash, CVM, ADSL)",
-        "Hired ~550 employees in 2020 as Top Achiever before concluding the Smart Village chapter in August 2021",
+        "Engineered high-velocity talent pipelines inside a high-attrition call center environment, sustaining seat fill & retention targets through August 2021",
+        "Hired ~550 employees in 2020 (Top Achiever) across Uber (Rider, Driver, Eats) and Vodafone (888, Cash, CVM, ADSL) enterprise queues",
+        "Directed a promotional Smart Village workplace & atmosphere film in Beni Suef to elevate employer brand perception and candidate conversion",
       ],
       ar: [
-        "الانطلاق عام 2019 في القرية الذكية ببني سويف على خط 888 قبل الترقية لقسم التوظيف في ماجوريل",
-        "إدارة ملفات التوظيف لحسابات أوبر (الركاب، السائقين، أوبر إيتس) وصفوف فودافون (888، كاش، الاحتفاظ، ADSL)",
-        "تعيين نحو 550 موظفاً في عام 2020 والحصول على تكريم الأعلى تحقيقاً قبل ختام فترة القرية الذكية في أغسطس 2021",
+        "بناء قنوات توظيف مستدامة داخل بيئة كول سنتر عالية الدوران (Attrition) لتأمين الاستقرار التشغيلي وتحسين جاهزية الاستبقاء حتى أغسطس 2021",
+        "تعيين نحو 550 موظفاً في عام 2020 (الأعلى تحقيقاً) لحسابات أوبر (Rider, Driver, Eats) وصفوف فودافون (888, Cash, CVM, ADSL)",
+        "توجيه وإنتاج فيلم ترويجي يعكس الأجواء وبيئة العمل داخل القرية الذكية في بني سويف لتعزيز جاذبية العلامة لدى المتقدمين",
       ],
     },
+    links: [
+      {
+        label: {
+          en: "Watch Smart Village Atmosphere Film (Vimeo)",
+          ar: "شاهد فيديو بيئة العمل في القرية الذكية · Vimeo",
+        },
+        url: "https://vimeo.com/397536977",
+      },
+    ],
   },
   {
     id: "chubb-life-2022-2023",
@@ -520,8 +539,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     summary: {
-      en: "Leading end-to-end Marketing Direction since 2020 (starting with Hossam Fekry Platform management, center integration & rewards system), alongside founding brand authority and subconscious buyer framing for Al-Qersh Mobile, Mohamed Samy Works, EL3SAL, and Khatwa Nursery.",
-      ar: "قيادة الـ Marketing Direction الشامل منذ عام 2020 (بدءاً من إدارة منصة حسام فكري وتكامل طلاب السنتر وسيستم المكافآت)، وصولاً إلى بناء الهوية والانطباع السيادي والرسائل الباطنية للقرش موبايل، ومحمد سامي للديكور، ومطعم العسال، وحضانة خطوة.",
+      en: "Leading end-to-end Marketing Direction since 2020 (starting with Hossam Fekry Platform management, center integration & rewards system), alongside building brand identity and growth systems for Al-Qersh Mobile, Mohamed Samy Works, EL3SAL, and Khatwa Nursery.",
+      ar: "قيادة الـ Marketing Direction الشامل منذ عام 2020 (بدءاً من إدارة منصة حسام فكري وتكامل طلاب السنتر وسيستم المكافآت)، وصولاً إلى بناء الهوية وحملات النمو للقرش موبايل، ومحمد سامي للديكور، ومطعم العسال، وحضانة خطوة.",
     },
     highlights: {
       en: [
@@ -572,7 +591,7 @@ export const CLIENT_STATUS_LABELS: Record<ClientStatus, LocalizedText> = {
 
 export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedText }[] = [
   { id: "all", label: { en: "All", ar: "الكل" } },
-  { id: "retail_hospitality", label: { en: "Retail & Hospitality", ar: "التجزئة والضيافة" } },
+  { id: "retail_hospitality", label: { en: "F&B & Lounges", ar: "المطاعم والكافيهات" } },
   { id: "brand_growth", label: { en: "Brand & Campaigns", ar: "العلامات والحملات" } },
   { id: "corporate_tech", label: { en: "Corporate & Tech", ar: "الشركات والتعليم والتقنية" } },
   { id: "beauty_lifestyle", label: { en: "Beauty & Lifestyle", ar: "التجميل وأسلوب الحياة" } },
@@ -590,27 +609,27 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: { en: "Al-Qersh Mobile", ar: "القرش موبايل" },
     status: "active",
     period: { en: "Since 2022", ar: "منذ 2022" },
-    category: "retail_hospitality",
+    category: "brand_growth",
     discipline: {
-      en: "Marketing Direction · Motion Reels · Retail Authority",
-      ar: "Marketing Direction · ريلز موشن · نمو الفروع",
+      en: "Marketing Direction · Mobile Accessories · 3 Branches",
+      ar: "Marketing Direction · إكسسوارات الموبايل · 3 فروع",
     },
     image: "/assets/clients/alqersh.jpg",
     isMedallion: true,
     summary: {
-      en: "Full Marketing Direction and commercial campaigns across 3 Beni Suef branches since 2022, evolving a multi-year subconscious positioning arc from the early slogan «Met-heseb-hash» («Don't Overcalculate»), through «Don't Overthink It, Call El-Qersh», to the flagship «Your Phone Deserves More.. Choose Right».",
-      ar: "قيادة الـ Marketing Direction الكاملة والحملات الإعلانية عبر 3 فروع في بني سويف منذ 2022، عبر تسلسل استراتيجي للرسائل الباطنية بدأ من سلوجن «متحسبهاش» منذ سنوات، ثم حملة «متفكرش.. كلم القرش» (#كلم_القرش)، وصولاً إلى الحملة الأحدث «موبايلك يستاهل أكتر.. اختار صح».",
+      en: "Full Marketing Direction and commercial campaigns for the mobile accessories & electronics brand across 3 Beni Suef branches since 2022, evolving across flagship slogans from «Met-heseb-hash» («Don't Overcalculate»), through «Don't Overthink It, Call El-Qersh», to «Your Phone Deserves More.. Choose Right».",
+      ar: "قيادة الـ Marketing Direction الكاملة والحملات الإعلانية لعلامة القرش لإكسسوارات الهواتف عبر 3 فروع في بني سويف منذ 2022، بتسلسل استراتيجي من سلوجن «متحسبهاش» منذ سنوات، ثم حملة «متفكرش.. كلم القرش» (#كلم_القرش)، وصولاً إلى الحملة الأحدث «موبايلك يستاهل أكتر.. اختار صح».",
     },
     deliverables: {
       en: [
-        "Cohesive Marketing Direction & slogan progression: «Met-heseb-hash» -> «Don't Overthink It, Call El-Qersh» -> «Your Phone Deserves More.. Choose Right»",
-        "Scripted product & retail motion reels («Metro El-Qersh», «El-Basma», 8th Anniversary × Black Friday) across 3 Beni Suef branches",
-        "Audio launches (itel BudsGo / Ace / N63) and subconscious after-sales warranty trust framing",
+        "Cohesive Marketing Direction & slogan arc: «Met-heseb-hash» -> «Don't Overthink It, Call El-Qersh» -> «Your Phone Deserves More.. Choose Right»",
+        "Scripted product & launch motion reels («Metro El-Qersh», «El-Basma», 8th Anniversary × Black Friday) across 3 Beni Suef branches",
+        "Audio launches (itel BudsGo / Ace / N63) and clear after-sales warranty trust campaigns",
       ],
       ar: [
         "بناء خط الـ Marketing Direction وتسلسل الشعارات: «متحسبهاش» ثم «متفكرش.. كلم القرش» حتى «موبايلك يستاهل أكتر.. اختار صح»",
         "كتابة وإخراج ريلز موشن تجارية («مترو القرش»، «البصمة»، وحملات 8 سنين × الجمعة البيضاء) عبر الفروع الثلاثة",
-        "إطلاقات الصوت (itel BudsGo / Ace / N63) وترسيخ الثقة الباطنية في الضمان وما بعد البيع",
+        "إطلاقات الصوت (itel BudsGo / Ace / N63) وحملات إبراز الضمان وخدمة ما بعد البيع",
       ],
     },
     campaigns: {
@@ -637,18 +656,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/mohamed-samy.png",
     isWhitePlate: true,
     summary: {
-      en: "Architected the entire digital brand presence from the ground up and lead its ongoing Marketing Direction (mohamedsamyworks.com), framing residential villas and commercial venues (After 8 Cafe, BUNO Cafe, Pyramids Heights, Zahraa El-Maadi) with engineering authority («Bel-Qalam Wel Mastara»).",
-      ar: "أنا من أسّس وبنى الحضور الرقمي والهوية التجارية لمحمد سامي للديكور بالكامل مع قيادة الـ Marketing Direction عبر موقع mohamedsamyworks.com، لترسيخ هيبة التنفيذ الهندسي («بالقلم والمسطرة») في مشاريع الفيلات والمنشآت مثل After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي.",
+      en: "Architected the digital brand presence from the ground up and lead its Marketing Direction (mohamedsamyworks.com), positioning residential villas and commercial venues (After 8 Cafe, BUNO Cafe, Pyramids Heights, Zahraa El-Maadi) around engineered build precision («Bel-Qalam Wel Mastara»).",
+      ar: "أنا من أسّس وبنى الحضور الرقمي والهوية التجارية لمحمد سامي للديكور بالكامل مع قيادة الـ Marketing Direction عبر موقع mohamedsamyworks.com، لإبراز جودة التنفيذ الهندسي («بالقلم والمسطرة») في مشاريع الفيلات والمنشآت مثل After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي.",
     },
     deliverables: {
       en: [
-        "Complete brand creation & Marketing Direction turning contracting perception into commanding architectural authority",
-        "Built mohamedsamyworks.com digital showroom with subconscious quality framing before cost discussion",
+        "Complete brand creation & Marketing Direction shifting buyer focus from price comparisons to engineered execution quality",
+        "Built mohamedsamyworks.com digital showroom highlighting documented real projects and finishing standards",
         "Commercial venue showcase films for After 8 Cafe, BUNO Cafe, Pyramids Heights, and Zahraa El-Maadi",
       ],
       ar: [
-        "تأسيس العلامة وبناء الـ Marketing Direction بالكامل لنقل الانطباع من مقارنة أسعار المقاولات إلى سلطة التنفيذ الهندسي",
-        "بناء وتوجيه المعرض الرقمي الرسمي mohamedsamyworks.com برسائل جودة ضمنية تسبق أي نقاش سعري",
+        "تأسيس العلامة وبناء الـ Marketing Direction بالكامل لنقل تركيز العميل من مجرد الأسعار إلى جودة التنفيذ الهندسي",
+        "بناء وتوجيه المعرض الرقمي الرسمي mohamedsamyworks.com لتوثيق المشاريع الميدانية ومعايير التشطيب",
         "أفلام عرض ميدانية لمشاريع After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي",
       ],
     },
@@ -940,7 +959,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     links: [
       {
         label: { en: "Campaign Film (Vimeo)", ar: "فيديو الحملة (فيميو)" },
-        url: "https://vimeo.com/begamal",
+        url: "https://vimeo.com/476741375",
       },
       {
         label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
@@ -960,17 +979,17 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     image: "/assets/clients/chance-media.png",
     summary: {
-      en: "Creative Director at Chance Media (founded by actor Ahmed Akl) alongside SECTOR 09. Wrote and directed the 3-version ad campaign for Noorina LED bulbs factory built on the subconscious insight «Before changing your clothes, change your lighting», plus TV commercial scripts for real-estate and medical accounts.",
+      en: "Creative Director at Chance Media (founded by actor Ahmed Akl) alongside SECTOR 09. Wrote and directed the 3-version ad campaign for Noorina LED bulbs factory built around the everyday lighting insight «Before changing your clothes, change your lighting», plus TV commercial scripts for real-estate and medical accounts.",
       ar: "المدير الإبداعي في تشانس ميديا (تأسيس الفنان أحمد عقل) بالتوازي مع سيكتور 09، حيث كتبت وأدرت حملة إعلانية عميقة من 3 نسخ لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بجانب نصوص التلفزيون لعقارات ومراكز طبية.",
     },
     deliverables: {
       en: [
-        "Noorina LED Factory Campaign (3 Ad Versions): reframed lighting perception via the subconscious hook «Before changing your clothes, change your lighting»",
+        "Noorina LED Factory Campaign (3 Ad Versions): shifted customer perspective with the sharp hook «Before changing your clothes, change your lighting»",
         "Television commercial scriptwriting and creative concepting tailored for mass Egyptian audiences",
         "Real-estate launch & medical center campaign direction paired with short films under SECTOR 09",
       ],
       ar: [
-        "حملة مصنع لمبات الليد Noorina (3 نسخ إعلانية): نقل القرار الشرائي من الواط والسعر إلى رسالة باطنية ذكية «قبل ما تغير لبسك، غير إضاءتك»",
+        "حملة مصنع لمبات الليد Noorina (3 نسخ إعلانية): نقل زاوية الإعلان من الواط والسعر إلى فكرة حادة ومباشرة «قبل ما تغير لبسك، غير إضاءتك»",
         "كتابة سيناريوهات إعلانات التلفزيون والمعالجات البصرية للحملات الجماهيرية",
         "توجيه حملات القطاع العقاري والمراكز الطبية وإخراج أفلام قصيرة ضمن وكالة SECTOR 09",
       ],

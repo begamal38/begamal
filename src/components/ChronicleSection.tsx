@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Play } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CAREER_CHRONICLE, Lang, UI_COPY } from "../data/portfolioData";
@@ -205,6 +206,24 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                       </li>
                     ))}
                   </ul>
+
+                  {entry.links && entry.links.length > 0 && (
+                    <div className="mt-5 flex flex-wrap gap-2.5 border-t border-white/[0.07] pt-4">
+                      {entry.links.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#1B1F2C]/90 px-4 py-2 text-xs font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                        >
+                          <Play size={12} weight="fill" />
+                          <span>{link.label[lang]}</span>
+                          <ArrowUpRight size={13} weight="bold" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </article>
               );
             })}

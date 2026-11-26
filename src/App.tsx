@@ -100,7 +100,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-[100dvh] bg-[#050505] text-[#F4F5F7]">
+    <div className="relative min-h-[100dvh] bg-[#0A0B0E] text-[#F4F5F7]">
       <div className="noise-overlay" aria-hidden="true" />
       <MonolithScene
         scrollProgressRef={scrollProgressRef}

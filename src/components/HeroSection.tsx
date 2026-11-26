@@ -101,18 +101,18 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Right/End: Chiaroscuro Monochrome Portrait (Immediately opacity: 1 at scroll = 0) */}
+        {/* Right/End: Studio Monochrome Portrait framed inside orbital halo */}
         <div className="hero-portrait-parallax order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
-          <div className="relative w-[170px] sm:w-[275px] lg:w-[365px]">
+          <div className="relative w-[176px] sm:w-[278px] lg:w-[368px]">
             <div
-              className="pointer-events-none absolute -inset-6 rounded-full opacity-40 blur-3xl"
+              className="pointer-events-none absolute -inset-8 rounded-full opacity-55 blur-3xl"
               style={{
                 background:
-                  "radial-gradient(circle at 60% 35%, rgba(212, 215, 221, 0.16), rgba(5, 5, 5, 0) 68%)",
+                  "radial-gradient(circle at 52% 44%, rgba(196, 206, 224, 0.16), rgba(10, 11, 14, 0) 70%)",
               }}
               aria-hidden="true"
             />
-            <div className="portrait-mask relative aspect-[4/5] w-full overflow-hidden">
+            <div className="portrait-mask relative aspect-[4/5] w-full overflow-hidden rounded-[2rem]">
               <img
                 src={PORTFOLIO_IDENTITY.portraitPath}
                 alt={UI_COPY.hero.portraitAlt[lang]}
@@ -120,13 +120,13 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
                 height={925}
                 loading="eager"
                 decoding="sync"
-                className="h-full w-full object-cover object-top grayscale contrast-[1.18] brightness-[0.95] opacity-100"
+                className="h-full w-full object-cover object-top grayscale contrast-[1.16] brightness-[0.98] opacity-100"
               />
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(ellipse 70% 74% at 50% 45%, rgba(10,11,14,0) 46%, rgba(10,11,14,0.68) 79%, rgba(10,11,14,1) 100%)",
+                    "radial-gradient(ellipse 72% 76% at 50% 45%, rgba(10,11,14,0) 52%, rgba(10,11,14,0.58) 80%, rgba(10,11,14,0.98) 100%)",
                 }}
                 aria-hidden="true"
               />

@@ -419,7 +419,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#161923] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
-                        <span>{UI_COPY.works.visitPage[lang]}</span>
+                        <span>{primaryLink.label[lang]}</span>
                         <ArrowUpRight size={13} weight="bold" />
                       </a>
                     ) : (
