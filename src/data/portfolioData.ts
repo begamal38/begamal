@@ -89,8 +89,8 @@ export const SCROLL_SECTIONS: ScrollSectionMeta[] = [
 export const PORTFOLIO_IDENTITY = {
   brandMark: { en: "BELAL GAMAL", ar: "بلال جمال" },
   pageTitle: {
-    en: "Belal Gamal | Creative Director & AI Production Architect",
-    ar: "بلال جمال | مدير إبداعي ومهندس أنظمة إنتاج بالذكاء الاصطناعي",
+    en: "Belal Gamal | Marketing Direction, Creative Director & AI Architect",
+    ar: "بلال جمال | Marketing Direction، مدير إبداعي ومهندس أنظمة إنتاج",
   },
   name: { en: "Belal Gamal", ar: "بلال جمال" },
   primaryTitle: { en: "Creative Director", ar: "مدير إبداعي" },
@@ -99,44 +99,44 @@ export const PORTFOLIO_IDENTITY = {
     ar: "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي",
   },
   heroEyebrow: {
-    en: "Creative Director · Digital Strategist · AI Architect",
-    ar: "مدير إبداعي · مخطط تسويق رقمي · مهندس أنظمة إنتاج",
+    en: "Marketing Direction · Creative Director · AI Systems",
+    ar: "Marketing Direction · مدير إبداعي · مهندس أنظمة إنتاج",
   },
   heroSubtext: {
-    en: "Creative Director, Digital Marketing Strategist, and AI Production Architect. Self-started in digital marketing back in 2016 running paid Facebook ad campaigns independently before leading commercial direction, corporate teams (Vodafone, Majorel, Chubb Life), and automated media systems.",
-    ar: "مدير إبداعي، ومخطط استراتيجيات تسويق رقمي، ومهندس أنظمة إنتاج بالذكاء الاصطناعي. بدأت رحلتي في التسويق الإلكتروني بجهد ذاتي منذ عام 2016 بإطلاق حملات إعلانات فيسبوك لنفسي، قبل التدرج إلى القيادة المؤسسية (فودافون، ماجوريل، تشب) والتوجيه التجاري ومنظومات الإنتاج المؤتمتة.",
+    en: "Marketing Direction Architect, Creative Director, and AI Production Systems Builder. Self-started in 2016 running Facebook ad campaigns independently before corporate leadership (Vodafone, Majorel, Chubb Life) and building subconscious brand positioning that leaves an unshakeable commanding impression.",
+    ar: "مهندس Marketing Direction، ومدير إبداعي، وباني أنظمة إنتاج بالذكاء الاصطناعي. بدأت رحلتي في التسويق الإلكتروني عام 2016 بإطلاق حملات إعلانات فيسبوك لنفسي قبل القيادة المؤسسية، أصمم الرسائل الباطنية والتوجيه التسويقي الذي يترك انطباعاً قيادياً سيادياً حاسماً في ذهن العميل.",
   },
   bornLabel: { en: "Born July 20, 1995", ar: "مواليد 20 يوليو 1995" },
-  bornCompact: "20.07.1995",
+  originLocation: { en: "Beni Suef, Egypt", ar: "بني سويف، مصر" },
   educationTitle: {
-    en: "B.Sc. in Commerce (2013 - 2017)",
-    ar: "بكالوريوس التجارة (2013 - 2017)",
+    en: "B.Sc. in Commerce & Business Administration",
+    ar: "بكالوريوس تجارة وإدارة أعمال",
   },
   educationSub: {
-    en: "Business Administration (English Section), Beni Suef University",
-    ar: "شعبة اللغة الإنجليزية · إدارة الأعمال · جامعة بني سويف",
+    en: "Beni Suef University · 2013 - 2017",
+    ar: "جامعة بني سويف · 2013 - 2017",
   },
   trackTitle: {
-    en: "10 Years · Multi-Sector Execution",
-    ar: "عشر سنوات · تنفيذ عبر قطاعات متعددة",
+    en: "10 Years · Marketing Direction & Execution",
+    ar: "عشر سنوات · Marketing Direction وتنفيذ",
   },
   trackSub: {
     en: "Telecom, Firmware QA, Insurance, TV & Film, Retail, QSR, Beauty, EdTech & AI Media",
     ar: "الاتصالات · اختبار البرمجيات · التأمين · التلفزيون · التجزئة · المطاعم · التجميل · التعليم · وميديا الذكاء الاصطناعي",
   },
   pointOfView: {
-    en: "Clarity beats noise. Every brand, campaign, and film I direct starts with a sharp point of view and disciplined execution.",
-    ar: "الفكرة الواضحة تغلب الزحمة. كل براند أو حملة أو عمل مرئي يبدأ برؤية مستقلة، قراءة حقيقية للسوق، وتنفيذ منضبط.",
+    en: "Marketing Direction starts below the surface. I engineer the subtle subconscious cues and psychological framing that leave buyers with one unquestioned final impression of brand authority.",
+    ar: "التوجيه التسويقي الحقيقي (Marketing Direction) يبدأ تحت السطح: أصمم الرسائل الباطنية والإشارات النفسية الدقيقة التي تصنع انطباعاً سيادياً نهائياً لا يتزعزع لسلطة العلامة في ذهن المشتري.",
   },
   inspirationLabel: { en: "Creative Influence", ar: "الإلهام الإبداعي" },
   inspirationText: {
     en: "Influenced in advertising direction by Egyptian director Tameem Youness for sharp, unconventional storytelling.",
     ar: "تأثّرت في الإخراج الإعلاني بأسلوب تميم يونس المختلف وقدرته على تقديم فكرة حادة وبسيطة بعيداً عن القوالب المستهلكة.",
   },
-  lensLabel: { en: "Analytical Lens", ar: "العدسة التحليلية" },
+  lensLabel: { en: "Marketing Direction Lens", ar: "عدسة الـ Marketing Direction" },
   lensText: {
-    en: "Combines frontline commercial leadership with critical analysis of economic history, buyer behavior, and media systems across brands and documentary channels.",
-    ar: "دمج القيادة التجارية الميدانية مع التحليل النقدي للتاريخ الاقتصادي وسلوك المشتري وبنية المنظومات الإعلامية عبر العلامات التجارية والقنوات الوثائقية.",
+    en: "Fuses subconscious buyer psychology, commanding market positioning, commercial sales discipline, and automated production systems so every visual and word reinforces ultimate brand authority.",
+    ar: "دمج الرسائل الباطنية وسيكولوجية المشتري مع الانضباط التجاري الميداني ومنظومات الإنتاج، بحيث يرسخ كل مشهد وكل جملة الانطباع السيادي النهائي للعلامة.",
   },
   portraitPath: "/assets/portrait.jpg",
   showreelPosterPath: "/assets/showreel-poster.jpg",
@@ -210,8 +210,8 @@ export const UI_COPY = {
     eyebrow: { en: "Direct Channel", ar: "القناة المباشرة" },
     title: { en: "Work With Belal", ar: "التعاون والعمل المباشر" },
     subtitle: {
-      en: "For independent creative direction, commercial growth campaigns built on real buyer psychology, or automated AI media pipelines, initiate direct contact below.",
-      ar: "لقيادة الإدارة الإبداعية، أو صياغة حملات النمو التجاري المرتكزة على سيكولوجية المشتري، أو بناء منظومات الإنتاج بالذكاء الاصطناعي، يمكنك بدء التواصل مباشرة.",
+      en: "For Marketing Direction built on subconscious buyer psychology and commanding market authority, or automated AI production pipelines, initiate direct contact below.",
+      ar: "لقيادة الـ Marketing Direction المبني على الرسائل الباطنية وبناء الانطباع السيادي النهائي لعلامتك، أو هندسة منظومات الإنتاج بالذكاء الاصطناعي، يمكنك بدء التواصل مباشرة.",
     },
     whatsappCta: { en: "WhatsApp Direct", ar: "واتساب مباشر" },
     facebookCta: { en: "Facebook", ar: "فيسبوك" },
@@ -226,26 +226,26 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     id: "bsc-commerce-2013-2017",
     period: { en: "2013 - 2017", ar: "2013 - 2017" },
     role: {
-      en: "B.Sc. in Commerce · Business Administration",
-      ar: "بكالوريوس التجارة · قسم إدارة الأعمال",
+      en: "B.Sc. in Commerce & Business Administration",
+      ar: "بكالوريوس تجارة وإدارة أعمال",
     },
     organization: {
-      en: "Faculty of Commerce (English Section), Beni Suef University",
-      ar: "كلية التجارة (شعبة اللغة الإنجليزية) · جامعة بني سويف",
+      en: "Beni Suef University",
+      ar: "جامعة بني سويف",
     },
     location: { en: "Beni Suef, Egypt", ar: "بني سويف، مصر" },
     summary: {
-      en: "Graduated in Business Administration (English Section), building the analytical and commercial foundation behind every brand strategy, sales team, and production system directed since.",
-      ar: "التخرج في تخصص إدارة الأعمال باللغة الإنجليزية، مما أرسى القاعدة التجارية والتحليلية التي استندت إليها كافة استراتيجيات العلامات التجارية وقيادة الفرق والأنظمة الإنتاجية لاحقاً.",
+      en: "Earned a Bachelor's degree in Commerce & Business Administration from Beni Suef University, grounding my field campaigns and Marketing Direction work in solid commercial fundamentals.",
+      ar: "الحصول على بكالوريوس تجارة وإدارة أعمال من جامعة بني سويف، مما أرسى القاعدة التجارية والإدارية التي انطلقت منها في التسويق الميداني والـ Marketing Direction لاحقاً.",
     },
     highlights: {
       en: [
-        "Business Administration major taught in English (2013 - 2017)",
-        "Grounded in commercial economics, marketing management, and organizational operations",
+        "B.Sc. in Commerce & Business Administration, Beni Suef University (2013 - 2017)",
+        "Practical grounding in business administration, marketing fundamentals, and commercial operations",
       ],
       ar: [
-        "دراسة تخصص إدارة الأعمال باللغة الإنجليزية خلال الفترة 2013 - 2017",
-        "بناء الأساس العلمي في الإدارة التجارية والتسويق والعمليات المؤسسية",
+        "بكالوريوس تجارة وإدارة أعمال، جامعة بني سويف (2013 - 2017)",
+        "بناء الأساس الإداري والتسويقي والعمليات التجارية الميدانية",
       ],
     },
   },
@@ -375,28 +375,28 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Served as Creative Director at Chance Media (founded by renowned actor Ahmed Akl), leading commercial concepts, TV ad scripts, and campaign direction, alongside launching SECTOR 09 Advertising Agency and directing narrative short films.",
-      ar: "توليت منصب المدير الإبداعي في وكالة تشانس ميديا (التي أسسها الفنان أحمد عقل)، حيث قدت صياغة المفاهيم الإعلانية وكتابة نصوص الإعلانات التلفزيونية والتوجيه الإبداعي للحملات، بالتوازي مع تأسيس وكالة سيكتور 09 وإخراج أفلام روائية قصيرة.",
+      en: "Served as Creative Director at Chance Media (founded by actor Ahmed Akl), crafting TV scripts and conceptual Marketing Direction, notably writing and directing the 3-version ad campaign for Noorina LED bulbs factory built around the subconscious hook «Before changing your clothes, change your lighting», alongside launching SECTOR 09 Advertising Agency.",
+      ar: "توليت منصب المدير الإبداعي في وكالة تشانس ميديا (التي أسسها الفنان أحمد عقل)، قدت خلالها صياغة المفاهيم الإعلانية والـ Marketing Direction ونصوص الإعلانات التلفزيونية، وأبرزها كتابة وتنفيذ حملة إعلانية من 3 نسخ لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بالتوازي مع تأسيس وكالة سيكتور 09.",
     },
     highlights: {
       en: [
-        "Creative Director at Chance Media (founded by actor Ahmed Akl)",
-        "Commercial concepts, TV ad scripts, and real-estate / medical campaigns",
+        "Written & directed 3-version ad campaign for Noorina LED factory: «Before changing your clothes, change your lighting»",
+        "Creative Director at Chance Media (actor Ahmed Akl) spanning TV commercial scripts, real-estate, and medical campaigns",
         "Founded SECTOR 09 Advertising Agency and directed narrative short films",
       ],
       ar: [
-        "مدير إبداعي في وكالة تشانس ميديا (تأسيس الفنان أحمد عقل)",
-        "تطوير المفاهيم التجارية وكتابة نصوص الإعلانات التلفزيونية وحملات العقارات والطب",
+        "كتابة وتوجيه حملة من 3 نسخ إعلانية لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»",
+        "مدير إبداعي في تشانس ميديا (الفنان أحمد عقل) لكتابة إعلانات التلفزيون وحملات العقارات والطب",
         "تأسيس وكالة سيكتور 09 للدعاية والإعلان وإخراج أفلام روائية قصيرة",
       ],
     },
   },
   {
     id: "al-attar-2018-2021",
-    period: { en: "2018 - 2021", ar: "2018 - 2021" },
+    period: { en: "2018 - Aug 2021", ar: "2018 - أغسطس 2021" },
     role: {
-      en: "Digital Marketing & Content Creation",
-      ar: "التسويق الرقمي وصناعة المحتوى",
+      en: "Marketing Direction & Commercial Campaigns",
+      ar: "Marketing Direction والحملات التجارية",
     },
     organization: { en: "Al-Attar Group", ar: "مجموعة العطار" },
     location: { en: "Commercial Retail", ar: "تجارة التجزئة" },
@@ -408,19 +408,19 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Led digital marketing, content creation, and high-volume commercial ad campaigns for Al-Attar Group through 2021.",
-      ar: "قيادة استراتيجيات التسويق الرقمي، وصناعة المحتوى، وإدارة الحملات الإعلانية التجارية عالية الكثافة لمجموعة العطار حتى عام 2021.",
+      en: "Led Marketing Direction, content production, and high-volume campaigns for Al-Attar Group through August 2021, closing the engagement with the bold flagship campaign «Whoever Doesn't Renew Dies Out» (archived on Vimeo).",
+      ar: "قيادة الـ Marketing Direction وصناعة المحتوى والحملات التجارية عالية الكثافة لمجموعة العطار حتى ختام التعاقد في أغسطس 2021 بحملة «اللي مجددش مات» الموثقة على Vimeo.",
     },
     highlights: {
       en: [
-        "Full-scale digital marketing and content production",
-        "High-volume commercial advertising campaigns",
-        "Multi-year brand growth through 2021",
+        "Led Marketing Direction and performance campaigns through August 2021",
+        "Directed closing flagship campaign «Elly Magadedsh Mat» («Whoever Doesn't Renew Dies Out») published on Vimeo",
+        "Scaled multi-year regional demand across retail and wholesale lines",
       ],
       ar: [
-        "إدارة متكاملة للتسويق الرقمي والإنتاج الإعلاني",
-        "تنفيذ حملات إعلانية تجارية واسعة النطاق",
-        "دعم نمو العلامة التجارية على مدار عدة سنوات حتى عام 2021",
+        "قيادة الـ Marketing Direction والحملات التجارية حتى أغسطس 2021",
+        "توجيه الحملة الختامية الشهيرة «اللي مجددش مات» المنشورة على Vimeo",
+        "تعزيز الانتشار الإقليمي عبر خطوط التجزئة والجملة على مدار ثلاث سنوات",
       ],
     },
   },
@@ -511,8 +511,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     id: "independent-director-2020",
     period: { en: "2020 - Present", ar: "2020 - حتى الآن" },
     role: {
-      en: "Independent Creative Director & Growth Partner",
-      ar: "مدير إبداعي مستقل وشريك نمو تجاري",
+      en: "Marketing Direction Architect & Creative Partner",
+      ar: "مهندس Marketing Direction وشريك نمو تجاري",
     },
     organization: {
       en: "Hossam Fekry (Since 2020) · Al-Qersh Mobile · Mohamed Samy · EL3SAL · Khatwa · Sanhok · Yasmine Salah",
@@ -520,17 +520,17 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     summary: {
-      en: "Long-term independent partnerships across EdTech (beginning with Hossam Fekry Platform in 2020), mobile retail (3 branches), interior architecture, QSR hospitality, early education, gaming lounges, and beauty, driving market clarity and measurable client acquisition.",
-      ar: "شراكات تنفيذية مستقلة طويلة الأمد بدأت في قطاع التعليم الإلكتروني مع منصة حسام فكري منذ عام 2020، وامتدت إلى تجارة الهواتف (3 فروع)، والديكور المعماري، والمطاعم، والحضانات، وصالات الألعاب، والتجميل لترسيخ الهوية وتحقيق المبيعات المباشرة.",
+      en: "Leading end-to-end Marketing Direction since 2020 (starting with Hossam Fekry Platform management, center integration & rewards system), alongside founding brand authority and subconscious buyer framing for Al-Qersh Mobile, Mohamed Samy Works, EL3SAL, and Khatwa Nursery.",
+      ar: "قيادة الـ Marketing Direction الشامل منذ عام 2020 (بدءاً من إدارة منصة حسام فكري وتكامل طلاب السنتر وسيستم المكافآت)، وصولاً إلى بناء الهوية والانطباع السيادي والرسائل الباطنية للقرش موبايل، ومحمد سامي للديكور، ومطعم العسال، وحضانة خطوة.",
     },
     highlights: {
       en: [
-        "EdTech growth partnership with Hossam Fekry Platform continuously active since 2020 alongside HossamFekry.com web systems",
-        "Active brand direction across Al-Qersh Mobile (3 branches), Mohamed Samy Works, EL3SAL (140+ item menu), and Khatwa Nursery",
+        "Full platform management & Marketing Direction for Hossam Fekry since 2020 (center QR integration & Rewards Store economy)",
+        "Marketing Direction built from the ground up for Mohamed Samy Works, Al-Qersh Mobile (3 branches), EL3SAL, and Khatwa Nursery",
       ],
       ar: [
-        "شراكة نمو وهوية ممتدة مع منصة حسام فكري منذ عام 2020 بالتوازي مع تجربة hossamfekry.com",
-        "إدارة إبداعية وحملات نشطة للقرش موبايل (3 فروع)، ومحمد سامي، ومطعم العسال (140+ صنف)، وحضانة خطوة",
+        "إدارة منصة حسام فكري والـ Marketing Direction منذ عام 2020 شاملة تكامل طلاب السنتر ومتجر المكافآت",
+        "تأسيس الـ Marketing Direction بالكامل لمحمد سامي للديكور، والقرش موبايل (3 فروع)، والعسال، وخطوة",
       ],
     },
   },
@@ -592,30 +592,30 @@ export const CASE_STUDIES: CaseStudy[] = [
     period: { en: "Since 2022", ar: "منذ 2022" },
     category: "retail_hospitality",
     discipline: {
-      en: "Creative Direction · Motion Reels · Retail Growth",
-      ar: "إدارة إبداعية · ريلز موشن · نمو الفروع",
+      en: "Marketing Direction · Motion Reels · Retail Authority",
+      ar: "Marketing Direction · ريلز موشن · نمو الفروع",
     },
     image: "/assets/clients/alqersh.jpg",
     isMedallion: true,
     summary: {
-      en: "Creative direction, scripted motion reels («Metro El-Qersh», «El-Basma», «1200 Build»), and Meta retail acquisition across 3 physical branches in Beni Suef since 2022 under the brand promise «Choose Right».",
-      ar: "إدارة إبداعية كاملة، وإنتاج ريلز موشن سينمائية («مترو القرش»، «البصمة»، «القرش بيبني الـ1200»)، وحملات استحواذ عبر ميتا لـ 3 فروع في بني سويف منذ عام 2022 تحت شعار «موبايلك يستاهل أكتر… اختار صح».",
+      en: "Full Marketing Direction and commercial campaigns across 3 Beni Suef branches since 2022, evolving a multi-year subconscious positioning arc from the early slogan «Met-heseb-hash» («Don't Overcalculate»), through «Don't Overthink It, Call El-Qersh», to the flagship «Your Phone Deserves More.. Choose Right».",
+      ar: "قيادة الـ Marketing Direction الكاملة والحملات الإعلانية عبر 3 فروع في بني سويف منذ 2022، عبر تسلسل استراتيجي للرسائل الباطنية بدأ من سلوجن «متحسبهاش» منذ سنوات، ثم حملة «متفكرش.. كلم القرش» (#كلم_القرش)، وصولاً إلى الحملة الأحدث «موبايلك يستاهل أكتر.. اختار صح».",
     },
     deliverables: {
       en: [
-        "Unified creative positioning and «#Kallem_ElQersh» retail identity across 3 Beni Suef branches",
-        "Scripted product & launch motion reels («Metro El-Qersh», «El-Basma», 8th Anniversary × Black Friday)",
-        "Audio gear drops (itel BudsGo / Ace / N63) and verified after-sales warranty trust campaigns",
+        "Cohesive Marketing Direction & slogan progression: «Met-heseb-hash» -> «Don't Overthink It, Call El-Qersh» -> «Your Phone Deserves More.. Choose Right»",
+        "Scripted product & retail motion reels («Metro El-Qersh», «El-Basma», 8th Anniversary × Black Friday) across 3 Beni Suef branches",
+        "Audio launches (itel BudsGo / Ace / N63) and subconscious after-sales warranty trust framing",
       ],
       ar: [
-        "توحيد التموضع البصري ورسالة «#كلم_القرش» و«اختار صح» عبر 3 فروع بيع في بني سويف",
-        "كتابة وإخراج ريلز موشن تجارية («مترو القرش»، «البصمة»، وحملات 8 سنين × الجمعة البيضاء)",
-        "إطلاقات إكسسوارات الصوت (itel BudsGo / Ace / N63) وحملات ثقة الضمان وما بعد البيع",
+        "بناء خط الـ Marketing Direction وتسلسل الشعارات: «متحسبهاش» ثم «متفكرش.. كلم القرش» حتى «موبايلك يستاهل أكتر.. اختار صح»",
+        "كتابة وإخراج ريلز موشن تجارية («مترو القرش»، «البصمة»، وحملات 8 سنين × الجمعة البيضاء) عبر الفروع الثلاثة",
+        "إطلاقات الصوت (itel BudsGo / Ace / N63) وترسيخ الثقة الباطنية في الضمان وما بعد البيع",
       ],
     },
     campaigns: {
-      en: ["Choose Right", "Metro Motion Reel", "8th Anniversary", "After-Sales Trust"],
-      ar: ["اختار صح", "مترو القرش", "الذكرى الثامنة", "ثقة الضمان"],
+      en: ["Choose Right", "Call El-Qersh", "Met-heseb-hash", "Metro Motion Reel"],
+      ar: ["اختار صح", "متفكرش كلم القرش", "متحسبهاش", "مترو القرش"],
     },
     links: [
       {
@@ -631,30 +631,30 @@ export const CASE_STUDIES: CaseStudy[] = [
     period: { en: "Since 2022", ar: "منذ 2022" },
     category: "brand_growth",
     discipline: {
-      en: "Engineering Positioning · Digital Showroom · Project Films",
-      ar: "التموضع الهندسي · المعرض الرقمي · أفلام المشاريع",
+      en: "Marketing Direction · Brand Building · Project Films",
+      ar: "تأسيس الهوية · Marketing Direction · أفلام المشاريع",
     },
     image: "/assets/clients/mohamed-samy.png",
     isWhitePlate: true,
     summary: {
-      en: "Engineering-first digital positioning, website direction (mohamedsamyworks.com), and on-site architectural storytelling across executed villas and commercial landmarks including After 8 Cafe, BUNO Cafe, Pyramids Heights, and Zahraa El-Maadi.",
-      ar: "بناء تموضع هندسي رفيع المستوى، وتوجيه الموقع الإلكتروني (mohamedsamyworks.com)، وسرد بصري ميداني للمشاريع المنفذة من فيلات ومنشآت تجارية أبرزها After 8 Cafe، وBUNO Cafe، وبيراميدز هايتس، وزهراء المعادي.",
+      en: "Architected the entire digital brand presence from the ground up and lead its ongoing Marketing Direction (mohamedsamyworks.com), framing residential villas and commercial venues (After 8 Cafe, BUNO Cafe, Pyramids Heights, Zahraa El-Maadi) with engineering authority («Bel-Qalam Wel Mastara»).",
+      ar: "أنا من أسّس وبنى الحضور الرقمي والهوية التجارية لمحمد سامي للديكور بالكامل مع قيادة الـ Marketing Direction عبر موقع mohamedsamyworks.com، لترسيخ هيبة التنفيذ الهندسي («بالقلم والمسطرة») في مشاريع الفيلات والمنشآت مثل After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي.",
     },
     deliverables: {
       en: [
-        "High-ticket positioning shifting buyer focus from price quotes to engineered build discipline («Bel-Qalam Wel Mastara»)",
-        "Direction of mohamedsamyworks.com digital showroom featuring executed case documentation",
-        "Commercial venue showcase films highlighting After 8 Cafe, BUNO Cafe, and Pyramids Heights",
+        "Complete brand creation & Marketing Direction turning contracting perception into commanding architectural authority",
+        "Built mohamedsamyworks.com digital showroom with subconscious quality framing before cost discussion",
+        "Commercial venue showcase films for After 8 Cafe, BUNO Cafe, Pyramids Heights, and Zahraa El-Maadi",
       ],
       ar: [
-        "تموضع هندسي ينقل قرار العميل من المقارنة السعرية إلى انضباط التنفيذ («بالقلم والمسطرة»)",
-        "تصميم وتوجيه المعرض الرقمي الرسمي mohamedsamyworks.com لتوثيق المشاريع الميدانية",
-        "أفلام عرض لمشاريع الديكور التجاري والسكني: After 8 Cafe وBUNO Cafe وبيراميدز هايتس",
+        "تأسيس العلامة وبناء الـ Marketing Direction بالكامل لنقل الانطباع من مقارنة أسعار المقاولات إلى سلطة التنفيذ الهندسي",
+        "بناء وتوجيه المعرض الرقمي الرسمي mohamedsamyworks.com برسائل جودة ضمنية تسبق أي نقاش سعري",
+        "أفلام عرض ميدانية لمشاريع After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي",
       ],
     },
     campaigns: {
-      en: ["Engineered Finishing", "After 8 Cafe & BUNO", "mohamedsamyworks.com"],
-      ar: ["بالقلم والمسطرة", "After 8 Cafe وBUNO", "المعرض الرقمي"],
+      en: ["Marketing Direction", "Engineered Finishing", "After 8 Cafe & BUNO"],
+      ar: ["Marketing Direction", "بالقلم والمسطرة", "After 8 Cafe وBUNO"],
     },
     links: [
       {
@@ -674,30 +674,30 @@ export const CASE_STUDIES: CaseStudy[] = [
     period: { en: "Since 2020", ar: "منذ 2020" },
     category: "corporate_tech",
     discipline: {
-      en: "Since 2020 Growth Partner · EdTech UX · Student Reels",
-      ar: "شريك نمو منذ 2020 · تجربة المنصة · ريلز الطلاب",
+      en: "Platform Management · Center Integration · Rewards System",
+      ar: "إدارة المنصة · تكامل طلاب السنتر · سيستم المكافأة",
     },
     image: "/assets/clients/hossam-fekry.png",
     isWhitePlate: true,
     summary: {
-      en: "Six-year continuous creative and digital partnership since 2020 building the nationwide chemistry brand, engineering hossamfekry.com experience Architecture, and producing weekly chemistry lesson reels that convert Thanawiya Amma students every academic cycle.",
-      ar: "شراكة ممتدة منذ عام 2020 لبناء الحضور الرقمي والهوية التعليمية في الكيمياء على مستوى الجمهورية، وتطوير تجربة المنصة التفاعلية hossamfekry.com، وإنتاج ريلز الدروس الأسبوعية وحملات التسجيل الطلابي.",
+      en: "Managing the Hossam Fekry Platform and leading its Marketing Direction since 2020: unifying offline center student attendance (QR self check-in & group enrollment sync) with online learning, server-verified points, and the Rewards Store economy on hossamfekry.com.",
+      ar: "إدارة منصة حسام فكري وقيادة الـ Marketing Direction منذ عام 2020 بصورة متكاملة: ربط وتكامل طلاب السنتر مع التعلم الإلكتروني (تسجيل الحضور عبر QR والربط الإلزامي بمجموعات السنتر)، وتشغيل سيستم المكافأة والنقاط ومتجر الجوائز عبر hossamfekry.com.",
     },
     deliverables: {
       en: [
-        "Long-term creative direction & annual Thanawiya Amma enrollment strategy running continuously since 2020",
-        "Custom scroll-driven web platform design & ongoing engineering on hossamfekry.com",
-        "Weekly chemistry explanation reels paired with structured visual hook packaging and Arabic captions",
+        "End-to-end platform management & Marketing Direction running since 2020",
+        "Center Student Integration: QR session self check-in (/attendance/checkin), center-group access alignment & attendance sync",
+        "Rewards System & Points Economy: server-verified study points (1x focus, exams, center QR, Cairo streaks) driving the tiered Rewards Store",
       ],
       ar: [
-        "شراكة توجيه إبداعي واستراتيجية تسجيل سنوية لطلاب الثانوية العامة ممتدة منذ عام 2020",
-        "هندسة وتطوير تجربة الويب التفاعلية الخاصة بالمنصة على نطاق hossamfekry.com",
-        "إنتاج أسبوعي لريلز شروحات الكيمياء مع معالجة بصرية موحدة وحملات الاستقطاب الطلابي",
+        "إدارة المنصة التعليمية بالكامل وقيادة الـ Marketing Direction وحملات الثانوية العامة منذ 2020",
+        "تكامل طلاب السنتر: نظام التحقق بالـ QR لحضور الحصص، ومواءمة مجموعات السنتر مع المحتوى الإلكتروني، ومزامنة الالتزام",
+        "سيستم المكافأة والنقاط: احتساب نقاط موثق للتركيز والامتحانات وحضور السنتر وسلاسل الاستمرار المرتبط بمتجر جوائز متدرج",
       ],
     },
     campaigns: {
-      en: ["Partner Since 2020", "hossamfekry.com", "Chemistry Reels Engine"],
-      ar: ["شريك منذ 2020", "منصة hossamfekry.com", "ريلز الكيمياء"],
+      en: ["Center QR Integration", "Rewards System", "Since 2020 · Marketing Direction"],
+      ar: ["تكامل طلاب السنتر", "سيستم المكافأة", "إدارة منذ 2020"],
     },
     links: [
       {
@@ -717,30 +717,30 @@ export const CASE_STUDIES: CaseStudy[] = [
     period: { en: "QSR Partner", ar: "شريك قطاع المطاعم" },
     category: "retail_hospitality",
     discipline: {
-      en: "140+ Menu Architecture · Craft Reels · Direct Meta Orders",
-      ar: "هندسة قائمة 140+ صنف · ريلز الطعام · مسارات الطلب المباشر",
+      en: "Marketing Direction · 50% Takeaway «Khud We Emshy» · 140+ Menu",
+      ar: "Marketing Direction · حملة خد وامشي 50% · قائمة 140+ صنف",
     },
     image: "/assets/clients/el3sal.jpg",
     isMedallion: true,
     summary: {
-      en: "Complete re-architecture of a 140+ item Beni Suef menu (crepe, pizza, pasta, and Syrian sandwiches) aligned with a custom visual identity, paired with high-tempo kitchen craft reels and Meta CTR Messages funnels turning scrollers into hot orders.",
-      ar: "إعادة بناء شاملة لقائمة طعام تضم أكثر من 140 صنفاً (كريب، بيتزا، مكرونات، وساندويتشات سوري) مع هوية لونية موحدة في بني سويف، مقترنة بريلز مطبخ عالية الإيقاع («العسال × سيستم») ومسارات ميتا للطلب الفوري.",
+      en: "Marketing Direction and conversion funnels for EL3SAL in Beni Suef: highlighted by the 2nd Anniversary campaign «Khud We Emshy» («Grab & Go» 50% off takeaway), complete 140+ item menu redesign, and high-tempo food reels feeding Meta order funnels.",
+      ar: "قيادة الـ Marketing Direction وبناء مسارات الطلب لمطعم العسال في بني سويف: أبرزها حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على التيك أواي، وإعادة هندسة قائمة تضم أكثر من 140 صنفاً مع ريلز المطبخ لتحقيق طلبات فورية.",
     },
     deliverables: {
       en: [
-        "Structured 140+ SKU digital & print menu engineering designed to maximize add-ons and average basket size",
-        "High-tempo food craft & signature offer reels («EL3SAL × System», Chicken Ranch, Doner Crunchy)",
-        "Performance Meta CTR Messages campaigns geo-targeted for rapid takeaway and delivery orders",
+        "Directed 2nd Anniversary «Khud We Emshy» («Grab & Go») campaign built around 50% off takeaway volume peaks",
+        "Full Marketing Direction & 140+ item menu restructuring maximizing add-ons and average basket value",
+        "High-tempo food craft reels («EL3SAL × System», Chicken Ranch, Doner Crunchy) paired with Meta CTR Messages funnels",
       ],
       ar: [
-        "هيكلة قائمة تضم 140+ صنفاً رقمياً ومطبوعاً لرفع وضوح الاختيار وزيادة متوسط الفاتورة",
-        "إنتاج ريلز تحضير الطعام والإطلاقات المميزة («العسال × سيستم»، تشيكن رانش، دونر كرانشي)",
-        "حملات ميتا جغرافية موجهة إلى مسارات الرسائل لتحويل المشاهدات إلى طلبات توصيل سريعة",
+        "قيادة حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على طلبات التيك أواي لتنشيط التدفق الفوري على الفرع",
+        "Marketing Direction متكامل وإعادة هيكلة قائمة 140+ صنفاً لرفع وضوح الاختيار وقيمة الفاتورة",
+        "ريلز تحضير الطعام السريعة («العسال × سيستم»، تشيكن رانش، دونر كرانشي) الموصولة بمسارات رسائل الطلب",
       ],
     },
     campaigns: {
-      en: ["140+ Item Menu", "EL3SAL × System", "Meta Order Funnels"],
-      ar: ["قائمة 140+ صنف", "العسال × سيستم", "مسارات الطلب"],
+      en: ["Khud We Emshy · 50% Off", "2nd Anniversary", "140+ Item Menu"],
+      ar: ["خد وامشي · خصم 50%", "عيد الميلاد الثاني", "قائمة 140+ صنف"],
     },
     links: [
       {
@@ -909,35 +909,39 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: "al-attar-group",
     title: { en: "Al-Attar Group", ar: "مجموعة العطار" },
     status: "ended",
-    period: { en: "2018 - 2021", ar: "2018 - 2021" },
+    period: { en: "2018 - Aug 2021", ar: "2018 - أغسطس 2021" },
     category: "brand_growth",
     discipline: {
-      en: "Performance Media · Content Direction · Catalog Growth",
-      ar: "تسويق الأداء · توجيه المحتوى · حملات الكتالوج",
+      en: "Marketing Direction · Closing Campaign · Performance Scale",
+      ar: "Marketing Direction · الحملة الختامية · تسويق الأداء",
     },
     image: "/assets/clients/attar-group.jpg",
     isWhitePlate: true,
     summary: {
-      en: "Directed performance social advertising, product showcase production, and multi-season demand campaigns for Al-Attar Group from 2018 through 2021, scaling regional awareness across wholesale and retail product lines.",
-      ar: "إدارة الحملات الإعلانية الممولة، وإنتاج محتوى عرض المنتجات، وتنفيذ المواسم الترويجية لمجموعة العطار خلال الفترة من 2018 حتى 2021 لتوسيع الانتشار الإقليمي عبر خطوط البيع بالتجزئة والجملة.",
+      en: "Led Marketing Direction, performance advertising, and brand content for Al-Attar Group through August 2021, concluding the engagement with the bold flagship campaign «Elly Magadedsh Mat» («Whoever Doesn't Renew Dies Out»), documented on Vimeo.",
+      ar: "قيادة الـ Marketing Direction والحملات الممولة وصناعة المحتوى لمجموعة العطار حتى ختام التعاقد في أغسطس 2021، والذي تُوّج بالحملة الختامية «اللي مجددش مات» الموثق إعلانها على منصة فيميو.",
     },
     deliverables: {
       en: [
-        "Multi-year paid Facebook & Instagram demand generation across diverse consumer SKUs",
-        "Product photography direction and offer-driven commercial graphics scaled across seasonal peaks",
-        "Continuous regional audience expansion connecting brick-and-mortar supply with digital buyers",
+        "Multi-year Marketing Direction and performance campaigns running cleanly through August 2021",
+        "Scripted & directed closing flagship campaign «Whoever Doesn't Renew Dies Out» (archived on Vimeo)",
+        "Product showcase direction & regional retail/wholesale buyer acquisition",
       ],
       ar: [
-        "إدارة حملات فيسبوك وإنستجرام الممولة عبر مختلف خطوط المنتجات طوال 3 سنوات",
-        "الإشراف على تصوير المنتجات وتصميم الحملات الموسمية عالية التفاعل",
-        "توسيع قاعدة المشترين إقليمياً وربط نقاط البيع المباشر بحركة الطلب الرقمي",
+        "قيادة الـ Marketing Direction والحملات الممولة على مدار ثلاث سنوات حتى أغسطس 2021",
+        "تنفيذ وتوجيه الحملة الختامية الجريئة «اللي مجددش مات» مع نشر الفيديو الإعلاني على فيميو",
+        "الإشراف على عرض المنتجات وتوسيع الانتشار التجاري في التجزئة والجملة",
       ],
     },
     campaigns: {
-      en: ["Paid Demand Scale", "Seasonal Catalog", "2018 - 2021"],
-      ar: ["توسع الإعلانات", "العروض الموسمية", "2018 - 2021"],
+      en: ["Whoever Doesn't Renew Dies Out", "Ended Aug 2021", "Marketing Direction"],
+      ar: ["اللي مجددش مات", "ختام أغسطس 2021", "Marketing Direction"],
     },
     links: [
+      {
+        label: { en: "Campaign Film (Vimeo)", ar: "فيديو الحملة (فيميو)" },
+        url: "https://vimeo.com/begamal",
+      },
       {
         label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
         url: "https://www.facebook.com/attargroup1999",
@@ -951,29 +955,29 @@ export const CASE_STUDIES: CaseStudy[] = [
     period: { en: "2018", ar: "2018" },
     category: "brand_growth",
     discipline: {
-      en: "Agency Creative Director · TV Scripts · SECTOR 09",
-      ar: "المدير الإبداعي للوكالة · نصوص تلفزيونية · سيكتور 09",
+      en: "Agency Creative Director · Noorina LED 3-Spot Campaign · TV Scripts",
+      ar: "المدير الإبداعي · حملة Noorina 3 نسخ · نصوص تلفزيونية",
     },
     image: "/assets/clients/chance-media.png",
     summary: {
-      en: "Appointed Creative Director at Chance Media (founded by actor Ahmed Akl), authoring television commercial scripts and campaign treatments across real-estate developments and medical clinics alongside launching SECTOR 09.",
-      ar: "شغلت منصب المدير الإبداعي بوكالة تشانس ميديا (التي أسسها الفنان أحمد عقل)، حيث كتبت نصوص إعلانات تلفزيونية وأدرت المعالجة الإعلانية لحملات عقارية وطبية، بالتوازي مع إطلاق وكالة SECTOR 09.",
+      en: "Creative Director at Chance Media (founded by actor Ahmed Akl) alongside SECTOR 09. Wrote and directed the 3-version ad campaign for Noorina LED bulbs factory built on the subconscious insight «Before changing your clothes, change your lighting», plus TV commercial scripts for real-estate and medical accounts.",
+      ar: "المدير الإبداعي في تشانس ميديا (تأسيس الفنان أحمد عقل) بالتوازي مع سيكتور 09، حيث كتبت وأدرت حملة إعلانية عميقة من 3 نسخ لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بجانب نصوص التلفزيون لعقارات ومراكز طبية.",
     },
     deliverables: {
       en: [
-        "Concept development & television commercial scriptwriting tailored for mass Egyptian viewership",
-        "Creative direction for real-estate development launches and specialized medical center campaigns",
-        "Agency production supervision alongside independent short film direction under SECTOR 09",
+        "Noorina LED Factory Campaign (3 Ad Versions): reframed lighting perception via the subconscious hook «Before changing your clothes, change your lighting»",
+        "Television commercial scriptwriting and creative concepting tailored for mass Egyptian audiences",
+        "Real-estate launch & medical center campaign direction paired with short films under SECTOR 09",
       ],
       ar: [
-        "كتابة سيناريوهات الإعلانات التلفزيونية وصياغة الزوايا الإبداعية المخاطبة للجمهور العام",
-        "توجيه حملات الإطلاق للمشاريع العقارية والمراكز الطبية المتخصصة",
-        "الإشراف على التنفيذ الإنتاجي للوكالة بالتوازي مع إخراج أعمال مستقلة عبر سيكتور 09",
+        "حملة مصنع لمبات الليد Noorina (3 نسخ إعلانية): نقل القرار الشرائي من الواط والسعر إلى رسالة باطنية ذكية «قبل ما تغير لبسك، غير إضاءتك»",
+        "كتابة سيناريوهات إعلانات التلفزيون والمعالجات البصرية للحملات الجماهيرية",
+        "توجيه حملات القطاع العقاري والمراكز الطبية وإخراج أفلام قصيرة ضمن وكالة SECTOR 09",
       ],
     },
     campaigns: {
-      en: ["TV Scripts", "Real Estate & Medical", "SECTOR 09"],
-      ar: ["نصوص التلفزيون", "العقارات والطب", "سيكتور 09"],
+      en: ["Noorina LED (3 Versions)", "Change Your Lighting", "TV Scripts & SECTOR 09"],
+      ar: ["Noorina · 3 نسخ إعلانية", "قبل ما تغير لبسك غير إضاءتك", "تلفزيون وسيكتور 09"],
     },
     links: [
       {

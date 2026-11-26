@@ -135,8 +135,8 @@ export function StatementSection({ lang }: StatementSectionProps) {
             <p className="mt-2 text-base font-medium text-[#F4F5F7]">
               {PORTFOLIO_IDENTITY.bornLabel[lang]}
             </p>
-            <p className="mt-1 font-mono-code text-xs text-[#9CA3AF]">
-              {PORTFOLIO_IDENTITY.bornCompact}
+            <p className="mt-1 text-sm text-[#9CA3AF]">
+              {PORTFOLIO_IDENTITY.originLocation[lang]}
             </p>
           </div>
 
