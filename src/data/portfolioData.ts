@@ -48,6 +48,7 @@ export interface CaseStudy {
   image?: string;
   isWhitePlate?: boolean;
   isMedallion?: boolean;
+  isPortraitMedallion?: boolean;
   monogram?: string;
   summary: LocalizedText;
   deliverables: {
@@ -253,6 +254,14 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "شركة تكنو موبايل · اختبار سوفت وير كامون C9 وإدارة المنتدى الرسمي",
     },
     location: { en: "Egypt", ar: "مصر" },
+    logos: [
+      {
+        src: "/assets/clients/tecno.png",
+        alt: { en: "TECNO Mobile", ar: "شعار تكنو موبايل" },
+        bg: "#FFFFFF",
+        wide: true,
+      },
+    ],
     summary: {
       en: "Tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 software build alongside official forum moderation, while entering digital marketing in 2016.",
       ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل الإطلاق الرسمي لكل طراز، مع المساهمة المباشرة في تطوير إصدار هاتف تكنو كامون C9 (حملة \"السيلفي حكاية\") بالتوازي مع إدارة المنتدى الرسمي وانطلاقة التسويق الرقمي عام 2016.",
@@ -472,7 +481,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "مدير إبداعي مستقل وشريك نمو تجاري",
     },
     organization: {
-      en: "Al-Qersh Mobile · Mohamed Samy · EL3SAL · Hossam Fikry · Sanhok · Yasmine Salah · Khatwa",
+      en: "Al-Qersh Mobile · Mohamed Samy · EL3SAL · Hossam Fekry · Sanhok · Yasmine Salah · Khatwa",
       ar: "القرش موبايل · محمد سامي · العسال · منصة حسام فكري · سانهوك · ياسمين صلاح · خطوة",
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
@@ -483,7 +492,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     highlights: {
       en: [
         "Long-term creative direction for Al-Qersh Mobile (3 branches), Mohamed Samy Works, and EL3SAL (140+ item menu & Meta funnels)",
-        "Multi-sector execution across Hossam Fikry Platform, Sanhok, Yasmine Salah, and Khatwa Academy",
+        "Multi-sector execution across Hossam Fekry Platform, Sanhok, Yasmine Salah, and Khatwa Academy",
       ],
       ar: [
         "إدارة إبداعية طويلة الأمد لعلامة القرش موبايل (3 فروع)، ومحمد سامي، ومطعم العسال (قائمة 140+ صنف)",
@@ -531,7 +540,7 @@ export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedT
 
 /**
  * Sorted with active flagship clients FIRST (Al-Qersh, Mohamed Samy, EL3SAL,
- * Hossam Fikry, Obolus), followed by corporate & historical milestones.
+ * Hossam Fekry, Obolus), followed by corporate & historical milestones.
  */
 export const CASE_STUDIES: CaseStudy[] = [
   {
@@ -653,8 +662,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    id: "hossam-fikry",
-    title: { en: "Hossam Fikry Platform", ar: "منصة حسام فكري التعليمية" },
+    id: "hossam-fekry",
+    title: { en: "Hossam Fekry Platform", ar: "منصة حسام فكري التعليمية" },
     period: { en: "Active · EdTech Platform", ar: "مستمر · منصة تعليمية" },
     category: "corporate_tech",
     discipline: {
@@ -664,7 +673,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/hossam-fekry.png",
     isWhitePlate: true,
     summary: {
-      en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fikry educational platform.",
+      en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fekry educational platform.",
       ar: "التوجيه البصري، وحملات التسجيل الطلابي على مستوى الجمهورية، والهندسة المستمرة لتجربة المستخدم عبر منصة حسام فكري التعليمية.",
     },
     deliverables: {
@@ -854,7 +863,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Pre-Release Firmware QA · Beta Testing · Community",
       ar: "اختبار البرمجيات قبل الإطلاق · ضمان الجودة · إدارة المجتمع",
     },
-    monogram: "C9",
+    image: "/assets/clients/tecno.png",
+    isWhitePlate: true,
     summary: {
       en: "Pre-release software beta tester for TECNO Mobile per device model, contributing directly to stabilizing and refining the flagship TECNO Camon C9 release alongside official forum moderation.",
       ar: "اختبار النسخ التجريبية لبرمجيات هواتف تكنو موبايل قبل الإطلاق لكل طراز، مع المساهمة المباشرة في تطوير وتحسين إصدار هاتف تكنو كامون C9 (حملة \"السيلفي حكاية\") وإدارة المنتدى الرسمي.",
@@ -1000,7 +1010,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Beauty Positioning · Social Growth · Bookings",
       ar: "تموضع قطاع التجميل · النمو الرقمي · الحجوزات",
     },
-    monogram: "YS",
+    image: "/assets/clients/yasmine-salah.jpg",
+    isPortraitMedallion: true,
     summary: {
       en: "Strategic social positioning and digital growth for Makeup Artist Yasmine Salah, connecting high-craft beauty showcases directly with bridal and client bookings.",
       ar: "بناء تموضع استراتيجي وحضور رقمي رفيع المستوى لخبيرة التجميل ياسمين صلاح، يربط جودة الأعمال المقدمة مباشرة باستقطاب حجوزات العرائس والعميلات.",
@@ -1023,8 +1034,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     links: [
       {
-        label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
-        url: "https://www.facebook.com/profile.php?id=100057476078591",
+        label: { en: "Instagram", ar: "إنستجرام" },
+        url: "https://www.instagram.com/yasmin_salah_makeupartist?cnvx=MW11MnY4aHo3Z2lkOA==",
       },
     ],
   },

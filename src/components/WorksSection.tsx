@@ -107,7 +107,18 @@ function CaseStudyVisualStage({
       <div
         className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] p-4`}
       >
-        {study.isMedallion ? (
+        {study.isPortraitMedallion ? (
+          <div className="h-36 w-36 rounded-full border border-[#D4D7DD]/35 bg-[#111215] p-1 shadow-[0_10px_28px_rgba(0,0,0,0.65)]">
+            <div className="relative h-full w-full overflow-hidden rounded-full border border-white/10">
+              <img
+                src={study.image}
+                alt={study.title[lang]}
+                decoding="async"
+                className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            </div>
+          </div>
+        ) : study.isMedallion ? (
           <div className="h-32 w-32 overflow-hidden rounded-2xl border border-white/15 shadow-lg">
             <img
               src={study.image}

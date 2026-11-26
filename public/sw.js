@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v4.1-obsidian";
+const CACHE_NAME = "belal-gamal-v4.2-obsidian";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",
