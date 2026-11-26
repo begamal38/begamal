@@ -9,11 +9,10 @@ interface MonolithSceneProps {
 }
 
 /**
- * Generates a cold monochrome chiaroscuro studio reflection map (deep obsidian
- * void + brushed cold titanium softboxes) so obsidian and silver-metallic rings
- * catch clean architectural specular rim lighting.
+ * Generates an Obsidian & Cold Brushed Titanium chiaroscuro studio reflection
+ * environment with a subtle warm burnished mineral copper bounce strip.
  */
-function createTitaniumEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
+function createCrystalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
   const pmrem = new THREE.PMREMGenerator(renderer);
   pmrem.compileEquirectangularShader();
 
@@ -36,29 +35,103 @@ function createTitaniumEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
   softboxTitanium.lookAt(0, 0, 0);
   envScene.add(softboxTitanium);
 
-  const rimStrip = new THREE.Mesh(
+  const rimStripSilver = new THREE.Mesh(
     new THREE.PlaneGeometry(12, 2.2),
     new THREE.MeshBasicMaterial({ color: 0x9ca3af, side: THREE.DoubleSide })
   );
-  rimStrip.position.set(0, -6.5, 3);
-  rimStrip.lookAt(0, 0, 0);
-  envScene.add(rimStrip);
+  rimStripSilver.position.set(0, -6.5, 3);
+  rimStripSilver.lookAt(0, 0, 0);
+  envScene.add(rimStripSilver);
+
+  // Subtle raw burnished copper mineral reflection bounce (never UI red)
+  const copperBounce = new THREE.Mesh(
+    new THREE.PlaneGeometry(7.5, 3.0),
+    new THREE.MeshBasicMaterial({ color: 0x8f562e, side: THREE.DoubleSide })
+  );
+  copperBounce.position.set(4.5, -5.2, -4.5);
+  copperBounce.lookAt(0, 0, 0);
+  envScene.add(copperBounce);
 
   const renderTarget = pmrem.fromScene(envScene, 0.035);
   softboxCool.geometry.dispose();
   (softboxCool.material as THREE.Material).dispose();
   softboxTitanium.geometry.dispose();
   (softboxTitanium.material as THREE.Material).dispose();
-  rimStrip.geometry.dispose();
-  (rimStrip.material as THREE.Material).dispose();
+  rimStripSilver.geometry.dispose();
+  (rimStripSilver.material as THREE.Material).dispose();
+  copperBounce.geometry.dispose();
+  (copperBounce.material as THREE.Material).dispose();
   pmrem.dispose();
 
   return renderTarget.texture;
 }
 
 /**
- * Fixed WebGL canvas permanently locked to one strict monochrome look:
- * Matte Obsidian core + Cold Brushed Titanium rim lighting & orbital gimbal rings.
+ * Builds 13 Fruit-of-Life nodes and Metatron's Cube 3D projection chord lines
+ * with staggered Z-depth for higher-dimensional spatial parallax.
+ */
+function buildMetatronGeometry() {
+  const nodes: THREE.Vector3[] = [new THREE.Vector3(0, 0, 0)];
+  const rInner = 0.98;
+  const rOuter = 1.94;
+
+  for (let i = 0; i < 6; i++) {
+    const a = (i / 6) * Math.PI * 2;
+    nodes.push(
+      new THREE.Vector3(
+        Math.cos(a) * rInner,
+        Math.sin(a) * rInner,
+        i % 2 === 0 ? 0.24 : -0.24
+      )
+    );
+  }
+  for (let i = 0; i < 6; i++) {
+    const a = (i / 6) * Math.PI * 2;
+    nodes.push(
+      new THREE.Vector3(
+        Math.cos(a) * rOuter,
+        Math.sin(a) * rOuter,
+        i % 2 === 0 ? -0.34 : 0.34
+      )
+    );
+  }
+
+  const lineCoords: number[] = [];
+  const pushEdge = (i: number, j: number) => {
+    const a = nodes[i];
+    const b = nodes[j];
+    lineCoords.push(a.x, a.y, a.z, b.x, b.y, b.z);
+  };
+
+  // Radial axes + inner hexagon + outer hexagon + nested triangles (Metatron net)
+  for (let i = 1; i <= 6; i++) {
+    pushEdge(0, i);
+    pushEdge(i, i + 6);
+    const nextInner = (i % 6) + 1;
+    pushEdge(i, nextInner);
+    pushEdge(i + 6, (i % 6) + 7);
+    // Star polygons across inner and outer hex rings
+    const step2Inner = ((i + 1) % 6) + 1;
+    const step2Outer = ((i + 1) % 6) + 7;
+    pushEdge(i, step2Inner);
+    pushEdge(i + 6, step2Outer);
+    // Cross-tier harmonic chords
+    pushEdge(i, ((i % 6) + 7));
+    pushEdge(i, (((i + 4) % 6) + 7));
+  }
+
+  const lineGeom = new THREE.BufferGeometry();
+  lineGeom.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(lineCoords, 3)
+  );
+  return { nodes, lineGeom };
+}
+
+/**
+ * Fixed WebGL cosmic obsidian-quartz monolith with interlocked counter-rotating
+ * star-tetrahedron core, 3D Metatron geometry cage, and cold titanium + whisper
+ * mineral copper orbital rings.
  */
 export function MonolithScene({
   scrollProgressRef,
@@ -82,7 +155,7 @@ export function MonolithScene({
     const isMobile = window.innerWidth < 768;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x050505, 0.058);
+    scene.fog = new THREE.FogExp2(0x050505, 0.056);
 
     const camera = new THREE.PerspectiveCamera(
       isMobile ? 46 : 38,
@@ -110,19 +183,19 @@ export function MonolithScene({
     renderer.toneMappingExposure = 1.18;
     container.appendChild(renderer.domElement);
 
-    const envMap = createTitaniumEnvMap(renderer);
+    const envMap = createCrystalEnvMap(renderer);
     scene.environment = envMap;
 
     const rig = new THREE.Group();
     scene.add(rig);
 
-    // 1. Subtle Cold Titanium Corona Shader Plane behind sculpture
+    // 1. Concentric Six-Fold Harmonic Corona & Seed-of-Life Field
     const coronaUniforms = {
       uTime: { value: 0 },
       uScroll: { value: 0 },
       uVelocity: { value: 0 },
     };
-    const coronaGeom = new THREE.PlaneGeometry(7.2, 7.2);
+    const coronaGeom = new THREE.PlaneGeometry(7.8, 7.8);
     const coronaMat = new THREE.ShaderMaterial({
       uniforms: coronaUniforms,
       transparent: true,
@@ -144,77 +217,145 @@ export function MonolithScene({
           vec2 p = (vUv - 0.5) * 2.0;
           float r = length(p);
           float angle = atan(p.y, p.x);
-          float pulse = 0.5 + 0.5 * sin(uTime * 0.75 + uScroll * 6.2831);
-          float rays = 0.5 + 0.5 * sin(angle * 6.0 + uTime * 0.3 + uScroll * 4.0);
-          float ring = smoothstep(0.62, 0.24, abs(r - (0.34 + 0.04 * pulse)));
-          float glow = exp(-r * 2.8) * (0.16 + 0.08 * pulse + 0.14 * uVelocity);
-          float beam = ring * (0.05 + 0.05 * rays + 0.12 * uVelocity);
+          float pulse = 0.5 + 0.5 * sin(uTime * 0.65 + uScroll * 6.2831);
+          float hexHarmonic = 0.5 + 0.5 * cos(angle * 6.0 - uTime * 0.25 + uScroll * 4.0);
+          float ring1 = smoothstep(0.055, 0.008, abs(r - (0.31 + 0.02 * pulse)));
+          float ring2 = smoothstep(0.045, 0.006, abs(r - (0.58 - 0.02 * pulse)));
+          float glow = exp(-r * 2.6) * (0.14 + 0.06 * pulse + 0.14 * uVelocity);
+          float harmonics = (ring1 + ring2 * 0.7) * (0.045 + 0.04 * hexHarmonic + 0.08 * uVelocity);
           vec3 titanium = vec3(0.831, 0.843, 0.867);
-          vec3 pureWhite = vec3(0.957, 0.961, 0.969);
-          vec3 col = mix(titanium, pureWhite, beam * 0.5);
-          float alpha = clamp((glow + beam) * smoothstep(1.0, 0.15, r), 0.0, 0.36);
+          vec3 mineralCopper = vec3(0.722, 0.451, 0.200);
+          vec3 col = mix(titanium, mineralCopper, smoothstep(0.45, 0.12, r) * 0.16);
+          float alpha = clamp((glow + harmonics) * smoothstep(1.0, 0.14, r), 0.0, 0.34);
           gl_FragColor = vec4(col, alpha);
         }
       `,
     });
     const coronaPlane = new THREE.Mesh(coronaGeom, coronaMat);
-    coronaPlane.position.z = -1.15;
+    coronaPlane.position.z = -1.25;
     rig.add(coronaPlane);
 
-    // 2. Sculpted Dual-Layer Matte Obsidian & Brushed Titanium Core
+    // 2. Smoky Quartz Crystal Monolith (IOR 1.544) & Interlocked Merkaba Core
     const coreGroup = new THREE.Group();
     rig.add(coreGroup);
 
     const outerCoreGeom = new THREE.OctahedronGeometry(1.36, 1);
-    outerCoreGeom.scale(0.56, 1.32, 0.56);
-    const outerObsidianMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#07080a"),
-      metalness: 0.72,
-      roughness: 0.28,
-      clearcoat: 0.75,
-      clearcoatRoughness: 0.18,
-      reflectivity: 0.85,
-      envMapIntensity: 0.9,
+    outerCoreGeom.scale(0.56, 1.36, 0.56);
+    const outerQuartzMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#0d0f14"),
+      metalness: 0.14,
+      roughness: 0.12,
+      transmission: isMobile ? 0.48 : 0.72,
+      thickness: 1.65,
+      ior: 1.544,
+      attenuationColor: new THREE.Color("#2a201a"),
+      attenuationDistance: 2.1,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.08,
+      reflectivity: 0.92,
+      envMapIntensity: 1.45,
       flatShading: true,
     });
-    const outerMonolith = new THREE.Mesh(outerCoreGeom, outerObsidianMat);
+    const outerMonolith = new THREE.Mesh(outerCoreGeom, outerQuartzMat);
     coreGroup.add(outerMonolith);
 
-    const innerCoreGeom = new THREE.OctahedronGeometry(0.74, 0);
-    innerCoreGeom.scale(0.54, 1.3, 0.54);
-    const innerTitaniumMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#8E94A0"),
-      metalness: 0.92,
-      roughness: 0.22,
-      clearcoat: 0.8,
-      envMapIntensity: 1.5,
-      emissive: new THREE.Color("#181A20"),
-      emissiveIntensity: 0.35,
-      flatShading: true,
-    });
-    const innerCore = new THREE.Mesh(innerCoreGeom, innerTitaniumMat);
-    coreGroup.add(innerCore);
-
-    const edgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
-    const edgeMat = new THREE.LineBasicMaterial({
+    const outerEdgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
+    const outerEdgeMat = new THREE.LineBasicMaterial({
       color: new THREE.Color("#D4D7DD"),
       transparent: true,
       opacity: 0.36,
     });
-    const edgeLines = new THREE.LineSegments(edgeGeom, edgeMat);
-    edgeLines.scale.setScalar(1.006);
-    coreGroup.add(edgeLines);
+    const outerEdges = new THREE.LineSegments(outerEdgeGeom, outerEdgeMat);
+    outerEdges.scale.setScalar(1.006);
+    coreGroup.add(outerEdges);
 
-    const axisGeom = new THREE.CylinderGeometry(0.004, 0.004, 4.5, 8);
+    // Interlocked Dual Tetrahedron (Star Tetrahedron) Core inside Quartz
+    const innerMerkabaGroup = new THREE.Group();
+    coreGroup.add(innerMerkabaGroup);
+
+    const tetraGeom = new THREE.TetrahedronGeometry(0.68, 0);
+    tetraGeom.scale(0.88, 1.24, 0.88);
+    const innerTitaniumMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#9CA3AF"),
+      metalness: 0.94,
+      roughness: 0.2,
+      clearcoat: 0.85,
+      envMapIntensity: 1.65,
+      emissive: new THREE.Color("#1f1713"),
+      emissiveIntensity: 0.32,
+      flatShading: true,
+    });
+
+    const tetraUp = new THREE.Mesh(tetraGeom, innerTitaniumMat);
+    const tetraDown = new THREE.Mesh(tetraGeom, innerTitaniumMat);
+    tetraDown.rotation.set(Math.PI, Math.PI / 3, 0);
+    innerMerkabaGroup.add(tetraUp, tetraDown);
+
+    const tetraEdgeGeom = new THREE.EdgesGeometry(tetraGeom, 1);
+    const tetraCopperEdgeMat = new THREE.LineBasicMaterial({
+      color: new THREE.Color("#B87333"),
+      transparent: true,
+      opacity: 0.55,
+    });
+    const tetraEdgeUp = new THREE.LineSegments(tetraEdgeGeom, tetraCopperEdgeMat);
+    tetraEdgeUp.scale.setScalar(1.015);
+    const tetraEdgeDown = new THREE.LineSegments(tetraEdgeGeom, tetraCopperEdgeMat);
+    tetraEdgeDown.rotation.copy(tetraDown.rotation);
+    tetraEdgeDown.scale.setScalar(1.015);
+    innerMerkabaGroup.add(tetraEdgeUp, tetraEdgeDown);
+
+    const axisGeom = new THREE.CylinderGeometry(0.004, 0.004, 4.6, 8);
     const axisMat = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#D4D7DD"),
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.24,
     });
     const axisRod = new THREE.Mesh(axisGeom, axisMat);
     coreGroup.add(axisRod);
 
-    // 3. Cold Brushed Titanium Orbital Gimbal System
+    // 3. 3D Metatron's Cube Polyhedral Cage & 13 Constellation Nodes
+    const metatronGroup = new THREE.Group();
+    const { nodes: metatronNodes, lineGeom: metatronLineGeom } =
+      buildMetatronGeometry();
+    const metatronLineMat = new THREE.LineBasicMaterial({
+      color: new THREE.Color("#D4D7DD"),
+      transparent: true,
+      opacity: 0.14,
+      depthWrite: false,
+    });
+    const metatronLines = new THREE.LineSegments(
+      metatronLineGeom,
+      metatronLineMat
+    );
+    metatronGroup.add(metatronLines);
+
+    const nodeGeom = new THREE.SphereGeometry(0.026, 10, 10);
+    const nodeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const nodeInstanced = new THREE.InstancedMesh(
+      nodeGeom,
+      nodeMat,
+      metatronNodes.length
+    );
+    const nodeDummy = new THREE.Object3D();
+    const titaniumNodeCol = new THREE.Color("#D4D7DD");
+    const copperNodeCol = new THREE.Color("#B87333");
+    metatronNodes.forEach((pt, idx) => {
+      nodeDummy.position.copy(pt);
+      nodeDummy.scale.setScalar(idx === 0 ? 1.45 : idx <= 6 ? 1.1 : 0.88);
+      nodeDummy.updateMatrix();
+      nodeInstanced.setMatrixAt(idx, nodeDummy.matrix);
+      nodeInstanced.setColorAt(
+        idx,
+        idx <= 6 ? copperNodeCol : titaniumNodeCol
+      );
+    });
+    nodeInstanced.instanceMatrix.needsUpdate = true;
+    if (nodeInstanced.instanceColor) nodeInstanced.instanceColor.needsUpdate = true;
+    metatronGroup.add(nodeInstanced);
+    metatronGroup.rotation.set(0.18, -0.22, 0.08);
+    rig.add(metatronGroup);
+
+    // 4. Orbital Celestial Rings (Cold Titanium + Cool Silver + Trace Burnished Copper)
     const titaniumRingMat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#D4D7DD"),
       metalness: 0.94,
@@ -222,7 +363,7 @@ export function MonolithScene({
       clearcoat: 0.85,
       envMapIntensity: 1.6,
       transparent: true,
-      opacity: 0.76,
+      opacity: 0.72,
     });
     const silverHairlineMat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#9CA3AF"),
@@ -230,21 +371,38 @@ export function MonolithScene({
       roughness: 0.28,
       envMapIntensity: 1.3,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.26,
+    });
+    const copperMeridianMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#A96A3D"),
+      metalness: 0.92,
+      roughness: 0.24,
+      envMapIntensity: 1.4,
+      transparent: true,
+      opacity: 0.34,
     });
 
     const ringOuterGroup = new THREE.Group();
-    const ringOuterGeom = new THREE.TorusGeometry(2.15, 0.01, 14, isMobile ? 72 : 128);
+    const ringOuterGeom = new THREE.TorusGeometry(
+      2.22,
+      0.009,
+      14,
+      isMobile ? 72 : 128
+    );
     const ringOuter = new THREE.Mesh(ringOuterGeom, titaniumRingMat);
     ringOuterGroup.add(ringOuter);
 
     const tickCount = 36;
-    const tickGeom = new THREE.BoxGeometry(0.013, 0.085, 0.013);
-    const tickInstanced = new THREE.InstancedMesh(tickGeom, titaniumRingMat, tickCount);
+    const tickGeom = new THREE.BoxGeometry(0.012, 0.082, 0.012);
+    const tickInstanced = new THREE.InstancedMesh(
+      tickGeom,
+      titaniumRingMat,
+      tickCount
+    );
     const dummy = new THREE.Object3D();
     for (let i = 0; i < tickCount; i++) {
       const a = (i / tickCount) * Math.PI * 2;
-      const rad = 2.15;
+      const rad = 2.22;
       dummy.position.set(Math.cos(a) * rad, Math.sin(a) * rad, 0);
       dummy.rotation.set(0, 0, a - Math.PI / 2);
       dummy.scale.set(1, i % 3 === 0 ? 1.5 : 0.75, 1);
@@ -255,63 +413,92 @@ export function MonolithScene({
     ringOuterGroup.rotation.set(Math.PI * 0.38, Math.PI * 0.14, 0);
     rig.add(ringOuterGroup);
 
-    const ringMidGeom = new THREE.TorusGeometry(1.76, 0.007, 12, isMobile ? 72 : 120);
-    const ringMid = new THREE.Mesh(ringMidGeom, silverHairlineMat);
+    const ringMidGeom = new THREE.TorusGeometry(
+      1.78,
+      0.007,
+      12,
+      isMobile ? 72 : 120
+    );
+    const ringMid = new THREE.Mesh(ringMidGeom, copperMeridianMat);
     ringMid.rotation.set(-Math.PI * 0.32, 0, Math.PI * 0.24);
     rig.add(ringMid);
 
-    const ringInnerGeom = new THREE.TorusGeometry(2.58, 0.005, 10, isMobile ? 64 : 110);
+    const ringInnerGeom = new THREE.TorusGeometry(
+      2.64,
+      0.005,
+      10,
+      isMobile ? 64 : 110
+    );
     const ringInner = new THREE.Mesh(ringInnerGeom, silverHairlineMat);
     ringInner.rotation.set(Math.PI * 0.18, -Math.PI * 0.4, 0);
     rig.add(ringInner);
 
-    // 4. Orbiting Obsidian Shards (InstancedMesh, 1 draw call)
+    // 5. Orbiting Faceted Obsidian Quartz Shards (InstancedMesh, 1 draw call)
     const shardCount = isMobile ? 10 : 18;
-    const shardGeom = new THREE.OctahedronGeometry(0.06, 0);
-    shardGeom.scale(0.65, 1.8, 0.65);
+    const shardGeom = new THREE.OctahedronGeometry(0.062, 0);
+    shardGeom.scale(0.62, 1.85, 0.62);
+    const shardObsidianMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#07080a"),
+      metalness: 0.78,
+      roughness: 0.24,
+      clearcoat: 0.85,
+      envMapIntensity: 1.0,
+      flatShading: true,
+    });
     const shardInstanced = new THREE.InstancedMesh(
       shardGeom,
-      outerObsidianMat,
+      shardObsidianMat,
       shardCount
     );
     const shardData = Array.from({ length: shardCount }, (_, idx) => ({
-      radius: 2.3 + (idx % 4) * 0.34,
-      speed: 0.18 + (idx % 5) * 0.06,
+      radius: 2.36 + (idx % 4) * 0.34,
+      speed: 0.17 + (idx % 5) * 0.055,
       phase: (idx / shardCount) * Math.PI * 2,
       yOffset: ((idx % 7) - 3) * 0.42,
       scale: 0.75 + (idx % 3) * 0.35,
     }));
     rig.add(shardInstanced);
 
-    // 5. Subtle Silver Atmospheric Dust
-    const particleCount = isMobile ? 120 : 300;
+    // 6. Multidimensional Cosmic Depth Field (Silver + Subtle Copper-Star Sparks)
+    const particleCount = isMobile ? 150 : 340;
     const positions = new Float32Array(particleCount * 3);
+    const pColors = new Float32Array(particleCount * 3);
+    const cSilver = new THREE.Color("#D4D7DD");
+    const cCopperHint = new THREE.Color("#C48A5A");
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
-      const radius = 2.2 + Math.random() * 6.4;
+      const radius = 2.0 + Math.random() * 8.2;
       const theta = Math.random() * Math.PI * 2;
-      const y = (Math.random() - 0.5) * 11;
+      const y = (Math.random() - 0.5) * 12;
       positions[i3] = Math.cos(theta) * radius;
       positions[i3 + 1] = y;
-      positions[i3 + 2] = Math.sin(theta) * radius - 1.5;
+      positions[i3 + 2] = Math.sin(theta) * radius - 2.2;
+      const col = i % 7 === 0 ? cCopperHint : cSilver;
+      pColors[i3] = col.r;
+      pColors[i3 + 1] = col.g;
+      pColors[i3 + 2] = col.b;
     }
     const particleGeom = new THREE.BufferGeometry();
-    particleGeom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    particleGeom.setAttribute(
+      "position",
+      new THREE.BufferAttribute(positions, 3)
+    );
+    particleGeom.setAttribute("color", new THREE.BufferAttribute(pColors, 3));
     const particleMat = new THREE.PointsMaterial({
-      color: new THREE.Color("#D4D7DD"),
       size: isMobile ? 0.022 : 0.019,
+      vertexColors: true,
       transparent: true,
-      opacity: 0.38,
+      opacity: 0.42,
       depthWrite: false,
     });
     const particles = new THREE.Points(particleGeom, particleMat);
     scene.add(particles);
 
-    // 6. Cold Titanium Studio Lighting (Zero Red)
-    const ambient = new THREE.AmbientLight(0x16181d, 1.4);
+    // 7. Chiaroscuro Studio Lighting (Cold Titanium Dominant + Trace Copper Fill)
+    const ambient = new THREE.AmbientLight(0x16181d, 1.45);
     scene.add(ambient);
 
-    const keyLight = new THREE.DirectionalLight(0xf4f5f7, 2.2);
+    const keyLight = new THREE.DirectionalLight(0xf4f5f7, 2.25);
     keyLight.position.set(-4.5, 5.5, 4.5);
     scene.add(keyLight);
 
@@ -319,9 +506,13 @@ export function MonolithScene({
     titaniumRim.position.set(4.8, 2.0, -2.5);
     scene.add(titaniumRim);
 
-    const underFill = new THREE.PointLight(0x9ca3af, 2.0, 14);
-    underFill.position.set(0, -3.5, 2.8);
-    scene.add(underFill);
+    const copperFill = new THREE.PointLight(0xb87333, 0.95, 13);
+    copperFill.position.set(3.2, -3.6, 2.2);
+    scene.add(copperFill);
+
+    const silverUnderFill = new THREE.PointLight(0x9ca3af, 1.35, 14);
+    silverUnderFill.position.set(-2.4, -3.2, 2.8);
+    scene.add(silverUnderFill);
 
     const targetPointer = { x: 0, y: 0 };
     const currentPointer = { x: 0, y: 0 };
@@ -348,7 +539,9 @@ export function MonolithScene({
       camera.fov = mobile ? 46 : 38;
       camera.position.z = mobile ? 7.6 : 6.4;
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
+      renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2)
+      );
       renderer.setSize(w, h);
     };
 
@@ -383,7 +576,11 @@ export function MonolithScene({
         );
         targetY = THREE.MathUtils.lerp(mobile ? 1.42 : 0.02, 0.08, t);
         targetZ = THREE.MathUtils.lerp(mobile ? -2.45 : -1.48, -0.55, t);
-        rigScale = THREE.MathUtils.lerp(mobile ? 0.66 : 0.92, mobile ? 0.84 : 1.0, t);
+        rigScale = THREE.MathUtils.lerp(
+          mobile ? 0.66 : 0.92,
+          mobile ? 0.84 : 1.0,
+          t
+        );
         ringSpread = THREE.MathUtils.lerp(mobile ? 1.18 : 1.08, 1.15, t);
       } else if (p < 0.5) {
         const t = (p - 0.2) / 0.3;
@@ -426,22 +623,39 @@ export function MonolithScene({
       camera.lookAt(currentPointer.x * 0.12, -currentPointer.y * 0.08, 0);
 
       const velocityBoost = vel * 0.45;
-      outerMonolith.rotation.y = p * Math.PI * 2.8 + elapsed * 0.14 + velocityBoost;
+      outerMonolith.rotation.y =
+        p * Math.PI * 2.8 + elapsed * 0.14 + velocityBoost;
       outerMonolith.rotation.x =
         Math.sin(p * Math.PI * 2.2) * 0.18 + currentPointer.y * 0.12;
       outerMonolith.rotation.z = Math.cos(p * Math.PI * 1.4) * 0.09;
 
-      edgeLines.rotation.copy(outerMonolith.rotation);
+      outerEdges.rotation.copy(outerMonolith.rotation);
 
-      innerCore.rotation.y = -(p * Math.PI * 3.6 + elapsed * 0.24 + velocityBoost * 1.4);
-      innerCore.rotation.x = Math.cos(p * Math.PI * 2.0) * 0.22;
-      innerTitaniumMat.emissiveIntensity = 0.35 + Math.min(vel * 0.65, 0.7);
+      innerMerkabaGroup.rotation.y = -(
+        p * Math.PI * 3.8 +
+        elapsed * 0.26 +
+        velocityBoost * 1.4
+      );
+      innerMerkabaGroup.rotation.x = Math.cos(p * Math.PI * 2.0) * 0.24;
+      innerMerkabaGroup.rotation.z = Math.sin(elapsed * 0.2 + p * 3.0) * 0.16;
+      innerTitaniumMat.emissiveIntensity = 0.32 + Math.min(vel * 0.6, 0.65);
+
+      metatronGroup.scale.setScalar(0.96 + (ringSpread - 1.0) * 0.55);
+      metatronGroup.rotation.z = elapsed * 0.06 + p * Math.PI * 0.9;
+      metatronGroup.rotation.y =
+        -0.22 + Math.sin(elapsed * 0.25 + p * Math.PI) * 0.35 + currentPointer.x * 0.15;
+      metatronGroup.rotation.x =
+        0.18 + Math.cos(elapsed * 0.2 + p * Math.PI) * 0.22 - currentPointer.y * 0.12;
+      metatronLineMat.opacity = 0.12 + Math.min(vel * 0.18, 0.16);
 
       ringOuterGroup.scale.setScalar(ringSpread);
-      ringOuterGroup.rotation.z = elapsed * 0.18 + p * Math.PI * 1.6 + velocityBoost * 0.6;
+      ringOuterGroup.rotation.z =
+        elapsed * 0.18 + p * Math.PI * 1.6 + velocityBoost * 0.6;
       ringOuterGroup.rotation.y = Math.PI * 0.14 + p * 1.15;
 
-      ringMid.scale.setScalar(ringSpread * (1.0 + Math.sin(elapsed * 0.6) * 0.015));
+      ringMid.scale.setScalar(
+        ringSpread * (1.0 + Math.sin(elapsed * 0.6) * 0.015)
+      );
       ringMid.rotation.y = -elapsed * 0.14 - p * Math.PI * 1.3;
       ringMid.rotation.x = -Math.PI * 0.32 + Math.sin(p * Math.PI) * 0.35;
 
@@ -469,7 +683,7 @@ export function MonolithScene({
       coronaUniforms.uScroll.value = p;
       coronaUniforms.uVelocity.value = Math.min(vel, 1.2);
 
-      particles.rotation.y = elapsed * 0.03 + p * 0.85;
+      particles.rotation.y = elapsed * 0.028 + p * 0.85;
       particles.position.y = -p * 1.6;
     };
 
@@ -531,13 +745,20 @@ export function MonolithScene({
       coronaGeom.dispose();
       coronaMat.dispose();
       outerCoreGeom.dispose();
-      outerObsidianMat.dispose();
-      innerCoreGeom.dispose();
+      outerQuartzMat.dispose();
+      outerEdgeGeom.dispose();
+      outerEdgeMat.dispose();
+      tetraGeom.dispose();
       innerTitaniumMat.dispose();
-      edgeGeom.dispose();
-      edgeMat.dispose();
+      tetraEdgeGeom.dispose();
+      tetraCopperEdgeMat.dispose();
       axisGeom.dispose();
       axisMat.dispose();
+      metatronLineGeom.dispose();
+      metatronLineMat.dispose();
+      nodeGeom.dispose();
+      nodeMat.dispose();
+      nodeInstanced.dispose();
       ringOuterGeom.dispose();
       ringMidGeom.dispose();
       ringInnerGeom.dispose();
@@ -545,7 +766,9 @@ export function MonolithScene({
       tickInstanced.dispose();
       titaniumRingMat.dispose();
       silverHairlineMat.dispose();
+      copperMeridianMat.dispose();
       shardGeom.dispose();
+      shardObsidianMat.dispose();
       shardInstanced.dispose();
       particleGeom.dispose();
       particleMat.dispose();

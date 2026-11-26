@@ -86,12 +86,29 @@ function CaseStudyVisualStage({
   const heightClass = tall ? "h-52" : "h-44";
 
   if (study.image) {
+    if (study.isWhitePlate) {
+      return (
+        <div
+          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] p-4`}
+        >
+          <div className="flex h-32 w-56 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white px-5 py-3 shadow-lg">
+            <img
+              src={study.image}
+              alt={study.title[lang]}
+              loading="lazy"
+              className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div
         className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] p-4`}
       >
         {study.isMedallion ? (
-          <div className="h-32 w-32 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0B0C0E] shadow-lg">
+          <div className="h-32 w-32 overflow-hidden rounded-2xl border border-white/15 shadow-lg">
             <img
               src={study.image}
               alt={study.title[lang]}
@@ -105,9 +122,7 @@ function CaseStudyVisualStage({
               src={study.image}
               alt={study.title[lang]}
               loading="lazy"
-              className={`h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 ${
-                study.invertLogo ? "brightness-0 invert opacity-95" : ""
-              }`}
+              className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
             />
           </div>
         )}

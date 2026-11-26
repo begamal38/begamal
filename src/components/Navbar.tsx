@@ -81,7 +81,7 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
       {/* Mobile Floating Bottom Navigation Pill (replaces hamburger menu) */}
       <nav
         aria-label={lang === "en" ? "Mobile Section Navigation" : "تنقل الأقسام للموبايل"}
-        className="fixed bottom-4 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/15 bg-[#111215]/92 p-1.5 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.85)] md:hidden"
+        className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/15 bg-[#111215]/92 p-1.5 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.85)] md:hidden"
       >
         {mobileBottomItems.map((item) => (
           <button

@@ -16,7 +16,7 @@ export interface LocalizedText {
 export interface OrganizationLogo {
   src: string;
   alt: LocalizedText;
-  invert?: boolean;
+  bg?: string;
   wide?: boolean;
 }
 
@@ -46,8 +46,7 @@ export interface CaseStudy {
   category: Exclude<CaseStudyCategoryId, "all">;
   discipline: LocalizedText;
   image?: string;
-  invertLogo?: boolean;
-  isWideLogo?: boolean;
+  isWhitePlate?: boolean;
   isMedallion?: boolean;
   monogram?: string;
   summary: LocalizedText;
@@ -288,8 +287,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     logos: [
       {
-        src: "/assets/clients/vodafone-dark.png",
+        src: "/assets/clients/vodafone.png",
         alt: { en: "Vodafone", ar: "شعار فودافون" },
+        bg: "#ED1E24",
       },
     ],
     summary: {
@@ -323,8 +323,9 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     location: { en: "Cairo / Beni Suef", ar: "القاهرة / بني سويف" },
     logos: [
       {
-        src: "/assets/clients/chance-media-black.png",
+        src: "/assets/clients/chance-media.png",
         alt: { en: "Chance Media", ar: "شعار تشانس ميديا" },
+        bg: "#0B0C0E",
         wide: true,
       },
     ],
@@ -354,6 +355,13 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     organization: { en: "Al-Attar Group", ar: "مجموعة العطار" },
     location: { en: "Commercial Retail", ar: "تجارة التجزئة" },
+    logos: [
+      {
+        src: "/assets/clients/attar-group.jpg",
+        alt: { en: "Al-Attar Group", ar: "شعار مجموعة العطار" },
+        bg: "#FFFFFF",
+      },
+    ],
     summary: {
       en: "Led digital marketing, content creation, and high-volume commercial ad campaigns for Al-Attar Group through 2021.",
       ar: "قيادة استراتيجيات التسويق الرقمي، وصناعة المحتوى، وإدارة الحملات الإعلانية التجارية عالية الكثافة لمجموعة العطار حتى عام 2021.",
@@ -385,18 +393,21 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     location: { en: "Smart Village, Beni Suef", ar: "القرية الذكية، بني سويف" },
     logos: [
       {
-        src: "/assets/clients/majorel-dark.png",
+        src: "/assets/clients/majorel.jpg",
         alt: { en: "Majorel", ar: "شعار ماجوريل" },
+        bg: "#FFFFFF",
         wide: true,
       },
       {
-        src: "/assets/clients/vodafone-dark.png",
+        src: "/assets/clients/vodafone.png",
         alt: { en: "Vodafone", ar: "شعار فودافون" },
-        wide: true,
+        bg: "#ED1E24",
       },
       {
         src: "/assets/clients/uber.png",
         alt: { en: "Uber", ar: "شعار أوبر" },
+        bg: "#000000",
+        wide: true,
       },
     ],
     summary: {
@@ -434,7 +445,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       {
         src: "/assets/clients/chubb-life.png",
         alt: { en: "Chubb Life Insurance", ar: "شعار تشب لتأمينات الحياة" },
-        invert: true,
+        bg: "#FFFFFF",
         wide: true,
       },
     ],
@@ -570,8 +581,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Creative Direction · Architecture Positioning · Film",
       ar: "إدارة إبداعية · تموضع معماري · أفلام المشاريع",
     },
-    image: "/assets/clients/mohamed-samy-dark.png",
-    isWideLogo: true,
+    image: "/assets/clients/mohamed-samy.png",
+    isWhitePlate: true,
     summary: {
       en: "Creative direction, high-ticket digital positioning, and architectural film production across Mohamed Samy's commercial and residential interior portfolio (including After 8 Cafe).",
       ar: "الإدارة الإبداعية، والتموضع الرقمي للمشاريع عالية القيمة، وإخراج الأفلام التعريفية لمحفظة أعمال محمد سامي في الديكور والمقاولات الداخلية (بما فيها مشروع After 8 Cafe).",
@@ -651,7 +662,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "الهوية الأكاديمية · هندسة المنصة · الحملات الطلابية",
     },
     image: "/assets/clients/hossam-fekry.png",
-    isWideLogo: true,
+    isWhitePlate: true,
     summary: {
       en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fikry educational platform.",
       ar: "التوجيه البصري، وحملات التسجيل الطلابي على مستوى الجمهورية، والهندسة المستمرة لتجربة المستخدم عبر منصة حسام فكري التعليمية.",
@@ -731,8 +742,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "قيادة الفرق · المبيعات التجارية · التوجيه الاستشاري",
     },
     image: "/assets/clients/chubb-life.png",
-    invertLogo: true,
-    isWideLogo: true,
+    isWhitePlate: true,
     summary: {
       en: "Led commercial team operations, coaching, and target execution as Team Leader at Chubb Life Insurance Egypt from September 2022 to July 2023.",
       ar: "قيادة العمليات التجارية للفريق، والتوجيه والتدريب، وتحقيق المستهدفات البيعية في شركة تشب لتأمينات الحياة مصر خلال الفترة من سبتمبر 2022 حتى يوليو 2023.",
@@ -769,8 +779,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Digital Marketing · Commercial Advertising",
       ar: "التسويق الرقمي · الإعلانات التجارية",
     },
-    image: "/assets/clients/attar-group-dark.png",
-    isWideLogo: true,
+    image: "/assets/clients/attar-group.jpg",
+    isWhitePlate: true,
     summary: {
       en: "Full-scale digital marketing, content creation, and commercial advertising campaigns executed for Al-Attar Group across 2018 through 2021.",
       ar: "إدارة متكاملة للتسويق الرقمي وصناعة المحتوى وتنفيذ الحملات الإعلانية التجارية لمجموعة العطار خلال الفترة من 2018 حتى 2021.",
@@ -807,8 +817,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Creative Direction · TV Ad Scripts · Real Estate & Medical",
       ar: "إدارة إبداعية · إعلانات تلفزيون · العقارات والمراكز الطبية",
     },
-    image: "/assets/clients/chance-media-black.png",
-    isWideLogo: true,
+    image: "/assets/clients/chance-media.png",
     summary: {
       en: "Creative Direction, TV ad scriptwriting, and campaign leadership for real-estate and medical brand accounts at Chance Media, founded by actor Ahmed Akl, alongside launching SECTOR 09.",
       ar: "تولي الإدارة الإبداعية، وكتابة نصوص الإعلانات التلفزيونية، وقيادة الحملات الإعلانية لحسابات العقارات والمراكز الطبية لدى وكالة تشانس ميديا التي أسسها الفنان أحمد عقل، بالتوازي مع إطلاق سيكتور 09.",
@@ -877,8 +886,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "International English Channel · Long-Form Visual Systems",
       ar: "قناة إنجليزية عالمية · منظومات سرد بصري طويلة",
     },
-    image: "/assets/clients/architect-dark.png",
-    isWideLogo: true,
+    image: "/assets/clients/architect-of-reality.png",
+    isWhitePlate: true,
     summary: {
       en: "Flagship English YouTube channel built for international viewers, combining deep psychological and philosophical storytelling with a custom programmatic animation engine.",
       ar: "قناة THE ARCHITECT OF REALITY باللغة الإنجليزية للجمهور الدولي، تجمع بين السرد النفسي والفلسفي العميق ومحرك تحريك برمجي مخصص لإنتاج الحلقات الطويلة.",
@@ -916,7 +925,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "تسويق تعليمي · إنتاج مرئي · استقطاب أولياء الأمور",
     },
     image: "/assets/clients/khatwa.png",
-    isWideLogo: true,
+    isWhitePlate: true,
     summary: {
       en: "Marketing direction and real-activity video reels for Khatwa Academy and Nursery, structuring clear stage-by-stage parent messaging that drives qualified enrollment inquiries.",
       ar: "التوجيه التسويقي وإنتاج المقاطع التوثيقية للأنشطة الفعلية في أكاديمية وحضانة خطوة، عبر صياغة رسائل واضحة لكل مرحلة عمرية تستقطب استفسارات التسجيل الجادة من أولياء الأمور.",

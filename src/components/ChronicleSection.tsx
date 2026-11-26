@@ -94,15 +94,16 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                 <div className="mt-4 flex flex-wrap gap-2.5 border-t border-white/[0.08] pt-4">
                   {activeEntry.logos.map((logo) => (
                     <div
-                      key={logo.src}
-                      className="flex h-10 items-center justify-center rounded-lg border border-white/[0.08] bg-[#0B0C0E] px-3 py-1.5"
+                      key={`${activeEntry.id}-panel-${logo.src}`}
+                      className="flex h-10 items-center justify-center overflow-hidden rounded-lg border border-white/15 px-3 py-1.5 shadow-sm"
+                      style={{ backgroundColor: logo.bg ?? "#0B0C0E" }}
                     >
                       <img
                         src={logo.src}
                         alt={logo.alt[lang]}
                         className={`object-contain ${
-                          logo.wide ? "max-h-5 max-w-[96px]" : "max-h-6 w-auto"
-                        } ${logo.invert ? "brightness-0 invert opacity-95" : ""}`}
+                          logo.wide ? "max-h-6 max-w-[96px]" : "max-h-7 w-auto"
+                        }`}
                       />
                     </div>
                   ))}
@@ -168,16 +169,17 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                     <div className="mt-4 flex flex-wrap items-center gap-3">
                       {entry.logos.map((logo) => (
                         <div
-                          key={logo.src}
-                          className="flex h-11 items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] px-3.5 py-2"
+                          key={`${entry.id}-${logo.src}`}
+                          className="flex h-11 items-center justify-center overflow-hidden rounded-xl border border-white/15 px-3.5 py-1.5 shadow-sm"
+                          style={{ backgroundColor: logo.bg ?? "#0B0C0E" }}
                         >
                           <img
                             src={logo.src}
                             alt={logo.alt[lang]}
                             loading="lazy"
                             className={`object-contain ${
-                              logo.wide ? "max-h-5 max-w-[104px]" : "max-h-7 w-auto"
-                            } ${logo.invert ? "brightness-0 invert opacity-95" : ""}`}
+                              logo.wide ? "max-h-6 max-w-[108px]" : "max-h-8 w-auto"
+                            }`}
                           />
                         </div>
                       ))}

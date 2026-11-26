@@ -8,3 +8,14 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>
 );
+
+if (
+  "serviceWorker" in navigator &&
+  (import.meta as unknown as { env?: { PROD?: boolean } }).env?.PROD
+) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {
+      // Service worker registration is non-blocking
+    });
+  });
+}
