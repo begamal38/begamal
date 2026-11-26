@@ -17,27 +17,27 @@ function createCrystalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
   pmrem.compileEquirectangularShader();
 
   const envScene = new THREE.Scene();
-  envScene.background = new THREE.Color(0x050507);
+  envScene.background = new THREE.Color(0x161b26);
 
   const softboxCool = new THREE.Mesh(
-    new THREE.PlaneGeometry(8, 12),
-    new THREE.MeshBasicMaterial({ color: 0x525866, side: THREE.DoubleSide })
+    new THREE.PlaneGeometry(9, 13),
+    new THREE.MeshBasicMaterial({ color: 0x7b859a, side: THREE.DoubleSide })
   );
   softboxCool.position.set(-7, 5, 4);
   softboxCool.lookAt(0, 0, 0);
   envScene.add(softboxCool);
 
   const softboxTitanium = new THREE.Mesh(
-    new THREE.PlaneGeometry(9, 10),
-    new THREE.MeshBasicMaterial({ color: 0xd4d7dd, side: THREE.DoubleSide })
+    new THREE.PlaneGeometry(10, 11),
+    new THREE.MeshBasicMaterial({ color: 0xf2f4f8, side: THREE.DoubleSide })
   );
   softboxTitanium.position.set(7.5, 2.5, -3);
   softboxTitanium.lookAt(0, 0, 0);
   envScene.add(softboxTitanium);
 
   const rimStripSilver = new THREE.Mesh(
-    new THREE.PlaneGeometry(12, 2.2),
-    new THREE.MeshBasicMaterial({ color: 0x9ca3af, side: THREE.DoubleSide })
+    new THREE.PlaneGeometry(13, 2.8),
+    new THREE.MeshBasicMaterial({ color: 0xc7cdd8, side: THREE.DoubleSide })
   );
   rimStripSilver.position.set(0, -6.5, 3);
   rimStripSilver.lookAt(0, 0, 0);
@@ -45,8 +45,8 @@ function createCrystalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
 
   // Subtle raw burnished copper mineral reflection bounce (never UI red)
   const copperBounce = new THREE.Mesh(
-    new THREE.PlaneGeometry(7.5, 3.0),
-    new THREE.MeshBasicMaterial({ color: 0x8f562e, side: THREE.DoubleSide })
+    new THREE.PlaneGeometry(8.0, 3.4),
+    new THREE.MeshBasicMaterial({ color: 0xb67a48, side: THREE.DoubleSide })
   );
   copperBounce.position.set(4.5, -5.2, -4.5);
   copperBounce.lookAt(0, 0, 0);
@@ -155,7 +155,7 @@ export function MonolithScene({
     const isMobile = window.innerWidth < 768;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x050505, 0.056);
+    scene.fog = new THREE.FogExp2(0x0a0b0e, 0.042);
 
     const camera = new THREE.PerspectiveCamera(
       isMobile ? 46 : 38,
@@ -221,12 +221,12 @@ export function MonolithScene({
           float hexHarmonic = 0.5 + 0.5 * cos(angle * 6.0 - uTime * 0.25 + uScroll * 4.0);
           float ring1 = smoothstep(0.055, 0.008, abs(r - (0.31 + 0.02 * pulse)));
           float ring2 = smoothstep(0.045, 0.006, abs(r - (0.58 - 0.02 * pulse)));
-          float glow = exp(-r * 2.6) * (0.14 + 0.06 * pulse + 0.14 * uVelocity);
-          float harmonics = (ring1 + ring2 * 0.7) * (0.045 + 0.04 * hexHarmonic + 0.08 * uVelocity);
-          vec3 titanium = vec3(0.831, 0.843, 0.867);
-          vec3 mineralCopper = vec3(0.722, 0.451, 0.200);
-          vec3 col = mix(titanium, mineralCopper, smoothstep(0.45, 0.12, r) * 0.16);
-          float alpha = clamp((glow + harmonics) * smoothstep(1.0, 0.14, r), 0.0, 0.34);
+          float glow = exp(-r * 2.25) * (0.22 + 0.08 * pulse + 0.18 * uVelocity);
+          float harmonics = (ring1 + ring2 * 0.78) * (0.08 + 0.06 * hexHarmonic + 0.10 * uVelocity);
+          vec3 titanium = vec3(0.898, 0.914, 0.945);
+          vec3 mineralCopper = vec3(0.820, 0.545, 0.285);
+          vec3 col = mix(titanium, mineralCopper, smoothstep(0.48, 0.10, r) * 0.18);
+          float alpha = clamp((glow + harmonics) * smoothstep(1.0, 0.10, r), 0.0, 0.52);
           gl_FragColor = vec4(col, alpha);
         }
       `,
@@ -235,25 +235,25 @@ export function MonolithScene({
     coronaPlane.position.z = -1.25;
     rig.add(coronaPlane);
 
-    // 2. Smoky Quartz Crystal Monolith (IOR 1.544) & Interlocked Merkaba Core
+    // 2. Luminous Smoky Quartz Crystal Monolith (IOR 1.544) & Interlocked Merkaba Core
     const coreGroup = new THREE.Group();
     rig.add(coreGroup);
 
     const outerCoreGeom = new THREE.OctahedronGeometry(1.36, 1);
     outerCoreGeom.scale(0.56, 1.36, 0.56);
     const outerQuartzMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#0d0f14"),
-      metalness: 0.14,
-      roughness: 0.12,
-      transmission: isMobile ? 0.48 : 0.72,
-      thickness: 1.65,
+      color: new THREE.Color("#cfd6e6"),
+      metalness: 0.18,
+      roughness: 0.09,
+      transmission: isMobile ? 0.62 : 0.84,
+      thickness: 1.45,
       ior: 1.544,
-      attenuationColor: new THREE.Color("#2a201a"),
-      attenuationDistance: 2.1,
+      attenuationColor: new THREE.Color("#646c7d"),
+      attenuationDistance: 3.1,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.08,
-      reflectivity: 0.92,
-      envMapIntensity: 1.45,
+      clearcoatRoughness: 0.06,
+      reflectivity: 0.96,
+      envMapIntensity: 2.1,
       flatShading: true,
     });
     const outerMonolith = new THREE.Mesh(outerCoreGeom, outerQuartzMat);
@@ -261,9 +261,9 @@ export function MonolithScene({
 
     const outerEdgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
     const outerEdgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#D4D7DD"),
+      color: new THREE.Color("#E8ECF5"),
       transparent: true,
-      opacity: 0.36,
+      opacity: 0.52,
     });
     const outerEdges = new THREE.LineSegments(outerEdgeGeom, outerEdgeMat);
     outerEdges.scale.setScalar(1.006);
@@ -276,13 +276,13 @@ export function MonolithScene({
     const tetraGeom = new THREE.TetrahedronGeometry(0.68, 0);
     tetraGeom.scale(0.88, 1.24, 0.88);
     const innerTitaniumMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#9CA3AF"),
-      metalness: 0.94,
-      roughness: 0.2,
-      clearcoat: 0.85,
-      envMapIntensity: 1.65,
-      emissive: new THREE.Color("#1f1713"),
-      emissiveIntensity: 0.32,
+      color: new THREE.Color("#CBD2DE"),
+      metalness: 0.92,
+      roughness: 0.16,
+      clearcoat: 0.9,
+      envMapIntensity: 2.0,
+      emissive: new THREE.Color("#4d3524"),
+      emissiveIntensity: 0.58,
       flatShading: true,
     });
 
@@ -293,9 +293,9 @@ export function MonolithScene({
 
     const tetraEdgeGeom = new THREE.EdgesGeometry(tetraGeom, 1);
     const tetraCopperEdgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#B87333"),
+      color: new THREE.Color("#D48C54"),
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.78,
     });
     const tetraEdgeUp = new THREE.LineSegments(tetraEdgeGeom, tetraCopperEdgeMat);
     tetraEdgeUp.scale.setScalar(1.015);
@@ -306,9 +306,9 @@ export function MonolithScene({
 
     const axisGeom = new THREE.CylinderGeometry(0.004, 0.004, 4.6, 8);
     const axisMat = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#D4D7DD"),
+      color: new THREE.Color("#E8ECF5"),
       transparent: true,
-      opacity: 0.24,
+      opacity: 0.34,
     });
     const axisRod = new THREE.Mesh(axisGeom, axisMat);
     coreGroup.add(axisRod);
@@ -318,9 +318,9 @@ export function MonolithScene({
     const { nodes: metatronNodes, lineGeom: metatronLineGeom } =
       buildMetatronGeometry();
     const metatronLineMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#D4D7DD"),
+      color: new THREE.Color("#E2E6EF"),
       transparent: true,
-      opacity: 0.14,
+      opacity: 0.24,
       depthWrite: false,
     });
     const metatronLines = new THREE.LineSegments(
@@ -357,29 +357,29 @@ export function MonolithScene({
 
     // 4. Orbital Celestial Rings (Cold Titanium + Cool Silver + Trace Burnished Copper)
     const titaniumRingMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#D4D7DD"),
-      metalness: 0.94,
-      roughness: 0.2,
-      clearcoat: 0.85,
-      envMapIntensity: 1.6,
+      color: new THREE.Color("#E8ECF5"),
+      metalness: 0.9,
+      roughness: 0.16,
+      clearcoat: 0.9,
+      envMapIntensity: 1.9,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.84,
     });
     const silverHairlineMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#9CA3AF"),
-      metalness: 0.88,
-      roughness: 0.28,
-      envMapIntensity: 1.3,
+      color: new THREE.Color("#BCC4D0"),
+      metalness: 0.86,
+      roughness: 0.22,
+      envMapIntensity: 1.6,
       transparent: true,
-      opacity: 0.26,
+      opacity: 0.4,
     });
     const copperMeridianMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#A96A3D"),
-      metalness: 0.92,
-      roughness: 0.24,
-      envMapIntensity: 1.4,
+      color: new THREE.Color("#C9834E"),
+      metalness: 0.9,
+      roughness: 0.2,
+      envMapIntensity: 1.7,
       transparent: true,
-      opacity: 0.34,
+      opacity: 0.48,
     });
 
     const ringOuterGroup = new THREE.Group();
@@ -438,11 +438,11 @@ export function MonolithScene({
     const shardGeom = new THREE.OctahedronGeometry(0.062, 0);
     shardGeom.scale(0.62, 1.85, 0.62);
     const shardObsidianMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#07080a"),
-      metalness: 0.78,
-      roughness: 0.24,
-      clearcoat: 0.85,
-      envMapIntensity: 1.0,
+      color: new THREE.Color("#252b38"),
+      metalness: 0.76,
+      roughness: 0.18,
+      clearcoat: 0.92,
+      envMapIntensity: 1.55,
       flatShading: true,
     });
     const shardInstanced = new THREE.InstancedMesh(
@@ -485,32 +485,32 @@ export function MonolithScene({
     );
     particleGeom.setAttribute("color", new THREE.BufferAttribute(pColors, 3));
     const particleMat = new THREE.PointsMaterial({
-      size: isMobile ? 0.022 : 0.019,
+      size: isMobile ? 0.024 : 0.021,
       vertexColors: true,
       transparent: true,
-      opacity: 0.42,
+      opacity: 0.55,
       depthWrite: false,
     });
     const particles = new THREE.Points(particleGeom, particleMat);
     scene.add(particles);
 
-    // 7. Chiaroscuro Studio Lighting (Cold Titanium Dominant + Trace Copper Fill)
-    const ambient = new THREE.AmbientLight(0x16181d, 1.45);
+    // 7. Chiaroscuro Studio Lighting (Luminous Titanium Dominant + Trace Copper Fill)
+    const ambient = new THREE.AmbientLight(0x2b3242, 1.95);
     scene.add(ambient);
 
-    const keyLight = new THREE.DirectionalLight(0xf4f5f7, 2.25);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.75);
     keyLight.position.set(-4.5, 5.5, 4.5);
     scene.add(keyLight);
 
-    const titaniumRim = new THREE.DirectionalLight(0xd4d7dd, 3.2);
+    const titaniumRim = new THREE.DirectionalLight(0xe5e8f0, 3.8);
     titaniumRim.position.set(4.8, 2.0, -2.5);
     scene.add(titaniumRim);
 
-    const copperFill = new THREE.PointLight(0xb87333, 0.95, 13);
+    const copperFill = new THREE.PointLight(0xd98c4a, 1.4, 14);
     copperFill.position.set(3.2, -3.6, 2.2);
     scene.add(copperFill);
 
-    const silverUnderFill = new THREE.PointLight(0x9ca3af, 1.35, 14);
+    const silverUnderFill = new THREE.PointLight(0xbec6d4, 1.85, 15);
     silverUnderFill.position.set(-2.4, -3.2, 2.8);
     scene.add(silverUnderFill);
 
@@ -638,7 +638,7 @@ export function MonolithScene({
       );
       innerMerkabaGroup.rotation.x = Math.cos(p * Math.PI * 2.0) * 0.24;
       innerMerkabaGroup.rotation.z = Math.sin(elapsed * 0.2 + p * 3.0) * 0.16;
-      innerTitaniumMat.emissiveIntensity = 0.32 + Math.min(vel * 0.6, 0.65);
+      innerTitaniumMat.emissiveIntensity = 0.56 + Math.min(vel * 0.6, 0.65);
 
       metatronGroup.scale.setScalar(0.96 + (ringSpread - 1.0) * 0.55);
       metatronGroup.rotation.z = elapsed * 0.06 + p * Math.PI * 0.9;
@@ -646,7 +646,7 @@ export function MonolithScene({
         -0.22 + Math.sin(elapsed * 0.25 + p * Math.PI) * 0.35 + currentPointer.x * 0.15;
       metatronGroup.rotation.x =
         0.18 + Math.cos(elapsed * 0.2 + p * Math.PI) * 0.22 - currentPointer.y * 0.12;
-      metatronLineMat.opacity = 0.12 + Math.min(vel * 0.18, 0.16);
+      metatronLineMat.opacity = 0.22 + Math.min(vel * 0.22, 0.18);
 
       ringOuterGroup.scale.setScalar(ringSpread);
       ringOuterGroup.rotation.z =

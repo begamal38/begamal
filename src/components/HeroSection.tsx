@@ -53,9 +53,9 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-14 pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:px-8 lg:pt-24"
+      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-24 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-8 sm:pb-16 lg:pb-14 lg:pt-24"
     >
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-8">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-5 sm:gap-8 lg:grid-cols-12">
         {/* Left/Start: Typography Stack (Immediately visible at scroll = 0, opacity: 1) */}
         <div className="order-2 flex flex-col items-start opacity-100 lg:order-1 lg:col-span-7">
           <div className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-[#0A0A0C]/85 px-3.5 py-1">
@@ -68,18 +68,18 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
             </p>
           </div>
 
-          <h1 className="mt-4 font-display text-4xl font-semibold uppercase leading-[1.08] tracking-[0.06em] text-[#F4F5F7] sm:text-5xl lg:text-[3.75rem]">
+          <h1 className="mt-3 font-display text-3xl font-semibold uppercase leading-[1.08] tracking-[0.06em] text-[#F4F5F7] sm:mt-4 sm:text-5xl lg:text-[3.75rem]">
             {PORTFOLIO_IDENTITY.name[lang]}
-            <span className="mt-2 block font-editorial text-2xl font-normal italic leading-[1.2] tracking-[0.02em] text-[#D4D7DD] pb-1 sm:text-3xl lg:text-[2.25rem]">
+            <span className="mt-1.5 block font-editorial text-xl font-normal italic leading-[1.2] tracking-[0.02em] text-[#D4D7DD] pb-1 sm:mt-2 sm:text-3xl lg:text-[2.25rem]">
               {PORTFOLIO_IDENTITY.heroSubtitle[lang]}
             </span>
           </h1>
 
-          <p className="mt-4 max-w-[50ch] text-base leading-relaxed text-[#E4E4E7] sm:text-[17px]">
+          <p className="mt-3 max-w-[50ch] text-[15px] leading-relaxed text-[#E4E4E7] sm:mt-4 sm:text-[17px]">
             {PORTFOLIO_IDENTITY.heroSubtext[lang]}
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-4 opacity-100">
+          <div className="mt-5 flex flex-wrap items-center gap-3.5 opacity-100 sm:mt-7 sm:gap-4">
             <button
               type="button"
               onClick={() => onNavigate("contact")}
@@ -103,7 +103,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
 
         {/* Right/End: Chiaroscuro Monochrome Portrait (Immediately opacity: 1 at scroll = 0) */}
         <div className="hero-portrait-parallax order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
-          <div className="relative w-[195px] sm:w-[275px] lg:w-[365px]">
+          <div className="relative w-[170px] sm:w-[275px] lg:w-[365px]">
             <div
               className="pointer-events-none absolute -inset-6 rounded-full opacity-40 blur-3xl"
               style={{
@@ -120,13 +120,13 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
                 height={925}
                 loading="eager"
                 decoding="sync"
-                className="h-full w-full object-cover object-top grayscale contrast-[1.24] brightness-[0.88] opacity-100"
+                className="h-full w-full object-cover object-top grayscale contrast-[1.18] brightness-[0.95] opacity-100"
               />
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(ellipse 68% 72% at 50% 45%, rgba(5,5,5,0) 44%, rgba(5,5,5,0.72) 78%, rgba(5,5,5,1) 100%)",
+                    "radial-gradient(ellipse 70% 74% at 50% 45%, rgba(10,11,14,0) 46%, rgba(10,11,14,0.68) 79%, rgba(10,11,14,1) 100%)",
                 }}
                 aria-hidden="true"
               />

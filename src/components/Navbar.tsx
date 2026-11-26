@@ -19,7 +19,7 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
       <header className="fixed inset-x-0 top-0 z-50 px-4 pt-[max(0.85rem,env(safe-area-inset-top))] sm:px-6">
         <nav
           aria-label="Primary Navigation"
-          className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/10 bg-[#111215]/90 px-3.5 backdrop-blur-xl sm:px-6"
+          className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/15 bg-[#14171F]/88 px-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl sm:px-6"
         >
           <button
             type="button"

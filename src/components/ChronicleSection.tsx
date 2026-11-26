@@ -60,7 +60,7 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
     <section
       id="chronicle"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.08] bg-[#0A0A0C]/45 px-5 py-24 sm:px-8 md:py-36"
+      className="relative z-10 border-t border-white/[0.1] bg-[#0B0D12]/62 px-5 py-24 sm:px-8 md:py-36"
     >
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-12">
         {/* Sticky Index (Desktop) / Static Header (Mobile) */}
@@ -74,7 +74,7 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
             </p>
 
             {/* Active Chapter Telemetry Panel */}
-            <div className="hidden rounded-2xl border border-white/[0.09] bg-[#111215]/90 p-5 backdrop-blur-md lg:block">
+            <div className="hidden rounded-2xl border border-white/[0.12] bg-[#151822]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-md lg:block">
               <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
                 <span className="font-mono-code text-xs text-[#D4D7DD]">
                   {activeEntry.period[lang]}
@@ -136,8 +136,8 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                   onMouseEnter={() => setActiveIndex(idx)}
                   className={`chronicle-item relative rounded-2xl border p-6 transition-all duration-300 sm:p-8 ${
                     isActive
-                      ? "border-[#D4D7DD]/55 bg-[#111215]/96 shadow-[0_12px_36px_-20px_rgba(212,215,221,0.22)]"
-                      : "border-white/[0.09] bg-[#111215]/84 hover:border-white/25"
+                      ? "border-[#DDE2EB]/55 bg-[#161923]/96 shadow-[0_16px_42px_-18px_rgba(212,215,221,0.24),inset_0_1px_0_rgba(255,255,255,0.09)]"
+                      : "border-white/[0.1] bg-[#13161E]/86 hover:border-white/25"
                   }`}
                 >
                   <span

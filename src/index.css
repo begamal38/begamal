@@ -21,14 +21,14 @@
 @import "@fontsource/jetbrains-mono/500.css";
 
 :root {
-  --bg-void: #050505;
-  --bg-onyx: #0a0a0c;
-  --surface-carbon: #111215;
-  --border-hairline: rgba(255, 255, 255, 0.09);
+  --bg-void: #0a0b0e;
+  --bg-onyx: #10131a;
+  --surface-carbon: #161922;
+  --border-hairline: rgba(255, 255, 255, 0.11);
   --ink-titanium: #f4f5f7;
-  --ink-silver: #9ca3af;
-  --accent-titanium: #d4d7dd;
-  --sheen-titanium: linear-gradient(135deg, #f4f5f7 0%, #8e94a0 100%);
+  --ink-silver: #a7b0be;
+  --accent-titanium: #dde2eb;
+  --sheen-titanium: linear-gradient(135deg, #ffffff 0%, #9ca4b3 100%);
   --ease-architectural: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -48,6 +48,11 @@ button:not(:disabled),
 body {
   margin: 0;
   background-color: var(--bg-void);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(196, 206, 224, 0.085), transparent 64%),
+    radial-gradient(ellipse 60% 45% at 82% 42%, rgba(200, 125, 68, 0.055), transparent 58%),
+    radial-gradient(ellipse 55% 45% at 18% 78%, rgba(140, 155, 185, 0.055), transparent 62%);
+  background-attachment: fixed;
   color: var(--ink-titanium);
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;

@@ -61,11 +61,11 @@ export function StatementSection({ lang }: StatementSectionProps) {
     <section
       id="perspective"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.08] bg-[#050505]/35 px-5 py-24 sm:px-8 md:py-36"
+      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/55 px-5 py-24 sm:px-8 md:py-36"
     >
       <div className="mx-auto max-w-6xl space-y-10">
         {/* Double-Bezel Editorial Manifesto Card */}
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.09] bg-[#111215]/90 p-1.5">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.12] bg-[#181C25]/92 p-1.5 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
           {/* Subtle architectural 13-node geometric filigree (purely visual, zero copy) */}
           <svg
             aria-hidden="true"
@@ -94,7 +94,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
             <line x1="52.5" y1="81" x2="187.5" y2="159" opacity="0.6" />
             <line x1="187.5" y1="81" x2="52.5" y2="159" opacity="0.6" />
           </svg>
-          <div className="statement-block relative rounded-[calc(2rem-0.375rem)] bg-[#0A0A0C]/95 p-6 sm:p-10">
+          <div className="statement-block relative rounded-[calc(2rem-0.375rem)] bg-[#11141B]/94 p-6 sm:p-10">
             <h2 className="font-editorial text-2xl font-medium leading-[1.48] tracking-[-0.01em] text-[#F4F5F7] sm:text-4xl lg:text-[2.45rem]">
               {words.map((word, index) => (
                 <span key={`${lang}-${word}-${index}`}>
@@ -127,8 +127,8 @@ export function StatementSection({ lang }: StatementSectionProps) {
         </div>
 
         {/* Verified Milestones & Academic Foundation */}
-        <div className="milestone-grid grid grid-cols-1 gap-6 border-t border-white/[0.08] pt-10 md:grid-cols-3 md:gap-8">
-          <div className="milestone-card rounded-2xl border border-white/[0.09] bg-[#111215]/92 p-5">
+        <div className="milestone-grid grid grid-cols-1 gap-6 border-t border-white/[0.1] pt-10 md:grid-cols-3 md:gap-8">
+          <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#D4D7DD]">
               {UI_COPY.statement.origin[lang]}
             </p>
@@ -140,7 +140,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
             </p>
           </div>
 
-          <div className="milestone-card rounded-2xl border border-white/[0.09] bg-[#111215]/92 p-5">
+          <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#D4D7DD]">
               {UI_COPY.statement.education[lang]}
             </p>
@@ -152,7 +152,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
             </p>
           </div>
 
-          <div className="milestone-card rounded-2xl border border-white/[0.09] bg-[#111215]/92 p-5">
+          <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#D4D7DD]">
               {UI_COPY.statement.scope[lang]}
             </p>

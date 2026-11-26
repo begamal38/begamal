@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Check, Copy } from "@phosphor-icons/react";
+import {
+  ArrowUpRight,
+  Check,
+  Copy,
+  FacebookLogo,
+  InstagramLogo,
+  Play,
+  WhatsappLogo,
+} from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -67,7 +75,7 @@ export function SystemsAndContactSection({
       <section
         id="systems"
         ref={systemsRef}
-        className="relative z-10 border-t border-white/[0.08] bg-[#0A0A0C]/40 px-5 py-24 sm:px-8 md:py-36"
+        className="relative z-10 border-t border-white/[0.1] bg-[#0F1219]/62 px-5 py-24 sm:px-8 md:py-36"
       >
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
@@ -79,11 +87,11 @@ export function SystemsAndContactSection({
             </p>
           </div>
 
-          <div className="system-pillar-grid mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.09] bg-white/[0.08] lg:grid-cols-3">
+          <div className="system-pillar-grid mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.1] shadow-[0_18px_48px_-24px_rgba(0,0,0,0.75)] lg:grid-cols-3">
             {AI_PRODUCTION_STACK.map((pillar) => (
               <div
                 key={pillar.name.en}
-                className="system-pillar flex flex-col justify-between bg-[#111215]/95 p-7 transition-colors duration-300 hover:bg-[#16181D]"
+                className="system-pillar flex flex-col justify-between bg-[#151822]/96 p-7 transition-colors duration-300 hover:bg-[#1B1F2C]"
               >
                 <div>
                   <p className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#D4D7DD]">
@@ -105,7 +113,7 @@ export function SystemsAndContactSection({
       {/* Direct Channel & Minimal Footer with Language Switch */}
       <footer
         id="contact"
-        className="relative z-10 border-t border-white/[0.09] bg-[#050505]/75 px-5 pb-[max(7rem,calc(6rem+env(safe-area-inset-bottom)))] pt-24 sm:px-8 md:pb-14 md:pt-32"
+        className="relative z-10 border-t border-white/[0.11] bg-[#0C0E13]/88 px-5 pb-[max(7rem,calc(6rem+env(safe-area-inset-bottom)))] pt-24 sm:px-8 md:pb-14 md:pt-32"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
@@ -121,49 +129,85 @@ export function SystemsAndContactSection({
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3.5">
-              <a
-                href={PORTFOLIO_IDENTITY.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-titanium group inline-flex items-center gap-3 rounded-full py-2.5 ps-6 pe-2.5 text-sm font-semibold transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
-              >
-                <span>{UI_COPY.contact.facebookCta[lang]}</span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <ArrowUpRight size={15} weight="bold" />
-                </span>
-              </a>
+            <div className="flex flex-col gap-4 lg:items-end">
+              {/* Primary Direct Channels */}
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href={PORTFOLIO_IDENTITY.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-titanium group inline-flex items-center gap-2.5 rounded-full py-2.5 ps-5 pe-2.5 text-sm font-semibold transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
+                >
+                  <WhatsappLogo size={18} weight="fill" className="text-[#050505]" />
+                  <span>{UI_COPY.contact.whatsappCta[lang]}</span>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    <ArrowUpRight size={14} weight="bold" />
+                  </span>
+                </a>
 
-              <a
-                href={PORTFOLIO_IDENTITY.vimeoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111215] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
-              >
-                <span>{UI_COPY.contact.vimeoCta[lang]}</span>
-                <ArrowUpRight size={15} weight="bold" />
-              </a>
+                <a
+                  href={PORTFOLIO_IDENTITY.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#151822] px-4 py-2.5 text-xs font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap sm:text-sm"
+                >
+                  <FacebookLogo size={16} weight="regular" className="text-[#D4D7DD]" />
+                  <span>{UI_COPY.contact.facebookCta[lang]}</span>
+                  <span dir="ltr" className="font-mono-code text-[11px] text-[#9AA2B0]">
+                    @begamal
+                  </span>
+                  <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+                </a>
 
-              <button
-                type="button"
-                onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111215] px-5 py-3 font-mono-code text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
-              >
-                {copied ? (
-                  <>
-                    <Check size={14} weight="bold" className="text-[#F4F5F7]" />
-                    <span>{UI_COPY.contact.copiedEmail[lang]}</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={14} weight="regular" />
-                    <span>
-                      {lang === "en" ? "Copy " : "نسخ "}
-                      <span dir="ltr">{PORTFOLIO_IDENTITY.email}</span>
-                    </span>
-                  </>
-                )}
-              </button>
+                <a
+                  href={PORTFOLIO_IDENTITY.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#151822] px-4 py-2.5 text-xs font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap sm:text-sm"
+                >
+                  <InstagramLogo size={16} weight="regular" className="text-[#D4D7DD]" />
+                  <span>{UI_COPY.contact.instagramCta[lang]}</span>
+                  <span dir="ltr" className="font-mono-code text-[11px] text-[#9AA2B0]">
+                    @begamal
+                  </span>
+                  <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+                </a>
+              </div>
+
+              {/* Portfolio Reel & Email Copy Row */}
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href={PORTFOLIO_IDENTITY.vimeoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#12151E] px-4 py-2.5 text-xs font-medium text-[#D4D7DD] transition-all hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
+                >
+                  <Play size={13} weight="fill" />
+                  <span>{UI_COPY.contact.vimeoCta[lang]}</span>
+                  <ArrowUpRight size={13} weight="bold" className="opacity-70" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#12151E] px-4 py-2.5 font-mono-code text-xs font-medium text-[#D4D7DD] transition-all hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
+                >
+                  {copied ? (
+                    <>
+                      <Check size={14} weight="bold" className="text-[#F4F5F7]" />
+                      <span>{UI_COPY.contact.copiedEmail[lang]}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} weight="regular" />
+                      <span>
+                        {lang === "en" ? "Copy " : "نسخ "}
+                        <span dir="ltr">{PORTFOLIO_IDENTITY.email}</span>
+                      </span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 

@@ -85,16 +85,20 @@ function ClientStatusBadge({
 }) {
   const styles: Record<ClientStatus, { pill: string; dot: string }> = {
     active: {
-      pill: "border-[#D4D7DD]/45 bg-[#F4F5F7]/[0.1] text-[#F4F5F7]",
+      pill: "border-[#D4D7DD]/50 bg-[#F4F5F7]/[0.12] text-[#F4F5F7]",
       dot: "bg-[#F4F5F7] shadow-[0_0_8px_rgba(244,245,247,0.85)]",
     },
     new: {
-      pill: "border-[#C98A5B]/45 bg-[#C98A5B]/[0.12] text-[#E6B896]",
-      dot: "bg-[#D4956A]",
+      pill: "border-[#C98A5B]/50 bg-[#C98A5B]/[0.14] text-[#F0C6A3]",
+      dot: "bg-[#D99B66]",
+    },
+    leaving_soon: {
+      pill: "border-[#D99B52]/55 bg-[#D99B52]/[0.15] text-[#F5D29A]",
+      dot: "bg-[#E2A85C] shadow-[0_0_8px_rgba(226,168,92,0.75)]",
     },
     ended: {
-      pill: "border-white/10 bg-white/[0.03] text-[#8A919E]",
-      dot: "bg-[#6B7280]",
+      pill: "border-white/15 bg-white/[0.05] text-[#9AA2B0]",
+      dot: "bg-[#7A8290]",
     },
   };
 
@@ -127,7 +131,7 @@ function CaseStudyVisualStage({
     if (study.isWhitePlate) {
       return (
         <div
-          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] p-4`}
+          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.11] bg-[#12161E] p-4`}
         >
           <div className="flex h-32 w-56 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white px-5 py-3 shadow-lg">
             <img
@@ -143,7 +147,7 @@ function CaseStudyVisualStage({
 
     return (
       <div
-        className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] p-4`}
+        className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.11] bg-[#12161E] p-4`}
       >
         {study.isPortraitMedallion ? (
           <div className="h-36 w-36 rounded-full border border-[#D4D7DD]/35 bg-[#111215] p-1 shadow-[0_10px_28px_rgba(0,0,0,0.65)]">
@@ -181,9 +185,9 @@ function CaseStudyVisualStage({
 
   return (
     <div
-      className={`${heightClass} flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/[0.08] bg-[#0B0C0E] p-5 text-center`}
+      className={`${heightClass} flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/[0.11] bg-[#12161E] p-5 text-center`}
     >
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-[#111215] font-display text-lg font-semibold tracking-wider text-[#D4D7DD]">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-[#181C26] font-display text-lg font-semibold tracking-wider text-[#E2E6EF]">
         {study.monogram ?? study.title.en.slice(0, 2).toUpperCase()}
       </div>
       <span className="font-display text-base tracking-wide text-[#F4F5F7]">
@@ -262,7 +266,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
     <section
       id="works"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.08] bg-[#050505]/45 px-5 py-24 sm:px-8 md:py-36"
+      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/65 px-5 py-24 sm:px-8 md:py-36"
     >
       <div className="mx-auto max-w-6xl">
         {/* Featured 16:9 Cinema Vimeo Showreel Showcase */}
@@ -270,18 +274,18 @@ export function WorksSection({ lang }: WorksSectionProps) {
           href={PORTFOLIO_IDENTITY.vimeoUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group mb-16 block rounded-[2rem] border border-white/[0.09] bg-[#111215]/95 p-1.5 transition-all duration-300 hover:border-[#D4D7DD]/45"
+          className="group mb-16 block rounded-[2rem] border border-white/[0.12] bg-[#171B24]/95 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] transition-all duration-300 hover:border-[#D4D7DD]/50"
         >
-          <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#0A0A0C]">
+          <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
             <div className="relative aspect-[16/9] w-full overflow-hidden">
               <img
                 src={PORTFOLIO_IDENTITY.showreelPosterPath}
                 alt={UI_COPY.works.showreelTitle[lang]}
                 loading="lazy"
-                className="h-full w-full object-cover brightness-[0.68] contrast-[1.1] grayscale-[65%] transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                className="h-full w-full object-cover brightness-[0.76] contrast-[1.08] grayscale-[55%] transition-transform duration-700 ease-out group-hover:scale-[1.025]"
               />
               <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/35 to-transparent"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D1017] via-[#0D1017]/30 to-transparent"
                 aria-hidden="true"
               />
 
@@ -343,7 +347,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                   className={`rounded-full border px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.98] whitespace-nowrap ${
                     selected
                       ? "btn-titanium border-[#F4F5F7] font-semibold"
-                      : "border-white/10 bg-[#111215] text-[#9CA3AF] hover:border-white/25 hover:text-[#F4F5F7]"
+                      : "border-white/15 bg-[#151822] text-[#A7B0BE] hover:border-white/30 hover:text-[#F4F5F7]"
                   }`}
                 >
                   {category.label[lang]}
@@ -361,9 +365,9 @@ export function WorksSection({ lang }: WorksSectionProps) {
             return (
               <article
                 key={study.id}
-                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.09] bg-[#111215]/92 p-1.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4D7DD]/45`}
+                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.12] bg-[#181C25]/94 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4D7DD]/50`}
               >
-                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#0A0A0C] p-6 transition-colors duration-300 group-hover:bg-[#0D0E12]">
+                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#101319] p-6 transition-colors duration-300 group-hover:bg-[#141822]">
                   <button
                     type="button"
                     onClick={() => setSelectedStudy(study)}
@@ -413,7 +417,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                         href={primaryLink.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#111215] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#161923] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
                         <span>{UI_COPY.works.visitPage[lang]}</span>
                         <ArrowUpRight size={13} weight="bold" />
@@ -422,7 +426,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                       <button
                         type="button"
                         onClick={() => setSelectedStudy(study)}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#111215] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#161923] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
                         <span>{UI_COPY.works.caseStudyCta[lang]}</span>
                         <ArrowUpRight size={13} weight="bold" />
@@ -443,11 +447,11 @@ export function WorksSection({ lang }: WorksSectionProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-study-title"
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#050505]/88 p-4 backdrop-blur-xl sm:p-6"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#090B0F]/84 p-4 backdrop-blur-xl sm:p-6"
             onClick={() => setSelectedStudy(null)}
           >
             <div
-              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#111215] p-5 sm:p-8"
+              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/20 bg-[#161923] p-5 shadow-[0_24px_64px_rgba(0,0,0,0.65)] sm:p-8"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-4 sm:pb-5">
