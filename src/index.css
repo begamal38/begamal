@@ -36,7 +36,13 @@ html {
   background-color: var(--bg-void);
   color: var(--ink-titanium);
   scroll-behavior: auto;
+  scroll-padding-top: 5.5rem;
   color-scheme: dark;
+}
+
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
 }
 
 body {

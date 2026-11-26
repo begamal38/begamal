@@ -6,8 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   CASE_STUDIES,
   CASE_STUDY_CATEGORIES,
+  CLIENT_STATUS_LABELS,
   CaseStudy,
   CaseStudyCategoryId,
+  ClientStatus,
   Lang,
   PORTFOLIO_IDENTITY,
   UI_COPY,
@@ -74,6 +76,42 @@ function getBentoSpanClass(index: number, total: number): string {
   return index % 2 === 0 ? "lg:col-span-7" : "lg:col-span-5";
 }
 
+function ClientStatusBadge({
+  status,
+  lang,
+}: {
+  status: ClientStatus;
+  lang: Lang;
+}) {
+  const styles: Record<ClientStatus, { pill: string; dot: string }> = {
+    active: {
+      pill: "border-[#D4D7DD]/45 bg-[#F4F5F7]/[0.1] text-[#F4F5F7]",
+      dot: "bg-[#F4F5F7] shadow-[0_0_8px_rgba(244,245,247,0.85)]",
+    },
+    new: {
+      pill: "border-[#C98A5B]/45 bg-[#C98A5B]/[0.12] text-[#E6B896]",
+      dot: "bg-[#D4956A]",
+    },
+    ended: {
+      pill: "border-white/10 bg-white/[0.03] text-[#8A919E]",
+      dot: "bg-[#6B7280]",
+    },
+  };
+
+  return (
+    <span
+      data-client-status={status}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono-code text-[10px] font-semibold uppercase tracking-[0.12em] whitespace-nowrap ${styles[status].pill}`}
+    >
+      <span
+        className={`h-1.5 w-1.5 shrink-0 rounded-full ${styles[status].dot}`}
+        aria-hidden="true"
+      />
+      <span>{CLIENT_STATUS_LABELS[status][lang]}</span>
+    </span>
+  );
+}
+
 function CaseStudyVisualStage({
   study,
   lang,
@@ -83,7 +121,7 @@ function CaseStudyVisualStage({
   lang: Lang;
   tall?: boolean;
 }) {
-  const heightClass = tall ? "h-52" : "h-44";
+  const heightClass = tall ? "h-40 sm:h-52" : "h-44";
 
   if (study.image) {
     if (study.isWhitePlate) {
@@ -180,23 +218,30 @@ export function WorksSection({ lang }: WorksSectionProps) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".works-card",
-        { y: 22, opacity: 0.65 },
+        { y: 12, opacity: 0.92 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.05,
-          duration: 0.55,
+          stagger: 0.04,
+          duration: 0.45,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".works-grid",
-            start: "top 86%",
+            start: "top 96%",
             once: true,
           },
         }
       );
     }, sectionRef);
 
-    return () => ctx.revert();
+    const rafId = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      ctx.revert();
+    };
   }, [activeCategory, lang]);
 
   useEffect(() => {
@@ -329,9 +374,12 @@ export function WorksSection({ lang }: WorksSectionProps) {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#D4D7DD]">
-                        {study.period[lang]}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <ClientStatusBadge status={study.status} lang={lang} />
+                        <span className="font-mono-code text-[11px] uppercase tracking-[0.12em] text-[#D4D7DD]">
+                          {study.period[lang]}
+                        </span>
+                      </div>
                       <span className="text-[11px] text-[#9CA3AF]">
                         {categoryLabelMap.get(study.category)}
                       </span>
@@ -399,17 +447,20 @@ export function WorksSection({ lang }: WorksSectionProps) {
             onClick={() => setSelectedStudy(null)}
           >
             <div
-              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#111215] p-6 sm:p-8"
+              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#111215] p-5 sm:p-8"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-5">
+              <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-4 sm:pb-5">
                 <div>
-                  <p className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#D4D7DD]">
-                    {selectedStudy.period[lang]} · {categoryLabelMap.get(selectedStudy.category)}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <ClientStatusBadge status={selectedStudy.status} lang={lang} />
+                    <p className="font-mono-code text-xs uppercase tracking-[0.14em] text-[#D4D7DD]">
+                      {selectedStudy.period[lang]} · {categoryLabelMap.get(selectedStudy.category)}
+                    </p>
+                  </div>
                   <h3
                     id="modal-study-title"
-                    className="mt-2 font-display text-2xl font-semibold text-[#F4F5F7] sm:text-3xl"
+                    className="mt-2 font-display text-xl font-semibold text-[#F4F5F7] sm:text-3xl"
                   >
                     {selectedStudy.title[lang]}
                   </h3>
@@ -425,15 +476,15 @@ export function WorksSection({ lang }: WorksSectionProps) {
                 </button>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 <CaseStudyVisualStage study={selectedStudy} lang={lang} tall />
               </div>
 
-              <p className="mt-6 text-base leading-relaxed text-[#F4F5F7]/90">
+              <p className="mt-4 text-sm leading-relaxed text-[#F4F5F7]/90 sm:mt-6 sm:text-base">
                 {selectedStudy.summary[lang]}
               </p>
 
-              <div className="mt-6 space-y-3 border-t border-white/[0.08] pt-5">
+              <div className="mt-4 space-y-2.5 border-t border-white/[0.08] pt-4 sm:mt-6 sm:space-y-3 sm:pt-5">
                 <h4 className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#D4D7DD]">
                   {UI_COPY.works.scopeHeading[lang]}
                 </h4>

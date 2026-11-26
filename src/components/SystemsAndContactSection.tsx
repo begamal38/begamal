@@ -105,7 +105,7 @@ export function SystemsAndContactSection({
       {/* Direct Channel & Minimal Footer with Language Switch */}
       <footer
         id="contact"
-        className="relative z-10 border-t border-white/[0.09] bg-[#050505]/75 px-5 pb-28 pt-24 sm:px-8 md:pb-14 md:pt-32"
+        className="relative z-10 border-t border-white/[0.09] bg-[#050505]/75 px-5 pb-[max(7rem,calc(6rem+env(safe-area-inset-bottom)))] pt-24 sm:px-8 md:pb-14 md:pt-32"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">

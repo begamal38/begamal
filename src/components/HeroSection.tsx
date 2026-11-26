@@ -53,14 +53,14 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-14 pt-20 sm:px-8 lg:pt-24"
+      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-14 pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:px-8 lg:pt-24"
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-8">
         {/* Left/Start: Typography Stack (Immediately visible at scroll = 0, opacity: 1) */}
         <div className="order-2 flex flex-col items-start opacity-100 lg:order-1 lg:col-span-7">
           <div className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-[#0A0A0C]/85 px-3.5 py-1">
             <span
-              className="h-1.5 w-1.5 rounded-full bg-[#D4D7DD]"
+              className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
               aria-hidden="true"
             />
             <p className="font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#D4D7DD]">

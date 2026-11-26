@@ -95,14 +95,15 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                   {activeEntry.logos.map((logo) => (
                     <div
                       key={`${activeEntry.id}-panel-${logo.src}`}
-                      className="flex h-10 items-center justify-center overflow-hidden rounded-lg border border-white/15 px-3 py-1.5 shadow-sm"
+                      className="flex h-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/15 px-3 py-1.5 shadow-sm"
                       style={{ backgroundColor: logo.bg ?? "#0B0C0E" }}
                     >
                       <img
                         src={logo.src}
                         alt={logo.alt[lang]}
+                        decoding="async"
                         className={`object-contain ${
-                          logo.wide ? "max-h-6 max-w-[96px]" : "max-h-7 w-auto"
+                          logo.wide ? "max-h-6 max-w-[132px]" : "max-h-7 w-auto"
                         }`}
                       />
                     </div>
@@ -161,7 +162,7 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                     {entry.role[lang]}
                   </h3>
 
-                  <p className="mt-1.5 text-sm font-medium text-[#D4D7DD]">
+                  <p className="mt-1.5 text-balance text-sm font-medium text-[#D4D7DD]">
                     {entry.organization[lang]}
                   </p>
 
@@ -170,15 +171,15 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                       {entry.logos.map((logo) => (
                         <div
                           key={`${entry.id}-${logo.src}`}
-                          className="flex h-11 items-center justify-center overflow-hidden rounded-xl border border-white/15 px-3.5 py-1.5 shadow-sm"
+                          className="flex h-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/15 px-3.5 py-1.5 shadow-sm"
                           style={{ backgroundColor: logo.bg ?? "#0B0C0E" }}
                         >
                           <img
                             src={logo.src}
                             alt={logo.alt[lang]}
-                            loading="lazy"
+                            decoding="async"
                             className={`object-contain ${
-                              logo.wide ? "max-h-6 max-w-[108px]" : "max-h-8 w-auto"
+                              logo.wide ? "max-h-6 max-w-[140px]" : "max-h-8 w-auto"
                             }`}
                           />
                         </div>

@@ -1,5 +1,7 @@
 export type Lang = "en" | "ar";
 
+export type ClientStatus = "active" | "new" | "ended";
+
 export type CaseStudyCategoryId =
   | "all"
   | "brand_growth"
@@ -42,6 +44,7 @@ export interface ClientLink {
 export interface CaseStudy {
   id: string;
   title: LocalizedText;
+  status: ClientStatus;
   period: LocalizedText;
   category: Exclude<CaseStudyCategoryId, "all">;
   discipline: LocalizedText;
@@ -529,6 +532,12 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
 ];
 
+export const CLIENT_STATUS_LABELS: Record<ClientStatus, LocalizedText> = {
+  active: { en: "Active", ar: "نشط" },
+  new: { en: "New", ar: "جديد" },
+  ended: { en: "Ended", ar: "منتهٍ" },
+};
+
 export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedText }[] = [
   { id: "all", label: { en: "All", ar: "الكل" } },
   { id: "retail_hospitality", label: { en: "Retail & Hospitality", ar: "التجزئة والضيافة" } },
@@ -539,14 +548,16 @@ export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedT
 ];
 
 /**
- * Sorted with active flagship clients FIRST (Al-Qersh, Mohamed Samy, EL3SAL,
- * Hossam Fekry, Obolus), followed by corporate & historical milestones.
+ * Sorted by lifecycle tier: Active partners first (Al-Qersh, Mohamed Samy, EL3SAL,
+ * Hossam Fekry, Khatwa), followed by New studios (Obolus, THE ARCHITECT OF REALITY),
+ * and Ended corporate/commercial engagements cleanly labeled.
  */
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "al-qersh-mobile",
     title: { en: "Al-Qersh Mobile", ar: "القرش موبايل" },
-    period: { en: "2022 - Present", ar: "2022 - حتى الآن" },
+    status: "active",
+    period: { en: "Since 2022", ar: "منذ 2022" },
     category: "retail_hospitality",
     discipline: {
       en: "Creative Direction · Commercial Reels · Retail Growth",
@@ -584,7 +595,8 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "mohamed-samy",
     title: { en: "Mohamed Samy Works", ar: "محمد سامي للديكور والتشطيبات" },
-    period: { en: "2022 - Present · Active", ar: "2022 - حتى الآن · عميل حالي" },
+    status: "active",
+    period: { en: "Since 2022", ar: "منذ 2022" },
     category: "brand_growth",
     discipline: {
       en: "Creative Direction · Architecture Positioning · Film",
@@ -626,7 +638,8 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "el3sal",
     title: { en: "EL3SAL Crepe & Pizza", ar: "مطعم العسال" },
-    period: { en: "ACTIVE CLIENT", ar: "عميل حالي" },
+    status: "active",
+    period: { en: "QSR Partner", ar: "شريك قطاع المطاعم" },
     category: "retail_hospitality",
     discipline: {
       en: "Menu Architecture · QSR Campaigns · Meta Funnels",
@@ -664,7 +677,8 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "hossam-fekry",
     title: { en: "Hossam Fekry Platform", ar: "منصة حسام فكري التعليمية" },
-    period: { en: "Active · EdTech Platform", ar: "مستمر · منصة تعليمية" },
+    status: "active",
+    period: { en: "EdTech Platform", ar: "منصة تعليمية" },
     category: "corporate_tech",
     discipline: {
       en: "Academic Identity · Platform Engineering · Campaigns",
@@ -673,8 +687,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/hossam-fekry.png",
     isWhitePlate: true,
     summary: {
-      en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fekry educational platform.",
-      ar: "التوجيه البصري، وحملات التسجيل الطلابي على مستوى الجمهورية، والهندسة المستمرة لتجربة المستخدم عبر منصة حسام فكري التعليمية.",
+      en: "Visual direction, nationwide enrollment campaigns, and web experience engineering for the Hossam Fekry educational platform.",
+      ar: "التوجيه البصري، وحملات التسجيل الطلابي على مستوى الجمهورية، وتطوير تجربة المستخدم عبر منصة حسام فكري التعليمية.",
     },
     deliverables: {
       en: [
@@ -704,9 +718,49 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    id: "khatwa-academy",
+    title: { en: "Khatwa Academy & Nursery", ar: "أكاديمية وحضانة خطوة" },
+    status: "active",
+    period: { en: "Education Partner", ar: "شريك قطاع التعليم" },
+    category: "corporate_tech",
+    discipline: {
+      en: "Nursery Marketing · Reels Production · Parent Conversion",
+      ar: "تسويق تعليمي · إنتاج مرئي · استقطاب أولياء الأمور",
+    },
+    image: "/assets/clients/khatwa.png",
+    isWhitePlate: true,
+    summary: {
+      en: "Marketing direction and real-activity video reels for Khatwa Academy and Nursery, structuring clear stage-by-stage parent messaging that drives qualified enrollment inquiries.",
+      ar: "التوجيه التسويقي وإنتاج المقاطع التوثيقية للأنشطة الفعلية في أكاديمية وحضانة خطوة، عبر صياغة رسائل واضحة لكل مرحلة عمرية تستقطب استفسارات التسجيل الجادة من أولياء الأمور.",
+    },
+    deliverables: {
+      en: [
+        "Stage-structured parent positioning across nursery and KG programs",
+        "Authentic activity reels built around real classroom moments",
+        "Direct Messenger and WhatsApp qualification funnels for parents",
+      ],
+      ar: [
+        "صياغة تموضع تعليمي واضح لكل مرحلة عمرية عبر برامج الحضانة ورياض الأطفال",
+        "إنتاج مقاطع واقعية توثق الأنشطة الصفية والتطبيقية الفعلية",
+        "بناء مسارات تواصل وتأهيل مباشر لاستفسارات أولياء الأمور",
+      ],
+    },
+    campaigns: {
+      en: ["Stage-by-Stage Clarity", "Real Activity Reels", "Parent Funnel"],
+      ar: ["وضوح المراحل العمرية", "توثيق الأنشطة الواقعية", "مسار التسجيل"],
+    },
+    links: [
+      {
+        label: { en: "Official Website", ar: "الموقع الرسمي" },
+        url: "https://khatwa.site",
+      },
+    ],
+  },
+  {
     id: "obolus",
     title: { en: "Obolus (@obolus.explains)", ar: "Obolus (@obolus.explains)" },
-    period: { en: "Active · AI Media Studio", ar: "مستمر · استوديو إنتاج ذكي" },
+    status: "new",
+    period: { en: "AI Media Studio", ar: "استوديو إنتاج ذكي" },
     category: "ai_systems",
     discipline: {
       en: "English 2D Documentary · Automated Production Stack",
@@ -742,8 +796,48 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    id: "architect-of-reality",
+    title: { en: "THE ARCHITECT OF REALITY", ar: "THE ARCHITECT OF REALITY" },
+    status: "new",
+    period: { en: "YouTube Channel", ar: "قناة يوتيوب" },
+    category: "ai_systems",
+    discipline: {
+      en: "International English Channel · Long-Form Visual Systems",
+      ar: "قناة إنجليزية عالمية · منظومات سرد بصري طويلة",
+    },
+    image: "/assets/clients/architect-of-reality.png",
+    isWhitePlate: true,
+    summary: {
+      en: "Flagship English YouTube channel built for international viewers, combining deep psychological and philosophical storytelling with a custom programmatic animation engine.",
+      ar: "قناة THE ARCHITECT OF REALITY باللغة الإنجليزية للجمهور الدولي، تجمع بين السرد النفسي والفلسفي العميق ومحرك تحريك برمجي مخصص لإنتاج الحلقات الطويلة.",
+    },
+    deliverables: {
+      en: [
+        "Long-form 2D animated episode architecture focused on depth and retention",
+        "Custom programmatic rendering pipeline with strict visual QA gates",
+        "Packaging and hook strategy built for international audiences",
+      ],
+      ar: [
+        "هندسة حلقات وثائقية طويلة تركز على العمق الفكري ومعدل الاحتفاظ بالمشاهد",
+        "خط معالجة وتصدير برمجي مخصص يخضع لبوابات فحص بصري صارمة",
+        "استراتيجية تغليف وافتتاحيات مصممة للجمهور الدولي",
+      ],
+    },
+    campaigns: {
+      en: ["THE MIND MANUAL", "Long-Form Retention", "Programmatic Animation"],
+      ar: ["دليل العقل", "الاحتفاظ طويل المدى", "التحريك البرمجي"],
+    },
+    links: [
+      {
+        label: { en: "YouTube Channel", ar: "قناة يوتيوب" },
+        url: "https://www.youtube.com/@thearchitectofreality963",
+      },
+    ],
+  },
+  {
     id: "chubb-life",
     title: { en: "Chubb Life Insurance Egypt", ar: "تشب لتأمينات الحياة · مصر" },
+    status: "ended",
     period: { en: "Sep 2022 - Jul 2023", ar: "سبتمبر 2022 - يوليو 2023" },
     category: "corporate_tech",
     discipline: {
@@ -759,12 +853,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     deliverables: {
       en: [
         "Commercial sales team leadership across life and financial protection portfolios",
-        "Ongoing coaching, pipeline management, and target accountability",
+        "Daily executive coaching, pipeline management, and target accountability",
         "Structured client advisory standards grounded in enterprise discipline",
       ],
       ar: [
         "قيادة الفريق التجاري عبر محافظ الحماية المالية والتأمين على الحياة",
-        "التدريب المستمر وإدارة مسار المبيعات وتحقيق المستهدفات الدورية",
+        "التوجيه التنفيذي وإدارة مسار المبيعات وتحقيق المستهدفات الدورية",
         "تطبيق معايير الاستشارة المالية المنضبطة مع العملاء",
       ],
     },
@@ -782,6 +876,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "al-attar-group",
     title: { en: "Al-Attar Group", ar: "مجموعة العطار" },
+    status: "ended",
     period: { en: "2018 - 2021", ar: "2018 - 2021" },
     category: "brand_growth",
     discipline: {
@@ -820,6 +915,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "chance-media",
     title: { en: "Chance Media (Ahmed Akl)", ar: "تشانس ميديا (أحمد عقل)" },
+    status: "ended",
     period: { en: "2018", ar: "2018" },
     category: "brand_growth",
     discipline: {
@@ -857,6 +953,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "tecno-camon-c9",
     title: { en: "TECNO Mobile · Camon C9", ar: "تكنو موبايل · كامون C9" },
+    status: "ended",
     period: { en: "2016 - 2017 · QA", ar: "2016 - 2017 · اختبار البرمجيات" },
     category: "corporate_tech",
     discipline: {
@@ -888,84 +985,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     links: [],
   },
   {
-    id: "architect-of-reality",
-    title: { en: "THE ARCHITECT OF REALITY", ar: "THE ARCHITECT OF REALITY" },
-    period: { en: "YouTube Channel", ar: "قناة يوتيوب" },
-    category: "ai_systems",
-    discipline: {
-      en: "International English Channel · Long-Form Visual Systems",
-      ar: "قناة إنجليزية عالمية · منظومات سرد بصري طويلة",
-    },
-    image: "/assets/clients/architect-of-reality.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Flagship English YouTube channel built for international viewers, combining deep psychological and philosophical storytelling with a custom programmatic animation engine.",
-      ar: "قناة THE ARCHITECT OF REALITY باللغة الإنجليزية للجمهور الدولي، تجمع بين السرد النفسي والفلسفي العميق ومحرك تحريك برمجي مخصص لإنتاج الحلقات الطويلة.",
-    },
-    deliverables: {
-      en: [
-        "Long-form 2D animated episode architecture focused on depth and retention",
-        "Custom programmatic rendering pipeline with strict visual QA gates",
-        "Packaging and hook strategy built for international audiences",
-      ],
-      ar: [
-        "هندسة حلقات وثائقية طويلة تركز على العمق الفكري ومعدل الاحتفاظ بالمشاهد",
-        "خط معالجة وتصدير برمجي مخصص يخضع لبوابات فحص بصري صارمة",
-        "استراتيجية تغليف وافتتاحيات مصممة للجمهور الدولي",
-      ],
-    },
-    campaigns: {
-      en: ["THE MIND MANUAL", "Long-Form Retention", "Programmatic Animation"],
-      ar: ["دليل العقل", "الاحتفاظ طويل المدى", "التحريك البرمجي"],
-    },
-    links: [
-      {
-        label: { en: "YouTube Channel", ar: "قناة يوتيوب" },
-        url: "https://www.youtube.com/@thearchitectofreality963",
-      },
-    ],
-  },
-  {
-    id: "khatwa-academy",
-    title: { en: "Khatwa Academy & Nursery", ar: "أكاديمية وحضانة خطوة" },
-    period: { en: "Education Partner", ar: "شريك قطاع التعليم" },
-    category: "corporate_tech",
-    discipline: {
-      en: "Nursery Marketing · Reels Production · Parent Conversion",
-      ar: "تسويق تعليمي · إنتاج مرئي · استقطاب أولياء الأمور",
-    },
-    image: "/assets/clients/khatwa.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Marketing direction and real-activity video reels for Khatwa Academy and Nursery, structuring clear stage-by-stage parent messaging that drives qualified enrollment inquiries.",
-      ar: "التوجيه التسويقي وإنتاج المقاطع التوثيقية للأنشطة الفعلية في أكاديمية وحضانة خطوة، عبر صياغة رسائل واضحة لكل مرحلة عمرية تستقطب استفسارات التسجيل الجادة من أولياء الأمور.",
-    },
-    deliverables: {
-      en: [
-        "Stage-structured parent positioning across nursery and KG programs",
-        "Authentic activity reels built around real classroom moments",
-        "Direct Messenger and WhatsApp qualification funnels for parents",
-      ],
-      ar: [
-        "صياغة تموضع تعليمي واضح لكل مرحلة عمرية عبر برامج الحضانة ورياض الأطفال",
-        "إنتاج مقاطع واقعية توثق الأنشطة الصفية والتطبيقية الفعلية",
-        "بناء مسارات تواصل وتأهيل مباشر لاستفسارات أولياء الأمور",
-      ],
-    },
-    campaigns: {
-      en: ["Stage-by-Stage Clarity", "Real Activity Reels", "Parent Funnel"],
-      ar: ["وضوح المراحل العمرية", "توثيق الأنشطة الواقعية", "مسار التسجيل"],
-    },
-    links: [
-      {
-        label: { en: "Official Website", ar: "الموقع الرسمي" },
-        url: "https://khatwa.site",
-      },
-    ],
-  },
-  {
     id: "sanhok",
     title: { en: "Sanhok PlayStation & Café", ar: "سانهوك للترفيه والكافيه" },
+    status: "ended",
     period: { en: "Commercial Partner", ar: "شريك تجاري" },
     category: "retail_hospitality",
     discipline: {
@@ -975,8 +997,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/sanhok.jpg",
     isMedallion: true,
     summary: {
-      en: "Commercial entertainment marketing and youth-focused digital campaigns designed to keep gaming lounges and café seating consistently active.",
-      ar: "تسويق ترفيهي وحملات رقمية موجهة لفئة الشباب، مصممة للحفاظ على الإقبال المستمر على صالات الألعاب الإلكترونية ومقاعد الكافيه طوال أيام الأسبوع.",
+      en: "Commercial entertainment marketing and youth-focused digital campaigns designed to drive strong footfall to gaming lounges and café seating throughout the week.",
+      ar: "تسويق ترفيهي وحملات رقمية موجهة لفئة الشباب، مصممة لتعزيز الإقبال اليومي على صالات الألعاب الإلكترونية ومقاعد الكافيه طوال أيام الأسبوع.",
     },
     deliverables: {
       en: [
@@ -1004,6 +1026,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "yasmine-salah",
     title: { en: "Yasmine Salah Makeup Artist", ar: "ياسمين صلاح · خبيرة تجميل" },
+    status: "ended",
     period: { en: "Commercial Partner", ar: "شريك تجاري" },
     category: "beauty_lifestyle",
     discipline: {

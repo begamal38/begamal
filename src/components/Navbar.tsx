@@ -16,7 +16,7 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-[max(0.85rem,env(safe-area-inset-top))] sm:px-6">
         <nav
           aria-label="Primary Navigation"
           className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/10 bg-[#111215]/90 px-3.5 backdrop-blur-xl sm:px-6"

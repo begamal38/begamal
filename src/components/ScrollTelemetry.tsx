@@ -57,7 +57,7 @@ export function ScrollTelemetry({
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[55] h-[2px] bg-white/[0.04]"
+        className="pointer-events-none fixed inset-x-0 top-[env(safe-area-inset-top,0px)] z-[55] h-[2px] bg-white/[0.04]"
         aria-hidden="true"
       >
         <div
