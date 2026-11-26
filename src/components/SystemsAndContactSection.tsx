@@ -168,7 +168,7 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
               {PORTFOLIO_IDENTITY.brandMark[lang]}
             </span>
             <span className="font-mono-code text-xs text-[#A1A1AA]">
-              {PORTFOLIO_IDENTITY.vimeoLabel}
+              {lang === "en" ? "Creative Direction & AI Systems" : "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي"}
             </span>
           </div>
         </div>

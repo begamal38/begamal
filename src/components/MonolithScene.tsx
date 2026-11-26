@@ -23,7 +23,7 @@ function createArchitecturalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture
 
   const softboxPlatinum = new THREE.Mesh(
     new THREE.PlaneGeometry(8, 12),
-    new THREE.MeshBasicMaterial({ color: 0x9ca3af, side: THREE.DoubleSide })
+    new THREE.MeshBasicMaterial({ color: 0x454852, side: THREE.DoubleSide })
   );
   softboxPlatinum.position.set(-7, 5, 4);
   softboxPlatinum.lookAt(0, 0, 0);
@@ -388,21 +388,21 @@ export function MonolithScene({
       dirSign: number
     ) => {
       const mobile = window.innerWidth < 768;
-      let targetX = mobile ? 0.0 : 2.28 * dirSign;
+      let targetX = mobile ? 0.0 : 2.42 * dirSign;
       let targetY = mobile ? 1.42 : 0.02;
-      let targetZ = mobile ? -2.45 : -1.25;
+      let targetZ = mobile ? -2.45 : -1.48;
       let rigScale = mobile ? 0.66 : 0.92;
       let ringSpread = mobile ? 1.18 : 1.08;
 
       if (p < 0.2) {
         const t = p / 0.2;
         targetX = THREE.MathUtils.lerp(
-          mobile ? 0 : 2.28 * dirSign,
+          mobile ? 0 : 2.42 * dirSign,
           mobile ? 0 : -1.65 * dirSign,
           t
         );
         targetY = THREE.MathUtils.lerp(mobile ? 1.42 : 0.02, 0.08, t);
-        targetZ = THREE.MathUtils.lerp(mobile ? -2.45 : -1.25, -0.55, t);
+        targetZ = THREE.MathUtils.lerp(mobile ? -2.45 : -1.48, -0.55, t);
         rigScale = THREE.MathUtils.lerp(mobile ? 0.66 : 0.92, mobile ? 0.84 : 1.0, t);
         ringSpread = THREE.MathUtils.lerp(mobile ? 1.18 : 1.08, 1.15, t);
       } else if (p < 0.5) {

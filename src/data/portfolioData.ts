@@ -184,7 +184,7 @@ export const UI_COPY = {
   systems: {
     title: { en: "AI Production Architecture", ar: "هندسة الإنتاج بالذكاء الاصطناعي" },
     subtitle: {
-      en: "Since the 2023 wave, I have built full production engines combining Google Antigravity, Claude, HyperFrames, Remotion Studio, NotebookLM MCP, and Local Graphify.",
+      en: "Since the 2023 wave, I have built full production engines combining strategic storytelling, programmatic motion systems, and grounded AI research to ship documentaries, commercials, and custom web experiences at scale.",
       ar: "منذ انطلاق موجة الذكاء الاصطناعي عام 2023، طورت محركات إنتاج متكاملة تجمع بين أدوات الأتمتة البرمجية وإدارة المعرفة لإنتاج الوثائقيات والحملات الإعلانية ومنصات الويب.",
     },
   },
@@ -477,18 +477,18 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "مهندس الإبداع وأنظمة الإنتاج بالذكاء الاصطناعي",
     },
     organization: {
-      en: "Obolus (@obolus.explains) · THE ARCHITECT OF REALITY · Local AI Stack",
+      en: "Obolus (@obolus.explains) · THE ARCHITECT OF REALITY · AI Production Studio",
       ar: "أوبولوس · مُصمّم الواقع · منظومة الإنتاج المحلية بالذكاء الاصطناعي",
     },
     location: { en: "Global Audiences", ar: "جمهور عالمي ومحلي" },
     summary: {
-      en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels and local workflows with Google Antigravity, Claude, HyperFrames, Remotion Studio, NotebookLM MCP, and Local Graphify.",
+      en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels, programmatic motion pipelines, and custom interactive web systems.",
       ar: "إتقان عملي معمق لأنظمة الإنتاج بالذكاء الاصطناعي منذ موجة 2023، وتصميم قنوات وثائقية إنجليزية مؤتمتة وسير عمل برمجي متكامل عبر أدوات الذكاء الاصطناعي والبحث الموثق.",
     },
     highlights: {
       en: [
         "End-to-end English documentary systems (Obolus & THE ARCHITECT OF REALITY)",
-        "Local AI stack combining Google Antigravity, Claude, HyperFrames, Remotion Studio, NotebookLM MCP, and Local Graphify",
+        "Programmatic video, voice alignment, and custom web production engines built for speed and visual consistency",
       ],
       ar: [
         "بناء وإدارة قنوات وثائقية إنجليزية متكاملة (أوبولوس وذا أركيتيكت أوف ريالتي)",
@@ -672,7 +672,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/hossam-fekry.png",
     isWhitePlate: true,
     summary: {
-      en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fikry educational platform using Claude Desktop and Local Graphify.",
+      en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fikry educational platform.",
       ar: "التوجيه البصري، وحملات التسجيل الطلابي على مستوى الجمهورية، والهندسة المستمرة لتجربة المستخدم عبر منصة حسام فكري التعليمية.",
     },
     deliverables: {
@@ -688,7 +688,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ],
     },
     campaigns: {
-      en: ["Academic Identity", "Web Engineering", "Local Graphify"],
+      en: ["Academic Identity", "Web Engineering", "Student Enrollment"],
       ar: ["الهوية الأكاديمية", "هندسة المنصة", "حملات الطلاب"],
     },
     links: [
@@ -901,7 +901,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/obolus-mark.jpg",
     isWhitePlate: false,
     summary: {
-      en: "English faceless 2D animated documentary channel covering Economic History and Money Systems, built end-to-end with Google Antigravity, HyperFrames, Remotion Studio, and NotebookLM MCP.",
+      en: "English faceless 2D animated documentary channel covering Economic History and Money Systems, built end-to-end with a custom local AI production studio.",
       ar: "قناة وثائقية إنجليزية بالرسوم المتحركة الثنائية الأبعاد، تتناول التاريخ الاقتصادي والأنظمة النقدية، ومبنية بالكامل عبر منظومة إنتاج محلية مخصصة بالذكاء الاصطناعي.",
     },
     deliverables: {
@@ -917,7 +917,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ],
     },
     campaigns: {
-      en: ["1971 Monetary Shift", "1602 Stock Market Origins", "NotebookLM MCP"],
+      en: ["1971 Monetary Shift", "1602 Stock Market Origins", "2D Documentary Engine"],
       ar: ["التحول النقدي 1971", "نشأة البورصة 1602", "محرك الوثائقيات"],
     },
     links: [
@@ -1008,26 +1008,26 @@ export const CASE_STUDIES: CaseStudy[] = [
 export const AI_PRODUCTION_STACK: StackTool[] = [
   {
     name: { en: "Creative System Orchestration", ar: "تخطيط وهندسة الأنظمة" },
-    domain: { en: "Google Antigravity & Claude Code", ar: "بناء المنصات والأنظمة" },
+    domain: { en: "Autonomous Web & Brand Systems", ar: "بناء المنصات والأنظمة" },
     role: {
-      en: "Turning strategic briefs into full-stack web platforms, automated visual checks, and production-ready code with GitHub & Cloudflare Pages.",
-      ar: "تحويل الموجزات الاستراتيجية إلى منصات ويب متكاملة، ومراجعات بصرية مؤتمتة، وشيفرة برمجية جاهزة للإطلاق.",
+      en: "Turning strategic briefs into fast, high-converting web experiences, automated visual quality gates, and structured brand architecture.",
+      ar: "تحويل الموجزات الاستراتيجية إلى منصات ويب متكاملة، ومراجعات بصرية مؤتمتة، وهوية رقمية جاهزة للإطلاق.",
     },
   },
   {
     name: { en: "Programmatic Video Engines", ar: "محركات الفيديو المبرمجة" },
-    domain: { en: "HyperFrames & Remotion Studio", ar: "إنتاج الفيديو التجاري آلياً" },
+    domain: { en: "Remotion & Automated Motion", ar: "إنتاج الفيديو التجاري آلياً" },
     role: {
-      en: "Frame-accurate commercial reels and HTML/GSAP programmatic documentary video pipelines built for consistent identity.",
+      en: "Frame-accurate commercial reels and modular video pipelines engineered for consistent visual identity at scale.",
       ar: "إنتاج مقاطع إعلانية بدقة الإطار الواحد ومنظومات فيديو معيارية تحافظ على اتساق الهوية البصرية لكل علامة.",
     },
   },
   {
-    name: { en: "Grounded Knowledge Pipelines", ar: "منظومة البحث والمعرفة الموثقة" },
-    domain: { en: "NotebookLM MCP & Local Graphify", ar: "بحث موثق وفهرسة ذكية" },
+    name: { en: "Grounded Documentary Pipelines", ar: "منظومة البحث والمعرفة الموثقة" },
+    domain: { en: "Source-Verified Storytelling", ar: "بحث موثق وسرد بصري" },
     role: {
-      en: "Fact-checked documentary research via NotebookLM MCP paired with Local Graphify architectural indexing across client codebases and channels.",
-      ar: "إعداد بحوث وثائقية مدققة الحقائق وربطها بفهرسة برمجية محلية للمشروعات والقنوات والمحتوى طويل النفس.",
+      en: "Fact-checked long-form scripts, editorial voice pacing, and animated documentary worlds built for international channels.",
+      ar: "إعداد بحوث ونصوص طويلة مدققة الحقائق وبناء عوالم وثائقية متحركة لقنوات دولية.",
     },
   },
 ];

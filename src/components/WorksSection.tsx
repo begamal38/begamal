@@ -273,7 +273,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                       </span>
                     </div>
 
-                    <h3 className="mt-3 text-xl font-semibold text-[#F1F2F4] sm:text-2xl">
+                    <h3 className="mt-3 text-balance text-xl font-semibold text-[#F1F2F4] sm:text-2xl">
                       {study.title[lang]}
                     </h3>
 
