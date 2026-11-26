@@ -178,7 +178,7 @@ export function SystemsAndContactSection({
               <span className="font-mono-code text-xs text-[#9CA3AF]">
                 {lang === "en"
                   ? "Marketing Direction & AI Systems"
-                  : "الـ Marketing Direction وأنظمة الذكاء الاصطناعي"}
+                  : "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي"}
               </span>
 
               <button
