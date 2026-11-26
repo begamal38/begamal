@@ -16,7 +16,8 @@ export interface LocalizedText {
 export interface OrganizationLogo {
   src: string;
   alt: LocalizedText;
-  bg: string;
+  invert?: boolean;
+  wide?: boolean;
 }
 
 export interface ChronicleEntry {
@@ -45,7 +46,9 @@ export interface CaseStudy {
   category: Exclude<CaseStudyCategoryId, "all">;
   discipline: LocalizedText;
   image?: string;
-  isWhitePlate?: boolean;
+  invertLogo?: boolean;
+  isWideLogo?: boolean;
+  isMedallion?: boolean;
   monogram?: string;
   summary: LocalizedText;
   deliverables: {
@@ -81,8 +84,7 @@ export const SCROLL_SECTIONS: ScrollSectionMeta[] = [
 ];
 
 export const PORTFOLIO_IDENTITY = {
-  handle: "begamal",
-  brandMark: { en: "BEGAMAL", ar: "بلال جمال" },
+  brandMark: { en: "BELAL GAMAL", ar: "بلال جمال" },
   pageTitle: {
     en: "Belal Gamal | Creative Director & AI Production Architect",
     ar: "بلال جمال | مدير إبداعي ومهندس أنظمة إنتاج بالذكاء الاصطناعي",
@@ -98,8 +100,8 @@ export const PORTFOLIO_IDENTITY = {
     ar: "مدير إبداعي · مخطط تسويق رقمي · مهندس أنظمة إنتاج",
   },
   heroSubtext: {
-    en: "Creative Director, Digital Marketing Strategist, and AI Production Architect. Ten years across commercial direction, corporate team leadership (Chubb Life & Majorel), and automated media systems since 2016.",
-    ar: "مدير إبداعي، ومخطط استراتيجيات تسويق رقمي، ومهندس أنظمة إنتاج بالذكاء الاصطناعي. عشر سنوات من التوجيه التجاري، وقيادة الفرق المؤسسية في تشب وماجوريل، وبناء منظومات الإنتاج الإعلامي المؤتمتة منذ عام 2016.",
+    en: "Creative Director, Digital Marketing Strategist, and AI Production Architect. Ten years across commercial direction, corporate leadership (Chubb Life & Majorel), and automated media systems since 2016.",
+    ar: "مدير إبداعي، ومخطط استراتيجيات تسويق رقمي، ومهندس أنظمة إنتاج بالذكاء الاصطناعي. عشر سنوات من التوجيه التجاري، والقيادة المؤسسية في تشب وماجوريل، وبناء منظومات الإنتاج الإعلامي المؤتمتة منذ عام 2016.",
   },
   bornLabel: { en: "Born July 20, 1995", ar: "مواليد 20 يوليو 1995" },
   bornCompact: "20.07.1995",
@@ -120,38 +122,36 @@ export const PORTFOLIO_IDENTITY = {
     ar: "الاتصالات · اختبار البرمجيات · التأمين · التلفزيون · التجزئة · المطاعم · التجميل · التعليم · وميديا الذكاء الاصطناعي",
   },
   pointOfView: {
-    en: "I do not build noise or chase disposable trends. Every brand, campaign, and media system I direct is built from independent critical thinking, commercial psychology, and disciplined execution.",
-    ar: "لا أصنع ضجيجاً عابراً ولا ألهث وراء المظاهر المؤقتة. تنطلق كل علامة تجارية وحملة إعلانية ومنظومة إنتاجية أقودها من تفكير نقدي مستقل، وفهم عميق لنفسية السوق، وانضباط بصري يحقق نتائج ملموسة.",
+    en: "Clarity beats noise. Every brand, campaign, and film I direct starts with a sharp point of view and disciplined execution.",
+    ar: "الفكرة الواضحة تغلب الزحمة. كل براند أو حملة أو عمل مرئي يبدأ برؤية مستقلة، قراءة حقيقية للسوق، وتنفيذ منضبط.",
   },
-  inspirationLabel: { en: "Creative Inspiration", ar: "الإلهام الإبداعي" },
+  inspirationLabel: { en: "Creative Influence", ar: "الإلهام الإبداعي" },
   inspirationText: {
-    en: "Explicitly inspired in advertising and creative direction by Egyptian director and artist Tameem Youness (تميم يونس) for sharp, original storytelling over formulaic agency templates.",
-    ar: "يستمد التوجه الإبداعي الإلهام في مجال الإعلان والإخراج من المخرج والفنان المصري تميم يونس، تقديراً للسرد الأصيل والحاد بعيداً عن القوالب الإعلانية النمطية.",
+    en: "Influenced in advertising direction by Egyptian director Tameem Youness for sharp, unconventional storytelling.",
+    ar: "تأثّرت في الإخراج الإعلاني بأسلوب تميم يونس المختلف وقدرته على تقديم فكرة حادة وبسيطة بعيداً عن القوالب المستهلكة.",
   },
   lensLabel: { en: "Analytical Lens", ar: "العدسة التحليلية" },
   lensText: {
-    en: "Combines frontline commercial leadership with critical analysis of economic history, consumer behavior, and media systems across both brand growth and documentary channels.",
-    ar: "دمج القيادة التجارية الميدانية مع التحليل النقدي للتاريخ الاقتصادي وسلوك المستهلك وبنية المنظومات الإعلامية لخدمة نمو العلامات التجارية والأفلام الوثائقية.",
+    en: "Combines frontline commercial leadership with critical analysis of economic history, buyer behavior, and media systems across brands and documentary channels.",
+    ar: "دمج القيادة التجارية الميدانية مع التحليل النقدي للتاريخ الاقتصادي وسلوك المشتري وبنية المنظومات الإعلامية عبر العلامات التجارية والقنوات الوثائقية.",
   },
   portraitPath: "/assets/portrait.jpg",
+  showreelPosterPath: "/assets/showreel-poster.jpg",
   liveDomain: "https://begamal.pages.dev",
   email: "begamal38@gmail.com",
   vimeoUrl: "https://vimeo.com/begamal",
-  vimeoLabel: "vimeo.com/begamal",
   facebookUrl: "https://www.facebook.com/begamal",
-  facebookLabel: "facebook.com/begamal",
 };
 
 export const UI_COPY = {
   nav: {
     chronicle: { en: "Chronicle", ar: "المسيرة" },
     works: { en: "Works", ar: "الأعمال" },
+    ethos: { en: "Ethos", ar: "المنهج" },
     systems: { en: "Systems", ar: "الأنظمة" },
+    contact: { en: "Contact", ar: "التواصل" },
+    showreel: { en: "Showreel", ar: "الأعمال المرئية" },
     cta: { en: "Connect", ar: "تواصل الآن" },
-    modeObsidian: { en: "3D: OBSIDIAN", ar: "مجسم: مصقول" },
-    modeWireframe: { en: "3D: WIREFRAME", ar: "مجسم: شبكي" },
-    openMenu: { en: "Open navigation menu", ar: "فتح قائمة التنقل" },
-    closeMenu: { en: "Close navigation menu", ar: "إغلاق قائمة التنقل" },
   },
   hero: {
     secondaryCta: { en: "Selected Works", ar: "استعراض الأعمال" },
@@ -173,6 +173,19 @@ export const UI_COPY = {
     },
   },
   works: {
+    showreelEyebrow: { en: "Featured Cinema Reel", ar: "عرض الأعمال المرئية" },
+    showreelTitle: {
+      en: "Selected Commercials, Film & Direction",
+      ar: "مختارات الإعلانات والأفلام والإخراج الإبداعي",
+    },
+    showreelSubtitle: {
+      en: "Campaign films, commercial spots, and visual storytelling directed across hospitality, retail, corporate, and architecture accounts.",
+      ar: "حملات مصورة وإعلانات تجارية وأفلام علامات تجارية عبر قطاعات الضيافة والتجزئة والشركات والمشاريع المعمارية.",
+    },
+    showreelCta: {
+      en: "Watch Full Showreel on Vimeo",
+      ar: "شاهد أعمال الفيديو على Vimeo",
+    },
     eyebrow: { en: "Client Roster & Case Studies", ar: "قائمة الشركاء ودراسات الحالة" },
     title: { en: "Selected Works", ar: "أعمال مختارة" },
     openDossier: { en: "Project Brief", ar: "ملخص المشروع" },
@@ -197,7 +210,6 @@ export const UI_COPY = {
     },
     facebookCta: { en: "Message on Facebook", ar: "التواصل عبر فيسبوك" },
     vimeoCta: { en: "Watch Showreel on Vimeo", ar: "معرض الأعمال على فيميو" },
-    copyEmail: { en: "Copy begamal38@gmail.com", ar: "نسخ begamal38@gmail.com" },
     copiedEmail: { en: "Copied begamal38@gmail.com", ar: "تم نسخ begamal38@gmail.com" },
   },
 };
@@ -243,13 +255,13 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     location: { en: "Egypt", ar: "مصر" },
     summary: {
-      en: "Tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 release (famous for the 'السيلفي حكاية' campaign) alongside official forum moderation, while entering digital marketing in 2016.",
-      ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل الإطلاق الرسمي لكل طراز، مع المساهمة المباشرة في تحسين إصدار هاتف تكنو كامون C9 (المعروف بحملة \"السيلفي حكاية\") بالتوازي مع إدارة المنتدى الرسمي وانطلاقة العمل في التسويق الرقمي عام 2016.",
+      en: "Tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 software build alongside official forum moderation, while entering digital marketing in 2016.",
+      ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل الإطلاق الرسمي لكل طراز، مع المساهمة المباشرة في تطوير إصدار هاتف تكنو كامون C9 (حملة \"السيلفي حكاية\") بالتوازي مع إدارة المنتدى الرسمي وانطلاقة التسويق الرقمي عام 2016.",
     },
     highlights: {
       en: [
         "Tested pre-release TECNO firmware builds per hardware model prior to rollout",
-        "Directly contributed to refining the TECNO Camon C9 software build ('السيلفي حكاية')",
+        "Directly contributed to refining the flagship TECNO Camon C9 software release",
         "Moderated official TECNO Mobile community while launching digital marketing practice in 2016",
       ],
       ar: [
@@ -276,9 +288,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     logos: [
       {
-        src: "/assets/clients/vodafone.png",
+        src: "/assets/clients/vodafone-dark.png",
         alt: { en: "Vodafone", ar: "شعار فودافون" },
-        bg: "#09090C",
       },
     ],
     summary: {
@@ -314,7 +325,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       {
         src: "/assets/clients/chance-media-black.png",
         alt: { en: "Chance Media", ar: "شعار تشانس ميديا" },
-        bg: "#09090C",
+        wide: true,
       },
     ],
     summary: {
@@ -374,19 +385,18 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     location: { en: "Smart Village, Beni Suef", ar: "القرية الذكية، بني سويف" },
     logos: [
       {
-        src: "/assets/clients/majorel.jpg",
+        src: "/assets/clients/majorel-dark.png",
         alt: { en: "Majorel", ar: "شعار ماجوريل" },
-        bg: "#09090C",
+        wide: true,
       },
       {
-        src: "/assets/clients/vodafone.png",
+        src: "/assets/clients/vodafone-dark.png",
         alt: { en: "Vodafone", ar: "شعار فودافون" },
-        bg: "#09090C",
+        wide: true,
       },
       {
         src: "/assets/clients/uber.png",
         alt: { en: "Uber", ar: "شعار أوبر" },
-        bg: "#09090C",
       },
     ],
     summary: {
@@ -424,7 +434,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       {
         src: "/assets/clients/chubb-life.png",
         alt: { en: "Chubb Life Insurance", ar: "شعار تشب لتأمينات الحياة" },
-        bg: "#FFFFFF",
+        invert: true,
+        wide: true,
       },
     ],
     summary: {
@@ -450,22 +461,22 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "مدير إبداعي مستقل وشريك نمو تجاري",
     },
     organization: {
-      en: "Al-Qersh Mobile · EL3SAL · Mohamed Samy · Hossam Fikry · Sanhok · Yasmine Salah · Khatwa",
-      ar: "القرش موبايل · العسال · محمد سامي · منصة حسام فكري · سانهوك · ياسمين صلاح · خطوة",
+      en: "Al-Qersh Mobile · Mohamed Samy · EL3SAL · Hossam Fikry · Sanhok · Yasmine Salah · Khatwa",
+      ar: "القرش موبايل · محمد سامي · العسال · منصة حسام فكري · سانهوك · ياسمين صلاح · خطوة",
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     summary: {
-      en: "Partnering independently with leading businesses across mobile retail, QSR hospitality, gaming lounges, beauty, interior architecture, and EdTech, driving brand clarity and direct sales.",
-      ar: "شراكات تنفيذية مستقلة مع علامات بارزة في تجارة الهواتف، والمطاعم، وصالات الألعاب، والتجميل، والديكور المعماري، وتقنية التعليم، لترسيخ وضوح الهوية وتحقيق المبيعات المباشرة.",
+      en: "Partnering independently with leading businesses across mobile retail, interior architecture, QSR hospitality, EdTech, gaming lounges, and beauty, driving brand clarity and direct sales.",
+      ar: "شراكات تنفيذية مستقلة مع علامات بارزة في تجارة الهواتف، والديكور المعماري، والمطاعم، وتقنية التعليم، وصالات الألعاب، والتجميل، لترسيخ وضوح الهوية وتحقيق المبيعات المباشرة.",
     },
     highlights: {
       en: [
-        "Long-term creative direction for Al-Qersh Mobile (3 branches) and EL3SAL (140+ item menu & Meta funnels)",
-        "Multi-sector execution across Mohamed Samy Works, Hossam Fikry Platform, Sanhok, Yasmine Salah, and Khatwa",
+        "Long-term creative direction for Al-Qersh Mobile (3 branches), Mohamed Samy Works, and EL3SAL (140+ item menu & Meta funnels)",
+        "Multi-sector execution across Hossam Fikry Platform, Sanhok, Yasmine Salah, and Khatwa Academy",
       ],
       ar: [
-        "إدارة إبداعية طويلة الأمد لعلامة القرش موبايل (3 فروع) ومطعم العسال (قائمة 140+ صنف)",
-        "تنفيذ ميداني عبر محمد سامي للديكور، ومنصة حسام فكري، وسانهوك، وياسمين صلاح، وأكاديمية خطوة",
+        "إدارة إبداعية طويلة الأمد لعلامة القرش موبايل (3 فروع)، ومحمد سامي، ومطعم العسال (قائمة 140+ صنف)",
+        "تنفيذ ميداني عبر منصة حسام فكري، وسانهوك، وياسمين صلاح، وأكاديمية خطوة",
       ],
     },
   },
@@ -478,12 +489,12 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     organization: {
       en: "Obolus (@obolus.explains) · THE ARCHITECT OF REALITY · AI Production Studio",
-      ar: "أوبولوس · مُصمّم الواقع · منظومة الإنتاج المحلية بالذكاء الاصطناعي",
+      ar: "Obolus · THE ARCHITECT OF REALITY · منظومة الإنتاج المحلية بالذكاء الاصطناعي",
     },
     location: { en: "Global Audiences", ar: "جمهور عالمي ومحلي" },
     summary: {
       en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels, programmatic motion pipelines, and custom interactive web systems.",
-      ar: "إتقان عملي معمق لأنظمة الإنتاج بالذكاء الاصطناعي منذ موجة 2023، وتصميم قنوات وثائقية إنجليزية مؤتمتة وسير عمل برمجي متكامل عبر أدوات الذكاء الاصطناعي والبحث الموثق.",
+      ar: "إتقان عملي معمق لأنظمة الإنتاج بالذكاء الاصطناعي منذ موجة 2023، وتصميم قنوات وثائقية إنجليزية مؤتمتة وسير عمل برمجي متكامل لإنتاج الفيديو والمنصات الرقمية.",
     },
     highlights: {
       en: [
@@ -491,8 +502,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "Programmatic video, voice alignment, and custom web production engines built for speed and visual consistency",
       ],
       ar: [
-        "بناء وإدارة قنوات وثائقية إنجليزية متكاملة (أوبولوس وذا أركيتيكت أوف ريالتي)",
-        "دمج أنظمة الأتمتة البرمجية وتوليد الفيديو والبحث الموثق في بيئة إنتاجية محلية",
+        "بناء وإدارة قنوات وثائقية إنجليزية متكاملة (Obolus وTHE ARCHITECT OF REALITY)",
+        "دمج أنظمة الأتمتة البرمجية وتوليد الفيديو والبحث الموثق في بيئة إنتاجية متكاملة",
       ],
     },
   },
@@ -507,6 +518,10 @@ export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedT
   { id: "ai_systems", label: { en: "AI Media", ar: "ميديا الذكاء الاصطناعي" } },
 ];
 
+/**
+ * Sorted with active flagship clients FIRST (Al-Qersh, Mohamed Samy, EL3SAL,
+ * Hossam Fikry, Obolus), followed by corporate & historical milestones.
+ */
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "al-qersh-mobile",
@@ -518,7 +533,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "إدارة إبداعية · مقاطع تجارية · توسع الفروع",
     },
     image: "/assets/clients/alqersh.jpg",
-    isWhitePlate: false,
+    isMedallion: true,
     summary: {
       en: "Directing brand discipline and commercial campaigns across 3 branches in Beni Suef since 2022, turning product launches, seasonal promotions, and after-sales trust into steady retail growth.",
       ar: "توجيه انضباط العلامة التجارية والحملات الإعلانية عبر 3 فروع في بني سويف منذ عام 2022، مع تحويل إطلاقات المنتجات والمواسم الترويجية وخدمة ما بعد البيع إلى نمو تجاري مستقر.",
@@ -547,6 +562,48 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    id: "mohamed-samy",
+    title: { en: "Mohamed Samy Works", ar: "محمد سامي للديكور والتشطيبات" },
+    period: { en: "2022 - Present · Active", ar: "2022 - حتى الآن · عميل حالي" },
+    category: "brand_growth",
+    discipline: {
+      en: "Creative Direction · Architecture Positioning · Film",
+      ar: "إدارة إبداعية · تموضع معماري · أفلام المشاريع",
+    },
+    image: "/assets/clients/mohamed-samy-dark.png",
+    isWideLogo: true,
+    summary: {
+      en: "Creative direction, high-ticket digital positioning, and architectural film production across Mohamed Samy's commercial and residential interior portfolio (including After 8 Cafe).",
+      ar: "الإدارة الإبداعية، والتموضع الرقمي للمشاريع عالية القيمة، وإخراج الأفلام التعريفية لمحفظة أعمال محمد سامي في الديكور والمقاولات الداخلية (بما فيها مشروع After 8 Cafe).",
+    },
+    deliverables: {
+      en: [
+        "Digital positioning targeting commercial venues and residential villas",
+        "Dedicated digital showroom presence and architectural campaign direction",
+        "Flagship showcase reels including After 8 Cafe promotional film",
+      ],
+      ar: [
+        "تموضع رقمي يخاطب مشاريع المنشآت التجارية والفيلات السكنية",
+        "إطلاق المعرض الرقمي الرسمي والإشراف الإبداعي على الحملات",
+        "إخراج الأفلام التعريفية لأبرز مشاريع التشطيبات الداخلية ومنها After 8 Cafe",
+      ],
+    },
+    campaigns: {
+      en: ["Interior Positioning", "After 8 Cafe Film", "Digital Showroom"],
+      ar: ["التموضع المعماري", "فيلم After 8 Cafe", "المعرض الرقمي"],
+    },
+    links: [
+      {
+        label: { en: "Official Website", ar: "الموقع الرسمي" },
+        url: "http://mohamedsamyworks.com",
+      },
+      {
+        label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
+        url: "https://www.facebook.com/mohamedsamyworks/",
+      },
+    ],
+  },
+  {
     id: "el3sal",
     title: { en: "EL3SAL Crepe & Pizza", ar: "مطعم العسال" },
     period: { en: "ACTIVE CLIENT", ar: "عميل حالي" },
@@ -556,7 +613,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "هندسة القائمة · حملات المطاعم · مسارات الطلب",
     },
     image: "/assets/clients/el3sal.jpg",
-    isWhitePlate: false,
+    isMedallion: true,
     summary: {
       en: "Complete 140+ item menu redesign paired with high-tempo food craft reels and Meta CTR Messages conversion funnels engineered to turn views into direct orders.",
       ar: "إعادة تصميم شاملة لقائمة طعام تضم أكثر من 140 صنفاً لتعزيز وضوح الاختيار ورفع متوسط قيمة الطلب، مقترنة بمقاطع مرئية سريعة الإيقاع ومسارات تحويل عبر رسائل ميتا للطلب المباشر.",
@@ -585,92 +642,16 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    id: "chubb-life",
-    title: { en: "Chubb Life Insurance Egypt", ar: "تشب لتأمينات الحياة · مصر" },
-    period: { en: "Sep 2022 - Jul 2023", ar: "سبتمبر 2022 - يوليو 2023" },
-    category: "corporate_tech",
-    discipline: {
-      en: "Team Leadership · Commercial Sales · Advisory Coaching",
-      ar: "قيادة الفرق · المبيعات التجارية · التوجيه الاستشاري",
-    },
-    image: "/assets/clients/chubb-life.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Led commercial team operations, coaching, and target execution as Team Leader at Chubb Life Insurance Egypt from September 2022 to July 2023.",
-      ar: "قيادة العمليات التجارية للفريق، والتوجيه والتدريب، وتحقيق المستهدفات البيعية في شركة تشب لتأمينات الحياة مصر خلال الفترة من سبتمبر 2022 حتى يوليو 2023.",
-    },
-    deliverables: {
-      en: [
-        "Commercial sales team leadership across life and financial protection portfolios",
-        "Ongoing coaching, pipeline management, and target accountability",
-        "Structured client advisory standards grounded in enterprise discipline",
-      ],
-      ar: [
-        "قيادة الفريق التجاري عبر محافظ الحماية المالية والتأمين على الحياة",
-        "التدريب المستمر وإدارة مسار المبيعات وتحقيق المستهدفات الدورية",
-        "تطبيق معايير الاستشارة المالية المنضبطة مع العملاء",
-      ],
-    },
-    campaigns: {
-      en: ["Team Leadership", "Commercial Strategy", "Coaching"],
-      ar: ["قيادة الفرق", "الاستراتيجية التجارية", "التدريب والتوجيه"],
-    },
-    links: [
-      {
-        label: { en: "Official Website", ar: "الموقع الرسمي" },
-        url: "https://life.chubb.com/eg-en/",
-      },
-    ],
-  },
-  {
-    id: "chance-media",
-    title: { en: "Chance Media (Ahmed Akl)", ar: "تشانس ميديا (أحمد عقل)" },
-    period: { en: "2018", ar: "2018" },
-    category: "brand_growth",
-    discipline: {
-      en: "Creative Direction · TV Ad Scripts · Real Estate & Medical",
-      ar: "إدارة إبداعية · إعلانات تلفزيون · العقارات والمراكز الطبية",
-    },
-    image: "/assets/clients/chance-media-black.png",
-    isWhitePlate: false,
-    summary: {
-      en: "Creative Direction, TV ad scriptwriting, and campaign leadership for real-estate and medical brand accounts at Chance Media, founded by actor Ahmed Akl, alongside launching SECTOR 09.",
-      ar: "تولي الإدارة الإبداعية، وكتابة نصوص الإعلانات التلفزيونية، وقيادة الحملات الإعلانية لحسابات العقارات والمراكز الطبية لدى وكالة تشانس ميديا التي أسسها الفنان أحمد عقل، بالتوازي مع إطلاق سيكتور 09.",
-    },
-    deliverables: {
-      en: [
-        "Creative direction across commercial agency accounts",
-        "Television commercial scriptwriting and narrative concepts",
-        "Real-estate and medical sector brand campaign execution",
-      ],
-      ar: [
-        "الإدارة الإبداعية الشاملة لحسابات الوكالة التجارية",
-        "كتابة سيناريوهات الإعلانات التلفزيونية وتطوير المفاهيم الإبداعية",
-        "تنفيذ حملات العلامات التجارية في قطاعي العقارات والخدمات الطبية",
-      ],
-    },
-    campaigns: {
-      en: ["TV Ad Scripts", "Real Estate", "Medical Brands"],
-      ar: ["الإعلانات التلفزيونية", "القطاع العقاري", "العلامات الطبية"],
-    },
-    links: [
-      {
-        label: { en: "Agency Website", ar: "موقع الوكالة" },
-        url: "https://chancemedia.com.eg/",
-      },
-    ],
-  },
-  {
     id: "hossam-fikry",
     title: { en: "Hossam Fikry Platform", ar: "منصة حسام فكري التعليمية" },
-    period: { en: "EdTech Platform", ar: "منصة تقنية تعليمية" },
+    period: { en: "Active · EdTech Platform", ar: "مستمر · منصة تعليمية" },
     category: "corporate_tech",
     discipline: {
       en: "Academic Identity · Platform Engineering · Campaigns",
       ar: "الهوية الأكاديمية · هندسة المنصة · الحملات الطلابية",
     },
     image: "/assets/clients/hossam-fekry.png",
-    isWhitePlate: true,
+    isWideLogo: true,
     summary: {
       en: "Visual direction, nationwide enrollment campaigns, and ongoing web experience engineering for the Hossam Fikry educational platform.",
       ar: "التوجيه البصري، وحملات التسجيل الطلابي على مستوى الجمهورية، والهندسة المستمرة لتجربة المستخدم عبر منصة حسام فكري التعليمية.",
@@ -703,44 +684,79 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    id: "mohamed-samy",
-    title: { en: "Mohamed Samy Works", ar: "محمد سامي للديكور والتشطيبات" },
-    period: { en: "2022 - Present", ar: "2022 - حتى الآن" },
-    category: "brand_growth",
+    id: "obolus",
+    title: { en: "Obolus (@obolus.explains)", ar: "Obolus (@obolus.explains)" },
+    period: { en: "Active · AI Media Studio", ar: "مستمر · استوديو إنتاج ذكي" },
+    category: "ai_systems",
     discipline: {
-      en: "Creative Direction · Architecture Positioning · Web",
-      ar: "إدارة إبداعية · تموضع معماري · منصة رقمية",
+      en: "English 2D Documentary · Automated Production Stack",
+      ar: "وثائقيات إنجليزية ثنائية الأبعاد · خط إنتاج مؤتمت",
     },
-    image: "/assets/clients/mohamed-samy.png",
-    isWhitePlate: true,
+    image: "/assets/clients/obolus-mark.jpg",
+    isMedallion: true,
     summary: {
-      en: "Creative direction, high-ticket digital positioning, and promotional showcase direction across Mohamed Samy's interior contracting portfolio.",
-      ar: "الإدارة الإبداعية، والتموضع الرقمي للمشاريع عالية القيمة، وتوجيه العرض الترويجي لمحفظة أعمال محمد سامي في الديكور والمقاولات الداخلية.",
+      en: "English faceless 2D animated documentary channel covering Economic History and Money Systems, built end-to-end with a custom local AI production studio.",
+      ar: "قناة Obolus الوثائقية الإنجليزية بالرسوم المتحركة الثنائية الأبعاد، تتناول التاريخ الاقتصادي والأنظمة النقدية، ومبنية بالكامل عبر منظومة إنتاج محلية مخصصة بالذكاء الاصطناعي.",
     },
     deliverables: {
       en: [
-        "Digital positioning targeting commercial venues and residential villas",
-        "Dedicated digital showroom web presence and campaign supervision",
-        "Promotional direction for flagship interior showcase projects",
+        "Custom local AI production pipeline from research to final render",
+        "Long-form 2D animated documentaries on Economic History & Money",
+        "Deterministic vector animation, voiceover alignment, and sound design",
       ],
       ar: [
-        "تموضع رقمي يخاطب مشاريع المنشآت التجارية والفيلات السكنية",
-        "إطلاق المعرض الرقمي الرسمي والإشراف الإبداعي على الحملات",
-        "توجيه العرض الترويجي لأبرز مشاريع التشطيبات الداخلية",
+        "بناء خط إنتاج محلي متكامل يبدأ من البحث وينتهي بالتصدير النهائي",
+        "أفلام وثائقية طويلة بالرسوم المتحركة حول تاريخ الاقتصاد والمال",
+        "تحريك متجهي منضبط ومزامنة دقيقة للتعليق الصوتي والمؤثرات",
       ],
     },
     campaigns: {
-      en: ["Interior Positioning", "Digital Showroom", "Commercial Roster"],
-      ar: ["التموضع المعماري", "المعرض الرقمي", "المشاريع التجارية"],
+      en: ["1971 Monetary Shift", "1602 Stock Market Origins", "2D Documentary Engine"],
+      ar: ["التحول النقدي 1971", "نشأة البورصة 1602", "محرك الوثائقيات"],
     },
     links: [
       {
-        label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
-        url: "https://www.facebook.com/mohamedsamyworks/",
+        label: { en: "YouTube Channel", ar: "قناة يوتيوب" },
+        url: "https://www.youtube.com/@obolus.explains",
       },
+    ],
+  },
+  {
+    id: "chubb-life",
+    title: { en: "Chubb Life Insurance Egypt", ar: "تشب لتأمينات الحياة · مصر" },
+    period: { en: "Sep 2022 - Jul 2023", ar: "سبتمبر 2022 - يوليو 2023" },
+    category: "corporate_tech",
+    discipline: {
+      en: "Team Leadership · Commercial Sales · Advisory Coaching",
+      ar: "قيادة الفرق · المبيعات التجارية · التوجيه الاستشاري",
+    },
+    image: "/assets/clients/chubb-life.png",
+    invertLogo: true,
+    isWideLogo: true,
+    summary: {
+      en: "Led commercial team operations, coaching, and target execution as Team Leader at Chubb Life Insurance Egypt from September 2022 to July 2023.",
+      ar: "قيادة العمليات التجارية للفريق، والتوجيه والتدريب، وتحقيق المستهدفات البيعية في شركة تشب لتأمينات الحياة مصر خلال الفترة من سبتمبر 2022 حتى يوليو 2023.",
+    },
+    deliverables: {
+      en: [
+        "Commercial sales team leadership across life and financial protection portfolios",
+        "Ongoing coaching, pipeline management, and target accountability",
+        "Structured client advisory standards grounded in enterprise discipline",
+      ],
+      ar: [
+        "قيادة الفريق التجاري عبر محافظ الحماية المالية والتأمين على الحياة",
+        "التدريب المستمر وإدارة مسار المبيعات وتحقيق المستهدفات الدورية",
+        "تطبيق معايير الاستشارة المالية المنضبطة مع العملاء",
+      ],
+    },
+    campaigns: {
+      en: ["Team Leadership", "Commercial Strategy", "Coaching"],
+      ar: ["قيادة الفرق", "الاستراتيجية التجارية", "التدريب والتوجيه"],
+    },
+    links: [
       {
         label: { en: "Official Website", ar: "الموقع الرسمي" },
-        url: "http://mohamedsamyworks.com",
+        url: "https://life.chubb.com/eg-en/",
       },
     ],
   },
@@ -753,8 +769,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       en: "Digital Marketing · Commercial Advertising",
       ar: "التسويق الرقمي · الإعلانات التجارية",
     },
-    image: "/assets/clients/attar-group.jpg",
-    isWhitePlate: true,
+    image: "/assets/clients/attar-group-dark.png",
+    isWideLogo: true,
     summary: {
       en: "Full-scale digital marketing, content creation, and commercial advertising campaigns executed for Al-Attar Group across 2018 through 2021.",
       ar: "إدارة متكاملة للتسويق الرقمي وصناعة المحتوى وتنفيذ الحملات الإعلانية التجارية لمجموعة العطار خلال الفترة من 2018 حتى 2021.",
@@ -783,6 +799,44 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    id: "chance-media",
+    title: { en: "Chance Media (Ahmed Akl)", ar: "تشانس ميديا (أحمد عقل)" },
+    period: { en: "2018", ar: "2018" },
+    category: "brand_growth",
+    discipline: {
+      en: "Creative Direction · TV Ad Scripts · Real Estate & Medical",
+      ar: "إدارة إبداعية · إعلانات تلفزيون · العقارات والمراكز الطبية",
+    },
+    image: "/assets/clients/chance-media-black.png",
+    isWideLogo: true,
+    summary: {
+      en: "Creative Direction, TV ad scriptwriting, and campaign leadership for real-estate and medical brand accounts at Chance Media, founded by actor Ahmed Akl, alongside launching SECTOR 09.",
+      ar: "تولي الإدارة الإبداعية، وكتابة نصوص الإعلانات التلفزيونية، وقيادة الحملات الإعلانية لحسابات العقارات والمراكز الطبية لدى وكالة تشانس ميديا التي أسسها الفنان أحمد عقل، بالتوازي مع إطلاق سيكتور 09.",
+    },
+    deliverables: {
+      en: [
+        "Creative direction across commercial agency accounts",
+        "Television commercial scriptwriting and narrative concepts",
+        "Real-estate and medical sector brand campaign execution",
+      ],
+      ar: [
+        "الإدارة الإبداعية الشاملة لحسابات الوكالة التجارية",
+        "كتابة سيناريوهات الإعلانات التلفزيونية وتطوير المفاهيم الإبداعية",
+        "تنفيذ حملات العلامات التجارية في قطاعي العقارات والخدمات الطبية",
+      ],
+    },
+    campaigns: {
+      en: ["TV Ad Scripts", "Real Estate", "Medical Brands"],
+      ar: ["الإعلانات التلفزيونية", "القطاع العقاري", "العلامات الطبية"],
+    },
+    links: [
+      {
+        label: { en: "Agency Website", ar: "موقع الوكالة" },
+        url: "https://chancemedia.com.eg/",
+      },
+    ],
+  },
+  {
     id: "tecno-camon-c9",
     title: { en: "TECNO Mobile · Camon C9", ar: "تكنو موبايل · كامون C9" },
     period: { en: "2016 - 2017 · QA", ar: "2016 - 2017 · اختبار البرمجيات" },
@@ -793,7 +847,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     monogram: "C9",
     summary: {
-      en: "Pre-release software beta tester for TECNO Mobile per device model, contributing directly to stabilizing and refining the TECNO Camon C9 ('السيلفي حكاية') release alongside official forum moderation.",
+      en: "Pre-release software beta tester for TECNO Mobile per device model, contributing directly to stabilizing and refining the flagship TECNO Camon C9 release alongside official forum moderation.",
       ar: "اختبار النسخ التجريبية لبرمجيات هواتف تكنو موبايل قبل الإطلاق لكل طراز، مع المساهمة المباشرة في تطوير وتحسين إصدار هاتف تكنو كامون C9 (حملة \"السيلفي حكاية\") وإدارة المنتدى الرسمي.",
     },
     deliverables: {
@@ -809,10 +863,86 @@ export const CASE_STUDIES: CaseStudy[] = [
       ],
     },
     campaigns: {
-      en: ["TECNO Camon C9", "Firmware Beta QA", "السيلفي حكاية"],
+      en: ["TECNO Camon C9", "Firmware Beta QA", "Community Moderation"],
       ar: ["تكنو كامون C9", "اختبار البرمجيات", "السيلفي حكاية"],
     },
     links: [],
+  },
+  {
+    id: "architect-of-reality",
+    title: { en: "THE ARCHITECT OF REALITY", ar: "THE ARCHITECT OF REALITY" },
+    period: { en: "YouTube Channel", ar: "قناة يوتيوب" },
+    category: "ai_systems",
+    discipline: {
+      en: "International English Channel · Long-Form Visual Systems",
+      ar: "قناة إنجليزية عالمية · منظومات سرد بصري طويلة",
+    },
+    image: "/assets/clients/architect-dark.png",
+    isWideLogo: true,
+    summary: {
+      en: "Flagship English YouTube channel built for international viewers, combining deep psychological and philosophical storytelling with a custom programmatic animation engine.",
+      ar: "قناة THE ARCHITECT OF REALITY باللغة الإنجليزية للجمهور الدولي، تجمع بين السرد النفسي والفلسفي العميق ومحرك تحريك برمجي مخصص لإنتاج الحلقات الطويلة.",
+    },
+    deliverables: {
+      en: [
+        "Long-form 2D animated episode architecture focused on depth and retention",
+        "Custom programmatic rendering pipeline with strict visual QA gates",
+        "Packaging and hook strategy built for international audiences",
+      ],
+      ar: [
+        "هندسة حلقات وثائقية طويلة تركز على العمق الفكري ومعدل الاحتفاظ بالمشاهد",
+        "خط معالجة وتصدير برمجي مخصص يخضع لبوابات فحص بصري صارمة",
+        "استراتيجية تغليف وافتتاحيات مصممة للجمهور الدولي",
+      ],
+    },
+    campaigns: {
+      en: ["THE MIND MANUAL", "Long-Form Retention", "Programmatic Animation"],
+      ar: ["دليل العقل", "الاحتفاظ طويل المدى", "التحريك البرمجي"],
+    },
+    links: [
+      {
+        label: { en: "YouTube Channel", ar: "قناة يوتيوب" },
+        url: "https://www.youtube.com/@thearchitectofreality963",
+      },
+    ],
+  },
+  {
+    id: "khatwa-academy",
+    title: { en: "Khatwa Academy & Nursery", ar: "أكاديمية وحضانة خطوة" },
+    period: { en: "Education Partner", ar: "شريك قطاع التعليم" },
+    category: "corporate_tech",
+    discipline: {
+      en: "Nursery Marketing · Reels Production · Parent Conversion",
+      ar: "تسويق تعليمي · إنتاج مرئي · استقطاب أولياء الأمور",
+    },
+    image: "/assets/clients/khatwa.png",
+    isWideLogo: true,
+    summary: {
+      en: "Marketing direction and real-activity video reels for Khatwa Academy and Nursery, structuring clear stage-by-stage parent messaging that drives qualified enrollment inquiries.",
+      ar: "التوجيه التسويقي وإنتاج المقاطع التوثيقية للأنشطة الفعلية في أكاديمية وحضانة خطوة، عبر صياغة رسائل واضحة لكل مرحلة عمرية تستقطب استفسارات التسجيل الجادة من أولياء الأمور.",
+    },
+    deliverables: {
+      en: [
+        "Stage-structured parent positioning across nursery and KG programs",
+        "Authentic activity reels built around real classroom moments",
+        "Direct Messenger and WhatsApp qualification funnels for parents",
+      ],
+      ar: [
+        "صياغة تموضع تعليمي واضح لكل مرحلة عمرية عبر برامج الحضانة ورياض الأطفال",
+        "إنتاج مقاطع واقعية توثق الأنشطة الصفية والتطبيقية الفعلية",
+        "بناء مسارات تواصل وتأهيل مباشر لاستفسارات أولياء الأمور",
+      ],
+    },
+    campaigns: {
+      en: ["Stage-by-Stage Clarity", "Real Activity Reels", "Parent Funnel"],
+      ar: ["وضوح المراحل العمرية", "توثيق الأنشطة الواقعية", "مسار التسجيل"],
+    },
+    links: [
+      {
+        label: { en: "Official Website", ar: "الموقع الرسمي" },
+        url: "https://www.khatwa.site",
+      },
+    ],
   },
   {
     id: "sanhok",
@@ -824,7 +954,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "إنتاج تجاري · تسويق الوجهات الترفيهية",
     },
     image: "/assets/clients/sanhok.jpg",
-    isWhitePlate: false,
+    isMedallion: true,
     summary: {
       en: "Commercial entertainment marketing and youth-focused digital campaigns designed to keep gaming lounges and café seating consistently active.",
       ar: "تسويق ترفيهي وحملات رقمية موجهة لفئة الشباب، مصممة للحفاظ على الإقبال المستمر على صالات الألعاب الإلكترونية ومقاعد الكافيه طوال أيام الأسبوع.",
@@ -886,120 +1016,6 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
         url: "https://www.facebook.com/profile.php?id=100057476078591",
-      },
-    ],
-  },
-  {
-    id: "obolus",
-    title: { en: "Obolus (@obolus.explains)", ar: "أوبولوس (Obolus)" },
-    period: { en: "AI Media Studio", ar: "استوديو إنتاج ذكي" },
-    category: "ai_systems",
-    discipline: {
-      en: "English 2D Documentary · Automated Production Stack",
-      ar: "وثائقيات إنجليزية ثنائية الأبعاد · خط إنتاج مؤتمت",
-    },
-    image: "/assets/clients/obolus-mark.jpg",
-    isWhitePlate: false,
-    summary: {
-      en: "English faceless 2D animated documentary channel covering Economic History and Money Systems, built end-to-end with a custom local AI production studio.",
-      ar: "قناة وثائقية إنجليزية بالرسوم المتحركة الثنائية الأبعاد، تتناول التاريخ الاقتصادي والأنظمة النقدية، ومبنية بالكامل عبر منظومة إنتاج محلية مخصصة بالذكاء الاصطناعي.",
-    },
-    deliverables: {
-      en: [
-        "Custom local AI production pipeline from research to final render",
-        "Long-form 2D animated documentaries on Economic History & Money",
-        "Deterministic vector animation, voiceover alignment, and sound design",
-      ],
-      ar: [
-        "بناء خط إنتاج محلي متكامل يبدأ من البحث وينتهي بالتصدير النهائي",
-        "أفلام وثائقية طويلة بالرسوم المتحركة حول تاريخ الاقتصاد والمال",
-        "تحريك متجهي منضبط ومزامنة دقيقة للتعليق الصوتي والمؤثرات",
-      ],
-    },
-    campaigns: {
-      en: ["1971 Monetary Shift", "1602 Stock Market Origins", "2D Documentary Engine"],
-      ar: ["التحول النقدي 1971", "نشأة البورصة 1602", "محرك الوثائقيات"],
-    },
-    links: [
-      {
-        label: { en: "YouTube Channel", ar: "قناة يوتيوب" },
-        url: "https://www.youtube.com/@obolus.explains",
-      },
-    ],
-  },
-  {
-    id: "architect-of-reality",
-    title: { en: "THE ARCHITECT OF REALITY", ar: "مُصمّم الواقع" },
-    period: { en: "YouTube Channel", ar: "قناة يوتيوب" },
-    category: "ai_systems",
-    discipline: {
-      en: "International English Channel · Long-Form Visual Systems",
-      ar: "قناة إنجليزية عالمية · منظومات سرد بصري طويلة",
-    },
-    image: "/assets/clients/architect-of-reality.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Flagship English YouTube channel built for international viewers, combining deep psychological and philosophical storytelling with a custom programmatic animation engine.",
-      ar: "قناة يوتيوب رئيسية باللغة الإنجليزية موجهة للجمهور الدولي، تجمع بين السرد النفسي والفلسفي العميق ومحرك تحريك برمجي مخصص لإنتاج الحلقات الطويلة.",
-    },
-    deliverables: {
-      en: [
-        "Long-form 2D animated episode architecture focused on depth and retention",
-        "Custom programmatic rendering pipeline with strict visual QA gates",
-        "Packaging and hook strategy built for international audiences",
-      ],
-      ar: [
-        "هندسة حلقات وثائقية طويلة تركز على العمق الفكري ومعدل الاحتفاظ بالمشاهد",
-        "خط معالجة وتصدير برمجي مخصص يخضع لبوابات فحص بصري صارمة",
-        "استراتيجية تغليف وافتتاحيات مصممة للجمهور الدولي",
-      ],
-    },
-    campaigns: {
-      en: ["THE MIND MANUAL", "Long-Form Retention", "Programmatic Animation"],
-      ar: ["دليل العقل", "الاحتفاظ طويل المدى", "التحريك البرمجي"],
-    },
-    links: [
-      {
-        label: { en: "YouTube Channel", ar: "قناة يوتيوب" },
-        url: "https://www.youtube.com/@thearchitectofreality963",
-      },
-    ],
-  },
-  {
-    id: "khatwa-academy",
-    title: { en: "Khatwa Academy & Nursery", ar: "أكاديمية وحضانة خطوة" },
-    period: { en: "Education Partner", ar: "شريك قطاع التعليم" },
-    category: "corporate_tech",
-    discipline: {
-      en: "Nursery Marketing · Reels Production · Parent Conversion",
-      ar: "تسويق تعليمي · إنتاج مرئي · استقطاب أولياء الأمور",
-    },
-    image: "/assets/clients/khatwa.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Marketing direction and real-activity video reels for Khatwa Academy and Nursery, structuring clear stage-by-stage parent messaging that drives qualified enrollment inquiries.",
-      ar: "التوجيه التسويقي وإنتاج المقاطع التوثيقية للأنشطة الفعلية في أكاديمية وحضانة خطوة، عبر صياغة رسائل واضحة لكل مرحلة عمرية تستقطب استفسارات التسجيل الجادة من أولياء الأمور.",
-    },
-    deliverables: {
-      en: [
-        "Stage-structured parent positioning across nursery and KG programs",
-        "Authentic activity reels built around real classroom moments",
-        "Direct Messenger and WhatsApp qualification funnels for parents",
-      ],
-      ar: [
-        "صياغة تموضع تعليمي واضح لكل مرحلة عمرية عبر برامج الحضانة ورياض الأطفال",
-        "إنتاج مقاطع واقعية توثق الأنشطة الصفية والتطبيقية الفعلية",
-        "بناء مسارات تواصل وتأهيل مباشر لاستفسارات أولياء الأمور",
-      ],
-    },
-    campaigns: {
-      en: ["Stage-by-Stage Clarity", "Real Activity Reels", "Parent Funnel"],
-      ar: ["وضوح المراحل العمرية", "توثيق الأنشطة الواقعية", "مسار التسجيل"],
-    },
-    links: [
-      {
-        label: { en: "Official Website", ar: "الموقع الرسمي" },
-        url: "https://www.khatwa.site",
       },
     ],
   },

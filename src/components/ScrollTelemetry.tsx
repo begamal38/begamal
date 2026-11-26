@@ -12,8 +12,8 @@ interface ScrollTelemetryProps {
 }
 
 /**
- * Architectural top progress hairline + desktop telemetry navigation rail
- * calibrated in Imperial Crimson & Brushed Platinum.
+ * Top brushed-titanium 2px scroll hairline + out-of-gutter desktop telemetry rail
+ * (visible strictly at 2xl+ outside the 1152px container so cards are never overlapped).
  */
 export function ScrollTelemetry({
   lang,
@@ -62,7 +62,7 @@ export function ScrollTelemetry({
       >
         <div
           ref={barRef}
-          className="h-full w-full bg-gradient-to-r from-[#C81E32]/70 via-[#E11D38] to-[#F1F2F4]"
+          className="h-full w-full bg-gradient-to-r from-[#8E94A0] via-[#D4D7DD] to-[#F4F5F7]"
           style={{
             transform: "scaleX(0.02)",
             transformOrigin: lang === "ar" ? "right center" : "left center",
@@ -72,7 +72,7 @@ export function ScrollTelemetry({
 
       <nav
         aria-label={lang === "en" ? "Section Progress" : "مؤشر الأقسام"}
-        className="fixed end-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-3.5 xl:flex"
+        className="fixed end-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-3.5 2xl:flex"
       >
         {SCROLL_SECTIONS.map((item) => {
           const isActive = activeId === item.id;
@@ -87,8 +87,8 @@ export function ScrollTelemetry({
               <span
                 className={`font-mono-code text-[10px] tracking-[0.14em] transition-all duration-300 ${
                   isActive
-                    ? "translate-x-0 text-[#E11D38] opacity-100"
-                    : "pointer-events-none translate-x-1 text-[#A1A1AA] opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                    ? "translate-x-0 text-[#F4F5F7] opacity-100"
+                    : "pointer-events-none translate-x-1 text-[#9CA3AF] opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
                 }`}
               >
                 {item.index} · {item.label[lang]}
@@ -96,8 +96,8 @@ export function ScrollTelemetry({
               <span
                 className={`block rounded-full transition-all duration-300 ${
                   isActive
-                    ? "h-2.5 w-2.5 bg-[#E11D38] shadow-[0_0_10px_rgba(225,29,56,0.85)]"
-                    : "h-1.5 w-1.5 bg-white/25 group-hover:bg-[#E11D38]/75"
+                    ? "h-2.5 w-2.5 bg-[#F4F5F7] shadow-[0_0_10px_rgba(244,245,247,0.75)]"
+                    : "h-1.5 w-1.5 bg-white/25 group-hover:bg-[#D4D7DD]"
                 }`}
               />
             </button>

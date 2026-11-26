@@ -9,12 +9,11 @@
 @import "@fontsource/plus-jakarta-sans/400.css";
 @import "@fontsource/plus-jakarta-sans/500.css";
 @import "@fontsource/plus-jakarta-sans/600.css";
-@import "@fontsource/cairo/500.css";
-@import "@fontsource/cairo/600.css";
-@import "@fontsource/cairo/700.css";
-@import "@fontsource/alexandria/500.css";
+@import "@fontsource/alexandria/400.css";
 @import "@fontsource/alexandria/600.css";
 @import "@fontsource/alexandria/700.css";
+@import "@fontsource/alexandria/800.css";
+@import "@fontsource/ibm-plex-sans-arabic/300.css";
 @import "@fontsource/ibm-plex-sans-arabic/400.css";
 @import "@fontsource/ibm-plex-sans-arabic/500.css";
 @import "@fontsource/ibm-plex-sans-arabic/600.css";
@@ -23,19 +22,19 @@
 
 :root {
   --bg-void: #050505;
-  --bg-onyx: #0a0a0d;
-  --surface-carbon: #121216;
+  --bg-onyx: #0a0a0c;
+  --surface-carbon: #111215;
   --border-hairline: rgba(255, 255, 255, 0.09);
-  --ink-platinum: #f1f2f4;
-  --ink-silver: #a1a1aa;
-  --accent-crimson: #c81e32;
-  --accent-crimson-bright: #e11d38;
+  --ink-titanium: #f4f5f7;
+  --ink-silver: #9ca3af;
+  --accent-titanium: #d4d7dd;
+  --sheen-titanium: linear-gradient(135deg, #f4f5f7 0%, #8e94a0 100%);
   --ease-architectural: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 html {
   background-color: var(--bg-void);
-  color: var(--ink-platinum);
+  color: var(--ink-titanium);
   scroll-behavior: auto;
   color-scheme: dark;
 }
@@ -43,7 +42,7 @@ html {
 body {
   margin: 0;
   background-color: var(--bg-void);
-  color: var(--ink-platinum);
+  color: var(--ink-titanium);
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -52,7 +51,7 @@ body {
 
 [dir="rtl"],
 html[lang="ar"] body {
-  font-family: "Cairo", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  font-family: "IBM Plex Sans Arabic", "Alexandria", system-ui, sans-serif;
 }
 
 html[lang="ar"] * {
@@ -60,20 +59,23 @@ html[lang="ar"] * {
 }
 
 html[lang="ar"] .font-mono-code {
-  font-family: "Cairo", "IBM Plex Sans Arabic", "JetBrains Mono", sans-serif;
+  font-family: "IBM Plex Sans Arabic", "Alexandria", "JetBrains Mono", sans-serif;
   font-variant-numeric: tabular-nums;
 }
 
 .font-arabic-toggle {
-  font-family: "Cairo", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  font-family: "Alexandria", "IBM Plex Sans Arabic", system-ui, sans-serif;
 }
 
 .font-display {
   font-family: "Cinzel", Georgia, serif;
 }
 
-html[lang="ar"] .font-display {
-  font-family: "Alexandria", "Cairo", "IBM Plex Sans Arabic", sans-serif;
+html[lang="ar"] .font-display,
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3 {
+  font-family: "Alexandria", "IBM Plex Sans Arabic", system-ui, sans-serif;
   letter-spacing: 0 !important;
 }
 
@@ -82,7 +84,7 @@ html[lang="ar"] .font-display {
 }
 
 html[lang="ar"] .font-editorial {
-  font-family: "Alexandria", "Cairo", "IBM Plex Sans Arabic", sans-serif;
+  font-family: "Alexandria", "IBM Plex Sans Arabic", system-ui, sans-serif;
   font-style: normal !important;
   letter-spacing: 0 !important;
 }
@@ -96,9 +98,13 @@ html[lang="ar"] .font-editorial {
   font-variant-numeric: tabular-nums;
 }
 
-.crimson-hairline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(200, 30, 50, 0.55), transparent);
+.btn-titanium {
+  background: var(--sheen-titanium);
+  color: #050505;
+}
+
+.btn-titanium:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #aeb4bf 100%);
 }
 
 /* Subtle fixed film grain overlay without scrolling-container repaints */
@@ -127,7 +133,7 @@ html[lang="ar"] .font-editorial {
   );
 }
 
-/* Custom thin scrollbar */
+/* Custom thin titanium scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -137,16 +143,16 @@ html[lang="ar"] .font-editorial {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(200, 30, 50, 0.42);
+  background: rgba(212, 215, 221, 0.28);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(225, 29, 56, 0.72);
+  background: rgba(244, 245, 247, 0.55);
 }
 
 :focus-visible {
-  outline: 1.5px solid var(--accent-crimson-bright);
+  outline: 1.5px solid var(--accent-titanium);
   outline-offset: 3px;
 }
 

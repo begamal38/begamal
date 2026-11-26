@@ -16,7 +16,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
-  const [wireframeMode, setWireframeMode] = useState(false);
   const scrollProgressRef = useRef<number>(0);
   const scrollVelocityRef = useRef<number>(0);
   const lenisRef = useRef<Lenis | null>(null);
@@ -100,38 +99,30 @@ export default function App() {
     setLang((prev) => (prev === "en" ? "ar" : "en"));
   }, []);
 
-  const handleToggle3dMode = useCallback(() => {
-    setWireframeMode((prev) => !prev);
-  }, []);
-
   return (
-    <div className="relative min-h-[100dvh] bg-[#050505] text-[#F1F2F4]">
+    <div className="relative min-h-[100dvh] bg-[#050505] text-[#F4F5F7]">
       <div className="noise-overlay" aria-hidden="true" />
       <MonolithScene
         scrollProgressRef={scrollProgressRef}
         scrollVelocityRef={scrollVelocityRef}
         lang={lang}
-        wireframeMode={wireframeMode}
       />
       <ScrollTelemetry
         lang={lang}
         scrollProgressRef={scrollProgressRef}
         onNavigate={handleNavigate}
       />
-      <Navbar
-        lang={lang}
-        wireframeMode={wireframeMode}
-        onToggleLang={handleToggleLang}
-        onToggle3dMode={handleToggle3dMode}
-        onNavigate={handleNavigate}
-      />
+      <Navbar lang={lang} onNavigate={handleNavigate} />
 
       <main className="relative z-10 w-full overflow-x-clip">
         <HeroSection lang={lang} onNavigate={handleNavigate} />
         <StatementSection lang={lang} />
         <ChronicleSection lang={lang} />
         <WorksSection lang={lang} />
-        <SystemsAndContactSection lang={lang} />
+        <SystemsAndContactSection
+          lang={lang}
+          onToggleLang={handleToggleLang}
+        />
       </main>
     </div>
   );

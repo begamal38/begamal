@@ -13,9 +13,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface SystemsAndContactSectionProps {
   lang: Lang;
+  onToggleLang: () => void;
 }
 
-export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps) {
+export function SystemsAndContactSection({
+  lang,
+  onToggleLang,
+}: SystemsAndContactSectionProps) {
   const systemsRef = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
 
@@ -63,11 +67,11 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
       <section
         id="systems"
         ref={systemsRef}
-        className="relative z-10 border-t border-white/[0.08] bg-[#0A0A0D]/40 px-5 py-24 sm:px-8 md:py-36"
+        className="relative z-10 border-t border-white/[0.08] bg-[#0A0A0C]/40 px-5 py-24 sm:px-8 md:py-36"
       >
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
-            <h2 className="font-display text-3xl font-semibold uppercase tracking-[0.06em] text-[#F1F2F4] sm:text-4xl">
+            <h2 className="font-display text-3xl font-semibold uppercase tracking-[0.06em] text-[#F4F5F7] sm:text-4xl">
               {UI_COPY.systems.title[lang]}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-[#E4E4E7]/85">
@@ -79,17 +83,17 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
             {AI_PRODUCTION_STACK.map((pillar) => (
               <div
                 key={pillar.name.en}
-                className="system-pillar flex flex-col justify-between bg-[#121216]/94 p-7 transition-colors duration-300 hover:bg-[#17171C]"
+                className="system-pillar flex flex-col justify-between bg-[#111215]/95 p-7 transition-colors duration-300 hover:bg-[#16181D]"
               >
                 <div>
-                  <p className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#E11D38]">
+                  <p className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#D4D7DD]">
                     {pillar.domain[lang]}
                   </p>
-                  <h3 className="mt-3 text-xl font-semibold text-[#F1F2F4]">
+                  <h3 className="mt-3 text-xl font-semibold text-[#F4F5F7]">
                     {pillar.name[lang]}
                   </h3>
                 </div>
-                <p className="mt-5 text-sm leading-relaxed text-[#A1A1AA]">
+                <p className="mt-5 text-sm leading-relaxed text-[#9CA3AF]">
                   {pillar.role[lang]}
                 </p>
               </div>
@@ -98,18 +102,18 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
         </div>
       </section>
 
-      {/* Direct Channel & Clean Closing Band */}
+      {/* Direct Channel & Minimal Footer with Language Switch */}
       <footer
         id="contact"
-        className="relative z-10 border-t border-[#C81E32]/25 bg-[#050505]/75 px-5 pb-14 pt-24 sm:px-8 md:pt-32"
+        className="relative z-10 border-t border-white/[0.09] bg-[#050505]/75 px-5 pb-28 pt-24 sm:px-8 md:pb-14 md:pt-32"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
-              <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#E11D38]">
+              <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#D4D7DD]">
                 {UI_COPY.contact.eyebrow[lang]}
               </p>
-              <h2 className="mt-3 font-display text-3xl font-semibold uppercase leading-[1.15] tracking-[0.04em] text-[#F1F2F4] sm:text-5xl">
+              <h2 className="mt-3 font-display text-3xl font-semibold uppercase leading-[1.15] tracking-[0.04em] text-[#F4F5F7] sm:text-5xl">
                 {UI_COPY.contact.title[lang]}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-[#E4E4E7]/85">
@@ -122,10 +126,10 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
                 href={PORTFOLIO_IDENTITY.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 rounded-full bg-[#C81E32] py-2.5 ps-6 pe-2.5 text-sm font-semibold text-[#F1F2F4] transition-all duration-300 hover:bg-[#E11D38] active:scale-[0.98] whitespace-nowrap"
+                className="btn-titanium group inline-flex items-center gap-3 rounded-full py-2.5 ps-6 pe-2.5 text-sm font-semibold transition-all duration-300 active:scale-[0.98] whitespace-nowrap"
               >
                 <span>{UI_COPY.contact.facebookCta[lang]}</span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/25 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                   <ArrowUpRight size={15} weight="bold" />
                 </span>
               </a>
@@ -134,7 +138,7 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
                 href={PORTFOLIO_IDENTITY.vimeoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-[#121216] px-5 py-3 text-sm font-medium text-[#F1F2F4] transition-colors hover:border-[#E11D38] hover:text-[#E11D38] active:scale-[0.98] whitespace-nowrap"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111215] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
               >
                 <span>{UI_COPY.contact.vimeoCta[lang]}</span>
                 <ArrowUpRight size={15} weight="bold" />
@@ -143,11 +147,11 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-[#121216] px-5 py-3 font-mono-code text-xs font-medium text-[#F1F2F4] transition-colors hover:border-[#E11D38] hover:text-[#E11D38] active:scale-[0.98] whitespace-nowrap"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111215] px-5 py-3 font-mono-code text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
               >
                 {copied ? (
                   <>
-                    <Check size={14} weight="bold" className="text-[#E11D38]" />
+                    <Check size={14} weight="bold" className="text-[#F4F5F7]" />
                     <span>{UI_COPY.contact.copiedEmail[lang]}</span>
                   </>
                 ) : (
@@ -163,13 +167,28 @@ export function SystemsAndContactSection({ lang }: SystemsAndContactSectionProps
             </div>
           </div>
 
-          <div className="mt-14 flex items-center justify-between border-t border-white/[0.08] pt-6">
-            <span className="font-display text-xs tracking-[0.22em] text-[#A1A1AA]">
+          {/* Discreet Footer Closing Row + Minimal العربية / EN Switch */}
+          <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] pt-6">
+            <span className="font-display text-xs tracking-[0.22em] text-[#9CA3AF]">
               {PORTFOLIO_IDENTITY.brandMark[lang]}
             </span>
-            <span className="font-mono-code text-xs text-[#A1A1AA]">
-              {lang === "en" ? "Creative Direction & AI Systems" : "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي"}
-            </span>
+
+            <div className="flex items-center gap-4">
+              <span className="font-mono-code text-xs text-[#9CA3AF]">
+                {lang === "en"
+                  ? "Creative Direction & AI Systems"
+                  : "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي"}
+              </span>
+
+              <button
+                type="button"
+                onClick={onToggleLang}
+                aria-label={lang === "en" ? "Switch to Arabic" : "Switch to English"}
+                className="font-arabic-toggle rounded-full border border-white/15 bg-[#111215] px-3.5 py-1 text-xs font-medium text-[#D4D7DD] transition-colors duration-200 hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
+              >
+                {lang === "en" ? "العربية" : "EN"}
+              </button>
+            </div>
           </div>
         </div>
       </footer>

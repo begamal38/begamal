@@ -6,50 +6,49 @@ interface MonolithSceneProps {
   scrollProgressRef: React.MutableRefObject<number>;
   scrollVelocityRef: React.MutableRefObject<number>;
   lang: Lang;
-  wireframeMode: boolean;
 }
 
 /**
- * Generates a lightweight studio reflection environment map (obsidian void +
- * imperial crimson and brushed platinum studio panels) so physical surfaces
- * gleam with sharp chiaroscuro highlights without external HDR downloads.
+ * Generates a cold monochrome chiaroscuro studio reflection map (deep obsidian
+ * void + brushed cold titanium softboxes) so obsidian and silver-metallic rings
+ * catch clean architectural specular rim lighting.
  */
-function createArchitecturalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
+function createTitaniumEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
   const pmrem = new THREE.PMREMGenerator(renderer);
   pmrem.compileEquirectangularShader();
 
   const envScene = new THREE.Scene();
   envScene.background = new THREE.Color(0x050507);
 
-  const softboxPlatinum = new THREE.Mesh(
+  const softboxCool = new THREE.Mesh(
     new THREE.PlaneGeometry(8, 12),
-    new THREE.MeshBasicMaterial({ color: 0x454852, side: THREE.DoubleSide })
+    new THREE.MeshBasicMaterial({ color: 0x525866, side: THREE.DoubleSide })
   );
-  softboxPlatinum.position.set(-7, 5, 4);
-  softboxPlatinum.lookAt(0, 0, 0);
-  envScene.add(softboxPlatinum);
+  softboxCool.position.set(-7, 5, 4);
+  softboxCool.lookAt(0, 0, 0);
+  envScene.add(softboxCool);
 
-  const softboxCrimson = new THREE.Mesh(
+  const softboxTitanium = new THREE.Mesh(
     new THREE.PlaneGeometry(9, 10),
-    new THREE.MeshBasicMaterial({ color: 0xc81e32, side: THREE.DoubleSide })
+    new THREE.MeshBasicMaterial({ color: 0xd4d7dd, side: THREE.DoubleSide })
   );
-  softboxCrimson.position.set(7.5, 2.5, -3);
-  softboxCrimson.lookAt(0, 0, 0);
-  envScene.add(softboxCrimson);
+  softboxTitanium.position.set(7.5, 2.5, -3);
+  softboxTitanium.lookAt(0, 0, 0);
+  envScene.add(softboxTitanium);
 
   const rimStrip = new THREE.Mesh(
     new THREE.PlaneGeometry(12, 2.2),
-    new THREE.MeshBasicMaterial({ color: 0xe11d38, side: THREE.DoubleSide })
+    new THREE.MeshBasicMaterial({ color: 0x9ca3af, side: THREE.DoubleSide })
   );
   rimStrip.position.set(0, -6.5, 3);
   rimStrip.lookAt(0, 0, 0);
   envScene.add(rimStrip);
 
   const renderTarget = pmrem.fromScene(envScene, 0.035);
-  softboxPlatinum.geometry.dispose();
-  (softboxPlatinum.material as THREE.Material).dispose();
-  softboxCrimson.geometry.dispose();
-  (softboxCrimson.material as THREE.Material).dispose();
+  softboxCool.geometry.dispose();
+  (softboxCool.material as THREE.Material).dispose();
+  softboxTitanium.geometry.dispose();
+  (softboxTitanium.material as THREE.Material).dispose();
   rimStrip.geometry.dispose();
   (rimStrip.material as THREE.Material).dispose();
   pmrem.dispose();
@@ -58,38 +57,20 @@ function createArchitecturalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture
 }
 
 /**
- * Full-viewport fixed WebGL canvas rendering an architectural obsidian
- * monolith with imperial crimson + brushed platinum orbital gimbal rings,
- * custom GLSL corona aura, live Obsidian/Wireframe switch, and scroll choreography.
+ * Fixed WebGL canvas permanently locked to one strict monochrome look:
+ * Matte Obsidian core + Cold Brushed Titanium rim lighting & orbital gimbal rings.
  */
 export function MonolithScene({
   scrollProgressRef,
   scrollVelocityRef,
   lang,
-  wireframeMode,
 }: MonolithSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const langDirRef = useRef<number>(lang === "ar" ? -1 : 1);
-  const wireframeRef = useRef<boolean>(wireframeMode);
-  const materialToggleRef = useRef<{
-    outerMat: THREE.MeshPhysicalMaterial;
-    edgeMat: THREE.LineBasicMaterial;
-    renderNow: () => void;
-  } | null>(null);
 
   useEffect(() => {
     langDirRef.current = lang === "ar" ? -1 : 1;
   }, [lang]);
-
-  useEffect(() => {
-    wireframeRef.current = wireframeMode;
-    const handles = materialToggleRef.current;
-    if (handles) {
-      handles.outerMat.wireframe = wireframeMode;
-      handles.edgeMat.opacity = wireframeMode ? 0.72 : 0.44;
-      handles.renderNow();
-    }
-  }, [wireframeMode]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -126,16 +107,16 @@ export function MonolithScene({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.24;
+    renderer.toneMappingExposure = 1.18;
     container.appendChild(renderer.domElement);
 
-    const envMap = createArchitecturalEnvMap(renderer);
+    const envMap = createTitaniumEnvMap(renderer);
     scene.environment = envMap;
 
     const rig = new THREE.Group();
     scene.add(rig);
 
-    // 1. Custom GLSL Volumetric Crimson & Platinum Corona Plane behind sculpture
+    // 1. Subtle Cold Titanium Corona Shader Plane behind sculpture
     const coronaUniforms = {
       uTime: { value: 0 },
       uScroll: { value: 0 },
@@ -163,15 +144,15 @@ export function MonolithScene({
           vec2 p = (vUv - 0.5) * 2.0;
           float r = length(p);
           float angle = atan(p.y, p.x);
-          float pulse = 0.5 + 0.5 * sin(uTime * 0.8 + uScroll * 6.2831);
-          float rays = 0.5 + 0.5 * sin(angle * 6.0 + uTime * 0.35 + uScroll * 4.0);
+          float pulse = 0.5 + 0.5 * sin(uTime * 0.75 + uScroll * 6.2831);
+          float rays = 0.5 + 0.5 * sin(angle * 6.0 + uTime * 0.3 + uScroll * 4.0);
           float ring = smoothstep(0.62, 0.24, abs(r - (0.34 + 0.04 * pulse)));
-          float glow = exp(-r * 2.75) * (0.24 + 0.10 * pulse + 0.16 * uVelocity);
-          float beam = ring * (0.07 + 0.06 * rays + 0.14 * uVelocity);
-          vec3 crimson = vec3(0.784, 0.118, 0.196);
-          vec3 platinum = vec3(0.945, 0.949, 0.957);
-          vec3 col = mix(crimson, platinum, beam * 0.45);
-          float alpha = clamp((glow + beam) * smoothstep(1.0, 0.15, r), 0.0, 0.48);
+          float glow = exp(-r * 2.8) * (0.16 + 0.08 * pulse + 0.14 * uVelocity);
+          float beam = ring * (0.05 + 0.05 * rays + 0.12 * uVelocity);
+          vec3 titanium = vec3(0.831, 0.843, 0.867);
+          vec3 pureWhite = vec3(0.957, 0.961, 0.969);
+          vec3 col = mix(titanium, pureWhite, beam * 0.5);
+          float alpha = clamp((glow + beam) * smoothstep(1.0, 0.15, r), 0.0, 0.36);
           gl_FragColor = vec4(col, alpha);
         }
       `,
@@ -180,46 +161,45 @@ export function MonolithScene({
     coronaPlane.position.z = -1.15;
     rig.add(coronaPlane);
 
-    // 2. Sculpted Dual-Layer Obsidian & Imperial Crimson Core
+    // 2. Sculpted Dual-Layer Matte Obsidian & Brushed Titanium Core
     const coreGroup = new THREE.Group();
     rig.add(coreGroup);
 
     const outerCoreGeom = new THREE.OctahedronGeometry(1.36, 1);
     outerCoreGeom.scale(0.56, 1.32, 0.56);
     const outerObsidianMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#07070a"),
-      metalness: 0.78,
-      roughness: 0.24,
-      clearcoat: 0.85,
-      clearcoatRoughness: 0.16,
+      color: new THREE.Color("#07080a"),
+      metalness: 0.72,
+      roughness: 0.28,
+      clearcoat: 0.75,
+      clearcoatRoughness: 0.18,
       reflectivity: 0.85,
-      envMapIntensity: 0.95,
+      envMapIntensity: 0.9,
       flatShading: true,
-      wireframe: wireframeRef.current,
     });
     const outerMonolith = new THREE.Mesh(outerCoreGeom, outerObsidianMat);
     coreGroup.add(outerMonolith);
 
     const innerCoreGeom = new THREE.OctahedronGeometry(0.74, 0);
     innerCoreGeom.scale(0.54, 1.3, 0.54);
-    const innerCrimsonMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#C81E32"),
-      metalness: 0.9,
-      roughness: 0.24,
-      clearcoat: 0.75,
-      envMapIntensity: 1.8,
-      emissive: new THREE.Color("#450811"),
-      emissiveIntensity: 0.65,
+    const innerTitaniumMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#8E94A0"),
+      metalness: 0.92,
+      roughness: 0.22,
+      clearcoat: 0.8,
+      envMapIntensity: 1.5,
+      emissive: new THREE.Color("#181A20"),
+      emissiveIntensity: 0.35,
       flatShading: true,
     });
-    const innerCore = new THREE.Mesh(innerCoreGeom, innerCrimsonMat);
+    const innerCore = new THREE.Mesh(innerCoreGeom, innerTitaniumMat);
     coreGroup.add(innerCore);
 
     const edgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
     const edgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#E11D38"),
+      color: new THREE.Color("#D4D7DD"),
       transparent: true,
-      opacity: wireframeRef.current ? 0.72 : 0.44,
+      opacity: 0.36,
     });
     const edgeLines = new THREE.LineSegments(edgeGeom, edgeMat);
     edgeLines.scale.setScalar(1.006);
@@ -227,47 +207,47 @@ export function MonolithScene({
 
     const axisGeom = new THREE.CylinderGeometry(0.004, 0.004, 4.5, 8);
     const axisMat = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#E11D38"),
+      color: new THREE.Color("#D4D7DD"),
       transparent: true,
-      opacity: 0.34,
+      opacity: 0.28,
     });
     const axisRod = new THREE.Mesh(axisGeom, axisMat);
     coreGroup.add(axisRod);
 
-    // 3. Three-Axis Calibrated Crimson & Platinum Gimbal System
-    const crimsonMetalMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#E11D38"),
-      metalness: 0.92,
-      roughness: 0.22,
+    // 3. Cold Brushed Titanium Orbital Gimbal System
+    const titaniumRingMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#D4D7DD"),
+      metalness: 0.94,
+      roughness: 0.2,
       clearcoat: 0.85,
-      envMapIntensity: 1.8,
+      envMapIntensity: 1.6,
       transparent: true,
-      opacity: 0.88,
+      opacity: 0.76,
     });
-    const platinumHairlineMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#A1A1AA"),
-      metalness: 0.86,
+    const silverHairlineMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#9CA3AF"),
+      metalness: 0.88,
       roughness: 0.28,
-      envMapIntensity: 1.4,
+      envMapIntensity: 1.3,
       transparent: true,
-      opacity: 0.34,
+      opacity: 0.28,
     });
 
     const ringOuterGroup = new THREE.Group();
-    const ringOuterGeom = new THREE.TorusGeometry(2.15, 0.011, 14, isMobile ? 72 : 128);
-    const ringOuter = new THREE.Mesh(ringOuterGeom, crimsonMetalMat);
+    const ringOuterGeom = new THREE.TorusGeometry(2.15, 0.01, 14, isMobile ? 72 : 128);
+    const ringOuter = new THREE.Mesh(ringOuterGeom, titaniumRingMat);
     ringOuterGroup.add(ringOuter);
 
     const tickCount = 36;
-    const tickGeom = new THREE.BoxGeometry(0.014, 0.09, 0.014);
-    const tickInstanced = new THREE.InstancedMesh(tickGeom, crimsonMetalMat, tickCount);
+    const tickGeom = new THREE.BoxGeometry(0.013, 0.085, 0.013);
+    const tickInstanced = new THREE.InstancedMesh(tickGeom, titaniumRingMat, tickCount);
     const dummy = new THREE.Object3D();
     for (let i = 0; i < tickCount; i++) {
       const a = (i / tickCount) * Math.PI * 2;
       const rad = 2.15;
       dummy.position.set(Math.cos(a) * rad, Math.sin(a) * rad, 0);
       dummy.rotation.set(0, 0, a - Math.PI / 2);
-      dummy.scale.set(1, i % 3 === 0 ? 1.55 : 0.75, 1);
+      dummy.scale.set(1, i % 3 === 0 ? 1.5 : 0.75, 1);
       dummy.updateMatrix();
       tickInstanced.setMatrixAt(i, dummy.matrix);
     }
@@ -276,18 +256,18 @@ export function MonolithScene({
     rig.add(ringOuterGroup);
 
     const ringMidGeom = new THREE.TorusGeometry(1.76, 0.007, 12, isMobile ? 72 : 120);
-    const ringMid = new THREE.Mesh(ringMidGeom, platinumHairlineMat);
+    const ringMid = new THREE.Mesh(ringMidGeom, silverHairlineMat);
     ringMid.rotation.set(-Math.PI * 0.32, 0, Math.PI * 0.24);
     rig.add(ringMid);
 
     const ringInnerGeom = new THREE.TorusGeometry(2.58, 0.005, 10, isMobile ? 64 : 110);
-    const ringInner = new THREE.Mesh(ringInnerGeom, platinumHairlineMat);
+    const ringInner = new THREE.Mesh(ringInnerGeom, silverHairlineMat);
     ringInner.rotation.set(Math.PI * 0.18, -Math.PI * 0.4, 0);
     rig.add(ringInner);
 
-    // 4. Orbiting Architectural Shards (InstancedMesh, 1 draw call)
-    const shardCount = isMobile ? 12 : 20;
-    const shardGeom = new THREE.OctahedronGeometry(0.065, 0);
+    // 4. Orbiting Obsidian Shards (InstancedMesh, 1 draw call)
+    const shardCount = isMobile ? 10 : 18;
+    const shardGeom = new THREE.OctahedronGeometry(0.06, 0);
     shardGeom.scale(0.65, 1.8, 0.65);
     const shardInstanced = new THREE.InstancedMesh(
       shardGeom,
@@ -303,8 +283,8 @@ export function MonolithScene({
     }));
     rig.add(shardInstanced);
 
-    // 5. Atmospheric Crimson Depth Particles
-    const particleCount = isMobile ? 140 : 340;
+    // 5. Subtle Silver Atmospheric Dust
+    const particleCount = isMobile ? 120 : 300;
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
@@ -318,28 +298,28 @@ export function MonolithScene({
     const particleGeom = new THREE.BufferGeometry();
     particleGeom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     const particleMat = new THREE.PointsMaterial({
-      color: new THREE.Color("#E11D38"),
-      size: isMobile ? 0.025 : 0.022,
+      color: new THREE.Color("#D4D7DD"),
+      size: isMobile ? 0.022 : 0.019,
       transparent: true,
-      opacity: 0.48,
+      opacity: 0.38,
       depthWrite: false,
     });
     const particles = new THREE.Points(particleGeom, particleMat);
     scene.add(particles);
 
-    // 6. Chiaroscuro Studio Lighting
-    const ambient = new THREE.AmbientLight(0x1b1b22, 1.45);
+    // 6. Cold Titanium Studio Lighting (Zero Red)
+    const ambient = new THREE.AmbientLight(0x16181d, 1.4);
     scene.add(ambient);
 
-    const keyLight = new THREE.DirectionalLight(0xf1f2f4, 2.2);
+    const keyLight = new THREE.DirectionalLight(0xf4f5f7, 2.2);
     keyLight.position.set(-4.5, 5.5, 4.5);
     scene.add(keyLight);
 
-    const crimsonRim = new THREE.DirectionalLight(0xe11d38, 3.8);
-    crimsonRim.position.set(4.8, 2.0, -2.5);
-    scene.add(crimsonRim);
+    const titaniumRim = new THREE.DirectionalLight(0xd4d7dd, 3.2);
+    titaniumRim.position.set(4.8, 2.0, -2.5);
+    scene.add(titaniumRim);
 
-    const underFill = new THREE.PointLight(0xc81e32, 2.4, 14);
+    const underFill = new THREE.PointLight(0x9ca3af, 2.0, 14);
     underFill.position.set(0, -3.5, 2.8);
     scene.add(underFill);
 
@@ -421,24 +401,24 @@ export function MonolithScene({
         targetX = THREE.MathUtils.lerp(mobile ? 0 : -1.35 * dirSign, 0, t);
         targetY = THREE.MathUtils.lerp(-0.04, 0.2, t);
         targetZ = THREE.MathUtils.lerp(-0.45, -1.75, t);
-        rigScale = THREE.MathUtils.lerp(mobile ? 0.84 : 1.0, mobile ? 0.95 : 1.16, t);
+        rigScale = mobile ? 0.95 : 1.16;
         ringSpread = THREE.MathUtils.lerp(1.06, 1.32, t);
       } else {
         const t = (p - 0.82) / 0.18;
         targetX = THREE.MathUtils.lerp(0, mobile ? 0 : 1.45 * dirSign, t);
         targetY = THREE.MathUtils.lerp(0.2, -0.02, t);
         targetZ = THREE.MathUtils.lerp(-1.75, -0.45, t);
-        rigScale = THREE.MathUtils.lerp(mobile ? 0.95 : 1.16, mobile ? 0.88 : 1.0, t);
+        rigScale = mobile ? 0.88 : 1.0;
         ringSpread = THREE.MathUtils.lerp(1.32, 1.02, t);
       }
 
-      rig.position.x = targetX + currentPointer.x * 0.22;
-      rig.position.y = targetY - currentPointer.y * 0.16;
+      rig.position.x = targetX + currentPointer.x * 0.2;
+      rig.position.y = targetY - currentPointer.y * 0.14;
       rig.position.z = targetZ;
       rig.scale.setScalar(rigScale);
 
       const baseFov = mobile ? 46 : 38;
-      const targetFov = baseFov + Math.min(vel * 3.8, 4.5);
+      const targetFov = baseFov + Math.min(vel * 3.6, 4.2);
       if (Math.abs(camera.fov - targetFov) > 0.02) {
         camera.fov = targetFov;
         camera.updateProjectionMatrix();
@@ -455,7 +435,7 @@ export function MonolithScene({
 
       innerCore.rotation.y = -(p * Math.PI * 3.6 + elapsed * 0.24 + velocityBoost * 1.4);
       innerCore.rotation.x = Math.cos(p * Math.PI * 2.0) * 0.22;
-      innerCrimsonMat.emissiveIntensity = 0.62 + Math.min(vel * 0.95, 0.9);
+      innerTitaniumMat.emissiveIntensity = 0.35 + Math.min(vel * 0.65, 0.7);
 
       ringOuterGroup.scale.setScalar(ringSpread);
       ringOuterGroup.rotation.z = elapsed * 0.18 + p * Math.PI * 1.6 + velocityBoost * 0.6;
@@ -491,12 +471,6 @@ export function MonolithScene({
 
       particles.rotation.y = elapsed * 0.03 + p * 0.85;
       particles.position.y = -p * 1.6;
-    };
-
-    materialToggleRef.current = {
-      outerMat: outerObsidianMat,
-      edgeMat,
-      renderNow: () => renderer.render(scene, camera),
     };
 
     const stepFrame = () => {
@@ -547,7 +521,6 @@ export function MonolithScene({
     document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      materialToggleRef.current = null;
       if (frameId) window.cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibility);
@@ -560,7 +533,7 @@ export function MonolithScene({
       outerCoreGeom.dispose();
       outerObsidianMat.dispose();
       innerCoreGeom.dispose();
-      innerCrimsonMat.dispose();
+      innerTitaniumMat.dispose();
       edgeGeom.dispose();
       edgeMat.dispose();
       axisGeom.dispose();
@@ -570,8 +543,8 @@ export function MonolithScene({
       ringInnerGeom.dispose();
       tickGeom.dispose();
       tickInstanced.dispose();
-      crimsonMetalMat.dispose();
-      platinumHairlineMat.dispose();
+      titaniumRingMat.dispose();
+      silverHairlineMat.dispose();
       shardGeom.dispose();
       shardInstanced.dispose();
       particleGeom.dispose();
