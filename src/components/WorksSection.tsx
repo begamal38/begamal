@@ -19,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface WorksSectionProps {
   lang: Lang;
+  onModalOpenChange?: (isOpen: boolean) => void;
 }
 
 /**
@@ -85,20 +86,20 @@ function ClientStatusBadge({
 }) {
   const styles: Record<ClientStatus, { pill: string; dot: string }> = {
     active: {
-      pill: "border-[#D4D7DD]/50 bg-[#F4F5F7]/[0.12] text-[#F4F5F7]",
+      pill: "border-[#E5E7EB]/55 bg-[#F4F5F7]/[0.12] text-[#F4F5F7]",
       dot: "bg-[#F4F5F7] shadow-[0_0_8px_rgba(244,245,247,0.85)]",
     },
     new: {
-      pill: "border-[#C98A5B]/50 bg-[#C98A5B]/[0.14] text-[#F0C6A3]",
-      dot: "bg-[#D99B66]",
+      pill: "border-[#E5E7EB]/65 bg-[#E5E7EB]/[0.18] text-[#FFFFFF]",
+      dot: "bg-[#FFFFFF] ring-2 ring-[#A1A6B0]/50",
     },
     leaving_soon: {
-      pill: "border-[#D99B52]/55 bg-[#D99B52]/[0.15] text-[#F5D29A]",
-      dot: "bg-[#E2A85C] shadow-[0_0_8px_rgba(226,168,92,0.75)]",
+      pill: "border-dashed border-[#A1A6B0]/65 bg-[#27292E]/80 text-[#E5E7EB]",
+      dot: "bg-[#A1A6B0]",
     },
     ended: {
-      pill: "border-white/15 bg-white/[0.05] text-[#9AA2B0]",
-      dot: "bg-[#7A8290]",
+      pill: "border-white/15 bg-white/[0.04] text-[#9CA3AF]",
+      dot: "bg-[#6B7280]",
     },
   };
 
@@ -197,7 +198,7 @@ function CaseStudyVisualStage({
   );
 }
 
-export function WorksSection({ lang }: WorksSectionProps) {
+export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeCategory, setActiveCategory] = useState<CaseStudyCategoryId>("all");
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
@@ -219,7 +220,8 @@ export function WorksSection({ lang }: WorksSectionProps) {
     ).matches;
     if (prefersReducedMotion || !sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
       gsap.fromTo(
         ".works-card",
         { y: 12, opacity: 0.92 },
@@ -236,7 +238,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
           },
         }
       );
-    }, sectionRef);
+    });
 
     const rafId = window.requestAnimationFrame(() => {
       ScrollTrigger.refresh();
@@ -244,23 +246,35 @@ export function WorksSection({ lang }: WorksSectionProps) {
 
     return () => {
       window.cancelAnimationFrame(rafId);
-      ctx.revert();
+      mm.revert();
     };
   }, [activeCategory, lang]);
 
   useEffect(() => {
     if (!selectedStudy) return;
-    const prevOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+
+    const lenisGlobal = (window as Window & {
+      __lenis?: { stop?: () => void; start?: () => void };
+    }).__lenis;
+    onModalOpenChange?.(true);
+    lenisGlobal?.stop?.();
+
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedStudy(null);
     };
     window.addEventListener("keydown", handleKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+      onModalOpenChange?.(false);
+      lenisGlobal?.start?.();
       window.removeEventListener("keydown", handleKey);
     };
-  }, [selectedStudy]);
+  }, [selectedStudy, onModalOpenChange]);
 
   return (
     <section
@@ -310,9 +324,9 @@ export function WorksSection({ lang }: WorksSectionProps) {
                   </p>
                 </div>
 
-                <span className="btn-titanium inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold transition-transform duration-300 group-hover:translate-x-0.5">
+                <span className="btn-titanium inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
                   <span>{UI_COPY.works.showreelCta[lang]}</span>
-                  <ArrowUpRight size={14} weight="bold" />
+                  <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
                 </span>
               </div>
             </div>
@@ -420,7 +434,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                         className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#161923] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
                         <span>{primaryLink.label[lang]}</span>
-                        <ArrowUpRight size={13} weight="bold" />
+                        <ArrowUpRight size={13} weight="bold" className="inline-block rtl:-scale-x-100" />
                       </a>
                     ) : (
                       <button
@@ -429,7 +443,7 @@ export function WorksSection({ lang }: WorksSectionProps) {
                         className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#161923] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
                         <span>{UI_COPY.works.caseStudyCta[lang]}</span>
-                        <ArrowUpRight size={13} weight="bold" />
+                        <ArrowUpRight size={13} weight="bold" className="inline-block rtl:-scale-x-100" />
                       </button>
                     )}
                   </div>
@@ -440,21 +454,24 @@ export function WorksSection({ lang }: WorksSectionProps) {
         </div>
       </div>
 
-      {/* Interactive Case Study Modal */}
+      {/* Interactive Case Study Modal (Portal + Lenis pause + isolated iOS touch/wheel scroll) */}
       {selectedStudy &&
         createPortal(
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-study-title"
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#090B0F]/84 p-4 backdrop-blur-xl sm:p-6"
+            data-lenis-prevent=""
+            data-lenis-prevent-wheel=""
+            data-lenis-prevent-touch=""
+            className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden overscroll-none bg-[#090B0F]/84 p-3 backdrop-blur-xl sm:p-6"
             onClick={() => setSelectedStudy(null)}
           >
             <div
-              className="max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.5rem] border border-white/20 bg-[#161923] p-5 shadow-[0_24px_64px_rgba(0,0,0,0.65)] sm:p-8"
+              className="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-[1.5rem] border border-white/20 bg-[#161923] shadow-[0_24px_64px_rgba(0,0,0,0.65)] supports-[max-height:90dvh]:max-h-[90dvh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-4 sm:pb-5">
+              <div className="flex shrink-0 items-start justify-between gap-4 border-b border-white/[0.08] p-5 pb-4 sm:p-8 sm:pb-5">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <ClientStatusBadge status={selectedStudy.status} lang={lang} />
@@ -480,61 +497,68 @@ export function WorksSection({ lang }: WorksSectionProps) {
                 </button>
               </div>
 
-              <div className="mt-4 sm:mt-6">
+              <div
+                data-modal-scroll="true"
+                data-lenis-prevent=""
+                data-lenis-prevent-wheel=""
+                data-lenis-prevent-touch=""
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-pan-y p-5 pt-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-8 sm:pt-6"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
                 <CaseStudyVisualStage study={selectedStudy} lang={lang} tall />
-              </div>
 
-              <p className="mt-4 text-sm leading-relaxed text-[#F4F5F7]/90 sm:mt-6 sm:text-base">
-                {selectedStudy.summary[lang]}
-              </p>
+                <p className="mt-4 text-sm leading-relaxed text-[#F4F5F7]/90 sm:mt-6 sm:text-base">
+                  {selectedStudy.summary[lang]}
+                </p>
 
-              <div className="mt-4 space-y-2.5 border-t border-white/[0.08] pt-4 sm:mt-6 sm:space-y-3 sm:pt-5">
-                <h4 className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#D4D7DD]">
-                  {UI_COPY.works.scopeHeading[lang]}
-                </h4>
-                <ul className="space-y-2.5">
-                  {selectedStudy.deliverables[lang].map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 text-sm leading-relaxed text-[#9CA3AF]"
+                <div className="mt-4 space-y-2.5 border-t border-white/[0.08] pt-4 sm:mt-6 sm:space-y-3 sm:pt-5">
+                  <h4 className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#D4D7DD]">
+                    {UI_COPY.works.scopeHeading[lang]}
+                  </h4>
+                  <ul className="space-y-2.5">
+                    {selectedStudy.deliverables[lang].map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 text-sm leading-relaxed text-[#9CA3AF]"
+                      >
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
+                          aria-hidden="true"
+                        />
+                        <span className="text-[#F4F5F7]/85">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-6 flex flex-wrap gap-2 border-t border-white/[0.08] pt-5">
+                  {selectedStudy.campaigns[lang].map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/10 bg-[#0A0A0C] px-3.5 py-1.5 text-xs text-[#F4F5F7]/80"
                     >
-                      <span
-                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
-                        aria-hidden="true"
-                      />
-                      <span className="text-[#F4F5F7]/85">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2 border-t border-white/[0.08] pt-5">
-                {selectedStudy.campaigns[lang].map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-white/10 bg-[#0A0A0C] px-3.5 py-1.5 text-xs text-[#F4F5F7]/80"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {selectedStudy.links.length > 0 && (
-                <div className="mt-6 flex flex-wrap gap-3 border-t border-white/[0.08] pt-5">
-                  {selectedStudy.links.map((item) => (
-                    <a
-                      key={item.url}
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-titanium inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold"
-                    >
-                      <span>{item.label[lang]}</span>
-                      <ArrowUpRight size={14} weight="bold" />
-                    </a>
+                      {tag}
+                    </span>
                   ))}
                 </div>
-              )}
+
+                {selectedStudy.links.length > 0 && (
+                  <div className="mt-6 flex flex-wrap gap-3 border-t border-white/[0.08] pt-5">
+                    {selectedStudy.links.map((item) => (
+                      <a
+                        key={item.url}
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-titanium inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold"
+                      >
+                        <span>{item.label[lang]}</span>
+                        <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>,
           document.body

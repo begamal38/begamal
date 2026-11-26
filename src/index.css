@@ -37,6 +37,7 @@ html {
   color: var(--ink-titanium);
   scroll-behavior: auto;
   scroll-padding-top: 5.5rem;
+  overflow-x: clip;
   color-scheme: dark;
 }
 
@@ -49,13 +50,13 @@ body {
   margin: 0;
   background-color: var(--bg-void);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(196, 206, 224, 0.085), transparent 64%),
-    radial-gradient(ellipse 60% 45% at 82% 42%, rgba(200, 125, 68, 0.055), transparent 58%),
-    radial-gradient(ellipse 55% 45% at 18% 78%, rgba(140, 155, 185, 0.055), transparent 62%);
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(229, 231, 235, 0.075), transparent 64%),
+    radial-gradient(ellipse 60% 45% at 82% 42%, rgba(161, 166, 176, 0.055), transparent 58%),
+    radial-gradient(ellipse 55% 45% at 18% 78%, rgba(229, 231, 235, 0.045), transparent 62%);
   background-attachment: fixed;
   color: var(--ink-titanium);
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

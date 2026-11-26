@@ -19,7 +19,8 @@ export function StatementSection({ lang }: StatementSectionProps) {
     ).matches;
     if (prefersReducedMotion || !sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
       gsap.fromTo(
         ".scrub-word",
         { opacity: 0.38 },
@@ -52,9 +53,9 @@ export function StatementSection({ lang }: StatementSectionProps) {
           },
         }
       );
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [lang]);
 
   return (

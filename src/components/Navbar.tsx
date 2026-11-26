@@ -61,7 +61,7 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
               className="inline-flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#D4D7DD] transition-colors duration-200 hover:text-[#F4F5F7] whitespace-nowrap sm:text-xs sm:tracking-[0.1em]"
             >
               <span>{UI_COPY.nav.showreel[lang]}</span>
-              <ArrowUpRight size={12} weight="bold" />
+              <ArrowUpRight size={12} weight="bold" className="inline-block rtl:-scale-x-100" />
             </a>
 
             <button
@@ -70,8 +70,8 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
               className="btn-titanium group inline-flex items-center gap-1.5 rounded-full py-1.5 ps-3 pe-1.5 text-[11px] font-semibold tracking-wide transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] whitespace-nowrap sm:gap-2 sm:ps-4 sm:text-xs"
             >
               <span>{UI_COPY.nav.cta[lang]}</span>
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-6 sm:w-6">
-                <ArrowUpRight size={12} weight="bold" />
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 sm:h-6 sm:w-6">
+                <ArrowUpRight size={12} weight="bold" className="inline-block rtl:-scale-x-100" />
               </span>
             </button>
           </div>

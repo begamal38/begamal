@@ -53,10 +53,11 @@ export default function App() {
       duration: 1.05,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      syncTouch: false,
       wheelMultiplier: 0.95,
-      touchMultiplier: 1.35,
     });
     lenisRef.current = lenis;
+    (window as Window & { __lenis?: Lenis }).__lenis = lenis;
 
     const handleScrollUpdate = ({
       progress,
@@ -82,7 +83,16 @@ export default function App() {
       lenis.off("scroll", handleScrollUpdate);
       lenis.destroy();
       lenisRef.current = null;
+      delete (window as Window & { __lenis?: Lenis }).__lenis;
     };
+  }, []);
+
+  const handleModalOpenChange = useCallback((isOpen: boolean) => {
+    if (isOpen) {
+      lenisRef.current?.stop();
+    } else {
+      lenisRef.current?.start();
+    }
   }, []);
 
   const handleNavigate = useCallback((sectionId: string) => {
@@ -118,7 +128,7 @@ export default function App() {
         <HeroSection lang={lang} onNavigate={handleNavigate} />
         <StatementSection lang={lang} />
         <ChronicleSection lang={lang} />
-        <WorksSection lang={lang} />
+        <WorksSection lang={lang} onModalOpenChange={handleModalOpenChange} />
         <SystemsAndContactSection
           lang={lang}
           onToggleLang={handleToggleLang}

@@ -20,7 +20,8 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
     ).matches;
     if (prefersReducedMotion || !sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
       gsap.to(".hero-portrait-parallax", {
         yPercent: -9,
         scale: 0.96,
@@ -44,16 +45,16 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
           scrub: true,
         },
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [lang]);
 
   return (
     <section
       id="hero"
       ref={sectionRef}
-      className="relative z-10 flex min-h-[100dvh] items-center px-5 pb-24 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-8 sm:pb-16 lg:pb-14 lg:pt-24"
+      className="relative z-10 flex min-h-[100svh] supports-[min-height:100dvh]:min-h-[100dvh] items-center px-5 pb-24 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-8 sm:pb-16 lg:pb-14 lg:pt-24"
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-5 sm:gap-8 lg:grid-cols-12">
         {/* Left/Start: Typography Stack (Immediately visible at scroll = 0, opacity: 1) */}
@@ -86,8 +87,8 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
               className="btn-titanium group inline-flex items-center gap-3 rounded-full py-2.5 ps-6 pe-2.5 text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] whitespace-nowrap"
             >
               <span>{UI_COPY.nav.cta[lang]}</span>
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                <ArrowUpRight size={15} weight="bold" />
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
+                <ArrowUpRight size={15} weight="bold" className="inline-block rtl:-scale-x-100" />
               </span>
             </button>
 

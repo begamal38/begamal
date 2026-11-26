@@ -22,7 +22,8 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
     ).matches;
     if (prefersReducedMotion || !sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
       if (trackWrapRef.current && spineFillRef.current) {
         gsap.fromTo(
           spineFillRef.current,
@@ -50,9 +51,9 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
           onEnterBack: () => setActiveIndex(idx),
         });
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [lang]);
 
   const activeEntry = CAREER_CHRONICLE[activeIndex] ?? CAREER_CHRONICLE[0];
@@ -80,7 +81,10 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                 <span className="font-mono-code text-xs text-[#D4D7DD]">
                   {activeEntry.period[lang]}
                 </span>
-                <span className="font-mono-code text-xs text-[#9CA3AF]">
+                <span
+                  dir="ltr"
+                  className="inline-block font-mono-code text-xs tabular-nums text-[#9CA3AF]"
+                >
                   {String(activeIndex + 1).padStart(2, "0")} /{" "}
                   {String(CAREER_CHRONICLE.length).padStart(2, "0")}
                 </span>
@@ -219,7 +223,7 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                         >
                           <Play size={12} weight="fill" />
                           <span>{link.label[lang]}</span>
-                          <ArrowUpRight size={13} weight="bold" />
+                          <ArrowUpRight size={13} weight="bold" className="inline-block rtl:-scale-x-100" />
                         </a>
                       ))}
                     </div>

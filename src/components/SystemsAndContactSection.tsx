@@ -34,7 +34,8 @@ export function SystemsAndContactSection({
     ).matches;
     if (prefersReducedMotion || !systemsRef.current) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
       gsap.fromTo(
         ".system-pillar",
         { y: 20, opacity: 0.55 },
@@ -51,9 +52,9 @@ export function SystemsAndContactSection({
           },
         }
       );
-    }, systemsRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [lang]);
 
   return (
@@ -127,8 +128,8 @@ export function SystemsAndContactSection({
                   <WhatsappLogo size={18} weight="fill" className="text-[#050505]" />
                   <span>{UI_COPY.contact.whatsappCta[lang]}</span>
                 </span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <ArrowUpRight size={14} weight="bold" />
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
+                  <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
                 </span>
               </a>
 
@@ -140,7 +141,7 @@ export function SystemsAndContactSection({
               >
                 <FacebookLogo size={17} weight="regular" className="text-[#D4D7DD]" />
                 <span>{UI_COPY.contact.facebookCta[lang]}</span>
-                <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+                <ArrowUpRight size={14} weight="bold" className="inline-block opacity-70 rtl:-scale-x-100" />
               </a>
 
               <a
@@ -151,7 +152,7 @@ export function SystemsAndContactSection({
               >
                 <InstagramLogo size={17} weight="regular" className="text-[#D4D7DD]" />
                 <span>{UI_COPY.contact.instagramCta[lang]}</span>
-                <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+                <ArrowUpRight size={14} weight="bold" className="inline-block opacity-70 rtl:-scale-x-100" />
               </a>
 
               <a
@@ -162,7 +163,7 @@ export function SystemsAndContactSection({
               >
                 <Play size={14} weight="fill" className="text-[#D4D7DD]" />
                 <span>{UI_COPY.contact.vimeoCta[lang]}</span>
-                <ArrowUpRight size={14} weight="bold" className="opacity-70" />
+                <ArrowUpRight size={14} weight="bold" className="inline-block opacity-70 rtl:-scale-x-100" />
               </a>
             </div>
           </div>
