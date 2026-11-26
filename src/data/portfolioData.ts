@@ -606,7 +606,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     links: [
       {
         label: { en: "Official Website", ar: "الموقع الرسمي" },
-        url: "http://mohamedsamyworks.com",
+        url: "https://www.mohamedsamyworks.com",
       },
       {
         label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
@@ -686,7 +686,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     links: [
       {
         label: { en: "Official Platform", ar: "المنصة الرسمية" },
-        url: "https://hossamfekry.com",
+        url: "https://www.hossamfekry.com",
       },
       {
         label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
@@ -949,7 +949,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     links: [
       {
         label: { en: "Official Website", ar: "الموقع الرسمي" },
-        url: "https://www.khatwa.site",
+        url: "https://khatwa.site",
       },
     ],
   },

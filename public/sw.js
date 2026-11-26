@@ -1,10 +1,12 @@
-const CACHE_NAME = "belal-gamal-v4-obsidian";
+const CACHE_NAME = "belal-gamal-v4.1-obsidian";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",
   "/apple-touch-icon.png",
   "/pwa-192x192.png",
   "/favicon-48x48.png",
+  "/favicon-32x32.png",
+  "/assets/portrait.jpg",
 ];
 
 self.addEventListener("install", (event) => {

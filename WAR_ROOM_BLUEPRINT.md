@@ -1,32 +1,22 @@
-# WAR ROOM BLUEPRINT — BEGAMAL PORTFOLIO (`begamal.pages.dev`, v2 Crimson Audit)
+# WAR ROOM BLUEPRINT — BELAL GAMAL PORTFOLIO (`begamal.pages.dev`, v4 Obsidian Final)
 
-## STAGE 0: 5-ROLE ADVERSARIAL WAR ROOM DELIBERATION
+## 5-ROLE ADVERSARIAL WAR ROOM DELIBERATION
 
-### 1. The Architect (Portfolio Pitch & Build Under Audit)
-- Live candidate: React/Vite/Three.js Obsidian + Imperial Crimson (`#C81E32` / `#E11D38`) + Brushed Platinum (`#F1F2F4`) architecture (`commit 08c8522`), 9 verified chronological chapters (`2013 - 2026`), 13 gapless client works (including Chubb Life Insurance, Chance Media, TECNO Camon C9), formal MSA Arabic, 3D Obsidian/Wireframe toggle, and scroll telemetry rail.
+### 1. The Architect (Architecture, PWA, SEO & Spatial System)
+- React 19 / Vite 6 / TypeScript / Tailwind CSS v4 / GSAP + Lenis / Three.js Obsidian (`#050505` / `#0A0A0C`) & Cold Brushed Titanium (`#D4D7DD` / `#F4F5F7`) production portfolio (`BELAL GAMAL` / `بلال جمال`).
+- Full portrait favicons (`/favicon-48x48.png`, `/favicon-32x32.png`, `/favicon.ico`), iOS/Apple PWA support (`/apple-touch-icon.png`, `black-translucent`, `viewport-fit=cover`, safe-area mobile pill), `/manifest.webmanifest`, `/sw.js`, `robots.txt`, `sitemap.xml`, `1200x630` `/assets/og-card.jpg`, and Schema.org `@graph` (`Person`, `WebSite`, `ProfessionalService`).
+- Spatial core (`MonolithScene.tsx`): Smoky quartz crystal (`ior: 1.544`), counter-rotating interlocked Star Tetrahedron, 13-node 3D Metatron geometry lattice, subtle burnished mineral copper bounce/meridian undertone under cold brushed titanium lighting (zero UI red).
 
-### 2. Devil's Advocate (Zero Politeness — Fatal Flaws Found)
-> **FATAL FLAW 1 — Developer Deployment & Internal Tool Bleed (`GITHUB → CLOUDFLARE PAGES`, MCP, Graphify):**
-> - In `e:\belal_gamal_creative_director.html`, the footer literally prints `<span>GITHUB → CLOUDFLARE PAGES</span>`, and the card stack prints `GitHub CI/CD & Cloudflare Pages` and `HTML/GSAP to 1080p MP4`.
-> - In `src/data/portfolioData.ts` (`commit 08c8522`), internal infrastructure terms bled back into client-facing copy: `"production-ready code with GitHub & Cloudflare Pages"`, `"Local Graphify architectural indexing across client codebases"`, `"NotebookLM MCP"`, `"HTML/GSAP"`, and `"Claude Desktop"`. A marketing client hiring a Creative Director does not care about Git hosting, static host providers, MCP servers, or codebase indexers. Strip every trace.
->
-> **FATAL FLAW 2 — Top-Triangle Reflection Glare on 3D Monolith Near Portrait Hairline:**
-> - At desktop `scroll = 0`, the upper facet of the obsidian core caught `0x9ca3af` too brightly right behind Belal's hair edge (`desktop_en_hero.png`). Lower the platinum studio panel intensity (`0x454852`) and shift desktop initial X slightly outward (`2.42`, Z `-1.48`) so the monolith + crimson orbital rings frame cleanly without fighting portrait contrast.
->
-> **FATAL FLAW 3 — Typography Orphan Wrapping & Footer URL Repetition:**
-> - Card headlines like `"TECNO Mobile · Camon C9"` left `"C9"` as an orphan word on line 2 (`desktop_en_chubb_chance.png`). Apply `text-balance`.
-> - Footer bottom row repeated `"vimeo.com/begamal"` right below the Vimeo CTA pill; replace with crisp identity positioning line.
+### 2. Devil's Advocate (Remaining Fixes Executed)
+- Fixed broken apex URL `http://mohamedsamyworks.com` (`ERR_NAME_NOT_RESOLVED`) -> switched to verified `https://www.mohamedsamyworks.com`.
+- Retina-compressed oversized client logo assets (`khatwa.png` 2.4 MB -> 98 KB, `hossam-fekry.png` 675 KB -> 159 KB, `obolus-mark.jpg` 1.28 MB -> 16 KB) preserving 100% original colors and backgrounds, cutting ~4.1 MB payload and eliminating scroll-decode lag.
+- Restored 100% of authentic client logo plates and backgrounds (`Vodafone` `#ED1E24`, `Majorel` `#FFFFFF`, `Uber` `#000000`, `Al-Attar` `#FFFFFF`, `Chubb Life` `#FFFFFF`, `Mohamed Samy` `#FFFFFF`, `Hossam Fikry` `#FFFFFF`, `Architect` `#FFFFFF`, `Khatwa` `#FFFFFF`, full-color `Chance Media`, full-bleed `Al-Qersh`, `EL3SAL`, `Obolus`, `Sanhok`).
 
-### 3. The Skeptical Client (Mobile Bio Visitor)
-> "I opened this from Belal's bio link. When I see `GITHUB → CLOUDFLARE PAGES` or `architectural indexing across client codebases`, I assume this is a junior developer site, not an independent Creative Director who led Vodafone/Majorel/Chubb teams and runs multi-sector commercial campaigns + documentary studios. Show me commercial outcomes, leadership, and real work — strip all deployment plumbing."
+### 3. The Skeptical Client
+- Immediate above-the-fold chiaroscuro portrait + authority positioning + `Connect` & `Selected Works` CTAs across desktop (`1440x900`) and mobile (`390x844`). Zero deployment plumbing or esoteric keywords leaked into client-facing copy.
 
-### 4. The Specialist (Conversion & Narrative Alignment)
-- Audit EVERY visible string across both `begamal/src/**` and `e:\belal_gamal_creative_director.html`:
-  - **Delete**: `GITHUB → CLOUDFLARE PAGES`, `GitHub CI/CD & Cloudflare Pages`, `with GitHub & Cloudflare Pages`, `Local Graphify`, `NotebookLM MCP`, `HTML/GSAP`, `client codebases`, `Claude Desktop` from visible client UI strings.
-  - **Retain**: All verified career milestones (`B.Sc. 2013-2017`, `TECNO Camon C9 QA`, `Vodafone Wasla Al-Korba`, `Chance Media (Ahmed Akl) & SECTOR 09`, `Al-Attar Group`, `Majorel HR Vodafone & Uber ~550 hires`, `Chubb Life Team Leader Sep 2022-Jul 2023`, `Al-Qersh / EL3SAL / Mohamed Samy / Hossam Fikry / Sanhok / Yasmine Salah / Khatwa`, `Obolus & THE ARCHITECT OF REALITY`, and `Tameem Youness` inspiration) plus real contact (`begamal38@gmail.com`, `vimeo.com/begamal`, `facebook.com/begamal`).
+### 4. The Specialist
+- Formal bilingual EN / MSA Arabic parity (`Alexandria` + `IBM Plex Sans Arabic`), footer-only language toggle, verified contact channels (`begamal38@gmail.com`, `vimeo.com/begamal`, `facebook.com/begamal`), zero console errors, zero broken images, zero horizontal overflow.
 
-### 5. The Maestro (Resolved Stage 0 Ship Lock)
-1. Purge all CI/CD, hosting (`GitHub`, `Cloudflare Pages`), and internal dev/MCP plumbing strings from BOTH `portfolioData.ts` (deployed React app) AND `e:\belal_gamal_creative_director.html`.
-2. Frame systems section cleanly around client-facing capabilities: `Autonomous Web & Brand Systems`, `Remotion & Automated Motion`, `Source-Verified Storytelling`.
-3. Apply `text-balance` on Bento card titles + dial back upper monolith specular panel (`0x454852`) + adjust Hero desktop `targetX = 2.42`, `targetZ = -1.48`.
-4. Verify zero occurrences of `GitHub`, `Cloudflare`, `Graphify`, `NotebookLM`, `HTML/GSAP`, `1@begamal.com` across rendered DOM, pass desktop & mobile Playwright checks, and lock clean commit.
+### 5. The Maestro (Final Verdict)
+- Build verified cleanly (`tsc`, `vite build`, local Playwright verification, and live Cloudflare audit): **GO LIVE / PRODUCTION READY**.

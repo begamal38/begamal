@@ -95,7 +95,7 @@ function CaseStudyVisualStage({
             <img
               src={study.image}
               alt={study.title[lang]}
-              loading="lazy"
+              decoding="async"
               className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
             />
           </div>
@@ -112,7 +112,7 @@ function CaseStudyVisualStage({
             <img
               src={study.image}
               alt={study.title[lang]}
-              loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
           </div>
@@ -121,7 +121,7 @@ function CaseStudyVisualStage({
             <img
               src={study.image}
               alt={study.title[lang]}
-              loading="lazy"
+              decoding="async"
               className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
             />
           </div>
