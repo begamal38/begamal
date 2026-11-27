@@ -272,16 +272,16 @@ html[lang="ar"] .font-editorial {
 /* Portrait low-key studio vignette dissolving organically into #050505 void */
 .portrait-mask {
   -webkit-mask-image: radial-gradient(
-    ellipse 62% 68% at 50% 40%,
-    #000 34%,
-    rgba(0, 0, 0, 0.6) 58%,
-    transparent 88%
+    ellipse 54% 70% at 50% 47%,
+    #000 48%,
+    rgba(0, 0, 0, 0.65) 68%,
+    transparent 92%
   );
   mask-image: radial-gradient(
-    ellipse 62% 68% at 50% 40%,
-    #000 34%,
-    rgba(0, 0, 0, 0.6) 58%,
-    transparent 88%
+    ellipse 54% 70% at 50% 47%,
+    #000 48%,
+    rgba(0, 0, 0, 0.65) 68%,
+    transparent 92%
   );
 }
 

@@ -104,7 +104,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
 
         {/* Right/End: Studio Monochrome Portrait dissolved seamlessly into #050505 void */}
         <div className="hero-portrait-parallax order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
-          <div className="relative mx-auto -mb-12 w-[230px] sm:w-[260px] md:mx-0 md:mb-0 md:w-[292px] lg:w-[376px]">
+          <div className="relative mx-auto -mb-6 w-[230px] sm:w-[260px] md:mx-0 md:mb-0 md:w-[292px] lg:w-[376px]">
             {/* Directional silver rim-glow aligned with the Interstellar horizon (same treatment on mobile and desktop) */}
             <div
               className="pointer-events-none absolute -inset-8 rounded-full opacity-25 blur-3xl md:-inset-12"
@@ -122,19 +122,19 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
                 height={925}
                 loading="eager"
                 decoding="sync"
-                className="h-full w-full scale-[1.03] object-cover object-top grayscale contrast-[1.12] brightness-[0.86] opacity-100"
+                className="h-full w-full scale-[1.03] object-cover object-top grayscale contrast-[1.1] brightness-[0.94] opacity-100"
               />
               {/* Bottom and perimeter obsidian scrims erasing headrest/car window edges */}
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(ellipse 66% 70% at 50% 38%, rgba(5,5,5,0) 40%, rgba(5,5,5,0.62) 72%, rgba(5,5,5,1) 96%)",
+                    "radial-gradient(ellipse 70% 74% at 50% 48%, rgba(5,5,5,0) 54%, rgba(5,5,5,0.55) 80%, rgba(5,5,5,1) 100%)",
                 }}
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent"
                 aria-hidden="true"
               />
             </div>

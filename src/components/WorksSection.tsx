@@ -381,7 +381,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                   type="button"
                   aria-selected={selected}
                   onClick={() => setActiveCategory(category.id)}
-                  className={`rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap ${
+                  className={`min-h-11 rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap ${
                     selected
                       ? "btn-titanium border-[#F4F5F7] font-semibold"
                       : "border-white/15 bg-[#0D0F14]/80 text-[#A7B0BE] backdrop-blur-md hover:border-white/30 hover:text-[#F4F5F7]"
@@ -459,7 +459,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                         href={primaryLink.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#161923] px-3.5 py-2.5 text-[12px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                        className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/15 bg-[#161923] px-3.5 py-2.5 text-[12px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
                         <span>{primaryLink.label[lang]}</span>
                         <ArrowUpRight

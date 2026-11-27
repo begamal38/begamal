@@ -83,7 +83,7 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
             <button
               type="button"
               onClick={() => onNavigate("contact")}
-              className="btn-titanium group inline-flex items-center gap-1.5 rounded-full py-1.5 ps-3 pe-1.5 text-[11px] font-semibold tracking-wide text-[#050505] transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap sm:gap-2 sm:ps-4 sm:text-xs"
+              className="btn-titanium group relative inline-flex items-center before:absolute before:-inset-x-1 before:-inset-y-2 before:content-[''] gap-1.5 rounded-full py-1.5 ps-3 pe-1.5 text-[11px] font-semibold tracking-wide text-[#050505] transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap sm:gap-2 sm:ps-4 sm:text-xs"
             >
               <span>{UI_COPY.nav.cta[lang]}</span>
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 sm:h-6 sm:w-6">
