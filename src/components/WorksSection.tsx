@@ -298,7 +298,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     <section
       id="works"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/10 bg-[#0F1218]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
+      className="relative z-10 border-t border-white/10 bg-transparent px-5 py-20 sm:px-8 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl">
         {/* Featured 16:9 Cinema Vimeo Showreel Showcase */}
@@ -307,7 +307,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
-          className="group mb-16 block rounded-[2rem] border border-white/[0.12] bg-[#171B24]/95 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
+          className="group mb-16 block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
         >
           <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
             <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -380,7 +380,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                   className={`rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap ${
                     selected
                       ? "btn-titanium border-[#F4F5F7] font-semibold"
-                      : "border-white/15 bg-[#151822] text-[#A7B0BE] hover:border-white/30 hover:text-[#F4F5F7]"
+                      : "border-white/15 bg-[#0D0F14]/80 text-[#A7B0BE] backdrop-blur-md hover:border-white/30 hover:text-[#F4F5F7]"
                   }`}
                 >
                   {category.label[lang]}
@@ -398,9 +398,9 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
             return (
               <article
                 key={study.id}
-                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.11] bg-[#161A23]/92 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25`}
+                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.11] bg-[#0D0F14]/75 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25`}
               >
-                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#101319] p-5 transition-colors duration-300 ease-out group-hover:bg-[#141822] sm:p-6">
+                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#0A0A0C]/75 p-5 backdrop-blur-md transition-colors duration-300 ease-out group-hover:bg-[#11131A]/85 sm:p-6">
                   <button
                     type="button"
                     onClick={() => setSelectedIndex(index)}
@@ -410,14 +410,14 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                       <CaseStudyVisualStage study={study} lang={lang} />
                     </div>
 
-                    <div className="flex min-h-[2.25rem] items-start justify-between gap-2">
-                      <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex min-h-[2rem] flex-nowrap items-center justify-between gap-2">
+                      <div className="flex min-w-0 flex-nowrap items-center gap-1.5">
                         <ClientStatusBadge status={study.status} lang={lang} />
-                        <span className="font-mono-code text-[11px] uppercase tracking-[0.12em] text-[#D4D7DD] whitespace-nowrap">
+                        <span className="truncate font-mono-code text-[10px] uppercase tracking-[0.08em] text-[#D4D7DD] whitespace-nowrap">
                           {study.period[lang]}
                         </span>
                       </div>
-                      <span className="max-w-[11rem] text-end text-[11px] leading-snug text-[#A1A6B0]">
+                      <span className="shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.04em] text-[#A1A6B0]">
                         {categoryLabelMap.get(study.category)}
                       </span>
                     </div>

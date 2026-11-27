@@ -64,11 +64,11 @@ export function StatementSection({ lang }: StatementSectionProps) {
     <section
       id="perspective"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/10 bg-[#0F1218]/38 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
+      className="relative z-10 border-t border-white/10 bg-transparent px-5 py-20 sm:px-8 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl space-y-10">
         {/* Double-Bezel Editorial Manifesto Card */}
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.12] bg-[#181C25]/92 p-1.5 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md">
           {/* Subtle architectural 13-node geometric filigree (purely visual, zero copy) */}
           <svg
             aria-hidden="true"

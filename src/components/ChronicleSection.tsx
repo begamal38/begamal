@@ -21,11 +21,16 @@ export function ChronicleSection({
 }: ChronicleSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const modalBodyRef = useRef<HTMLDivElement>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const [activeStageIndex, setActiveStageIndex] = useState<number>(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const total = CAREER_CHRONICLE.length;
-  const activeRailIndex = selectedIndex ?? hoveredIndex;
+  const activeRailIndex = selectedIndex ?? activeStageIndex;
+
+  const openStage = useCallback((idx: number) => {
+    setActiveStageIndex(idx);
+    setSelectedIndex(idx);
+  }, []);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -59,12 +64,24 @@ export function ChronicleSection({
 
   const handleClose = useCallback(() => setSelectedIndex(null), []);
   const handleNewer = useCallback(() => {
-    setSelectedIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : prev));
+    setSelectedIndex((prev) => {
+      if (prev !== null && prev > 0) {
+        const nextIdx = prev - 1;
+        setActiveStageIndex(nextIdx);
+        return nextIdx;
+      }
+      return prev;
+    });
   }, []);
   const handleOlder = useCallback(() => {
-    setSelectedIndex((prev) =>
-      prev !== null && prev < total - 1 ? prev + 1 : prev
-    );
+    setSelectedIndex((prev) => {
+      if (prev !== null && prev < total - 1) {
+        const nextIdx = prev + 1;
+        setActiveStageIndex(nextIdx);
+        return nextIdx;
+      }
+      return prev;
+    });
   }, [total]);
 
   useDossierNavigation({
@@ -97,7 +114,7 @@ export function ChronicleSection({
     <section
       id="chronicle"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/10 bg-[#0B0D12]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
+      className="relative z-10 border-t border-white/10 bg-transparent px-5 py-20 sm:px-8 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Header + Quick Year-Jump Timeline Node Rail */}
@@ -128,7 +145,7 @@ export function ChronicleSection({
           aria-label={UI_COPY.chronicle.railAria[lang]}
           className="relative mt-8 overflow-x-auto no-scrollbar pb-2"
         >
-          <div className="relative inline-flex min-w-full items-center justify-between gap-2 rounded-2xl border border-white/10 bg-[#12151D]/85 p-2 backdrop-blur-md">
+          <div className="relative inline-flex min-w-full items-center justify-between gap-2 rounded-2xl border border-white/10 bg-[#0A0A0C]/75 p-2 backdrop-blur-md">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-6 top-1/2 h-px -translate-y-1/2 bg-white/[0.08]"
@@ -139,13 +156,13 @@ export function ChronicleSection({
                 <button
                   key={`rail-${entry.id}`}
                   type="button"
-                  onMouseEnter={() => setHoveredIndex(idx)}
-                  onFocus={() => setHoveredIndex(idx)}
-                  onClick={() => setSelectedIndex(idx)}
+                  onMouseEnter={() => setActiveStageIndex(idx)}
+                  onFocus={() => setActiveStageIndex(idx)}
+                  onClick={() => openStage(idx)}
                   className={`group relative z-10 flex shrink-0 items-center gap-2 rounded-xl border px-3 py-1.5 font-mono-code text-[11px] transition-all duration-300 ease-out whitespace-nowrap ${
                     isActive
                       ? "border-white/25 bg-[#191D28] text-[#F4F5F7] shadow-[0_0_20px_rgba(229,231,235,0.1)]"
-                      : "border-transparent bg-[#12151D]/90 text-[#A1A6B0] hover:border-white/15 hover:text-[#F4F5F7]"
+                      : "border-transparent bg-[#0D0F14]/90 text-[#A1A6B0] hover:border-white/15 hover:text-[#F4F5F7]"
                   }`}
                 >
                   <span
@@ -178,16 +195,19 @@ export function ChronicleSection({
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {CAREER_CHRONICLE.map((entry, idx) => {
               const isFoundationWide = idx === total - 1;
+              const isNodeActive = activeRailIndex === idx;
               return (
                 <button
                   key={entry.id}
                   type="button"
-                  onMouseEnter={() => setHoveredIndex(idx)}
-                  onFocus={() => setHoveredIndex(idx)}
-                  onClick={() => setSelectedIndex(idx)}
-                  className={`era-node-card group flex flex-col justify-between rounded-2xl border border-white/[0.11] bg-[#13161F]/90 p-5 text-start transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.04] focus-visible:border-white/40 active:scale-[0.99] ${
-                    isFoundationWide ? "md:col-span-2 lg:col-span-3" : ""
-                  }`}
+                  onMouseEnter={() => setActiveStageIndex(idx)}
+                  onFocus={() => setActiveStageIndex(idx)}
+                  onClick={() => openStage(idx)}
+                  className={`era-node-card group flex flex-col justify-between rounded-2xl border p-5 text-start backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.05] focus-visible:border-white/40 active:scale-[0.99] ${
+                    isNodeActive
+                      ? "border-white/22 bg-[#0F1219]/82"
+                      : "border-white/[0.11] bg-[#0A0A0C]/75"
+                  } ${isFoundationWide ? "md:col-span-2 lg:col-span-3" : ""}`}
                 >
                   <div className="w-full">
                     {/* Top Row: Stage Index + Period + Hover Beacon */}
@@ -207,7 +227,11 @@ export function ChronicleSection({
                       </div>
                       <span
                         aria-hidden="true"
-                        className="h-2 w-2 shrink-0 rounded-full bg-white/30 transition-all duration-300 ease-out group-hover:bg-[#FFFFFF] group-hover:shadow-[0_0_10px_rgba(229,231,235,0.85)]"
+                        className={`h-2 w-2 shrink-0 rounded-full transition-all duration-300 ease-out ${
+                          isNodeActive
+                            ? "bg-[#FFFFFF] shadow-[0_0_10px_rgba(229,231,235,0.85)]"
+                            : "bg-white/30 group-hover:bg-[#FFFFFF] group-hover:shadow-[0_0_10px_rgba(229,231,235,0.85)]"
+                        }`}
                       />
                     </div>
 
@@ -283,7 +307,7 @@ export function ChronicleSection({
             data-lenis-prevent=""
             data-lenis-prevent-wheel=""
             data-lenis-prevent-touch=""
-            className="fixed inset-0 z-[100] flex items-end justify-center overflow-hidden overscroll-none bg-[#06070A]/82 p-0 backdrop-blur-xl sm:items-center sm:p-6"
+            className="fixed inset-0 z-[100] flex items-end justify-center overflow-hidden overscroll-none bg-[#050507]/82 p-0 backdrop-blur-xl sm:items-center sm:p-6"
             onClick={handleClose}
           >
             <div
@@ -340,18 +364,18 @@ export function ChronicleSection({
                 </button>
               </div>
 
-              {/* Mini Year-Node Skipper Strip with Glowing Beacon Lamp */}
+              {/* Mini Year-Node Skipper Strip with Glowing Beacon Lamp (all 01–10 visible) */}
               <div className="shrink-0 border-b border-white/[0.07] bg-white/[0.015] px-5 py-2.5 sm:px-8">
-                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar sm:flex-wrap sm:overflow-visible">
                   {CAREER_CHRONICLE.map((node, idx) => {
                     const isCurrent = idx === selectedIndex;
                     return (
                       <button
                         key={`skip-${node.id}`}
                         type="button"
-                        onClick={() => setSelectedIndex(idx)}
+                        onClick={() => openStage(idx)}
                         title={`${node.period[lang]} — ${node.organization[lang]}`}
-                        className={`relative flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono-code text-[10px] transition-all duration-200 whitespace-nowrap ${
+                        className={`relative flex shrink-0 items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono-code text-[10px] transition-all duration-200 whitespace-nowrap ${
                           isCurrent
                             ? "border-white/30 bg-white/[0.1] text-[#F4F5F7]"
                             : "border-white/[0.07] bg-transparent text-[#A1A6B0] hover:border-white/20 hover:text-[#F4F5F7]"

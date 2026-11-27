@@ -215,7 +215,7 @@ html[lang="ar"] .font-editorial {
 }
 
 .dossier-stage-fade {
-  animation: dossier-stage 200ms ease-out both;
+  animation: dossier-stage 160ms ease-out both;
 }
 
 @keyframes dossier-in {
@@ -231,8 +231,8 @@ html[lang="ar"] .font-editorial {
 
 @keyframes dossier-stage {
   from {
-    opacity: 0;
-    transform: translateY(6px);
+    opacity: 0.35;
+    transform: translateY(4px);
   }
   to {
     opacity: 1;

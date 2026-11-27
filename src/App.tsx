@@ -18,8 +18,10 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
   const [activeSection, setActiveSection] = useState<string>(SCROLL_SECTIONS[0].id);
+  const [isDossierOpen, setIsDossierOpen] = useState(false);
   const scrollProgressRef = useRef<number>(0);
   const scrollVelocityRef = useRef<number>(0);
+  const isAudioPlayingRef = useRef<boolean>(false);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -131,11 +133,16 @@ export default function App() {
   }, []);
 
   const handleModalOpenChange = useCallback((isOpen: boolean) => {
+    setIsDossierOpen(isOpen);
     if (isOpen) {
       lenisRef.current?.stop();
     } else {
       lenisRef.current?.start();
     }
+  }, []);
+
+  const handleAudioPlayingChange = useCallback((playing: boolean) => {
+    isAudioPlayingRef.current = playing;
   }, []);
 
   const handleNavigate = useCallback((sectionId: string) => {
@@ -155,12 +162,14 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-[100dvh] bg-[#0A0B0E] text-[#F4F5F7]">
+    <div className="relative min-h-[100dvh] text-[#F4F5F7]">
       <div className="noise-overlay" aria-hidden="true" />
       <MonolithScene
         scrollProgressRef={scrollProgressRef}
         scrollVelocityRef={scrollVelocityRef}
         lang={lang}
+        isDossierOpen={isDossierOpen}
+        isAudioPlayingRef={isAudioPlayingRef}
       />
       <ScrollTelemetry
         lang={lang}
@@ -185,7 +194,10 @@ export default function App() {
           onNavigate={handleNavigate}
         />
       </main>
-      <AmbientAudioPlayer lang={lang} />
+      <AmbientAudioPlayer
+        lang={lang}
+        onPlayingChange={handleAudioPlayingChange}
+      />
     </div>
   );
 }

@@ -6,137 +6,48 @@ interface MonolithSceneProps {
   scrollProgressRef: React.MutableRefObject<number>;
   scrollVelocityRef: React.MutableRefObject<number>;
   lang: Lang;
+  isDossierOpen?: boolean;
+  isAudioPlayingRef?: React.MutableRefObject<boolean>;
 }
 
 /**
- * Generates an Obsidian & Cold Brushed Titanium chiaroscuro studio reflection
- * environment with a subtle warm burnished mineral copper bounce strip.
+ * Generates a soft radial white-to-transparent glow texture in memory
+ * for relativistic disk particles, lensed arc dust, and starfield points.
  */
-function createCrystalEnvMap(renderer: THREE.WebGLRenderer): THREE.Texture {
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  pmrem.compileEquirectangularShader();
+function createProceduralGlowTexture(): THREE.CanvasTexture {
+  const size = 128;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
 
-  const envScene = new THREE.Scene();
-  envScene.background = new THREE.Color(0x161b26);
+  if (ctx) {
+    const half = size / 2;
+    const grad = ctx.createRadialGradient(half, half, 0, half, half, half);
+    grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+    grad.addColorStop(0.28, "rgba(229, 231, 235, 0.72)");
+    grad.addColorStop(0.62, "rgba(161, 166, 176, 0.2)");
+    grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+  }
 
-  const softboxCool = new THREE.Mesh(
-    new THREE.PlaneGeometry(9, 13),
-    new THREE.MeshBasicMaterial({ color: 0x7b859a, side: THREE.DoubleSide })
-  );
-  softboxCool.position.set(-7, 5, 4);
-  softboxCool.lookAt(0, 0, 0);
-  envScene.add(softboxCool);
-
-  const softboxTitanium = new THREE.Mesh(
-    new THREE.PlaneGeometry(10, 11),
-    new THREE.MeshBasicMaterial({ color: 0xf2f4f8, side: THREE.DoubleSide })
-  );
-  softboxTitanium.position.set(7.5, 2.5, -3);
-  softboxTitanium.lookAt(0, 0, 0);
-  envScene.add(softboxTitanium);
-
-  const rimStripSilver = new THREE.Mesh(
-    new THREE.PlaneGeometry(13, 2.8),
-    new THREE.MeshBasicMaterial({ color: 0xe5e7eb, side: THREE.DoubleSide })
-  );
-  rimStripSilver.position.set(0, -6.5, 3);
-  rimStripSilver.lookAt(0, 0, 0);
-  envScene.add(rimStripSilver);
-
-  // Monochrome brushed titanium specular bounce (strictly silver/slate, zero red or gold)
-  const titaniumBounce = new THREE.Mesh(
-    new THREE.PlaneGeometry(8.5, 3.6),
-    new THREE.MeshBasicMaterial({ color: 0xa1a6b0, side: THREE.DoubleSide })
-  );
-  titaniumBounce.position.set(4.5, -5.2, -4.5);
-  titaniumBounce.lookAt(0, 0, 0);
-  envScene.add(titaniumBounce);
-
-  const renderTarget = pmrem.fromScene(envScene, 0.035);
-  softboxCool.geometry.dispose();
-  (softboxCool.material as THREE.Material).dispose();
-  softboxTitanium.geometry.dispose();
-  (softboxTitanium.material as THREE.Material).dispose();
-  rimStripSilver.geometry.dispose();
-  (rimStripSilver.material as THREE.Material).dispose();
-  titaniumBounce.geometry.dispose();
-  (titaniumBounce.material as THREE.Material).dispose();
-  pmrem.dispose();
-
-  return renderTarget.texture;
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.needsUpdate = true;
+  return tex;
 }
 
 /**
- * Builds 13 Fruit-of-Life nodes and Metatron's Cube 3D projection chord lines
- * with staggered Z-depth for higher-dimensional spatial parallax.
- */
-function buildMetatronGeometry() {
-  const nodes: THREE.Vector3[] = [new THREE.Vector3(0, 0, 0)];
-  const rInner = 0.98;
-  const rOuter = 1.94;
-
-  for (let i = 0; i < 6; i++) {
-    const a = (i / 6) * Math.PI * 2;
-    nodes.push(
-      new THREE.Vector3(
-        Math.cos(a) * rInner,
-        Math.sin(a) * rInner,
-        i % 2 === 0 ? 0.24 : -0.24
-      )
-    );
-  }
-  for (let i = 0; i < 6; i++) {
-    const a = (i / 6) * Math.PI * 2;
-    nodes.push(
-      new THREE.Vector3(
-        Math.cos(a) * rOuter,
-        Math.sin(a) * rOuter,
-        i % 2 === 0 ? -0.34 : 0.34
-      )
-    );
-  }
-
-  const lineCoords: number[] = [];
-  const pushEdge = (i: number, j: number) => {
-    const a = nodes[i];
-    const b = nodes[j];
-    lineCoords.push(a.x, a.y, a.z, b.x, b.y, b.z);
-  };
-
-  // Radial axes + inner hexagon + outer hexagon + nested triangles (Metatron net)
-  for (let i = 1; i <= 6; i++) {
-    pushEdge(0, i);
-    pushEdge(i, i + 6);
-    const nextInner = (i % 6) + 1;
-    pushEdge(i, nextInner);
-    pushEdge(i + 6, (i % 6) + 7);
-    // Star polygons across inner and outer hex rings
-    const step2Inner = ((i + 1) % 6) + 1;
-    const step2Outer = ((i + 1) % 6) + 7;
-    pushEdge(i, step2Inner);
-    pushEdge(i + 6, step2Outer);
-    // Cross-tier harmonic chords
-    pushEdge(i, ((i % 6) + 7));
-    pushEdge(i, (((i + 4) % 6) + 7));
-  }
-
-  const lineGeom = new THREE.BufferGeometry();
-  lineGeom.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(lineCoords, 3)
-  );
-  return { nodes, lineGeom };
-}
-
-/**
- * Fixed WebGL cosmic obsidian-quartz monolith with interlocked counter-rotating
- * star-tetrahedron core, 3D Metatron geometry cage, and cold titanium + whisper
- * mineral copper orbital rings.
+ * Monochrome Interstellar Gargantua + Tesseract 3D Spatial Background.
+ * Strictly calibrated in Pure Void Black (#050505) and Cold Brushed Titanium
+ * (#E5E7EB / #A1A6B0 / #27292E) for editorial subtlety and text legibility.
  */
 export function MonolithScene({
   scrollProgressRef,
   scrollVelocityRef,
   lang,
+  isDossierOpen = false,
+  isAudioPlayingRef,
 }: MonolithSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const langDirRef = useRef<number>(lang === "ar" ? -1 : 1);
@@ -155,372 +66,273 @@ export function MonolithScene({
     const isMobile = window.innerWidth < 768;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0a0b0e, 0.042);
+    scene.fog = new THREE.FogExp2(0x050505, 0.028);
 
     const camera = new THREE.PerspectiveCamera(
-      isMobile ? 46 : 38,
+      isMobile ? 48 : 40,
       window.innerWidth / window.innerHeight,
       0.1,
-      60
+      80
     );
-    camera.position.set(0, 0, isMobile ? 7.6 : 6.4);
+    camera.position.set(0, 0.4, 15.5);
 
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({
-        antialias: !isMobile,
-        alpha: true,
+        antialias: true,
         powerPreference: "high-performance",
       });
     } catch {
       return;
     }
 
-    const maxDpr = isMobile ? 1.5 : 2;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
+    renderer.setClearColor(0x050505, 1);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.24;
     renderer.domElement.style.pointerEvents = "none";
     container.appendChild(renderer.domElement);
 
-    const envMap = createCrystalEnvMap(renderer);
-    scene.environment = envMap;
+    const glowTexture = createProceduralGlowTexture();
+    const geometriesToDispose: THREE.BufferGeometry[] = [];
+    const materialsToDispose: THREE.Material[] = [];
 
-    const rig = new THREE.Group();
-    scene.add(rig);
+    // 1. Gargantua Monochrome Singularity Rig
+    const gargantuaGroup = new THREE.Group();
+    gargantuaGroup.rotation.set(0.24, 0, -0.18);
+    gargantuaGroup.position.set(isMobile ? 0 : 1.65 * langDirRef.current, 0.2, 0);
+    scene.add(gargantuaGroup);
 
-    // 1. Concentric Six-Fold Harmonic Corona & Seed-of-Life Field
-    const coronaUniforms = {
-      uTime: { value: 0 },
-      uScroll: { value: 0 },
-      uVelocity: { value: 0 },
-    };
-    const coronaGeom = new THREE.PlaneGeometry(7.8, 7.8);
-    const coronaMat = new THREE.ShaderMaterial({
-      uniforms: coronaUniforms,
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        varying vec2 vUv;
-        uniform float uTime;
-        uniform float uScroll;
-        uniform float uVelocity;
-        void main() {
-          vec2 p = (vUv - 0.5) * 2.0;
-          float r = length(p);
-          float angle = atan(p.y, p.x);
-          float pulse = 0.5 + 0.5 * sin(uTime * 0.65 + uScroll * 6.2831);
-          float hexHarmonic = 0.5 + 0.5 * cos(angle * 6.0 - uTime * 0.25 + uScroll * 4.0);
-          float ring1 = smoothstep(0.055, 0.008, abs(r - (0.31 + 0.02 * pulse)));
-          float ring2 = smoothstep(0.045, 0.006, abs(r - (0.58 - 0.02 * pulse)));
-          float glow = exp(-r * 2.25) * (0.22 + 0.08 * pulse + 0.18 * uVelocity);
-          float harmonics = (ring1 + ring2 * 0.78) * (0.08 + 0.06 * hexHarmonic + 0.10 * uVelocity);
-          vec3 titanium = vec3(0.898, 0.906, 0.922);
-          vec3 coolSilver = vec3(0.631, 0.651, 0.690);
-          vec3 col = mix(titanium, coolSilver, smoothstep(0.48, 0.10, r) * 0.35);
-          float alpha = clamp((glow + harmonics) * smoothstep(1.0, 0.10, r), 0.0, 0.52);
-          gl_FragColor = vec4(col, alpha);
-        }
-      `,
-    });
-    const coronaPlane = new THREE.Mesh(coronaGeom, coronaMat);
-    coronaPlane.position.z = -1.25;
-    rig.add(coronaPlane);
+    // Event horizon pure obsidian sphere
+    const horizonGeom = new THREE.SphereGeometry(1.85, 48, 48);
+    const horizonMat = new THREE.MeshBasicMaterial({ color: 0x020203 });
+    geometriesToDispose.push(horizonGeom);
+    materialsToDispose.push(horizonMat);
+    const horizonSphere = new THREE.Mesh(horizonGeom, horizonMat);
+    gargantuaGroup.add(horizonSphere);
 
-    // 2. Luminous Smoky Quartz Crystal Monolith (IOR 1.544) & Interlocked Merkaba Core
-    const coreGroup = new THREE.Group();
-    rig.add(coreGroup);
-
-    const outerCoreGeom = new THREE.OctahedronGeometry(1.42, 1);
-    outerCoreGeom.scale(0.58, 1.38, 0.58);
-    const outerQuartzMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#525b6e"),
-      metalness: 0.38,
-      roughness: 0.14,
-      transparent: true,
-      opacity: 0.72,
-      transmission: isMobile ? 0.16 : 0.24,
-      thickness: 1.2,
-      ior: 1.544,
-      attenuationColor: new THREE.Color("#2b3240"),
-      attenuationDistance: 3.2,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.08,
-      reflectivity: 0.96,
-      envMapIntensity: 2.35,
-      emissive: new THREE.Color("#141822"),
-      emissiveIntensity: 0.48,
-      flatShading: true,
-    });
-    const outerMonolith = new THREE.Mesh(outerCoreGeom, outerQuartzMat);
-    coreGroup.add(outerMonolith);
-
-    const outerEdgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
-    const outerEdgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#E5E7EB"),
-      transparent: true,
-      opacity: 0.65,
-    });
-    const outerEdges = new THREE.LineSegments(outerEdgeGeom, outerEdgeMat);
-    outerEdges.scale.setScalar(1.006);
-    coreGroup.add(outerEdges);
-
-    // Interlocked Dual Tetrahedron (Star Tetrahedron) Core inside Quartz
-    const innerMerkabaGroup = new THREE.Group();
-    coreGroup.add(innerMerkabaGroup);
-
-    const tetraGeom = new THREE.TetrahedronGeometry(0.7, 0);
-    tetraGeom.scale(0.88, 1.24, 0.88);
-    const innerTitaniumMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#E5E7EB"),
-      metalness: 0.94,
-      roughness: 0.14,
-      clearcoat: 0.95,
-      envMapIntensity: 2.35,
-      emissive: new THREE.Color("#3a404d"),
-      emissiveIntensity: 0.78,
-      flatShading: true,
-    });
-
-    const tetraUp = new THREE.Mesh(tetraGeom, innerTitaniumMat);
-    const tetraDown = new THREE.Mesh(tetraGeom, innerTitaniumMat);
-    tetraDown.rotation.set(Math.PI, Math.PI / 3, 0);
-    innerMerkabaGroup.add(tetraUp, tetraDown);
-
-    const tetraEdgeGeom = new THREE.EdgesGeometry(tetraGeom, 1);
-    const tetraSilverEdgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#F4F5F7"),
-      transparent: true,
-      opacity: 0.85,
-    });
-    const tetraEdgeUp = new THREE.LineSegments(tetraEdgeGeom, tetraSilverEdgeMat);
-    tetraEdgeUp.scale.setScalar(1.015);
-    const tetraEdgeDown = new THREE.LineSegments(tetraEdgeGeom, tetraSilverEdgeMat);
-    tetraEdgeDown.rotation.copy(tetraDown.rotation);
-    tetraEdgeDown.scale.setScalar(1.015);
-    innerMerkabaGroup.add(tetraEdgeUp, tetraEdgeDown);
-
-    const axisGeom = new THREE.CylinderGeometry(0.004, 0.004, 4.6, 8);
-    const axisMat = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#E5E7EB"),
-      transparent: true,
-      opacity: 0.36,
-    });
-    const axisRod = new THREE.Mesh(axisGeom, axisMat);
-    coreGroup.add(axisRod);
-
-    // 3. 3D Metatron's Cube Polyhedral Cage & 13 Constellation Nodes
-    const metatronGroup = new THREE.Group();
-    const { nodes: metatronNodes, lineGeom: metatronLineGeom } =
-      buildMetatronGeometry();
-    const metatronLineMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#E5E7EB"),
-      transparent: true,
-      opacity: 0.36,
-      depthWrite: false,
-    });
-    const metatronLines = new THREE.LineSegments(
-      metatronLineGeom,
-      metatronLineMat
-    );
-    metatronGroup.add(metatronLines);
-
-    const nodeGeom = new THREE.SphereGeometry(0.026, 10, 10);
-    const nodeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const nodeInstanced = new THREE.InstancedMesh(
-      nodeGeom,
-      nodeMat,
-      metatronNodes.length
-    );
-    const nodeDummy = new THREE.Object3D();
-    const titaniumNodeCol = new THREE.Color("#E5E7EB");
-    const silverNodeCol = new THREE.Color("#A1A6B0");
-    metatronNodes.forEach((pt, idx) => {
-      nodeDummy.position.copy(pt);
-      nodeDummy.scale.setScalar(idx === 0 ? 1.45 : idx <= 6 ? 1.1 : 0.88);
-      nodeDummy.updateMatrix();
-      nodeInstanced.setMatrixAt(idx, nodeDummy.matrix);
-      nodeInstanced.setColorAt(
-        idx,
-        idx <= 6 ? titaniumNodeCol : silverNodeCol
-      );
-    });
-    nodeInstanced.instanceMatrix.needsUpdate = true;
-    if (nodeInstanced.instanceColor) nodeInstanced.instanceColor.needsUpdate = true;
-    metatronGroup.add(nodeInstanced);
-    metatronGroup.rotation.set(0.18, -0.22, 0.08);
-    rig.add(metatronGroup);
-
-    // 4. Orbital Celestial Rings (Cold Brushed Titanium & Silver only, zero red or gold)
-    const titaniumRingMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#E5E7EB"),
-      metalness: 0.92,
-      roughness: 0.14,
-      clearcoat: 0.94,
-      envMapIntensity: 2.2,
-      emissive: new THREE.Color("#27292E"),
-      emissiveIntensity: 0.32,
-      transparent: true,
-      opacity: 0.94,
-    });
-    const silverHairlineMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#A1A6B0"),
-      metalness: 0.88,
-      roughness: 0.18,
-      envMapIntensity: 1.95,
+    // Razor-thin Cold Titanium photon ring
+    const photonRingGeom = new THREE.RingGeometry(1.89, 2.0, 128);
+    const photonRingMat = new THREE.MeshBasicMaterial({
+      color: 0xe5e7eb,
+      side: THREE.DoubleSide,
       transparent: true,
       opacity: 0.58,
-    });
-    const secondarySilverMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#A1A6B0"),
-      metalness: 0.92,
-      roughness: 0.16,
-      envMapIntensity: 2.05,
-      transparent: true,
-      opacity: 0.68,
-    });
-
-    const ringOuterGroup = new THREE.Group();
-    const ringOuterGeom = new THREE.TorusGeometry(
-      2.22,
-      0.009,
-      14,
-      isMobile ? 72 : 128
-    );
-    const ringOuter = new THREE.Mesh(ringOuterGeom, titaniumRingMat);
-    ringOuterGroup.add(ringOuter);
-
-    const tickCount = 36;
-    const tickGeom = new THREE.BoxGeometry(0.012, 0.082, 0.012);
-    const tickInstanced = new THREE.InstancedMesh(
-      tickGeom,
-      titaniumRingMat,
-      tickCount
-    );
-    const dummy = new THREE.Object3D();
-    for (let i = 0; i < tickCount; i++) {
-      const a = (i / tickCount) * Math.PI * 2;
-      const rad = 2.22;
-      dummy.position.set(Math.cos(a) * rad, Math.sin(a) * rad, 0);
-      dummy.rotation.set(0, 0, a - Math.PI / 2);
-      dummy.scale.set(1, i % 3 === 0 ? 1.5 : 0.75, 1);
-      dummy.updateMatrix();
-      tickInstanced.setMatrixAt(i, dummy.matrix);
-    }
-    ringOuterGroup.add(tickInstanced);
-    ringOuterGroup.rotation.set(Math.PI * 0.38, Math.PI * 0.14, 0);
-    rig.add(ringOuterGroup);
-
-    const ringMidGeom = new THREE.TorusGeometry(
-      1.78,
-      0.007,
-      12,
-      isMobile ? 72 : 120
-    );
-    const ringMid = new THREE.Mesh(ringMidGeom, secondarySilverMat);
-    ringMid.rotation.set(-Math.PI * 0.32, 0, Math.PI * 0.24);
-    rig.add(ringMid);
-
-    const ringInnerGeom = new THREE.TorusGeometry(
-      2.64,
-      0.005,
-      10,
-      isMobile ? 64 : 110
-    );
-    const ringInner = new THREE.Mesh(ringInnerGeom, silverHairlineMat);
-    ringInner.rotation.set(Math.PI * 0.18, -Math.PI * 0.4, 0);
-    rig.add(ringInner);
-
-    // 5. Orbiting Faceted Obsidian Quartz Shards (InstancedMesh, 1 draw call)
-    const shardCount = isMobile ? 10 : 18;
-    const shardGeom = new THREE.OctahedronGeometry(0.062, 0);
-    shardGeom.scale(0.62, 1.85, 0.62);
-    const shardObsidianMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#252b38"),
-      metalness: 0.76,
-      roughness: 0.18,
-      clearcoat: 0.92,
-      envMapIntensity: 1.55,
-      flatShading: true,
-    });
-    const shardInstanced = new THREE.InstancedMesh(
-      shardGeom,
-      shardObsidianMat,
-      shardCount
-    );
-    const shardData = Array.from({ length: shardCount }, (_, idx) => ({
-      radius: 2.36 + (idx % 4) * 0.34,
-      speed: 0.17 + (idx % 5) * 0.055,
-      phase: (idx / shardCount) * Math.PI * 2,
-      yOffset: ((idx % 7) - 3) * 0.42,
-      scale: 0.75 + (idx % 3) * 0.35,
-    }));
-    rig.add(shardInstanced);
-
-    // 6. Monochrome Titanium Depth Field Particles
-    const particleCount = isMobile ? 140 : 340;
-    const positions = new Float32Array(particleCount * 3);
-    const pColors = new Float32Array(particleCount * 3);
-    const cTitaniumBright = new THREE.Color("#E5E7EB");
-    const cSilverMist = new THREE.Color("#A1A6B0");
-    for (let i = 0; i < particleCount; i++) {
-      const i3 = i * 3;
-      const radius = 2.0 + Math.random() * 8.2;
-      const theta = Math.random() * Math.PI * 2;
-      const y = (Math.random() - 0.5) * 12;
-      positions[i3] = Math.cos(theta) * radius;
-      positions[i3 + 1] = y;
-      positions[i3 + 2] = Math.sin(theta) * radius - 2.2;
-      const col = i % 3 === 0 ? cTitaniumBright : cSilverMist;
-      pColors[i3] = col.r;
-      pColors[i3 + 1] = col.g;
-      pColors[i3 + 2] = col.b;
-    }
-    const particleGeom = new THREE.BufferGeometry();
-    particleGeom.setAttribute(
-      "position",
-      new THREE.BufferAttribute(positions, 3)
-    );
-    particleGeom.setAttribute("color", new THREE.BufferAttribute(pColors, 3));
-    const particleMat = new THREE.PointsMaterial({
-      size: isMobile ? 0.044 : 0.036,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.84,
+      blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
-    const particles = new THREE.Points(particleGeom, particleMat);
-    scene.add(particles);
+    geometriesToDispose.push(photonRingGeom);
+    materialsToDispose.push(photonRingMat);
+    const photonRing = new THREE.Mesh(photonRingGeom, photonRingMat);
+    gargantuaGroup.add(photonRing);
 
-    // 7. Chiaroscuro Studio Lighting (Cold Brushed Titanium Speculars Only)
-    const ambient = new THREE.AmbientLight(0x27292e, 2.05);
-    scene.add(ambient);
+    // Gravitational lensing vertical halo + subtle secondary outer ring
+    const lensedHaloGeom = new THREE.TorusGeometry(2.08, 0.042, 16, 128);
+    const lensedHaloMat = new THREE.MeshBasicMaterial({
+      color: 0xd1d5db,
+      transparent: true,
+      opacity: 0.28,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    geometriesToDispose.push(lensedHaloGeom);
+    materialsToDispose.push(lensedHaloMat);
+    const lensedHalo = new THREE.Mesh(lensedHaloGeom, lensedHaloMat);
+    gargantuaGroup.add(lensedHalo);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.95);
-    keyLight.position.set(-4.5, 5.5, 4.5);
-    scene.add(keyLight);
+    const secondaryRingGeom = new THREE.TorusGeometry(2.52, 0.025, 12, 128);
+    const secondaryRingMat = new THREE.MeshBasicMaterial({
+      color: 0xa1a6b0,
+      transparent: true,
+      opacity: 0.16,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    geometriesToDispose.push(secondaryRingGeom);
+    materialsToDispose.push(secondaryRingMat);
+    const secondaryRing = new THREE.Mesh(secondaryRingGeom, secondaryRingMat);
+    secondaryRing.rotation.x = Math.PI * 0.44;
+    gargantuaGroup.add(secondaryRing);
 
-    const titaniumRim = new THREE.DirectionalLight(0xe5e7eb, 4.1);
-    titaniumRim.position.set(4.8, 2.0, -2.5);
-    scene.add(titaniumRim);
+    // Swirling relativistic accretion disk (differential orbital rotation)
+    const diskCount = isMobile ? 1400 : 3600;
+    const diskPositions = new Float32Array(diskCount * 3);
+    const diskColors = new Float32Array(diskCount * 3);
+    const diskRadii = new Float32Array(diskCount);
+    const diskAngles = new Float32Array(diskCount);
+    const diskSpeeds = new Float32Array(diskCount);
+    const diskHeights = new Float32Array(diskCount);
 
-    const titaniumCounterFill = new THREE.PointLight(0xe5e7eb, 1.55, 14);
-    titaniumCounterFill.position.set(3.2, -3.6, 2.2);
-    scene.add(titaniumCounterFill);
+    const colInner = new THREE.Color(0xe5e7eb);
+    const colOuter = new THREE.Color(0xa1a6b0);
+    const colTemp = new THREE.Color();
 
-    const silverUnderFill = new THREE.PointLight(0xa1a6b0, 1.95, 15);
-    silverUnderFill.position.set(-2.4, -3.2, 2.8);
-    scene.add(silverUnderFill);
+    for (let i = 0; i < diskCount; i++) {
+      const t = Math.pow(Math.random(), 1.65);
+      const r = 2.15 + t * 5.8;
+      const angle = Math.random() * Math.PI * 2;
+      const y = (Math.random() - 0.5) * (0.08 + t * 0.22);
 
+      diskRadii[i] = r;
+      diskAngles[i] = angle;
+      diskHeights[i] = y;
+      // Faster orbital velocity closer to the event horizon
+      diskSpeeds[i] = (0.34 / Math.pow(r * 0.48, 1.35)) * (0.85 + Math.random() * 0.3);
+
+      const i3 = i * 3;
+      diskPositions[i3] = Math.cos(angle) * r;
+      diskPositions[i3 + 1] = y;
+      diskPositions[i3 + 2] = Math.sin(angle) * r;
+
+      colTemp.copy(colInner).lerp(colOuter, t);
+      const brightness = 1.0 - t * 0.42;
+      diskColors[i3] = colTemp.r * brightness;
+      diskColors[i3 + 1] = colTemp.g * brightness;
+      diskColors[i3 + 2] = colTemp.b * brightness;
+    }
+
+    const diskGeom = new THREE.BufferGeometry();
+    diskGeom.setAttribute("position", new THREE.BufferAttribute(diskPositions, 3));
+    diskGeom.setAttribute("color", new THREE.BufferAttribute(diskColors, 3));
+    const diskMat = new THREE.PointsMaterial({
+      size: isMobile ? 0.11 : 0.095,
+      map: glowTexture,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    geometriesToDispose.push(diskGeom);
+    materialsToDispose.push(diskMat);
+    const accretionDisk = new THREE.Points(diskGeom, diskMat);
+    gargantuaGroup.add(accretionDisk);
+
+    // Subtle vertical lensed arc dust wrapping above & below horizon
+    const arcCount = isMobile ? 500 : 1200;
+    const arcPositions = new Float32Array(arcCount * 3);
+    const arcColors = new Float32Array(arcCount * 3);
+    for (let i = 0; i < arcCount; i++) {
+      const i3 = i * 3;
+      const r = 1.98 + Math.pow(Math.random(), 1.4) * 1.35;
+      const theta = Math.random() * Math.PI * 2;
+      const spreadZ = (Math.random() - 0.5) * 0.32;
+      arcPositions[i3] = Math.cos(theta) * r;
+      arcPositions[i3 + 1] = Math.sin(theta) * r * 1.06;
+      arcPositions[i3 + 2] = spreadZ;
+
+      const fade = 0.6 + Math.random() * 0.4;
+      arcColors[i3] = colInner.r * fade;
+      arcColors[i3 + 1] = colInner.g * fade;
+      arcColors[i3 + 2] = colInner.b * fade;
+    }
+
+    const arcGeom = new THREE.BufferGeometry();
+    arcGeom.setAttribute("position", new THREE.BufferAttribute(arcPositions, 3));
+    arcGeom.setAttribute("color", new THREE.BufferAttribute(arcColors, 3));
+    const arcMat = new THREE.PointsMaterial({
+      size: isMobile ? 0.085 : 0.075,
+      map: glowTexture,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.38,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    geometriesToDispose.push(arcGeom);
+    materialsToDispose.push(arcMat);
+    const lensedArc = new THREE.Points(arcGeom, arcMat);
+    gargantuaGroup.add(lensedArc);
+
+    // 2. Tesseract Dimensional Lattice (Layered Wireframe Strata & Vertical Time Rays)
+    const tesseractGroup = new THREE.Group();
+    tesseractGroup.position.set(0, 0, -9);
+    scene.add(tesseractGroup);
+
+    const gridSpecs = [
+      { size: 28, divs: 18, y: -3.8, z: 2.0, rx: 0.14, ry: 0.08, op: 0.09 },
+      { size: 32, divs: 20, y: 4.2, z: -2.5, rx: -0.12, ry: -0.1, op: 0.075 },
+      { size: 36, divs: 16, y: 0, z: -6.5, rx: Math.PI * 0.42, ry: 0.22, op: 0.1 },
+    ];
+    gridSpecs.forEach((spec) => {
+      const grid = new THREE.GridHelper(spec.size, spec.divs, 0xe5e7eb, 0x27292e);
+      grid.position.set(0, spec.y, spec.z);
+      grid.rotation.set(spec.rx, spec.ry, 0);
+      const mats = Array.isArray(grid.material) ? grid.material : [grid.material];
+      mats.forEach((m) => {
+        m.transparent = true;
+        m.opacity = spec.op;
+        m.depthWrite = false;
+        materialsToDispose.push(m);
+      });
+      geometriesToDispose.push(grid.geometry);
+      tesseractGroup.add(grid);
+    });
+
+    // Vertical light-pillar time rays behind Gargantua
+    const rayCount = isMobile ? 24 : 48;
+    const rayCoords = new Float32Array(rayCount * 6);
+    for (let i = 0; i < rayCount; i++) {
+      const i6 = i * 6;
+      const x = (Math.random() - 0.5) * 28;
+      const z = (Math.random() - 0.5) * 14 - 2;
+      const h = 8 + Math.random() * 14;
+      const yCenter = (Math.random() - 0.5) * 6;
+      rayCoords[i6] = x;
+      rayCoords[i6 + 1] = yCenter - h * 0.5;
+      rayCoords[i6 + 2] = z;
+      rayCoords[i6 + 3] = x;
+      rayCoords[i6 + 4] = yCenter + h * 0.5;
+      rayCoords[i6 + 5] = z;
+    }
+    const raysGeom = new THREE.BufferGeometry();
+    raysGeom.setAttribute("position", new THREE.BufferAttribute(rayCoords, 3));
+    const raysMat = new THREE.LineBasicMaterial({
+      color: 0xe5e7eb,
+      transparent: true,
+      opacity: 0.09,
+      depthWrite: false,
+    });
+    geometriesToDispose.push(raysGeom);
+    materialsToDispose.push(raysMat);
+    const timeRays = new THREE.LineSegments(raysGeom, raysMat);
+    tesseractGroup.add(timeRays);
+
+    // 3. Deep Relativistic Starfield
+    const starCount = isMobile ? 650 : 1400;
+    const starPositions = new Float32Array(starCount * 3);
+    const starColors = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      const i3 = i * 3;
+      const r = 10 + Math.random() * 26;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      starPositions[i3] = r * Math.sin(phi) * Math.cos(theta);
+      starPositions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      starPositions[i3 + 2] = r * Math.cos(phi) - 6;
+
+      const c = i % 4 === 0 ? colInner : colOuter;
+      starColors[i3] = c.r;
+      starColors[i3 + 1] = c.g;
+      starColors[i3 + 2] = c.b;
+    }
+    const starGeom = new THREE.BufferGeometry();
+    starGeom.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+    starGeom.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
+    const starMat = new THREE.PointsMaterial({
+      size: isMobile ? 0.09 : 0.08,
+      map: glowTexture,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.45,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    geometriesToDispose.push(starGeom);
+    materialsToDispose.push(starMat);
+    const starfield = new THREE.Points(starGeom, starMat);
+    scene.add(starfield);
+
+    // Pointer parallax (desktop fine pointer)
     const targetPointer = { x: 0, y: 0 };
     const currentPointer = { x: 0, y: 0 };
     const hasFinePointer = window.matchMedia(
@@ -543,199 +355,107 @@ export function MonolithScene({
       const h = window.innerHeight;
       const mobile = w < 768;
       camera.aspect = w / h;
-      camera.fov = mobile ? 46 : 38;
-      camera.position.z = mobile ? 7.6 : 6.4;
+      camera.fov = mobile ? 48 : 40;
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(
-        Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2)
-      );
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.setSize(w, h);
     };
-
     window.addEventListener("resize", handleResize);
 
     let smoothedScroll = scrollProgressRef.current;
-    let smoothedVelocity = 0;
     let smoothedDir = langDirRef.current;
     let frameId = 0;
     let isVisible = !document.hidden;
+    let contextLost = false;
     const clock = new THREE.Clock();
 
-    const applyChoreography = (
-      p: number,
-      vel: number,
-      elapsed: number,
-      dirSign: number
-    ) => {
+    const updateScene = (dt: number, elapsed: number) => {
       const mobile = window.innerWidth < 768;
-      let targetX = mobile ? 0.0 : 1.95 * dirSign;
-      let targetY = mobile ? 1.15 : -0.04;
-      let targetZ = mobile ? -1.85 : -1.15;
-      let rigScale = mobile ? 0.82 : 1.04;
-      let ringSpread = mobile ? 1.22 : 1.18;
-
-      if (p < 0.2) {
-        const t = p / 0.2;
-        targetX = THREE.MathUtils.lerp(
-          mobile ? 0 : 1.95 * dirSign,
-          mobile ? 0 : -1.35 * dirSign,
-          t
-        );
-        targetY = THREE.MathUtils.lerp(mobile ? 1.15 : -0.04, 0.08, t);
-        targetZ = THREE.MathUtils.lerp(mobile ? -1.85 : -1.15, -0.35, t);
-        rigScale = THREE.MathUtils.lerp(
-          mobile ? 0.82 : 1.04,
-          mobile ? 0.92 : 1.08,
-          t
-        );
-        ringSpread = THREE.MathUtils.lerp(mobile ? 1.22 : 1.18, 1.14, t);
-      } else if (p < 0.5) {
-        const t = (p - 0.2) / 0.3;
-        targetX = THREE.MathUtils.lerp(
-          mobile ? 0 : -1.35 * dirSign,
-          mobile ? 0 : -1.15 * dirSign,
-          t
-        );
-        targetY = THREE.MathUtils.lerp(0.08, -0.04, t);
-        targetZ = THREE.MathUtils.lerp(-0.35, -0.28, t);
-        rigScale = mobile ? 0.92 : 1.08;
-        ringSpread = THREE.MathUtils.lerp(1.14, 1.06, t);
-      } else if (p < 0.82) {
-        const t = (p - 0.5) / 0.32;
-        targetX = THREE.MathUtils.lerp(mobile ? 0 : -1.15 * dirSign, 0, t);
-        targetY = THREE.MathUtils.lerp(-0.04, 0.16, t);
-        targetZ = THREE.MathUtils.lerp(-0.28, -1.25, t);
-        rigScale = mobile ? 1.0 : 1.2;
-        ringSpread = THREE.MathUtils.lerp(1.06, 1.3, t);
-      } else {
-        const t = (p - 0.82) / 0.18;
-        targetX = THREE.MathUtils.lerp(0, mobile ? 0 : 1.35 * dirSign, t);
-        targetY = THREE.MathUtils.lerp(0.16, -0.02, t);
-        targetZ = THREE.MathUtils.lerp(-1.25, -0.35, t);
-        rigScale = mobile ? 0.94 : 1.06;
-        ringSpread = THREE.MathUtils.lerp(1.3, 1.04, t);
-      }
-
-      rig.position.x = targetX + currentPointer.x * 0.24;
-      rig.position.y = targetY - currentPointer.y * 0.16;
-      rig.position.z = targetZ;
-      rig.scale.setScalar(rigScale);
-
-      const baseZ = mobile ? 7.2 : 6.1;
-      camera.position.z = baseZ - Math.sin(p * Math.PI) * 0.55;
-      camera.position.y = (0.5 - p) * 0.25;
-      const baseFov = mobile ? 46 : 38;
-      const targetFov = baseFov + Math.min(vel * 3.6, 4.2);
-      if (Math.abs(camera.fov - targetFov) > 0.02) {
-        camera.fov = targetFov;
-        camera.updateProjectionMatrix();
-      }
-      camera.lookAt(currentPointer.x * 0.16, -currentPointer.y * 0.1, 0);
-
-      const velocityBoost = vel * 0.45;
-      outerMonolith.rotation.y =
-        p * Math.PI * 2.8 + elapsed * 0.14 + velocityBoost;
-      outerMonolith.rotation.x =
-        Math.sin(p * Math.PI * 2.2) * 0.18 + currentPointer.y * 0.12;
-      outerMonolith.rotation.z = Math.cos(p * Math.PI * 1.4) * 0.09;
-
-      outerEdges.rotation.copy(outerMonolith.rotation);
-
-      innerMerkabaGroup.rotation.y = -(
-        p * Math.PI * 3.8 +
-        elapsed * 0.26 +
-        velocityBoost * 1.4
-      );
-      innerMerkabaGroup.rotation.x = Math.cos(p * Math.PI * 2.0) * 0.24;
-      innerMerkabaGroup.rotation.z = Math.sin(elapsed * 0.2 + p * 3.0) * 0.16;
-      innerTitaniumMat.emissiveIntensity = 0.56 + Math.min(vel * 0.6, 0.65);
-
-      metatronGroup.scale.setScalar(0.96 + (ringSpread - 1.0) * 0.55);
-      metatronGroup.rotation.z = elapsed * 0.06 + p * Math.PI * 0.9;
-      metatronGroup.rotation.y =
-        -0.22 + Math.sin(elapsed * 0.25 + p * Math.PI) * 0.35 + currentPointer.x * 0.15;
-      metatronGroup.rotation.x =
-        0.18 + Math.cos(elapsed * 0.2 + p * Math.PI) * 0.22 - currentPointer.y * 0.12;
-      metatronLineMat.opacity = 0.22 + Math.min(vel * 0.22, 0.18);
-
-      ringOuterGroup.scale.setScalar(ringSpread);
-      ringOuterGroup.rotation.z =
-        elapsed * 0.18 + p * Math.PI * 1.6 + velocityBoost * 0.6;
-      ringOuterGroup.rotation.y = Math.PI * 0.14 + p * 1.15;
-
-      ringMid.scale.setScalar(
-        ringSpread * (1.0 + Math.sin(elapsed * 0.6) * 0.015)
-      );
-      ringMid.rotation.y = -elapsed * 0.14 - p * Math.PI * 1.3;
-      ringMid.rotation.x = -Math.PI * 0.32 + Math.sin(p * Math.PI) * 0.35;
-
-      ringInner.scale.setScalar(ringSpread * 1.04);
-      ringInner.rotation.z = -elapsed * 0.09 + p * Math.PI * 0.9;
-      ringInner.rotation.x = Math.PI * 0.18 + Math.cos(p * Math.PI) * 0.25;
-
-      for (let i = 0; i < shardCount; i++) {
-        const s = shardData[i];
-        const angle = s.phase + elapsed * s.speed + p * Math.PI * 2.2;
-        const rad = s.radius * ringSpread;
-        dummy.position.set(
-          Math.cos(angle) * rad,
-          s.yOffset + Math.sin(angle * 2 + elapsed) * 0.16,
-          Math.sin(angle) * rad * 0.72
-        );
-        dummy.rotation.set(angle * 0.7, angle * 1.3, 0);
-        dummy.scale.setScalar(s.scale);
-        dummy.updateMatrix();
-        shardInstanced.setMatrixAt(i, dummy.matrix);
-      }
-      shardInstanced.instanceMatrix.needsUpdate = true;
-
-      coronaUniforms.uTime.value = elapsed;
-      coronaUniforms.uScroll.value = p;
-      coronaUniforms.uVelocity.value = Math.min(vel, 1.2);
-
-      particles.rotation.y = elapsed * 0.028 + p * 0.85;
-      particles.position.y = -p * 1.6;
-    };
-
-    const stepFrame = () => {
-      if (!isVisible) return;
-      frameId = window.requestAnimationFrame(stepFrame);
-      const elapsed = clock.getElapsedTime();
       smoothedScroll = THREE.MathUtils.lerp(
         smoothedScroll,
         scrollProgressRef.current,
-        0.1
-      );
-      const absVel = Math.abs(scrollVelocityRef.current);
-      smoothedVelocity = THREE.MathUtils.lerp(
-        smoothedVelocity,
-        Math.min(absVel * 0.035, 1.2),
         0.08
       );
-      scrollVelocityRef.current *= 0.9;
-      smoothedDir = THREE.MathUtils.lerp(smoothedDir, langDirRef.current, 0.28);
+      scrollVelocityRef.current *= 0.92;
+      smoothedDir = THREE.MathUtils.lerp(smoothedDir, langDirRef.current, 0.14);
+
       currentPointer.x = THREE.MathUtils.lerp(
         currentPointer.x,
         targetPointer.x,
-        0.06
+        0.04
       );
       currentPointer.y = THREE.MathUtils.lerp(
         currentPointer.y,
         targetPointer.y,
-        0.06
+        0.04
       );
-      applyChoreography(smoothedScroll, smoothedVelocity, elapsed, smoothedDir);
+
+      // Differential orbital rotation for accretion disk particles
+      const posAttr = diskGeom.getAttribute("position") as THREE.BufferAttribute;
+      const arr = posAttr.array as Float32Array;
+      for (let i = 0; i < diskCount; i++) {
+        const angle = diskAngles[i] + diskSpeeds[i] * dt;
+        diskAngles[i] = angle;
+        const r = diskRadii[i];
+        const i3 = i * 3;
+        arr[i3] = Math.cos(angle) * r;
+        arr[i3 + 2] = Math.sin(angle) * r;
+      }
+      posAttr.needsUpdate = true;
+
+      // Subtle vertical lensed arc rotation
+      lensedArc.rotation.z = elapsed * 0.045;
+      lensedHalo.rotation.z = -elapsed * 0.03;
+      secondaryRing.rotation.z = elapsed * 0.025;
+
+      // Subtle photon ring breathing when ambient audio is playing (±2%)
+      if (isAudioPlayingRef?.current) {
+        const breath = 1 + Math.sin(elapsed * 1.45) * 0.02;
+        photonRing.scale.setScalar(breath);
+      } else {
+        photonRing.scale.setScalar(1);
+      }
+
+      // Gargantua gentle scroll choreography (frames right/left in Hero, drifts subtly with scroll)
+      const heroShiftX = mobile ? 0 : (1.75 - smoothedScroll * 2.4) * smoothedDir;
+      gargantuaGroup.position.x = heroShiftX + currentPointer.x * 0.45;
+      gargantuaGroup.position.y =
+        (mobile ? 0.65 : 0.15) - smoothedScroll * 0.6 - currentPointer.y * 0.3;
+      gargantuaGroup.rotation.y = smoothedScroll * 0.45 + currentPointer.x * 0.08;
+      gargantuaGroup.rotation.x = 0.24 + smoothedScroll * 0.14 - currentPointer.y * 0.05;
+
+      // Tesseract strata slow drift & scroll rotation
+      tesseractGroup.rotation.y = elapsed * 0.018 + smoothedScroll * 0.55;
+      tesseractGroup.rotation.x = Math.sin(elapsed * 0.04) * 0.05 + smoothedScroll * 0.18;
+
+      // Starfield spherical drift
+      starfield.rotation.y = elapsed * 0.01 + smoothedScroll * 0.22;
+      starfield.rotation.x = smoothedScroll * 0.08;
+
+      // Camera glides smoothly z: 15.5 -> 11.8 with subtle Y/angle drift
+      camera.position.z = THREE.MathUtils.lerp(15.5, 11.8, smoothedScroll);
+      camera.position.y = 0.4 - smoothedScroll * 0.55 - currentPointer.y * 0.22;
+      camera.position.x = currentPointer.x * 0.35;
+      camera.lookAt(currentPointer.x * 0.12, -currentPointer.y * 0.08, 0);
+    };
+
+    const stepFrame = () => {
+      if (!isVisible || contextLost) return;
+      frameId = window.requestAnimationFrame(stepFrame);
+      const dt = Math.min(clock.getDelta(), 0.05);
+      const elapsed = clock.elapsedTime;
+      updateScene(dt, elapsed);
       renderer.render(scene, camera);
     };
 
     if (prefersReducedMotion) {
-      applyChoreography(0.06, 0, 0, langDirRef.current);
+      updateScene(0, 0);
       renderer.render(scene, camera);
     } else {
+      clock.start();
       stepFrame();
     }
 
-    let contextLost = false;
     const handleContextLost = (e: Event) => {
       e.preventDefault();
       contextLost = true;
@@ -752,13 +472,19 @@ export function MonolithScene({
       }
     };
     renderer.domElement.addEventListener("webglcontextlost", handleContextLost);
-    renderer.domElement.addEventListener("webglcontextrestored", handleContextRestored);
+    renderer.domElement.addEventListener(
+      "webglcontextrestored",
+      handleContextRestored
+    );
 
     const handleVisibility = () => {
       isVisible = !document.hidden;
       if (isVisible && !contextLost && !prefersReducedMotion) {
         clock.getDelta();
         stepFrame();
+      } else if (!isVisible && frameId) {
+        window.cancelAnimationFrame(frameId);
+        frameId = 0;
       }
     };
     document.addEventListener("visibilitychange", handleVisibility);
@@ -767,54 +493,46 @@ export function MonolithScene({
       if (frameId) window.cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibility);
-      renderer.domElement.removeEventListener("webglcontextlost", handleContextLost);
-      renderer.domElement.removeEventListener("webglcontextrestored", handleContextRestored);
+      renderer.domElement.removeEventListener(
+        "webglcontextlost",
+        handleContextLost
+      );
+      renderer.domElement.removeEventListener(
+        "webglcontextrestored",
+        handleContextRestored
+      );
       if (hasFinePointer) {
         window.removeEventListener("pointermove", handlePointerMove);
       }
-      envMap.dispose();
-      coronaGeom.dispose();
-      coronaMat.dispose();
-      outerCoreGeom.dispose();
-      outerQuartzMat.dispose();
-      outerEdgeGeom.dispose();
-      outerEdgeMat.dispose();
-      tetraGeom.dispose();
-      innerTitaniumMat.dispose();
-      tetraEdgeGeom.dispose();
-      tetraSilverEdgeMat.dispose();
-      axisGeom.dispose();
-      axisMat.dispose();
-      metatronLineGeom.dispose();
-      metatronLineMat.dispose();
-      nodeGeom.dispose();
-      nodeMat.dispose();
-      nodeInstanced.dispose();
-      ringOuterGeom.dispose();
-      ringMidGeom.dispose();
-      ringInnerGeom.dispose();
-      tickGeom.dispose();
-      tickInstanced.dispose();
-      titaniumRingMat.dispose();
-      silverHairlineMat.dispose();
-      secondarySilverMat.dispose();
-      shardGeom.dispose();
-      shardObsidianMat.dispose();
-      shardInstanced.dispose();
-      particleGeom.dispose();
-      particleMat.dispose();
+
+      glowTexture.dispose();
+      geometriesToDispose.forEach((g) => g.dispose());
+      materialsToDispose.forEach((m) => m.dispose());
       renderer.dispose();
       if (renderer.domElement.parentNode === container) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, [scrollProgressRef, scrollVelocityRef]);
+  }, [scrollProgressRef, scrollVelocityRef, isAudioPlayingRef]);
 
   return (
-    <div
-      ref={containerRef}
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 opacity-100"
-    />
+    <>
+      <div
+        ref={containerRef}
+        aria-hidden="true"
+        className={`pointer-events-none fixed inset-0 z-0 transition-opacity duration-300 ${
+          isDossierOpen ? "opacity-45" : "opacity-100"
+        }`}
+      />
+      {/* Subtle radial edge vignette keeping outer typography razor-sharp */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-[1]"
+        style={{
+          background:
+            "radial-gradient(ellipse 75% 65% at 50% 45%, rgba(5,5,5,0) 35%, rgba(5,5,5,0.44) 76%, rgba(5,5,5,0.82) 100%)",
+        }}
+      />
+    </>
   );
 }

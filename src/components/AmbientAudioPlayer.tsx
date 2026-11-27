@@ -4,6 +4,7 @@ import { Lang } from "../data/portfolioData";
 
 interface AmbientAudioPlayerProps {
   lang: Lang;
+  onPlayingChange?: (isPlaying: boolean) => void;
 }
 
 const AUDIO_SRC = "/audio/ambient-organ.mp3";
@@ -18,7 +19,10 @@ const FADE_OUT_DURATION = 0.8;
  * for gapless looping, smooth gain ramping, tab-visibility ducking, and
  * showreel playback ducking. Starts muted/paused per browser autoplay policy.
  */
-export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
+export function AmbientAudioPlayer({
+  lang,
+  onPlayingChange,
+}: AmbientAudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [promptVisible, setPromptVisible] = useState(false);
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
@@ -34,7 +38,8 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
 
   useEffect(() => {
     isPlayingRef.current = isPlaying;
-  }, [isPlaying]);
+    onPlayingChange?.(isPlaying);
+  }, [isPlaying, onPlayingChange]);
 
   useEffect(() => {
     const onScroll = () => {

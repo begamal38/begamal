@@ -67,7 +67,7 @@ export function SystemsAndContactSection({
       <section
         id="systems"
         ref={systemsRef}
-        className="relative z-10 border-t border-white/10 bg-[#0F1219]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
+        className="relative z-10 border-t border-white/10 bg-transparent px-5 py-20 sm:px-8 sm:py-24 md:py-32"
       >
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
@@ -79,11 +79,11 @@ export function SystemsAndContactSection({
             </p>
           </div>
 
-          <div className="system-pillar-grid mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.1] shadow-[0_18px_48px_-24px_rgba(0,0,0,0.75)] lg:grid-cols-3">
+          <div className="system-pillar-grid mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.1] shadow-[0_18px_48px_-24px_rgba(0,0,0,0.75)] backdrop-blur-md lg:grid-cols-3">
             {AI_PRODUCTION_STACK.map((pillar) => (
               <div
                 key={pillar.name.en}
-                className="system-pillar bg-[#151822]/96 p-7 transition-colors duration-300 ease-out hover:bg-[#1B1F2C]"
+                className="system-pillar bg-[#0A0A0C]/75 p-7 transition-colors duration-300 ease-out hover:bg-[#13161F]/85"
               >
                 <div className="system-pillar-inner flex h-full flex-col justify-between">
                   <div>
@@ -104,10 +104,10 @@ export function SystemsAndContactSection({
         </div>
       </section>
 
-      {/* Direct Channel & Minimal Footer with Language Switch */}
+      {/* Direct Channel & Minimal Footer with Language Switch (Safe-Zone Cleared for Floating Audio Toggle) */}
       <footer
         id="contact"
-        className="relative z-10 border-t border-white/10 bg-[#0C0E13]/88 px-5 pb-[max(8rem,calc(7rem+env(safe-area-inset-bottom)))] pt-20 sm:px-8 sm:pt-24 md:pb-14 md:pt-28"
+        className="relative z-10 border-t border-white/10 bg-[#0A0A0C]/78 px-5 pb-28 pt-20 backdrop-blur-md sm:px-8 sm:pb-24 sm:pt-24 md:pt-28"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
@@ -128,13 +128,13 @@ export function SystemsAndContactSection({
                 href={PORTFOLIO_IDENTITY.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-titanium group inline-flex items-center justify-between gap-2.5 rounded-full py-2.5 ps-4 pe-2.5 text-sm font-semibold text-[#050505] transition-all duration-300 active:scale-[0.98] whitespace-nowrap sm:justify-center sm:ps-5"
+                className="btn-titanium group inline-flex items-center justify-between gap-2.5 rounded-full py-2.5 ps-4 pe-2.5 text-sm font-semibold text-[#050505] transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap sm:justify-center sm:ps-5"
               >
                 <span className="inline-flex items-center gap-2 text-[#050505]">
                   <WhatsappLogo size={18} weight="fill" className="text-[#050505]" />
                   <span>{UI_COPY.contact.whatsappCta[lang]}</span>
                 </span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 text-[#050505] transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
                   <ArrowUpRight size={14} weight="bold" className="inline-block text-[#050505] rtl:-scale-x-100" />
                 </span>
               </a>
@@ -143,7 +143,7 @@ export function SystemsAndContactSection({
                 href={PORTFOLIO_IDENTITY.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822]/90 px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
               >
                 <FacebookLogo size={17} weight="regular" className="text-[#D4D7DD]" />
                 <span>{UI_COPY.contact.facebookCta[lang]}</span>
@@ -154,7 +154,7 @@ export function SystemsAndContactSection({
                 href={PORTFOLIO_IDENTITY.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822]/90 px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
               >
                 <InstagramLogo size={17} weight="regular" className="text-[#D4D7DD]" />
                 <span>{UI_COPY.contact.instagramCta[lang]}</span>
@@ -166,7 +166,7 @@ export function SystemsAndContactSection({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822] px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#151822]/90 px-5 py-3 text-sm font-medium text-[#F4F5F7] transition-all duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#1B1F2C] hover:text-white active:scale-[0.98] whitespace-nowrap"
               >
                 <Play size={14} weight="fill" className="text-[#D4D7DD]" />
                 <span>{UI_COPY.contact.vimeoCta[lang]}</span>
@@ -176,7 +176,7 @@ export function SystemsAndContactSection({
           </div>
 
           {/* Discreet Footer Closing Row + Copyright + Back to Top + العربية / EN Switch */}
-          <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] pt-6">
+          <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] pt-6 pe-0 sm:pe-36">
             <div className="flex flex-wrap items-center gap-3">
               <span className="font-display text-xs tracking-[0.22em] text-[#9CA3AF]">
                 {PORTFOLIO_IDENTITY.brandMark[lang]}
@@ -199,7 +199,7 @@ export function SystemsAndContactSection({
               <button
                 type="button"
                 onClick={() => onNavigate("hero")}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#111215] px-3 py-1 font-mono-code text-[11px] text-[#D4D7DD] transition-colors duration-200 hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#111215] px-3 py-1 font-mono-code text-[11px] text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
               >
                 <ArrowUp size={11} weight="bold" />
                 <span>{lang === "en" ? "Back to Top" : "للأعلى"}</span>
@@ -209,7 +209,7 @@ export function SystemsAndContactSection({
                 type="button"
                 onClick={onToggleLang}
                 aria-label={lang === "en" ? "Switch to Arabic" : "Switch to English"}
-                className="font-arabic-toggle rounded-full border border-white/15 bg-[#111215] px-3.5 py-1 text-xs font-medium text-[#D4D7DD] transition-colors duration-200 hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
+                className="font-arabic-toggle rounded-full border border-white/15 bg-[#111215] px-3.5 py-1 text-xs font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
               >
                 {lang === "en" ? "العربية" : "EN"}
               </button>
