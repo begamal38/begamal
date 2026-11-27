@@ -286,7 +286,7 @@ export function AmbientAudioPlayer({
         ? "كتم الصوت المحيطي"
         : "تشغيل الصوت المحيطي";
 
-  const cueEyebrow = lang === "en" ? "AMBIENT SCORE" : "تجربة صوتية";
+  const cueEyebrow = lang === "en" ? "AMBIENT SCORE" : "الموسيقى التصويرية";
   const cueBody =
     lang === "en"
       ? "Tap to experience with organ sound"

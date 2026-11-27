@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v19-android-bar-horizon";
+const CACHE_NAME = "belal-gamal-v20-eras-starlight";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",
