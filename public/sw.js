@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v6.3-mobile-native-butter";
+const CACHE_NAME = "belal-gamal-v13-cache-fix";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",
@@ -53,7 +53,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (url.pathname.startsWith("/assets/")) {
+  if (url.pathname.startsWith("/_app/")) {
     event.respondWith(
       caches.match(request).then(
         (cached) =>

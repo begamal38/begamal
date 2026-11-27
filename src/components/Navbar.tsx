@@ -11,7 +11,6 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
   const mobileBottomItems = [
     { label: UI_COPY.nav.works[lang], target: "works" },
     { label: UI_COPY.nav.chronicle[lang], target: "chronicle" },
-    { label: UI_COPY.nav.ethos[lang], target: "perspective" },
     { label: UI_COPY.nav.contact[lang], target: "contact" },
   ];
 
@@ -30,7 +29,7 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
           <button
             type="button"
             onClick={() => onNavigate("hero")}
-            className="flex shrink-0 items-center gap-2 text-start transition-opacity duration-300 ease-out hover:opacity-80 whitespace-nowrap"
+            className="-my-3 flex shrink-0 items-center gap-2 py-3 text-start transition-opacity duration-300 ease-out hover:opacity-80 whitespace-nowrap"
           >
             <span
               className="h-2 w-2 shrink-0 rounded-full bg-[#D4D7DD] shadow-[0_0_8px_rgba(244,245,247,0.5)]"
@@ -75,7 +74,7 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
-              className="inline-flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#D4D7DD] transition-colors duration-300 ease-out hover:text-[#F4F5F7] whitespace-nowrap sm:text-xs sm:tracking-[0.1em]"
+              className="-my-3 inline-flex items-center gap-1 py-3 text-[11px] font-medium uppercase tracking-[0.08em] text-[#D4D7DD] transition-colors duration-300 ease-out hover:text-[#F4F5F7] whitespace-nowrap sm:text-xs sm:tracking-[0.1em]"
             >
               <span>{UI_COPY.nav.showreel[lang]}</span>
               <ArrowUpRight size={12} weight="bold" className="inline-block rtl:-scale-x-100" />
@@ -98,7 +97,7 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
       {/* Mobile Floating Bottom Navigation Pill (replaces hamburger menu) */}
       <nav
         aria-label={lang === "en" ? "Mobile Section Navigation" : "تنقل الأقسام للموبايل"}
-        className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/15 bg-[#111215]/92 p-1.5 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.85)] md:hidden"
+        className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] start-3 z-40 flex items-center gap-1 rounded-full border border-white/15 bg-[#111215]/92 p-1.5 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.85)] md:hidden"
       >
         {mobileBottomItems.map((item) => {
           const isActive = activeSection === item.target;
@@ -108,7 +107,7 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
               type="button"
               onClick={() => onNavigate(item.target)}
               aria-current={isActive ? "page" : undefined}
-              className={`rounded-full px-3.5 py-2 text-[11px] font-medium transition-all duration-300 ease-out active:scale-[0.97] whitespace-nowrap ${
+              className={`min-h-11 rounded-full px-4 text-[13px] font-medium transition-all duration-300 ease-out active:scale-[0.97] whitespace-nowrap ${
                 isActive
                   ? "bg-white/[0.13] text-[#F4F5F7] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]"
                   : "text-[#A1A6B0] hover:bg-white/[0.06] hover:text-[#F4F5F7]"

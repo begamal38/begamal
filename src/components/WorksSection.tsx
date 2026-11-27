@@ -444,7 +444,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                     <button
                       type="button"
                       onClick={() => setSelectedIndex(index)}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:text-white"
+                      className="-my-2 inline-flex min-h-11 items-center gap-1.5 text-[13px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:text-white"
                     >
                       <span>{UI_COPY.works.openDossier[lang]}</span>
                       <ArrowUpRight
@@ -459,7 +459,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                         href={primaryLink.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#161923] px-3 py-1 text-[11px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#161923] px-3.5 py-2.5 text-[12px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
                         <span>{primaryLink.label[lang]}</span>
                         <ArrowUpRight

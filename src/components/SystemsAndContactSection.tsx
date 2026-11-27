@@ -187,12 +187,6 @@ export function SystemsAndContactSection({
           <div className="relative z-20 mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] pt-6 pe-0 sm:pe-36">
             <div className="flex flex-wrap items-center gap-3">
               <span className="font-display text-xs tracking-[0.22em] text-[#9CA3AF]">
-                {PORTFOLIO_IDENTITY.brandMark[lang]}
-              </span>
-              <span aria-hidden="true" className="text-white/20">
-                ·
-              </span>
-              <span className="font-mono-code text-[11px] text-[#9CA3AF]">
                 © {PORTFOLIO_IDENTITY.brandMark[lang]}
               </span>
             </div>

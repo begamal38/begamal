@@ -111,16 +111,16 @@ export const PORTFOLIO_IDENTITY = {
   name: { en: "Belal Gamal", ar: "بلال جمال" },
   primaryTitle: { en: "Creative Director", ar: "مدير إبداعي" },
   heroSubtitle: {
-    en: "Creative Direction & AI Systems",
-    ar: "الإدارة الإبداعية وأنظمة الذكاء الاصطناعي",
+    en: "Marketing & Creative Direction · AI Systems",
+    ar: "التوجيه التسويقي والإبداعي وأنظمة الذكاء الاصطناعي",
   },
   heroEyebrow: {
-    en: "Marketing Direction · Creative Director · AI Systems",
-    ar: "توجيه تسويقي • إدارة إبداعية • أنظمة إنتاج بالذكاء الاصطناعي",
+    en: "Beni Suef, Egypt · Since 2016",
+    ar: "بني سويف، مصر • منذ 2016",
   },
   heroSubtext: {
-    en: "Marketing Direction Architect, Creative Director, and AI Production Systems Builder. Self-started in 2016 running Facebook ad campaigns independently before corporate leadership (Vodafone, Majorel, Chubb Life) and building commercial positioning systems that drive measurable demand.",
-    ar: "توجيه تسويقي، إدارة إبداعية، وأنظمة إنتاج بالذكاء الاصطناعي. بدأت في السوق عملياً من 2016 بحملات ممولة أديرها بنفسي قبل قيادة الفرق والوكالات، واليوم أبني للعلامات التجارية تموضعاً واضحاً وحملات تتحول إلى مبيعات حقيقية.",
+    en: "Self-started in 2016 running my own Facebook ad campaigns, then corporate leadership across Vodafone, Majorel and Chubb Life. Today I build brand positioning and campaigns that drive measurable demand.",
+    ar: "بدأت في السوق عملياً عام 2016 بحملات ممولة أديرها بنفسي، ثم قيادة الفرق والوكالات، واليوم أبني للعلامات التجارية تموضعاً واضحاً وحملات تتحول إلى مبيعات حقيقية.",
   },
   bornLabel: { en: "Born July 20, 1995", ar: "مواليد 20 يوليو 1995" },
   originLocation: { en: "Beni Suef, Egypt", ar: "بني سويف، مصر" },
@@ -151,9 +151,9 @@ export const PORTFOLIO_IDENTITY = {
     en: "Resonates with Egyptian director Tameem Youness for tearing up safe advertising templates in favor of one unexpected, human idea.",
     ar: "أقرب ما يكون لذائقتي الإعلانية هو مدرسة تميم يونس في الإخراج: كسر القوالب المستهلكة بفكرة واحدة ذكية، صادقة، وغير متوقعة.",
   },
-  lensLabel: { en: "Marketing Direction Lens", ar: "عدسة التوجيه التسويقي" },
+  lensLabel: { en: "Market Lens", ar: "عدسة التوجيه التسويقي" },
   lensText: {
-    en: "Reads markets from a detached orbit where corporate sales reality, Marketing Direction, and automated media converge into focused commercial results.",
+    en: "Reads the market calmly, from outside the noise: field sales experience, creative direction and production systems combined into one commercial path measured by results.",
     ar: "قراءة السوق بهدوء ومن خارج الضوضاء: دمج الخبرة البيعية الميدانية مع التوجيه الإبداعي وأنظمة الإنتاج في مسار تجاري واضح يقاس بالنتيجة.",
   },
   portraitPath: "/assets/portrait.jpg",
@@ -191,7 +191,7 @@ export const UI_COPY = {
   chronicle: {
     title: { en: "Career Chronicle", ar: "المسيرة المهنية" },
     subtitle: {
-      en: "Ten years of hands-on progression—from independent Facebook ad campaigns and TECNO Camon C9 firmware QA in 2016 through Vodafone Business, Chance Media, Al-Attar, Majorel Smart Village HR, Chubb Life leadership, and AI production systems. Select any era node to inspect its full dossier.",
+      en: "Ten years of hands-on progression—from independent Facebook ad campaigns and TECNO Camon C9 firmware QA in 2016 through Vodafone Business, Chance Media, Al-Attar, Majorel Smart Village HR, Chubb Life leadership, and AI production systems. Select any stage for its full details.",
       ar: "عشر سنوات من التدرج العملي: من الحملات الممولة المستقلة واختبار برمجيات هواتف تكنو عام 2016، مروراً بفودافون بيزنس وتشانس ميديا ومجموعة العطار وماجوريل بالقرية الذكية وقيادة المبيعات في تشب، وصولاً إلى أنظمة الإنتاج بالذكاء الاصطناعي. اختر أي مرحلة لاستعراض ملفها الكامل.",
     },
     openEra: { en: "Open Era", ar: "استعراض المرحلة" },
@@ -237,9 +237,9 @@ export const UI_COPY = {
   },
   contact: {
     eyebrow: { en: "Direct Channel", ar: "تواصل مباشر" },
-    title: { en: "Work With Belal", ar: "نبدأ الشغل؟" },
+    title: { en: "Work With Belal", ar: "لنبدأ العمل" },
     subtitle: {
-      en: "For Marketing Direction anchored in clear positioning and commercial growth, or automated AI media pipelines, initiate direct contact below.",
+      en: "For marketing direction built on clear positioning and commercial growth, or AI media production systems, reach me directly below.",
       ar: "سواء لتوجيه علامتك التجارية وبناء حملات تحقق مبيعات حقيقية، أو لتطوير منظومة إنتاج بالذكاء الاصطناعي — تواصل معي مباشرة.",
     },
     whatsappCta: { en: "WhatsApp", ar: "واتساب" },
@@ -347,12 +347,20 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       en: [
         "Led commercial sales team execution and coaching across life protection offerings",
         "Tracked KPI discipline, daily pipeline conversions, and consultative advisory quality",
+        "Hands-on onboarding, roleplay coaching, and daily field accompaniment for life protection advisors",
       ],
       ar: [
         "قيادة وتدريب الفريق التجاري يومياً على بيع حلول التأمين والحماية المالية",
         "رفع جودة الاستشارات البيعية والالتزام بمؤشرات الأداء والمحافظ الشهرية",
+        "تأهيل الأعضاء الجدد وتنفيذ محاكاة البيع والمرافقة الميدانية لمستشاري الحماية المالية",
       ],
     },
+    links: [
+      {
+        label: { en: "Chubb Life Egypt", ar: "موقع تشب مصر" },
+        url: "https://life.chubb.com/eg-en/",
+      },
+    ],
   },
   {
     id: "majorel-vodafone-2019-2021",
@@ -481,6 +489,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         },
         url: "https://vimeo.com/476741375",
       },
+      {
+        label: { en: "Al-Attar Facebook Page", ar: "صفحة العطار على فيسبوك" },
+        url: "https://www.facebook.com/attargroup1999",
+      },
     ],
   },
   {
@@ -524,6 +536,12 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "تأسيس وكالة سيكتور 09 للدعاية والإعلان وإخراج أفلام روائية قصيرة",
       ],
     },
+    links: [
+      {
+        label: { en: "Chance Media Website", ar: "موقع تشانس ميديا" },
+        url: "https://chancemedia.com.eg/",
+      },
+    ],
   },
   {
     id: "vodafone-wasla-2017",
@@ -595,7 +613,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "In parallel with launching independent Facebook campaigns in 2016, tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 software build alongside moderating the official TECNO forum.",
+      en: "In parallel with launching independent Facebook campaigns in 2016, tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 software build (\"El-Selfie Hekaya\" campaign) alongside moderating the official TECNO forum.",
       ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل طرحها رسمياً، مع مساهمة مباشرة في تطوير إصدار كامون C9 (حملة «السيلفي حكاية») وإدارة المنتدى الرسمي.",
     },
     highlights: {
@@ -698,7 +716,7 @@ export const CASE_STUDY_CATEGORIES: { id: CaseStudyCategoryId; label: LocalizedT
 /**
  * Sorted by lifecycle tier: Active partners first (Al-Qersh, Mohamed Samy, Hossam Fekry,
  * EL3SAL, Khatwa), followed by New & Leaving Soon studios (Obolus, THE ARCHITECT OF REALITY),
- * and Ended corporate/commercial engagements cleanly labeled.
+ * and Ended commercial partners. Corporate eras (Chubb, Al-Attar, Chance Media, TECNO) live in CAREER_CHRONICLE only.
  */
 export const CASE_STUDIES: CaseStudy[] = [
   {
@@ -719,7 +737,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     deliverables: {
       en: [
-        "Cohesive Marketing Direction & slogan arc: \"Met-heseb-hash\" -> \"Don't Overthink It, Call El-Qersh\" -> \"Your Phone Deserves More.. Choose Right\"",
+        "Slogan arc: \"Met-heseb-hash\" -> \"Don't Overthink It, Call El-Qersh\" -> \"Your Phone Deserves More.. Choose Right\"",
         "Scripted product & launch motion reels (\"Metro El-Qersh\", \"El-Basma\", 8th Anniversary × Black Friday) across 3 Beni Suef branches",
         "Audio launches (itel BudsGo / Ace / N63) and clear after-sales warranty trust campaigns",
       ],
@@ -769,7 +787,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ],
     },
     campaigns: {
-      en: ["Marketing Direction", "Engineered Finishing", "After 8 Cafe & BUNO"],
+      en: ["Bel-Qalam Wel Mastara", "Engineered Finishing", "After 8 Cafe & BUNO"],
       ar: ["التوجيه التسويقي", "بالقلم والمسطرة", "After 8 Cafe وBUNO"],
     },
     links: [
@@ -812,7 +830,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ],
     },
     campaigns: {
-      en: ["Center QR Integration", "Rewards System", "Since 2020 · Marketing Direction"],
+      en: ["Center QR Integration", "Rewards System", "Since 2020"],
       ar: ["تكامل طلاب السنتر", "نظام المكافآت", "إدارة منذ 2020"],
     },
     links: [
@@ -845,7 +863,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     deliverables: {
       en: [
         "Directed 2nd Anniversary \"Khud We Emshy\" (\"Grab & Go\") campaign built around 50% off takeaway volume peaks",
-        "Full Marketing Direction & 140+ item menu restructuring maximizing add-ons and average basket value",
+        "140+ item menu restructuring maximizing add-ons and average basket value",
         "High-tempo food craft reels (\"EL3SAL × System\", Chicken Ranch, Doner Crunchy) paired with Meta CTR Messages funnels",
       ],
       ar: [
@@ -911,13 +929,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     period: { en: "AI Media Studio", ar: "استوديو إنتاج ذكي" },
     category: "ai_systems",
     discipline: {
-      en: "Tier-1 Economic History · Custom 2D Vector Engine",
+      en: "English Economic History · Custom 2D Animation Engine",
       ar: "تاريخ اقتصادي بالإنجليزية • رسوم متحركة 2D",
     },
     image: "/assets/clients/obolus-mark.jpg",
     isMedallion: true,
     summary: {
-      en: "Tier-1 English economic history 2D animated documentary channel powered by the custom Obolus Visual Engine v2.1, producing forensic primary-source films covering the 1971 Bretton Woods collapse and the 1602 Dutch East India stock market.",
+      en: "English economic history documentary channel in 2D animation for Tier-1 audiences, powered by the custom Obolus Visual Engine v2.1, producing primary-source films on the 1971 Bretton Woods collapse and the 1602 Dutch East India stock market.",
       ar: "قناة وثائقية إنجليزية بالرسوم المتحركة ثنائية الأبعاد تتناول التاريخ الاقتصادي والأنظمة النقدية عبر محرك Obolus Visual Engine v2.1، بأفلام موثقة حول فك ارتباط الدولار بالذهب عام 1971 ونشأة أول سوق أسهم عام 1602.",
     },
     deliverables: {
@@ -983,161 +1001,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    id: "chubb-life",
-    title: { en: "Chubb Life Insurance Egypt", ar: "تشب لتأمينات الحياة • مصر" },
-    status: "ended",
-    period: { en: "Sep 2022 - Jul 2023", ar: "سبتمبر 2022 - يوليو 2023" },
-    category: "corporate_tech",
-    discipline: {
-      en: "Unit Team Leader · Consultative Sales · KPI Governance",
-      ar: "قائد فريق • مبيعات استشارية • مؤشرات الأداء",
-    },
-    image: "/assets/clients/chubb-life.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Led commercial unit operations and daily field coaching as Team Leader at Chubb Life Insurance Egypt from September 2022 through July 2023, enforcing structured needs-analysis selling and monthly quota governance.",
-      ar: "قيادة فريق المبيعات والتدريب الميداني اليومي في تشب لتأمينات الحياة مصر (سبتمبر 2022 – يوليو 2023)، مع ترسيخ أسلوب البيع الاستشاري وتحقيق مستهدفات المحافظ الشهرية.",
-    },
-    deliverables: {
-      en: [
-        "Hands-on onboarding, roleplay coaching, and daily field accompaniment for life protection advisors",
-        "Daily pipeline conversion tracking, objection-handling playbooks, and monthly quota delivery",
-        "Consultative long-term financial planning pitches aligned with corporate underwriting compliance",
-      ],
-      ar: [
-        "تأهيل الأعضاء الجدد وتنفيذ محاكاة البيع والمرافقة الميدانية لمستشاري الحماية المالية",
-        "متابعة مؤشرات التحويل اليومية وبناء أدلة التعامل مع اعتراضات العملاء لتحقيق المستهدفات",
-        "إعداد عروض التخطيط المالي طويل الأجل وفق المعايير الرقابية والاكتوارية للشركة",
-      ],
-    },
-    campaigns: {
-      en: ["Unit Coaching", "Pipeline Governance", "Advisory Sales"],
-      ar: ["تدريب الفريق", "حوكمة المبيعات", "الاستشارات المالية"],
-    },
-    links: [
-      {
-        label: { en: "Official Website", ar: "الموقع الرسمي" },
-        url: "https://life.chubb.com/eg-en/",
-      },
-    ],
-  },
-  {
-    id: "al-attar-group",
-    title: { en: "Al-Attar Group", ar: "مجموعة العطار" },
-    status: "ended",
-    period: { en: "2018 - Aug 2021", ar: "2018 - أغسطس 2021" },
-    category: "brand_growth",
-    discipline: {
-      en: "Marketing Direction · Closing Campaign · Performance Scale",
-      ar: "توجيه تسويقي • حملات أداء • الحملة الختامية",
-    },
-    image: "/assets/clients/attar-group.jpg",
-    isWhitePlate: true,
-    summary: {
-      en: "Led Marketing Direction, performance advertising, and brand content for Al-Attar Group through August 2021, concluding the engagement with the bold flagship campaign \"Elly Magadedsh Mat\" (\"Whoever Doesn't Renew Dies Out\"), documented on Vimeo.",
-      ar: "قيادة التوجيه التسويقي والحملات الممولة وصناعة المحتوى لمجموعة العطار حتى أغسطس 2021، في مسيرة تُوّجت بالحملة الختامية «اللي مجددش مات» الموثقة على Vimeo.",
-    },
-    deliverables: {
-      en: [
-        "Multi-year Marketing Direction and performance campaigns running cleanly through August 2021",
-        "Scripted & directed closing flagship campaign \"Whoever Doesn't Renew Dies Out\" (archived on Vimeo)",
-        "Product showcase direction & regional retail/wholesale buyer acquisition",
-      ],
-      ar: [
-        "قيادة التوجيه التسويقي والحملات الممولة على مدار ثلاث سنوات حتى أغسطس 2021",
-        "كتابة وتوجيه الحملة الختامية «اللي مجددش مات» ونشر الفيلم الإعلاني على Vimeo",
-        "الإشراف على عرض المنتجات وتوسيع الانتشار التجاري في قطاعي التجزئة والجملة",
-      ],
-    },
-    campaigns: {
-      en: ["Whoever Doesn't Renew Dies Out", "Ended Aug 2021", "Marketing Direction"],
-      ar: ["اللي مجددش مات", "ختام أغسطس 2021", "التوجيه التسويقي"],
-    },
-    links: [
-      {
-        label: { en: "Campaign Film (Vimeo)", ar: "فيديو الحملة (Vimeo)" },
-        url: "https://vimeo.com/476741375",
-      },
-      {
-        label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
-        url: "https://www.facebook.com/attargroup1999",
-      },
-    ],
-  },
-  {
-    id: "chance-media",
-    title: { en: "Chance Media (Ahmed Akl)", ar: "تشانس ميديا (أحمد عقل)" },
-    status: "ended",
-    period: { en: "2018", ar: "2018" },
-    category: "brand_growth",
-    discipline: {
-      en: "Agency Creative Director · Noorina LED 3-Spot Campaign · TV Scripts",
-      ar: "مدير إبداعي • حملة Noorina (3 نسخ) • نصوص تلفزيونية",
-    },
-    image: "/assets/clients/chance-media.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Creative Director at Chance Media (founded by actor Ahmed Akl) alongside SECTOR 09. Wrote and directed the 3-version ad campaign for Noorina LED bulbs factory built around the everyday lighting insight \"Before changing your clothes, change your lighting\", plus TV commercial scripts for real-estate and medical accounts.",
-      ar: "الإدارة الإبداعية في تشانس ميديا (تأسيس الفنان أحمد عقل) بالتوازي مع سيكتور 09، مع كتابة وتوجيه حملة Noorina من 3 نسخ إعلانية بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بجانب نصوص تلفزيونية لعقارات ومراكز طبية.",
-    },
-    deliverables: {
-      en: [
-        "Noorina LED Factory Campaign (3 Ad Versions): shifted customer perspective with the sharp hook \"Before changing your clothes, change your lighting\"",
-        "Television commercial scriptwriting and creative concepting tailored for mass Egyptian audiences",
-        "Real-estate launch & medical center campaign direction paired with short films under SECTOR 09",
-      ],
-      ar: [
-        "حملة مصنع لمبات الليد Noorina (3 نسخ إعلانية): نقل زاوية الإعلان من الواط والسعر إلى فكرة حادة ومباشرة «قبل ما تغير لبسك، غير إضاءتك»",
-        "كتابة نصوص إعلانات التلفزيون والمعالجات البصرية للحملات الجماهيرية",
-        "توجيه حملات القطاع العقاري والمراكز الطبية وإخراج أفلام قصيرة ضمن وكالة سيكتور 09",
-      ],
-    },
-    campaigns: {
-      en: ["Noorina LED (3 Versions)", "Change Your Lighting", "TV Scripts & SECTOR 09"],
-      ar: ["Noorina · 3 نسخ إعلانية", "قبل ما تغير لبسك غير إضاءتك", "تلفزيون وسيكتور 09"],
-    },
-    links: [
-      {
-        label: { en: "Agency Website", ar: "موقع الوكالة" },
-        url: "https://chancemedia.com.eg/",
-      },
-    ],
-  },
-  {
-    id: "tecno-camon-c9",
-    title: { en: "TECNO Mobile · Camon C9", ar: "تكنو موبايل • كامون C9" },
-    status: "ended",
-    period: { en: "2016 - 2017 · QA", ar: "2016 - 2017 · اختبار البرمجيات" },
-    category: "corporate_tech",
-    discipline: {
-      en: "Pre-Release Firmware QA · Bug Triage · Forum Moderation",
-      ar: "اختبار سوفت وير • تقارير الجودة • إدارة المنتدى",
-    },
-    image: "/assets/clients/tecno.png",
-    isWhitePlate: true,
-    summary: {
-      en: "Executed pre-release device firmware stress-testing per hardware model for TECNO Mobile, directly shaping software stability prior to the flagship TECNO Camon C9 release (\"El-Selfie Hekaya\") while moderating the official brand forum.",
-      ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل طرحها رسمياً، مع مساهمة مباشرة في تحسين استقرار هاتف كامون C9 (حملة «السيلفي حكاية») وإدارة المنتدى الرسمي للمستخدمين.",
-    },
-    deliverables: {
-      en: [
-        "Model-by-model beta ROM testing, camera ISP regression logging, and pre-OTA stability validation",
-        "Direct software refinement contributions embedded into the retail TECNO Camon C9 firmware build",
-        "Moderation of official TECNO Egypt online forum and user telemetry issue aggregation",
-      ],
-      ar: [
-        "فحص نسخ النظام التجريبية لكل طراز هاتف وتوثيق الأعطال قبل اعتماد التحديثات الرسمية",
-        "إسهامات فنية مباشرة لتحسين أداء نظام التشغيل وكاميرا هاتف تكنو كامون C9",
-        "إدارة المنتدى الرسمي لتكنو مصر وتصنيف ملاحظات المستخدمين الفنية لفرق التطوير",
-      ],
-    },
-    campaigns: {
-      en: ["TECNO Camon C9", "Firmware Beta QA", "El-Selfie Hekaya"],
-      ar: ["تكنو كامون C9", "اختبار البرمجيات", "السيلفي حكاية"],
-    },
-    links: [],
-  },
-  {
     id: "sanhok",
     title: { en: "Sanhok PlayStation & Café", ar: "سانهوك للترفيه والكافيه" },
     status: "ended",
@@ -1189,7 +1052,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/yasmine-salah.jpg",
     isPortraitMedallion: true,
     summary: {
-      en: "Refined personal brand positioning and Instagram visual presentation for Makeup Artist Yasmine Salah, curating signature bridal transformation showcases engineered to attract qualified seasonal booking inquiries.",
+      en: "Refined personal brand positioning and Instagram visual presentation for Makeup Artist Yasmine Salah, curating signature bridal transformation showcases that attract qualified seasonal booking inquiries.",
       ar: "تطوير الهوية البصرية على إنستجرام لخبيرة التجميل ياسمين صلاح، وإبراز تفاصيل إطلالات العرائس بأسلوب راقٍ يرفع معدل طلبات الحجز الجادة.",
     },
     deliverables: {

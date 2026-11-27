@@ -25,7 +25,6 @@ export function AmbientAudioPlayer({
 }: AmbientAudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [promptVisible, setPromptVisible] = useState(false);
-  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
 
   const ctxRef = useRef<AudioContext | null>(null);
   const gainRef = useRef<GainNode | null>(null);
@@ -41,15 +40,6 @@ export function AmbientAudioPlayer({
     isPlayingRef.current = isPlaying;
     onPlayingChange?.(isPlaying);
   }, [isPlaying, onPlayingChange]);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setIsScrolledPastHero(window.scrollY > 220);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const dismissPrompt = useCallback(() => {
     setPromptVisible(false);
@@ -304,12 +294,12 @@ export function AmbientAudioPlayer({
   const mobileCue = lang === "en" ? "TAP SOUND" : "شغّل الصوت";
   const dismissLabel = lang === "en" ? "Dismiss sound hint" : "إخفاء تنبيه الصوت";
   const pillHint = lang === "en" ? "SOUND" : "الصوت";
-  const showMobileLabel = promptVisible && !isPlaying && !isScrolledPastHero;
+  const showMobileLabel = false; // mobile: icon-only, shares the bottom row with the section tabs
 
   return (
     <div
       ref={wrapperRef}
-      className="pointer-events-none fixed bottom-[max(4.65rem,calc(4.35rem+env(safe-area-inset-bottom)))] end-3 z-[110] flex flex-col items-end md:bottom-6 md:end-6"
+      className="pointer-events-none fixed bottom-[max(1rem,env(safe-area-inset-bottom))] end-3 z-[110] flex flex-col items-end md:bottom-6 md:end-6"
     >
       {/* Desktop: Compact Editorial Whisper Card above the speaker control (auto-dismisses in 5s or on scroll/click) */}
       <div
@@ -357,7 +347,7 @@ export function AmbientAudioPlayer({
         onClick={handleToggle}
         aria-label={ariaLabel}
         aria-pressed={isPlaying}
-        className="pointer-events-auto group relative flex h-9 items-center gap-2 rounded-full border border-[#A1A6B0]/35 bg-[#0A0A0C]/90 px-2.5 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.09)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#E5E7EB]/65 hover:bg-[#111318]/95 active:scale-[0.97] md:h-10 md:gap-2.5 md:px-3.5"
+        className="pointer-events-auto group relative flex h-[58px] min-w-[58px] items-center justify-center gap-2 rounded-full border border-[#A1A6B0]/35 bg-[#0A0A0C]/90 px-2.5 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.09)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#E5E7EB]/65 hover:bg-[#111318]/95 active:scale-[0.97] md:h-10 md:min-w-0 md:gap-2.5 md:px-3.5"
       >
         {!isPlaying && (
           <span

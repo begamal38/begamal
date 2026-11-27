@@ -64,19 +64,19 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
               className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
               aria-hidden="true"
             />
-            <p className="font-mono-code text-[9.5px] uppercase tracking-[0.14em] text-[#D4D7DD] md:text-[11px] md:tracking-[0.2em]">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#D4D7DD] md:tracking-[0.2em]">
               {PORTFOLIO_IDENTITY.heroEyebrow[lang]}
             </p>
           </div>
 
           <h1 className="mt-3 font-display text-[clamp(1.9rem,5.2vw,3.75rem)] font-semibold uppercase leading-[1.1] tracking-[0.06em] text-[#F4F5F7] sm:mt-4">
             {PORTFOLIO_IDENTITY.name[lang]}
-            <span className="mt-1.5 block font-editorial text-[clamp(1.2rem,2.9vw,2.25rem)] font-normal italic leading-[1.24] tracking-[0.02em] text-[#D4D7DD] pb-1 sm:mt-2">
+            <span className="mt-1.5 block font-editorial text-[clamp(1.2rem,2.9vw,2.25rem)] font-normal italic leading-[1.24] tracking-[0.02em] text-[#D4D7DD] pb-1 text-balance sm:mt-2">
               {PORTFOLIO_IDENTITY.heroSubtitle[lang]}
             </span>
           </h1>
 
-          <p className="mt-3 max-w-[50ch] text-[13.5px] leading-[1.65] text-[#E4E4E7] md:mt-4 md:text-[17px] md:leading-relaxed">
+          <p className="mt-3 max-w-[50ch] text-[15px] leading-[1.65] text-[#E4E4E7] md:mt-4 md:text-[17px] md:leading-relaxed">
             {PORTFOLIO_IDENTITY.heroSubtext[lang]}
           </p>
 

@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     outDir: "dist",
+    assetsDir: "_app",
     sourcemap: false,
     rollupOptions: {
       output: {
