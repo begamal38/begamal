@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v22-client-timeline";
+const CACHE_NAME = "belal-gamal-v23-full-timeline";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

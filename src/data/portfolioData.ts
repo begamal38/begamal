@@ -302,8 +302,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "شريك نمو وتوجيه تسويقي",
     },
     organization: {
-      en: "Hossam Fekry 2020 · Al-Qersh Mobile 2022 · Mohamed Samy 2022 · El3sal Foods 2024 · Khatwa · Sanhok · Yasmine Salah",
-      ar: "حسام فكري 2020 • القرش موبايل 2022 • محمد سامي 2022 • العسال فودز 2024 • خطوة • سانهوك • ياسمين صلاح",
+      en: "Hossam Fekry 2020 · Khatwa 2021 · Al-Qersh Mobile 2022 · Mohamed Samy 2022 · Yasmine Salah 2023 · El3sal Foods 2024 · Sanhok Ramadan 2025",
+      ar: "حسام فكري 2020 • خطوة 2021 • القرش موبايل 2022 • محمد سامي 2022 • ياسمين صلاح 2023 • العسال فودز 2024 • سانهوك رمضان 2025",
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     kpis: {
@@ -311,8 +311,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: ["حسام فكري • 2020", "القرش ومحمد سامي • 2022", "العسال فودز • 2024"],
     },
     summary: {
-      en: "An independent practice that grew one client at a time: Hossam Fekry Platform in 2020 (full platform management, center integration and rewards system), Al-Qersh Mobile and Mohamed Samy Works in 2022, then El3sal Foods in 2024, alongside Khatwa, Sanhok and Yasmine Salah.",
-      ar: "ممارسة مستقلة نمت عميلاً بعد عميل: منصة حسام فكري عام 2020 (إدارة المنصة بالكامل وربط طلاب السنتر ونظام المكافآت)، ثم القرش موبايل ومحمد سامي للديكور عام 2022، ثم العسال فودز عام 2024، إلى جانب خطوة وسانهوك وياسمين صلاح.",
+      en: "An independent practice that grew one client at a time: Hossam Fekry Platform in 2020 (full platform management, center integration and rewards system), Khatwa in 2021, Al-Qersh Mobile and Mohamed Samy Works in 2022, Yasmine Salah in 2023, El3sal Foods in 2024, and a Ramadan 2025 campaign for Sanhok.",
+      ar: "ممارسة مستقلة نمت عميلاً بعد عميل: منصة حسام فكري عام 2020 (إدارة المنصة بالكامل وربط طلاب السنتر ونظام المكافآت)، ثم خطوة عام 2021، ثم القرش موبايل ومحمد سامي للديكور عام 2022، ثم ياسمين صلاح عام 2023، ثم العسال فودز عام 2024، وحملة رمضان 2025 لسانهوك.",
     },
     highlights: {
       en: [
@@ -924,7 +924,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: "khatwa-academy",
     title: { en: "Khatwa Academy & Nursery", ar: "أكاديمية وحضانة خطوة" },
     status: "active",
-    period: { en: "Education Partner", ar: "شريك قطاع التعليم" },
+    period: { en: "Since 2021", ar: "منذ 2021" },
     category: "corporate_tech",
     discipline: {
       en: "3-Stage Curriculum Messaging · Real Reels · Parent Leads",
@@ -1041,7 +1041,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: "sanhok",
     title: { en: "Sanhok PlayStation & Café", ar: "سانهوك للترفيه والكافيه" },
     status: "ended",
-    period: { en: "Commercial Partner", ar: "شريك تجاري" },
+    period: { en: "Ramadan 2025", ar: "رمضان 2025" },
     category: "retail_hospitality",
     discipline: {
       en: "Gen-Z Hook Reels · Hyper-Local Reach · Venue Positioning",
@@ -1050,8 +1050,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/sanhok.jpg",
     isMedallion: true,
     summary: {
-      en: "Built youth-culture social positioning, fast-cut promotional video hooks, and hyper-local Meta footfall campaigns keeping PlayStation arenas and café seating filled across weekday and tournament hours.",
-      ar: "بناء حضور اجتماعي يشبه لغة الشباب عبر فيديوهات سريعة الإيقاع وحملات استهداف جغرافي على ميتا، لضمان امتلاء صالات البلايستيشن والكافيه طوال الأسبوع والبطولات.",
+      en: "A Ramadan 2025 campaign for Sanhok: youth-culture social positioning, fast-cut promotional video hooks, and hyper-local Meta footfall campaigns keeping PlayStation arenas and café seating filled across weekday and tournament hours.",
+      ar: "حملة رمضان 2025 لسانهوك: بناء حضور اجتماعي يشبه لغة الشباب عبر فيديوهات سريعة الإيقاع وحملات استهداف جغرافي على ميتا، لضمان امتلاء صالات البلايستيشن والكافيه طوال الأسبوع والبطولات.",
     },
     deliverables: {
       en: [
@@ -1074,13 +1074,17 @@ export const CASE_STUDIES: CaseStudy[] = [
         label: { en: "Facebook Page", ar: "صفحة فيسبوك" },
         url: "https://www.facebook.com/Sanhok963",
       },
+      {
+        label: { en: "Ramadan 2025 Campaign Reel", ar: "ريل حملة رمضان 2025" },
+        url: "https://www.facebook.com/reel/557540380669088",
+      },
     ],
   },
   {
     id: "yasmine-salah",
     title: { en: "Yasmine Salah Makeup Artist", ar: "ياسمين صلاح • خبيرة تجميل" },
     status: "ended",
-    period: { en: "Commercial Partner", ar: "شريك تجاري" },
+    period: { en: "Started 2023", ar: "بداية من 2023" },
     category: "beauty_lifestyle",
     discipline: {
       en: "Bridal Portfolio Direction · Instagram Positioning · Bookings",
