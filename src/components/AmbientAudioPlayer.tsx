@@ -295,7 +295,7 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
   const showMobileLabel = promptVisible && !isPlaying && !isScrolledPastHero;
 
   return (
-    <div className="fixed bottom-[max(4.65rem,calc(4.35rem+env(safe-area-inset-bottom)))] end-3 z-40 flex flex-col items-end md:bottom-6 md:end-6">
+    <div className="fixed bottom-[max(4.65rem,calc(4.35rem+env(safe-area-inset-bottom)))] end-3 z-[110] flex flex-col items-end md:bottom-6 md:end-6">
       {/* Desktop: Luxury Editorial Whisper Card above the speaker control */}
       <div
         role="status"

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ArrowUpRight, Play, X } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Play, X } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -15,6 +15,7 @@ import {
   UI_COPY,
 } from "../data/portfolioData";
 import { BiDiText } from "./BiDiText";
+import { useDossierNavigation } from "../hooks/useDossierNavigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -127,15 +128,15 @@ function CaseStudyVisualStage({
   lang: Lang;
   tall?: boolean;
 }) {
-  const heightClass = tall ? "h-40 sm:h-52" : "h-44";
+  const heightClass = tall ? "h-40 sm:h-48" : "h-36";
 
   if (study.image) {
     if (study.isWhitePlate) {
       return (
         <div
-          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.11] bg-[#12161E] p-4`}
+          className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.11] bg-[#12161E] p-3.5`}
         >
-          <div className="flex h-32 w-56 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white px-5 py-3 shadow-lg">
+          <div className="flex h-24 w-48 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white px-4 py-2.5 shadow-lg sm:h-28 sm:w-52">
             <img
               src={study.image}
               alt={study.title[lang]}
@@ -149,10 +150,10 @@ function CaseStudyVisualStage({
 
     return (
       <div
-        className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.11] bg-[#12161E] p-4`}
+        className={`${heightClass} flex w-full items-center justify-center rounded-xl border border-white/[0.11] bg-[#12161E] p-3.5`}
       >
         {study.isPortraitMedallion ? (
-          <div className="h-36 w-36 rounded-full border border-[#D4D7DD]/35 bg-[#111215] p-1 shadow-[0_10px_28px_rgba(0,0,0,0.65)]">
+          <div className="h-28 w-28 rounded-full border border-[#D4D7DD]/35 bg-[#111215] p-1 shadow-[0_10px_28px_rgba(0,0,0,0.65)] sm:h-32 sm:w-32">
             <div className="relative h-full w-full overflow-hidden rounded-full border border-white/10">
               <img
                 src={study.image}
@@ -163,7 +164,7 @@ function CaseStudyVisualStage({
             </div>
           </div>
         ) : study.isMedallion ? (
-          <div className="h-32 w-32 overflow-hidden rounded-2xl border border-white/15 shadow-lg">
+          <div className="h-24 w-24 overflow-hidden rounded-2xl border border-white/15 shadow-lg sm:h-28 sm:w-28">
             <img
               src={study.image}
               alt={study.title[lang]}
@@ -172,7 +173,7 @@ function CaseStudyVisualStage({
             />
           </div>
         ) : (
-          <div className="flex h-28 w-56 items-center justify-center overflow-hidden px-4 py-2">
+          <div className="flex h-24 w-48 items-center justify-center overflow-hidden px-4 py-2 sm:w-52">
             <img
               src={study.image}
               alt={study.title[lang]}
@@ -189,7 +190,7 @@ function CaseStudyVisualStage({
     <div
       className={`${heightClass} flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/[0.11] bg-[#12161E] p-5 text-center`}
     >
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-[#181C26] font-display text-lg font-semibold tracking-wider text-[#E2E6EF]">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/20 bg-[#181C26] font-display text-lg font-semibold tracking-wider text-[#E2E6EF]">
         {study.monogram ?? study.title.en.slice(0, 2).toUpperCase()}
       </div>
       <span className="font-display text-base tracking-wide text-[#F4F5F7]">
@@ -201,8 +202,9 @@ function CaseStudyVisualStage({
 
 export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const modalBodyRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<CaseStudyCategoryId>("all");
-  const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const filteredStudies = useMemo(() => {
     if (activeCategory === "all") return CASE_STUDIES;
@@ -216,6 +218,10 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
   }, [lang]);
 
   useEffect(() => {
+    setSelectedIndex(null);
+  }, [activeCategory]);
+
+  useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -225,7 +231,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     mm.add("(min-width: 768px)", () => {
       gsap.fromTo(
         ".works-card",
-        { y: 14, opacity: 0.65 },
+        { y: 14, opacity: 0.6 },
         {
           y: 0,
           opacity: 1,
@@ -252,31 +258,41 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     };
   }, [activeCategory, lang]);
 
+  const handleClose = useCallback(() => setSelectedIndex(null), []);
+  const handlePrev = useCallback(() => {
+    setSelectedIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : prev));
+  }, []);
+  const handleNext = useCallback(() => {
+    setSelectedIndex((prev) =>
+      prev !== null && prev < filteredStudies.length - 1 ? prev + 1 : prev
+    );
+  }, [filteredStudies.length]);
+
+  useDossierNavigation({
+    isOpen: selectedIndex !== null,
+    lang,
+    onClose: handleClose,
+    onPrev: handlePrev,
+    onNext: handleNext,
+    onModalOpenChange,
+  });
+
   useEffect(() => {
-    if (!selectedStudy) return;
-    const prevHtmlOverflow = document.documentElement.style.overflow;
-    const prevBodyOverflow = document.body.style.overflow;
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+    if (selectedIndex !== null && modalBodyRef.current) {
+      modalBodyRef.current.scrollTop = 0;
+    }
+  }, [selectedIndex]);
 
-    const lenisGlobal = (window as Window & {
-      __lenis?: { stop?: () => void; start?: () => void };
-    }).__lenis;
-    onModalOpenChange?.(true);
-    lenisGlobal?.stop?.();
-
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedStudy(null);
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => {
-      document.documentElement.style.overflow = prevHtmlOverflow;
-      document.body.style.overflow = prevBodyOverflow;
-      onModalOpenChange?.(false);
-      lenisGlobal?.start?.();
-      window.removeEventListener("keydown", handleKey);
-    };
-  }, [selectedStudy, onModalOpenChange]);
+  const selectedStudy =
+    selectedIndex !== null ? filteredStudies[selectedIndex] ?? null : null;
+  const prevStudy =
+    selectedIndex !== null && selectedIndex > 0
+      ? filteredStudies[selectedIndex - 1]
+      : null;
+  const nextStudy =
+    selectedIndex !== null && selectedIndex < filteredStudies.length - 1
+      ? filteredStudies[selectedIndex + 1]
+      : null;
 
   return (
     <section
@@ -342,7 +358,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
             <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.works.eyebrow[lang]}
             </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold uppercase tracking-[0.06em] text-[#F4F5F7] sm:text-4xl">
+            <h2 className="mt-3 font-display text-[clamp(1.75rem,3.6vw,2.5rem)] font-semibold uppercase tracking-[0.06em] text-[#F4F5F7]">
               {UI_COPY.works.title[lang]}
             </h2>
           </div>
@@ -361,7 +377,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                   type="button"
                   aria-selected={selected}
                   onClick={() => setActiveCategory(category.id)}
-                  className={`rounded-full border px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.98] whitespace-nowrap ${
+                  className={`rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap ${
                     selected
                       ? "btn-titanium border-[#F4F5F7] font-semibold"
                       : "border-white/15 bg-[#151822] text-[#A7B0BE] hover:border-white/30 hover:text-[#F4F5F7]"
@@ -374,80 +390,80 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
           </div>
         </div>
 
-        {/* Double-Bezel Gapless Asymmetric Bento Grid */}
-        <div className="works-grid mt-12 grid grid-flow-dense grid-cols-1 gap-5 lg:grid-cols-12">
+        {/* Clean Uniform Scannable Bento Grid (Progressive Disclosure) */}
+        <div className="works-grid mt-10 grid grid-flow-dense grid-cols-1 gap-5 lg:grid-cols-12">
           {filteredStudies.map((study, index) => {
             const spanClass = getBentoSpanClass(index, filteredStudies.length);
             const primaryLink = study.links[0];
             return (
               <article
                 key={study.id}
-                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.12] bg-[#181C25]/94 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4D7DD]/50`}
+                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.11] bg-[#161A23]/92 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25`}
               >
-                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#101319] p-6 transition-colors duration-300 group-hover:bg-[#141822]">
+                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#101319] p-5 transition-colors duration-300 ease-out group-hover:bg-[#141822] sm:p-6">
                   <button
                     type="button"
-                    onClick={() => setSelectedStudy(study)}
+                    onClick={() => setSelectedIndex(index)}
                     className="w-full text-start"
                   >
-                    <div className="mb-6">
+                    <div className="mb-4">
                       <CaseStudyVisualStage study={study} lang={lang} />
                     </div>
 
-                    <div className="flex min-h-[2.5rem] items-start justify-between gap-2">
+                    <div className="flex min-h-[2.25rem] items-start justify-between gap-2">
                       <div className="flex flex-wrap items-center gap-2">
                         <ClientStatusBadge status={study.status} lang={lang} />
                         <span className="font-mono-code text-[11px] uppercase tracking-[0.12em] text-[#D4D7DD] whitespace-nowrap">
                           {study.period[lang]}
                         </span>
                       </div>
-                      <span className="max-w-[11rem] text-end text-[11px] leading-snug text-[#9CA3AF]">
+                      <span className="max-w-[11rem] text-end text-[11px] leading-snug text-[#A1A6B0]">
                         {categoryLabelMap.get(study.category)}
                       </span>
                     </div>
 
-                    <h3 className="mt-3 text-balance text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
+                    <h3 className="mt-2.5 line-clamp-1 text-lg font-semibold text-[#F4F5F7] sm:text-xl">
                       <BiDiText text={study.title[lang]} lang={lang} />
                     </h3>
 
-                    <p className="mt-2 text-xs font-medium tracking-wide text-[#9CA3AF]">
+                    <p className="mt-1 line-clamp-1 text-xs font-medium text-[#A1A6B0]">
                       <BiDiText text={study.discipline[lang]} lang={lang} />
                     </p>
 
-                    <p className="mt-4 text-sm leading-relaxed text-[#F4F5F7]/85">
+                    <p className="mt-3 line-clamp-2 text-xs leading-relaxed text-[#9CA3AF] sm:text-[13px]">
                       <BiDiText text={study.summary[lang]} lang={lang} />
                     </p>
                   </button>
 
-                  {/* Interactive Project Brief + Direct Client Page */}
-                  <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.07] pt-4">
+                  {/* Compact Action Row */}
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.06] pt-3.5">
                     <button
                       type="button"
-                      onClick={() => setSelectedStudy(study)}
-                      className="text-xs font-medium text-[#D4D7DD] underline decoration-white/25 underline-offset-4 transition-colors hover:text-[#F4F5F7] hover:decoration-[#F4F5F7]"
+                      onClick={() => setSelectedIndex(index)}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:text-white"
                     >
-                      {UI_COPY.works.openDossier[lang]}
+                      <span>{UI_COPY.works.openDossier[lang]}</span>
+                      <ArrowUpRight
+                        size={13}
+                        weight="bold"
+                        className="inline-block opacity-75 rtl:-scale-x-100"
+                      />
                     </button>
 
-                    {primaryLink ? (
+                    {primaryLink && (
                       <a
                         href={primaryLink.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#161923] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#161923] px-3 py-1 text-[11px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
                       >
                         <span>{primaryLink.label[lang]}</span>
-                        <ArrowUpRight size={13} weight="bold" className="inline-block rtl:-scale-x-100" />
+                        <ArrowUpRight
+                          size={12}
+                          weight="bold"
+                          className="inline-block rtl:-scale-x-100"
+                        />
                       </a>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => setSelectedStudy(study)}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#161923] px-3.5 py-1.5 text-xs font-medium text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
-                      >
-                        <span>{UI_COPY.works.caseStudyCta[lang]}</span>
-                        <ArrowUpRight size={13} weight="bold" className="inline-block rtl:-scale-x-100" />
-                      </button>
                     )}
                   </div>
                 </div>
@@ -457,8 +473,9 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
         </div>
       </div>
 
-      {/* Interactive Case Study Modal (Portal + Lenis pause + isolated iOS touch/wheel scroll) */}
+      {/* Obsidian Case Dossier Modal / Mobile Bottom Sheet */}
       {selectedStudy &&
+        selectedIndex !== null &&
         createPortal(
           <div
             role="dialog"
@@ -467,104 +484,175 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
             data-lenis-prevent=""
             data-lenis-prevent-wheel=""
             data-lenis-prevent-touch=""
-            className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden overscroll-none bg-[#090B0F]/84 p-3 backdrop-blur-xl sm:p-6"
-            onClick={() => setSelectedStudy(null)}
+            className="fixed inset-0 z-[100] flex items-end justify-center overflow-hidden overscroll-none bg-[#06070A]/82 p-0 backdrop-blur-xl sm:items-center sm:p-6"
+            onClick={handleClose}
           >
             <div
-              className="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-[1.5rem] border border-white/20 bg-[#161923] shadow-[0_24px_64px_rgba(0,0,0,0.65)] supports-[max-height:90dvh]:max-h-[90dvh]"
+              className="dossier-enter relative flex max-h-[92dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-[1.5rem] border border-white/15 bg-[#08080A]/96 shadow-[0_28px_80px_rgba(0,0,0,0.85)] sm:max-h-[88dvh] sm:rounded-[1.5rem]"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex shrink-0 items-start justify-between gap-4 border-b border-white/[0.08] p-5 pb-4 sm:p-8 sm:pb-5">
-                <div>
+              {/* Subtle Ambient Silver Top Hairline */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#E5E7EB]/45 to-transparent"
+              />
+
+              <div className="flex shrink-0 items-start justify-between gap-4 border-b border-white/[0.08] p-5 pb-4 sm:p-7 sm:pb-5">
+                <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <ClientStatusBadge status={selectedStudy.status} lang={lang} />
-                    <p className="font-mono-code text-xs uppercase tracking-[0.14em] text-[#D4D7DD]">
-                      {selectedStudy.period[lang]} · {categoryLabelMap.get(selectedStudy.category)}
+                    <p className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#A1A6B0]">
+                      {selectedStudy.period[lang]} ·{" "}
+                      {categoryLabelMap.get(selectedStudy.category)}
                     </p>
                   </div>
                   <h3
                     id="modal-study-title"
-                    className="mt-2 font-display text-xl font-semibold text-[#F4F5F7] sm:text-3xl"
+                    className="mt-2 font-display text-xl font-semibold text-[#F4F5F7] sm:text-2xl"
                   >
-                    {selectedStudy.title[lang]}
+                    <BiDiText text={selectedStudy.title[lang]} lang={lang} />
                   </h3>
                 </div>
 
                 <button
                   type="button"
                   aria-label={UI_COPY.works.closeModal[lang]}
-                  onClick={() => setSelectedStudy(null)}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#0A0A0C] text-[#F4F5F7] transition-colors hover:border-[#D4D7DD] hover:text-white"
+                  onClick={handleClose}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#111319] text-[#F4F5F7] transition-colors duration-300 ease-out hover:border-white/40 hover:text-white"
                 >
-                  <X size={18} weight="bold" />
+                  <X size={16} weight="bold" />
                 </button>
               </div>
 
               <div
+                ref={modalBodyRef}
                 data-modal-scroll="true"
                 data-lenis-prevent=""
                 data-lenis-prevent-wheel=""
                 data-lenis-prevent-touch=""
-                className="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-pan-y p-5 pt-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-8 sm:pt-6"
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-pan-y p-5 pt-4 pb-20 sm:p-7 sm:pt-5"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                <CaseStudyVisualStage study={selectedStudy} lang={lang} tall />
+                <div key={selectedStudy.id} className="dossier-stage-fade">
+                  <CaseStudyVisualStage study={selectedStudy} lang={lang} tall />
 
-                <p className="mt-4 text-sm leading-relaxed text-[#F4F5F7]/90 sm:mt-6 sm:text-base">
-                  <BiDiText text={selectedStudy.summary[lang]} lang={lang} />
-                </p>
+                  <p className="mt-4 text-sm leading-relaxed text-[#E4E4E7]/90 sm:mt-5 sm:text-[15px]">
+                    <BiDiText text={selectedStudy.summary[lang]} lang={lang} />
+                  </p>
 
-                <div className="mt-4 space-y-2.5 border-t border-white/[0.08] pt-4 sm:mt-6 sm:space-y-3 sm:pt-5">
-                  <h4 className="font-mono-code text-xs uppercase tracking-[0.16em] text-[#D4D7DD]">
-                    {UI_COPY.works.scopeHeading[lang]}
-                  </h4>
-                  <ul className="space-y-2.5">
-                    {selectedStudy.deliverables[lang].map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-sm leading-relaxed text-[#9CA3AF]"
+                  <div className="mt-4 space-y-2.5 border-t border-white/[0.08] pt-4 sm:mt-5 sm:space-y-3 sm:pt-5">
+                    <h4 className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
+                      {UI_COPY.works.scopeHeading[lang]}
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {selectedStudy.deliverables[lang].map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-3 text-sm leading-relaxed text-[#9CA3AF]"
+                        >
+                          <span
+                            className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
+                            aria-hidden="true"
+                          />
+                          <span className="text-[#F4F5F7]/85">
+                            <BiDiText text={item} lang={lang} />
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-2 border-t border-white/[0.08] pt-4">
+                    {selectedStudy.campaigns[lang].map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 bg-[#0A0A0C] px-3 py-1 text-xs text-[#F4F5F7]/80"
                       >
-                        <span
-                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
-                          aria-hidden="true"
-                        />
-                        <span className="text-[#F4F5F7]/85">
-                          <BiDiText text={item} lang={lang} />
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-2 border-t border-white/[0.08] pt-5">
-                  {selectedStudy.campaigns[lang].map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-[#0A0A0C] px-3.5 py-1.5 text-xs text-[#F4F5F7]/80"
-                    >
-                      <BiDiText text={tag} lang={lang} />
-                    </span>
-                  ))}
-                </div>
-
-                {selectedStudy.links.length > 0 && (
-                  <div className="mt-6 flex flex-wrap gap-3 border-t border-white/[0.08] pt-5">
-                    {selectedStudy.links.map((item) => (
-                      <a
-                        key={item.url}
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-titanium inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-[#050505]"
-                      >
-                        <span>
-                          <BiDiText text={item.label[lang]} lang={lang} />
-                        </span>
-                        <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
-                      </a>
+                        <BiDiText text={tag} lang={lang} />
+                      </span>
                     ))}
                   </div>
-                )}
+
+                  {selectedStudy.links.length > 0 && (
+                    <div className="mt-5 flex flex-wrap gap-3 border-t border-white/[0.08] pt-4">
+                      {selectedStudy.links.map((item) => (
+                        <a
+                          key={item.url}
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-titanium inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-[#050505]"
+                        >
+                          <span>
+                            <BiDiText text={item.label[lang]} lang={lang} />
+                          </span>
+                          <ArrowUpRight
+                            size={14}
+                            weight="bold"
+                            className="inline-block rtl:-scale-x-100"
+                          />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Sticky Prev / Back to Works / Next Bottom Bar */}
+              <div className="flex shrink-0 items-center justify-between gap-2 border-t border-white/[0.08] bg-[#0B0C10]/95 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-7 sm:py-3.5">
+                <button
+                  type="button"
+                  disabled={!prevStudy}
+                  onClick={handlePrev}
+                  className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2 text-start transition-all duration-300 ease-out hover:border-white/25 hover:bg-white/[0.05] disabled:pointer-events-none disabled:opacity-30"
+                >
+                  <ArrowLeft
+                    size={14}
+                    weight="bold"
+                    className="shrink-0 text-[#D4D7DD] rtl:-scale-x-100"
+                  />
+                  <div className="min-w-0">
+                    <span className="block font-mono-code text-[10px] text-[#A1A6B0]">
+                      {UI_COPY.works.prevWork[lang]}
+                    </span>
+                    {prevStudy && (
+                      <span className="block truncate text-xs font-medium text-[#F4F5F7]">
+                        {prevStudy.title[lang]}
+                      </span>
+                    )}
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="shrink-0 rounded-full border border-white/15 bg-[#141720] px-3.5 py-2 text-[11px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-white/35 hover:text-white whitespace-nowrap"
+                >
+                  {UI_COPY.works.backToWorks[lang]}
+                </button>
+
+                <button
+                  type="button"
+                  disabled={!nextStudy}
+                  onClick={handleNext}
+                  className="flex min-w-0 flex-1 items-center justify-end gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2 text-end transition-all duration-300 ease-out hover:border-white/25 hover:bg-white/[0.05] disabled:pointer-events-none disabled:opacity-30"
+                >
+                  <div className="min-w-0">
+                    <span className="block font-mono-code text-[10px] text-[#A1A6B0]">
+                      {UI_COPY.works.nextWork[lang]}
+                    </span>
+                    {nextStudy && (
+                      <span className="block truncate text-xs font-medium text-[#F4F5F7]">
+                        {nextStudy.title[lang]}
+                      </span>
+                    )}
+                  </div>
+                  <ArrowRight
+                    size={14}
+                    weight="bold"
+                    className="shrink-0 text-[#D4D7DD] rtl:-scale-x-100"
+                  />
+                </button>
               </div>
             </div>
           </div>,

@@ -177,7 +177,7 @@ export default function App() {
       <main className="relative z-10 w-full overflow-x-clip">
         <HeroSection lang={lang} onNavigate={handleNavigate} />
         <StatementSection lang={lang} />
-        <ChronicleSection lang={lang} />
+        <ChronicleSection lang={lang} onModalOpenChange={handleModalOpenChange} />
         <WorksSection lang={lang} onModalOpenChange={handleModalOpenChange} />
         <SystemsAndContactSection
           lang={lang}

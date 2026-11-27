@@ -33,6 +33,7 @@ export interface ChronicleMentorship {
 
 export interface ChronicleEntry {
   id: string;
+  railYear: LocalizedText;
   period: LocalizedText;
   role: LocalizedText;
   organization: LocalizedText;
@@ -186,9 +187,15 @@ export const UI_COPY = {
   chronicle: {
     title: { en: "Career Chronicle", ar: "المسيرة المهنية" },
     subtitle: {
-      en: "Started independently in 2016 running Facebook ad campaigns for myself alongside Business Administration studies and TECNO Camon C9 firmware QA, progressing through Vodafone Business Cairo, Chance Media, Al-Attar, Majorel Smart Village HR (through Aug 2021), Chubb Life leadership, and AI production systems.",
-      ar: "عشر سنوات من التدرج العملي: من الحملات الممولة المستقلة واختبار برمجيات هواتف تكنو عام 2016، مروراً بفودافون بيزنس وتشانس ميديا ومجموعة العطار وماجوريل بالقرية الذكية وقيادة المبيعات في تشب، وصولاً إلى بناء أنظمة الإنتاج بالذكاء الاصطناعي.",
+      en: "Ten years of hands-on progression—from independent Facebook ad campaigns and TECNO Camon C9 firmware QA in 2016 through Vodafone Business, Chance Media, Al-Attar, Majorel Smart Village HR, Chubb Life leadership, and AI production systems. Select any era node to inspect its full dossier.",
+      ar: "عشر سنوات من التدرج العملي: من الحملات الممولة المستقلة واختبار برمجيات هواتف تكنو عام 2016، مروراً بفودافون بيزنس وتشانس ميديا ومجموعة العطار وماجوريل بالقرية الذكية وقيادة المبيعات في تشب، وصولاً إلى أنظمة الإنتاج بالذكاء الاصطناعي. اختر أي مرحلة لاستعراض ملفها الكامل.",
     },
+    openEra: { en: "Open Era", ar: "استعراض المرحلة" },
+    backToGrid: { en: "All Eras", ar: "العودة للشبكة" },
+    newerStage: { en: "Newer Stage", ar: "المرحلة الأحدث" },
+    olderStage: { en: "Next: Older Stage", ar: "المرحلة الأقدم" },
+    closeDossier: { en: "Close era dossier", ar: "إغلاق ملف المرحلة" },
+    railAria: { en: "Timeline Year Jump Rail", ar: "شريط التنقل الزمني السريع" },
   },
   works: {
     showreelEyebrow: { en: "Featured Cinema Reel", ar: "الأعمال المرئية" },
@@ -206,11 +213,14 @@ export const UI_COPY = {
     },
     eyebrow: { en: "Client Roster & Case Studies", ar: "شركاء النجاح ودراسات الحالة" },
     title: { en: "Selected Works", ar: "أعمال مختارة" },
-    openDossier: { en: "Project Brief", ar: "ملخص المشروع" },
+    openDossier: { en: "View Details", ar: "التفاصيل" },
     visitPage: { en: "Visit Client Page", ar: "زيارة صفحة العميل" },
-    caseStudyCta: { en: "Case Study", ar: "دراسة الحالة" },
+    caseStudyCta: { en: "View Details", ar: "التفاصيل" },
     scopeHeading: { en: "Scope & Execution", ar: "نطاق العمل والتنفيذ" },
-    closeModal: { en: "Close project brief", ar: "إغلاق ملخص المشروع" },
+    closeModal: { en: "Close project dossier", ar: "إغلاق ملف المشروع" },
+    backToWorks: { en: "Back to Works", ar: "العودة للأعمال" },
+    prevWork: { en: "Prev Work", ar: "العمل السابق" },
+    nextWork: { en: "Next Work", ar: "العمل التالي" },
   },
   systems: {
     title: { en: "AI Production Architecture", ar: "أنظمة الإنتاج بالذكاء الاصطناعي" },
@@ -236,6 +246,7 @@ export const UI_COPY = {
 export const CAREER_CHRONICLE: ChronicleEntry[] = [
   {
     id: "ai-systems-2023",
+    railYear: { en: "2023+", ar: "2023+" },
     period: { en: "2023 - Present", ar: "2023 - حتى الآن" },
     role: {
       en: "AI Creative & Production Systems Architect",
@@ -263,6 +274,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "independent-director-2020",
+    railYear: { en: "2020+", ar: "2020+" },
     period: { en: "2020 - Present", ar: "2020 - حتى الآن" },
     role: {
       en: "Marketing Direction Architect & Creative Partner",
@@ -290,6 +302,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "chubb-life-2022-2023",
+    railYear: { en: "22–23", ar: "22–23" },
     period: { en: "Sep 2022 - Jul 2023", ar: "سبتمبر 2022 - يوليو 2023" },
     role: {
       en: "Team Leader · Commercial Sales & Advisory",
@@ -325,6 +338,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "majorel-vodafone-2019-2021",
+    railYear: { en: "19–21", ar: "19–21" },
     period: { en: "2019 - Aug 2021", ar: "2019 - أغسطس 2021" },
     role: {
       en: "HR Recruitment Specialist · High-Attrition BPO Hiring (Top Achiever)",
@@ -402,6 +416,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "al-attar-2018-2021",
+    railYear: { en: "18–21", ar: "18–21" },
     period: { en: "2018 - Aug 2021", ar: "2018 - أغسطس 2021" },
     role: {
       en: "Marketing Direction & Commercial Campaigns",
@@ -444,6 +459,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "chance-media-sector09-2018",
+    railYear: { en: "2018", ar: "2018" },
     period: { en: "2018", ar: "2018" },
     role: {
       en: "Creative Director & Agency Founder",
@@ -481,6 +497,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "vodafone-wasla-2017",
+    railYear: { en: "2017", ar: "2017" },
     period: { en: "2017", ar: "2017" },
     role: {
       en: "Corporate Authorized Customer Operations (Queue 247)",
@@ -520,6 +537,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "tecno-digital-2016-2017",
+    railYear: { en: "16–17", ar: "16–17" },
     period: { en: "2016 - 2017", ar: "2016 - 2017" },
     role: {
       en: "Pre-Release Software Beta Tester & Forum Moderator",
@@ -557,6 +575,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "digital-marketing-origin-2016",
+    railYear: { en: "2016", ar: "2016" },
     period: { en: "2016", ar: "2016" },
     role: {
       en: "Self-Started Digital Marketer & Paid Media Buyer",
@@ -586,6 +605,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "bsc-commerce-2013-2017",
+    railYear: { en: "13–17", ar: "13–17" },
     period: { en: "2013 - 2017", ar: "2013 - 2017" },
     role: {
       en: "B.Sc. in Commerce & Business Administration",
