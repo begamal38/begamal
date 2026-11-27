@@ -313,7 +313,7 @@ export function AmbientAudioPlayer({
       >
         <div
           onClick={handleToggle}
-          className="group relative cursor-pointer rounded-xl border border-[#A1A6B0]/30 bg-[#0D1017]/92 px-3 py-2 pe-7 shadow-[0_12px_32px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl transition-colors duration-300 ease-out hover:border-[#E5E7EB]/60"
+          className="group relative cursor-pointer rounded-xl border border-[#A1A6B0]/30 bg-[#0D1017]/92 px-3 py-2 pe-7 shadow-[0_12px_32px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] keep-blur backdrop-blur-xl transition-colors duration-300 ease-out hover:border-[#E5E7EB]/60"
         >
           <div className="flex items-center gap-2">
             <span
@@ -347,7 +347,7 @@ export function AmbientAudioPlayer({
         onClick={handleToggle}
         aria-label={ariaLabel}
         aria-pressed={isPlaying}
-        className="pointer-events-auto group relative flex h-[58px] min-w-[58px] items-center justify-center gap-2 rounded-full border border-[#A1A6B0]/35 bg-[#0A0A0C]/90 px-2.5 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.09)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#E5E7EB]/65 hover:bg-[#111318]/95 active:scale-[0.97] md:h-10 md:min-w-0 md:gap-2.5 md:px-3.5"
+        className="pointer-events-auto group relative flex h-[58px] min-w-[58px] items-center justify-center gap-2 rounded-full border border-[#A1A6B0]/35 bg-[#0A0A0C]/90 px-2.5 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.09)] keep-blur backdrop-blur-md transition-all duration-300 ease-out hover:border-[#E5E7EB]/65 hover:bg-[#111318]/95 active:scale-[0.97] md:h-10 md:min-w-0 md:gap-2.5 md:px-3.5"
       >
         {!isPlaying && (
           <span

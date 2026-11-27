@@ -24,7 +24,7 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-[max(0.85rem,env(safe-area-inset-top))] sm:px-6">
         <nav
           aria-label="Primary Navigation"
-          className="pointer-events-auto mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/[0.18] bg-[#0B0D12]/94 px-3.5 shadow-[0_10px_34px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl sm:px-6"
+          className="pointer-events-auto mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/[0.18] bg-[#0B0D12]/94 px-3.5 shadow-[0_10px_34px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] keep-blur backdrop-blur-xl sm:px-6"
         >
           <button
             type="button"
@@ -97,7 +97,7 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
       {/* Mobile Floating Bottom Navigation Pill (replaces hamburger menu) */}
       <nav
         aria-label={lang === "en" ? "Mobile Section Navigation" : "تنقل الأقسام للموبايل"}
-        className="fixed bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.5rem))] start-[max(0.75rem,env(safe-area-inset-left))] z-40 flex items-center gap-1 rounded-full border border-white/15 bg-[#111215]/92 p-1.5 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.85)] md:hidden"
+        className="fixed bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.5rem))] start-[max(0.75rem,env(safe-area-inset-left))] z-40 flex items-center gap-1 rounded-full border border-white/15 bg-[#111215]/92 p-1.5 keep-blur backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.85)] md:hidden"
       >
         {mobileBottomItems.map((item) => {
           const isActive = activeSection === item.target;

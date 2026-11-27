@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v24-qersh-film";
+const CACHE_NAME = "belal-gamal-v25-touch-scroll";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

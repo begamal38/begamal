@@ -49,6 +49,13 @@ html {
   body {
     background-attachment: scroll !important;
   }
+
+  /* Touch scroll: the star canvas and the video repaint every frame, so any blurred card
+     on screen would be re-blurred every frame. Only the small fixed bars keep their glass. */
+  [class*="backdrop-blur"]:not(.keep-blur) {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
 }
 
 section[id],
