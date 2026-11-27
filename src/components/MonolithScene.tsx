@@ -32,6 +32,56 @@ export function MonolithScene({
     typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
 
+  // Mobile: the 16:9 loop is sized and placed so the event horizon wraps the hero portrait,
+  // matching the desktop composition (object-cover on a tall screen pushed the ring off the face).
+  const [mobileVideoStyle, setMobileVideoStyle] = useState<React.CSSProperties | undefined>();
+
+  useEffect(() => {
+    if (!isMobileViewport) {
+      setMobileVideoStyle(undefined);
+      return;
+    }
+    // Horizon position in the source frame (measured on gargantua-poster.jpg)
+    const HORIZON_X = 0.732;
+    const HORIZON_Y = 0.483;
+    const HORIZON_R = 0.208; // inner horizon radius as a share of frame height
+    let raf = 0;
+    const place = () => {
+      const anchorEl = document.querySelector<HTMLElement>("[data-horizon-anchor]");
+      if (!anchorEl) return;
+      const r = anchorEl.getBoundingClientRect();
+      if (!r.width) return;
+      const cx = r.left + r.width / 2;
+      const cy = r.top + window.scrollY + r.height * 0.47;
+      const height = (r.width * 0.56) / HORIZON_R;
+      const width = (height * 16) / 9;
+      setMobileVideoStyle({
+        position: "absolute",
+        maxWidth: "none",
+        width: `${width.toFixed(1)}px`,
+        height: `${height.toFixed(1)}px`,
+        left: `${(cx - HORIZON_X * width).toFixed(1)}px`,
+        top: `${(cy - HORIZON_Y * height).toFixed(1)}px`,
+      });
+    };
+    const schedule = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(place);
+    };
+    schedule();
+    const late = window.setTimeout(schedule, 600);
+    const anchorEl = document.querySelector<HTMLElement>("[data-horizon-anchor]");
+    const ro = anchorEl ? new ResizeObserver(schedule) : null;
+    if (anchorEl && ro) ro.observe(anchorEl);
+    window.addEventListener("orientationchange", schedule);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(late);
+      ro?.disconnect();
+      window.removeEventListener("orientationchange", schedule);
+    };
+  }, [isMobileViewport, lang]);
+
   useEffect(() => {
     isDossierOpenRef.current = isDossierOpen;
   }, [isDossierOpen]);
@@ -167,7 +217,7 @@ export function MonolithScene({
           isMobileViewport
             ? isDossierOpen
               ? "opacity-[0.12]"
-              : "opacity-[0.26]"
+              : "opacity-[0.34]"
             : ""
         }`}
         style={
@@ -191,7 +241,12 @@ export function MonolithScene({
           playsInline
           preload="metadata"
           aria-hidden="true"
-          className="h-full w-full object-cover object-[75%_18%] md:object-center md:mix-blend-screen"
+          style={mobileVideoStyle}
+          className={
+            mobileVideoStyle
+              ? "object-cover"
+              : "h-full w-full object-cover object-[75%_18%] md:object-center md:mix-blend-screen"
+          }
         />
       </div>
 

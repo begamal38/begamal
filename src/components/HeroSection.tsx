@@ -114,7 +114,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
               }}
               aria-hidden="true"
             />
-            <div className="portrait-mask relative aspect-[4/5] w-full overflow-hidden">
+            <div data-horizon-anchor className="portrait-mask relative aspect-[4/5] w-full overflow-hidden">
               <img
                 src={PORTFOLIO_IDENTITY.portraitPath}
                 alt={UI_COPY.hero.portraitAlt[lang]}
