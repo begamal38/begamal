@@ -62,7 +62,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
     <section
       id="perspective"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/55 px-5 py-24 sm:px-8 md:py-36"
+      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/38 px-5 py-20 sm:px-8 sm:py-24 md:py-36"
     >
       <div className="mx-auto max-w-6xl space-y-10">
         {/* Double-Bezel Editorial Manifesto Card */}
@@ -122,7 +122,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
                 <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#D4D7DD]">
                   {PORTFOLIO_IDENTITY.lensLabel[lang]}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-[#9CA3AF]">
+                <p className="mt-2 text-sm leading-relaxed text-[#E4E4E7]/90">
                   {PORTFOLIO_IDENTITY.lensText[lang]}
                 </p>
               </div>

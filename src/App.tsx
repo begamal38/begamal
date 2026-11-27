@@ -11,6 +11,7 @@ import { StatementSection } from "./components/StatementSection";
 import { ChronicleSection } from "./components/ChronicleSection";
 import { WorksSection } from "./components/WorksSection";
 import { SystemsAndContactSection } from "./components/SystemsAndContactSection";
+import { AmbientAudioPlayer } from "./components/AmbientAudioPlayer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,10 +25,17 @@ export default function App() {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     document.title = PORTFOLIO_IDENTITY.pageTitle[lang];
+    let cancelled = false;
     const id = window.requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
+      if (!cancelled) ScrollTrigger.refresh();
     });
-    return () => window.cancelAnimationFrame(id);
+    document.fonts?.ready?.then(() => {
+      if (!cancelled) ScrollTrigger.refresh();
+    });
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(id);
+    };
   }, [lang]);
 
   useEffect(() => {
@@ -132,8 +140,10 @@ export default function App() {
         <SystemsAndContactSection
           lang={lang}
           onToggleLang={handleToggleLang}
+          onNavigate={handleNavigate}
         />
       </main>
+      <AmbientAudioPlayer lang={lang} />
     </div>
   );
 }

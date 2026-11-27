@@ -14,6 +14,7 @@ import {
   PORTFOLIO_IDENTITY,
   UI_COPY,
 } from "../data/portfolioData";
+import { BiDiText } from "./BiDiText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -280,7 +281,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     <section
       id="works"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/65 px-5 py-24 sm:px-8 md:py-36"
+      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-36"
     >
       <div className="mx-auto max-w-6xl">
         {/* Featured 16:9 Cinema Vimeo Showreel Showcase */}
@@ -288,6 +289,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
           href={PORTFOLIO_IDENTITY.vimeoUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
           className="group mb-16 block rounded-[2rem] border border-white/[0.12] bg-[#171B24]/95 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] transition-all duration-300 hover:border-[#D4D7DD]/50"
         >
           <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
@@ -299,13 +301,13 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                 className="h-full w-full object-cover brightness-[0.76] contrast-[1.08] grayscale-[55%] transition-transform duration-700 ease-out group-hover:scale-[1.025]"
               />
               <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D1017] via-[#0D1017]/30 to-transparent"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080C] via-[#090C12]/80 via-45% to-transparent"
                 aria-hidden="true"
               />
 
               {/* Centered Metallic Titanium Play Badge */}
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                <span className="btn-titanium flex h-16 w-16 items-center justify-center rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
+                <span className="btn-titanium flex h-16 w-16 items-center justify-center rounded-full text-[#050505] shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
                   <Play size={24} weight="fill" className="translate-x-0.5 text-[#050505]" />
                 </span>
               </div>
@@ -319,12 +321,12 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                   <h3 className="mt-1.5 font-display text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
                     {UI_COPY.works.showreelTitle[lang]}
                   </h3>
-                  <p className="mt-1 hidden max-w-xl text-sm text-[#9CA3AF] sm:block">
+                  <p className="mt-1 hidden max-w-xl text-sm text-[#D4D7DD]/90 sm:block">
                     {UI_COPY.works.showreelSubtitle[lang]}
                   </p>
                 </div>
 
-                <span className="btn-titanium inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
+                <span className="btn-titanium inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
                   <span>{UI_COPY.works.showreelCta[lang]}</span>
                   <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
                 </span>
@@ -391,28 +393,28 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                       <CaseStudyVisualStage study={study} lang={lang} />
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex min-h-[2.5rem] items-start justify-between gap-2">
                       <div className="flex flex-wrap items-center gap-2">
                         <ClientStatusBadge status={study.status} lang={lang} />
-                        <span className="font-mono-code text-[11px] uppercase tracking-[0.12em] text-[#D4D7DD]">
+                        <span className="font-mono-code text-[11px] uppercase tracking-[0.12em] text-[#D4D7DD] whitespace-nowrap">
                           {study.period[lang]}
                         </span>
                       </div>
-                      <span className="text-[11px] text-[#9CA3AF]">
+                      <span className="max-w-[11rem] text-end text-[11px] leading-snug text-[#9CA3AF]">
                         {categoryLabelMap.get(study.category)}
                       </span>
                     </div>
 
                     <h3 className="mt-3 text-balance text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
-                      {study.title[lang]}
+                      <BiDiText text={study.title[lang]} lang={lang} />
                     </h3>
 
                     <p className="mt-2 text-xs font-medium tracking-wide text-[#9CA3AF]">
-                      {study.discipline[lang]}
+                      <BiDiText text={study.discipline[lang]} lang={lang} />
                     </p>
 
                     <p className="mt-4 text-sm leading-relaxed text-[#F4F5F7]/85">
-                      {study.summary[lang]}
+                      <BiDiText text={study.summary[lang]} lang={lang} />
                     </p>
                   </button>
 
@@ -508,7 +510,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                 <CaseStudyVisualStage study={selectedStudy} lang={lang} tall />
 
                 <p className="mt-4 text-sm leading-relaxed text-[#F4F5F7]/90 sm:mt-6 sm:text-base">
-                  {selectedStudy.summary[lang]}
+                  <BiDiText text={selectedStudy.summary[lang]} lang={lang} />
                 </p>
 
                 <div className="mt-4 space-y-2.5 border-t border-white/[0.08] pt-4 sm:mt-6 sm:space-y-3 sm:pt-5">
@@ -525,7 +527,9 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                           className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
                           aria-hidden="true"
                         />
-                        <span className="text-[#F4F5F7]/85">{item}</span>
+                        <span className="text-[#F4F5F7]/85">
+                          <BiDiText text={item} lang={lang} />
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -537,7 +541,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                       key={tag}
                       className="rounded-full border border-white/10 bg-[#0A0A0C] px-3.5 py-1.5 text-xs text-[#F4F5F7]/80"
                     >
-                      {tag}
+                      <BiDiText text={tag} lang={lang} />
                     </span>
                   ))}
                 </div>
@@ -550,9 +554,11 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-titanium inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold"
+                        className="btn-titanium inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-[#050505]"
                       >
-                        <span>{item.label[lang]}</span>
+                        <span>
+                          <BiDiText text={item.label[lang]} lang={lang} />
+                        </span>
                         <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
                       </a>
                     ))}

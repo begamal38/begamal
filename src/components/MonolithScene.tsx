@@ -240,21 +240,25 @@ export function MonolithScene({
     const coreGroup = new THREE.Group();
     rig.add(coreGroup);
 
-    const outerCoreGeom = new THREE.OctahedronGeometry(1.36, 1);
-    outerCoreGeom.scale(0.56, 1.36, 0.56);
+    const outerCoreGeom = new THREE.OctahedronGeometry(1.42, 1);
+    outerCoreGeom.scale(0.58, 1.38, 0.58);
     const outerQuartzMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#7f899d"),
-      metalness: 0.2,
-      roughness: 0.12,
-      transmission: isMobile ? 0.58 : 0.78,
-      thickness: 1.5,
+      color: new THREE.Color("#525b6e"),
+      metalness: 0.38,
+      roughness: 0.14,
+      transparent: true,
+      opacity: 0.72,
+      transmission: isMobile ? 0.16 : 0.24,
+      thickness: 1.2,
       ior: 1.544,
-      attenuationColor: new THREE.Color("#3a4254"),
-      attenuationDistance: 2.6,
+      attenuationColor: new THREE.Color("#2b3240"),
+      attenuationDistance: 3.2,
       clearcoat: 1.0,
       clearcoatRoughness: 0.08,
-      reflectivity: 0.94,
-      envMapIntensity: 1.95,
+      reflectivity: 0.96,
+      envMapIntensity: 2.35,
+      emissive: new THREE.Color("#141822"),
+      emissiveIntensity: 0.48,
       flatShading: true,
     });
     const outerMonolith = new THREE.Mesh(outerCoreGeom, outerQuartzMat);
@@ -262,9 +266,9 @@ export function MonolithScene({
 
     const outerEdgeGeom = new THREE.EdgesGeometry(outerCoreGeom, 8);
     const outerEdgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#DCE2EE"),
+      color: new THREE.Color("#E5E7EB"),
       transparent: true,
-      opacity: 0.44,
+      opacity: 0.65,
     });
     const outerEdges = new THREE.LineSegments(outerEdgeGeom, outerEdgeMat);
     outerEdges.scale.setScalar(1.006);
@@ -274,16 +278,16 @@ export function MonolithScene({
     const innerMerkabaGroup = new THREE.Group();
     coreGroup.add(innerMerkabaGroup);
 
-    const tetraGeom = new THREE.TetrahedronGeometry(0.68, 0);
+    const tetraGeom = new THREE.TetrahedronGeometry(0.7, 0);
     tetraGeom.scale(0.88, 1.24, 0.88);
     const innerTitaniumMat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#E5E7EB"),
       metalness: 0.94,
-      roughness: 0.16,
-      clearcoat: 0.9,
-      envMapIntensity: 2.15,
-      emissive: new THREE.Color("#27292E"),
-      emissiveIntensity: 0.55,
+      roughness: 0.14,
+      clearcoat: 0.95,
+      envMapIntensity: 2.35,
+      emissive: new THREE.Color("#3a404d"),
+      emissiveIntensity: 0.78,
       flatShading: true,
     });
 
@@ -294,9 +298,9 @@ export function MonolithScene({
 
     const tetraEdgeGeom = new THREE.EdgesGeometry(tetraGeom, 1);
     const tetraSilverEdgeMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#E5E7EB"),
+      color: new THREE.Color("#F4F5F7"),
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.85,
     });
     const tetraEdgeUp = new THREE.LineSegments(tetraEdgeGeom, tetraSilverEdgeMat);
     tetraEdgeUp.scale.setScalar(1.015);
@@ -321,7 +325,7 @@ export function MonolithScene({
     const metatronLineMat = new THREE.LineBasicMaterial({
       color: new THREE.Color("#E5E7EB"),
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.36,
       depthWrite: false,
     });
     const metatronLines = new THREE.LineSegments(
@@ -360,27 +364,29 @@ export function MonolithScene({
     const titaniumRingMat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#E5E7EB"),
       metalness: 0.92,
-      roughness: 0.15,
-      clearcoat: 0.92,
-      envMapIntensity: 2.0,
+      roughness: 0.14,
+      clearcoat: 0.94,
+      envMapIntensity: 2.2,
+      emissive: new THREE.Color("#27292E"),
+      emissiveIntensity: 0.32,
       transparent: true,
-      opacity: 0.86,
+      opacity: 0.94,
     });
     const silverHairlineMat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#A1A6B0"),
       metalness: 0.88,
-      roughness: 0.2,
-      envMapIntensity: 1.75,
+      roughness: 0.18,
+      envMapIntensity: 1.95,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.58,
     });
     const secondarySilverMat = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#A1A6B0"),
       metalness: 0.92,
-      roughness: 0.18,
-      envMapIntensity: 1.85,
+      roughness: 0.16,
+      envMapIntensity: 2.05,
       transparent: true,
-      opacity: 0.52,
+      opacity: 0.68,
     });
 
     const ringOuterGroup = new THREE.Group();
@@ -461,7 +467,7 @@ export function MonolithScene({
     rig.add(shardInstanced);
 
     // 6. Monochrome Titanium Depth Field Particles
-    const particleCount = isMobile ? 160 : 360;
+    const particleCount = isMobile ? 140 : 340;
     const positions = new Float32Array(particleCount * 3);
     const pColors = new Float32Array(particleCount * 3);
     const cTitaniumBright = new THREE.Color("#E5E7EB");
@@ -486,10 +492,10 @@ export function MonolithScene({
     );
     particleGeom.setAttribute("color", new THREE.BufferAttribute(pColors, 3));
     const particleMat = new THREE.PointsMaterial({
-      size: isMobile ? 0.026 : 0.023,
+      size: isMobile ? 0.044 : 0.036,
       vertexColors: true,
       transparent: true,
-      opacity: 0.64,
+      opacity: 0.84,
       depthWrite: false,
     });
     const particles = new THREE.Points(particleGeom, particleMat);
@@ -562,66 +568,69 @@ export function MonolithScene({
       dirSign: number
     ) => {
       const mobile = window.innerWidth < 768;
-      let targetX = mobile ? 0.0 : 2.52 * dirSign;
-      let targetY = mobile ? 1.54 : -0.06;
-      let targetZ = mobile ? -2.95 : -2.05;
-      let rigScale = mobile ? 0.64 : 0.96;
-      let ringSpread = mobile ? 1.24 : 1.18;
+      let targetX = mobile ? 0.0 : 1.95 * dirSign;
+      let targetY = mobile ? 1.15 : -0.04;
+      let targetZ = mobile ? -1.85 : -1.15;
+      let rigScale = mobile ? 0.82 : 1.04;
+      let ringSpread = mobile ? 1.22 : 1.18;
 
       if (p < 0.2) {
         const t = p / 0.2;
         targetX = THREE.MathUtils.lerp(
-          mobile ? 0 : 2.52 * dirSign,
-          mobile ? 0 : -1.65 * dirSign,
-          t
-        );
-        targetY = THREE.MathUtils.lerp(mobile ? 1.54 : -0.06, 0.08, t);
-        targetZ = THREE.MathUtils.lerp(mobile ? -2.95 : -2.05, -0.55, t);
-        rigScale = THREE.MathUtils.lerp(
-          mobile ? 0.64 : 0.96,
-          mobile ? 0.84 : 1.0,
-          t
-        );
-        ringSpread = THREE.MathUtils.lerp(mobile ? 1.24 : 1.18, 1.15, t);
-      } else if (p < 0.5) {
-        const t = (p - 0.2) / 0.3;
-        targetX = THREE.MathUtils.lerp(
-          mobile ? 0 : -1.65 * dirSign,
+          mobile ? 0 : 1.95 * dirSign,
           mobile ? 0 : -1.35 * dirSign,
           t
         );
+        targetY = THREE.MathUtils.lerp(mobile ? 1.15 : -0.04, 0.08, t);
+        targetZ = THREE.MathUtils.lerp(mobile ? -1.85 : -1.15, -0.35, t);
+        rigScale = THREE.MathUtils.lerp(
+          mobile ? 0.82 : 1.04,
+          mobile ? 0.92 : 1.08,
+          t
+        );
+        ringSpread = THREE.MathUtils.lerp(mobile ? 1.22 : 1.18, 1.14, t);
+      } else if (p < 0.5) {
+        const t = (p - 0.2) / 0.3;
+        targetX = THREE.MathUtils.lerp(
+          mobile ? 0 : -1.35 * dirSign,
+          mobile ? 0 : -1.15 * dirSign,
+          t
+        );
         targetY = THREE.MathUtils.lerp(0.08, -0.04, t);
-        targetZ = THREE.MathUtils.lerp(-0.55, -0.45, t);
-        rigScale = mobile ? 0.84 : 1.0;
-        ringSpread = THREE.MathUtils.lerp(1.15, 1.06, t);
+        targetZ = THREE.MathUtils.lerp(-0.35, -0.28, t);
+        rigScale = mobile ? 0.92 : 1.08;
+        ringSpread = THREE.MathUtils.lerp(1.14, 1.06, t);
       } else if (p < 0.82) {
         const t = (p - 0.5) / 0.32;
-        targetX = THREE.MathUtils.lerp(mobile ? 0 : -1.35 * dirSign, 0, t);
-        targetY = THREE.MathUtils.lerp(-0.04, 0.2, t);
-        targetZ = THREE.MathUtils.lerp(-0.45, -1.75, t);
-        rigScale = mobile ? 0.95 : 1.16;
-        ringSpread = THREE.MathUtils.lerp(1.06, 1.32, t);
+        targetX = THREE.MathUtils.lerp(mobile ? 0 : -1.15 * dirSign, 0, t);
+        targetY = THREE.MathUtils.lerp(-0.04, 0.16, t);
+        targetZ = THREE.MathUtils.lerp(-0.28, -1.25, t);
+        rigScale = mobile ? 1.0 : 1.2;
+        ringSpread = THREE.MathUtils.lerp(1.06, 1.3, t);
       } else {
         const t = (p - 0.82) / 0.18;
-        targetX = THREE.MathUtils.lerp(0, mobile ? 0 : 1.45 * dirSign, t);
-        targetY = THREE.MathUtils.lerp(0.2, -0.02, t);
-        targetZ = THREE.MathUtils.lerp(-1.75, -0.45, t);
-        rigScale = mobile ? 0.88 : 1.0;
-        ringSpread = THREE.MathUtils.lerp(1.32, 1.02, t);
+        targetX = THREE.MathUtils.lerp(0, mobile ? 0 : 1.35 * dirSign, t);
+        targetY = THREE.MathUtils.lerp(0.16, -0.02, t);
+        targetZ = THREE.MathUtils.lerp(-1.25, -0.35, t);
+        rigScale = mobile ? 0.94 : 1.06;
+        ringSpread = THREE.MathUtils.lerp(1.3, 1.04, t);
       }
 
-      rig.position.x = targetX + currentPointer.x * 0.2;
-      rig.position.y = targetY - currentPointer.y * 0.14;
+      rig.position.x = targetX + currentPointer.x * 0.24;
+      rig.position.y = targetY - currentPointer.y * 0.16;
       rig.position.z = targetZ;
       rig.scale.setScalar(rigScale);
 
+      const baseZ = mobile ? 7.2 : 6.1;
+      camera.position.z = baseZ - Math.sin(p * Math.PI) * 0.55;
+      camera.position.y = (0.5 - p) * 0.25;
       const baseFov = mobile ? 46 : 38;
       const targetFov = baseFov + Math.min(vel * 3.6, 4.2);
       if (Math.abs(camera.fov - targetFov) > 0.02) {
         camera.fov = targetFov;
         camera.updateProjectionMatrix();
       }
-      camera.lookAt(currentPointer.x * 0.12, -currentPointer.y * 0.08, 0);
+      camera.lookAt(currentPointer.x * 0.16, -currentPointer.y * 0.1, 0);
 
       const velocityBoost = vel * 0.45;
       outerMonolith.rotation.y =

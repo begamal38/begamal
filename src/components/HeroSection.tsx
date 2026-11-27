@@ -69,9 +69,9 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
             </p>
           </div>
 
-          <h1 className="mt-3 font-display text-3xl font-semibold uppercase leading-[1.08] tracking-[0.06em] text-[#F4F5F7] sm:mt-4 sm:text-5xl lg:text-[3.75rem]">
+          <h1 className="mt-3 font-display text-[clamp(1.9rem,5.2vw,3.75rem)] font-semibold uppercase leading-[1.1] tracking-[0.06em] text-[#F4F5F7] sm:mt-4">
             {PORTFOLIO_IDENTITY.name[lang]}
-            <span className="mt-1.5 block font-editorial text-xl font-normal italic leading-[1.2] tracking-[0.02em] text-[#D4D7DD] pb-1 sm:mt-2 sm:text-3xl lg:text-[2.25rem]">
+            <span className="mt-1.5 block font-editorial text-[clamp(1.2rem,2.9vw,2.25rem)] font-normal italic leading-[1.24] tracking-[0.02em] text-[#D4D7DD] pb-1 sm:mt-2">
               {PORTFOLIO_IDENTITY.heroSubtitle[lang]}
             </span>
           </h1>
@@ -84,7 +84,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
             <button
               type="button"
               onClick={() => onNavigate("contact")}
-              className="btn-titanium group inline-flex items-center gap-3 rounded-full py-2.5 ps-6 pe-2.5 text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] whitespace-nowrap"
+              className="btn-titanium group inline-flex items-center gap-3 rounded-full py-2.5 ps-6 pe-2.5 text-sm font-semibold text-[#050505] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] whitespace-nowrap"
             >
               <span>{UI_COPY.nav.cta[lang]}</span>
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">

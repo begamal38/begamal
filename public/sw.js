@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v5.2-ios-fix";
+const CACHE_NAME = "belal-gamal-v5.3-audio-rtl";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

@@ -223,215 +223,93 @@ export const UI_COPY = {
 
 export const CAREER_CHRONICLE: ChronicleEntry[] = [
   {
-    id: "bsc-commerce-2013-2017",
-    period: { en: "2013 - 2017", ar: "2013 - 2017" },
+    id: "ai-systems-2023",
+    period: { en: "2023 - Present", ar: "2023 - حتى الآن" },
     role: {
-      en: "B.Sc. in Commerce & Business Administration",
-      ar: "بكالوريوس تجارة وإدارة أعمال",
+      en: "AI Creative & Production Systems Architect",
+      ar: "الإبداع وأنظمة الإنتاج بالذكاء الاصطناعي",
     },
     organization: {
-      en: "Beni Suef University",
-      ar: "جامعة بني سويف",
+      en: "Obolus (@obolus.explains) · THE ARCHITECT OF REALITY · AI Production Studio",
+      ar: "THE ARCHITECT OF REALITY • Obolus • منظومة الإنتاج المحلية",
     },
-    location: { en: "Beni Suef, Egypt", ar: "بني سويف، مصر" },
+    location: { en: "Global Audiences", ar: "جمهور عالمي ومحلي" },
     summary: {
-      en: "Earned a Bachelor's degree in Commerce & Business Administration from Beni Suef University, grounding my field campaigns and Marketing Direction work in solid commercial fundamentals.",
-      ar: "تأسيس القاعدة التجارية والإدارية في جامعة بني سويف، وهي الخلفية التي ربطت لاحقاً بين الإبداع الإعلاني وفهم الأرقام والمبيعات.",
+      en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels, programmatic motion pipelines, and custom interactive web systems.",
+      ar: "إتقان عملي لأدوات الإنتاج بالذكاء الاصطناعي منذ 2023، وتصميم قنوات وثائقية إنجليزية مؤتمتة وخطوط إنتاج برمجية متكاملة للفيديو ومواقع الويب.",
     },
     highlights: {
       en: [
-        "B.Sc. in Commerce & Business Administration, Beni Suef University (2013 - 2017)",
-        "Practical grounding in business administration, marketing fundamentals, and commercial operations",
+        "End-to-end English documentary systems (Obolus & THE ARCHITECT OF REALITY)",
+        "Programmatic video, voice alignment, and custom web production engines built for speed and visual consistency",
       ],
       ar: [
-        "بكالوريوس تجارة وإدارة أعمال، جامعة بني سويف (2013 – 2017)",
-        "بناء الفهم العملي لإدارة الأعمال والسوق والمبيعات الميدانية",
+        "بناء وإدارة قنوات وثائقية إنجليزية بالكامل (Obolus وTHE ARCHITECT OF REALITY)",
+        "دمج الأتمتة البرمجية وتوليد الفيديو والبحث الموثق في خط إنتاج واحد",
       ],
     },
   },
   {
-    id: "digital-marketing-origin-2016",
-    period: { en: "2016", ar: "2016" },
+    id: "independent-director-2020",
+    period: { en: "2020 - Present", ar: "2020 - حتى الآن" },
     role: {
-      en: "Self-Started Digital Marketer & Paid Media Buyer",
-      ar: "الانطلاقة الأولى في التسويق الرقمي",
+      en: "Marketing Direction Architect & Creative Partner",
+      ar: "شريك نمو وتوجيه تسويقي",
     },
     organization: {
-      en: "Independent Personal Facebook Ad Campaigns",
-      ar: "حملات ممولة مستقلة على فيسبوك",
+      en: "Hossam Fekry (Since 2020) · Al-Qersh Mobile · Mohamed Samy · EL3SAL · Khatwa · Sanhok · Yasmine Salah",
+      ar: "منصة حسام فكري • القرش موبايل • محمد سامي • العسال • خطوة",
     },
-    location: { en: "Independent Practice", ar: "مبادرة ذاتية مستقلة" },
+    location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     summary: {
-      en: "Entered digital marketing independently in 2016 during university, launching and managing my own Facebook advertising campaigns hands-on before joining any agency or enterprise team.",
-      ar: "بالتوازي مع سنوات الجامعة، بدأت إطلاق وإدارة حملات إعلانية ممولة على فيسبوك بشكل مستقل تماماً قبل العمل في أي وكالة أو شركة.",
+      en: "Leading end-to-end Marketing Direction since 2020 (starting with Hossam Fekry Platform management, center integration & rewards system), alongside building brand identity and growth systems for Al-Qersh Mobile, Mohamed Samy Works, EL3SAL, and Khatwa Nursery.",
+      ar: "قيادة التوجيه التسويقي الشامل لشركاء في قطاعات متنوعة منذ 2020: بدءاً من إدارة منصة حسام فكري وتكامل طلاب السنتر، وصولاً إلى بناء الهوية وحملات النمو للقرش موبايل ومحمد سامي للديكور ومطعم العسال وأكاديمية خطوة.",
     },
     highlights: {
       en: [
-        "Launched personal paid Facebook ad campaigns in 2016 through hands-on experimentation",
-        "Mastered audience targeting, ad copy testing, and early digital buyer behavior independently",
-        "Laid the real-world foundation that later shaped agency and client growth work",
+        "Full platform management & Marketing Direction for Hossam Fekry since 2020 (center QR integration & Rewards Store economy)",
+        "Marketing Direction built from the ground up for Mohamed Samy Works, Al-Qersh Mobile (3 branches), EL3SAL, and Khatwa Nursery",
       ],
       ar: [
-        "إدارة حملات ممولة وتجارب استهداف فعلية بميزانيات حقيقية منذ 2016",
-        "فهم سلوك المشتري الرقمي وصياغة الرسائل البيعية من الميدان مباشرة",
-        "بناء الخبرة العملية التي مهّدت لاحقاً لإدارة الوكالات ونمو العلامات التجارية",
+        "إدارة منصة حسام فكري بالكامل منذ 2020 مع ربط طلاب السنتر ونظام المكافآت",
+        "تأسيس الهوية والحملات البيعية لمحمد سامي للديكور والقرش موبايل (3 فروع) والعسال وخطوة",
       ],
     },
   },
   {
-    id: "tecno-digital-2016-2017",
-    period: { en: "2016 - 2017", ar: "2016 - 2017" },
+    id: "chubb-life-2022-2023",
+    period: { en: "Sep 2022 - Jul 2023", ar: "سبتمبر 2022 - يوليو 2023" },
     role: {
-      en: "Pre-Release Software Beta Tester & Forum Moderator",
-      ar: "اختبار البرمجيات التجريبية وإدارة المنتدى الرسمي",
+      en: "Team Leader · Commercial Sales & Advisory",
+      ar: "قائد فريق • المبيعات التجارية والاستشارات",
     },
     organization: {
-      en: "TECNO Mobile (Camon C9 Firmware QA & Forum Moderation)",
-      ar: "تكنو موبايل • كامون C9",
+      en: "Chubb Life Insurance Egypt",
+      ar: "تشب لتأمينات الحياة • مصر",
     },
     location: { en: "Egypt", ar: "مصر" },
     logos: [
       {
-        src: "/assets/clients/tecno.png",
-        alt: { en: "TECNO Mobile", ar: "شعار تكنو موبايل" },
+        src: "/assets/clients/chubb-life.png",
+        alt: { en: "Chubb Life Insurance", ar: "شعار تشب لتأمينات الحياة" },
         bg: "#FFFFFF",
         wide: true,
       },
     ],
     summary: {
-      en: "In parallel with launching independent Facebook campaigns in 2016, tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 software build alongside moderating the official TECNO forum.",
-      ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل طرحها رسمياً، مع مساهمة مباشرة في تطوير إصدار كامون C9 (حملة «السيلفي حكاية») وإدارة المنتدى الرسمي.",
+      en: "Led commercial team operations, coaching, and target execution at Chubb Life Insurance Egypt from September 2022 to July 2023, applying enterprise discipline built across Vodafone and Majorel.",
+      ar: "قيادة فريق المبيعات الميدانية والتدريب اليومي وتحقيق المستهدفات الشهرية في تشب لتأمينات الحياة مصر.",
     },
     highlights: {
       en: [
-        "Tested pre-release TECNO firmware builds per hardware model prior to rollout",
-        "Directly contributed to refining the flagship TECNO Camon C9 software release",
-        "Moderated the official TECNO Mobile community and structured launch feedback loops",
+        "Led commercial sales team execution and coaching across life protection offerings",
+        "Tracked KPI discipline, daily pipeline conversions, and consultative advisory quality",
       ],
       ar: [
-        "فحص نسخ السوفت وير التجريبية لكل طراز وتوثيق الأعطال قبل الإطلاق الرسمي",
-        "مساهمة مباشرة في تحسين استقرار نظام هاتف تكنو كامون C9",
-        "إدارة المنتدى الرسمي لتكنو موبايل ورفع تقارير الجودة من المستخدمين",
+        "قيادة وتدريب الفريق التجاري يومياً على بيع حلول التأمين والحماية المالية",
+        "رفع جودة الاستشارات البيعية والالتزام بمؤشرات الأداء والمحافظ الشهرية",
       ],
     },
-  },
-  {
-    id: "vodafone-wasla-2017",
-    period: { en: "2017", ar: "2017" },
-    role: {
-      en: "Corporate Authorized Customer Operations (Queue 247)",
-      ar: "خدمة مفوضي الشركات (Authorized) • أكونت 247",
-    },
-    organization: {
-      en: "Vodafone Business 247 · Authorized Corporate Accounts (Wasla)",
-      ar: "فودافون بيزنس 247 • شركة وصلة",
-    },
-    location: {
-      en: "Al-Korba, Heliopolis, Cairo",
-      ar: "الكوربة، مصر الجديدة، القاهرة",
-    },
-    logos: [
-      {
-        src: "/assets/clients/vodafone.png",
-        alt: { en: "Vodafone", ar: "شعار فودافون" },
-        bg: "#ED1E24",
-      },
-    ],
-    summary: {
-      en: "Served on Vodafone Business Queue 247 in Cairo handling Corporate Authorized representatives exclusively, mastering high-stakes B2B account resolution, objection handling, and direct decision-maker communication.",
-      ar: "العمل على أكونت 247 لقطاع الأعمال في فودافون بيزنس بالقاهرة، وإدارة التواصل المباشر وحل المشكلات مع مفوضي الشركات وصناع القرار.",
-    },
-    highlights: {
-      en: [
-        "Vodafone Business Queue 247 · Corporate Authorized Representatives desk at Al-Korba, Heliopolis",
-        "High-stakes B2B account communication and direct objection resolution",
-        "Real-world fluency with corporate decision-makers prior to leading agency and HR accounts",
-      ],
-      ar: [
-        "إدارة حسابات وطلبات مفوضي الشركات (Authorized) بمقر الكوربة، مصر الجديدة",
-        "التفاوض وحل الاعتراضات والتعامل المباشر مع مسؤولي قطاع الأعمال",
-        "اكتساب انضباط التواصل المؤسسي قبل الانتقال لإدارة الوكالات والتوظيف",
-      ],
-    },
-  },
-  {
-    id: "chance-media-sector09-2018",
-    period: { en: "2018", ar: "2018" },
-    role: {
-      en: "Creative Director & Agency Founder",
-      ar: "مدير إبداعي ومؤسس وكالة مستقلة",
-    },
-    organization: {
-      en: "Chance Media (Ahmed Akl) & SECTOR 09",
-      ar: "تشانس ميديا (الفنان أحمد عقل) ووكالة سيكتور 09",
-    },
-    location: { en: "Cairo / Beni Suef", ar: "القاهرة / بني سويف" },
-    logos: [
-      {
-        src: "/assets/clients/chance-media.png",
-        alt: { en: "Chance Media", ar: "شعار تشانس ميديا" },
-        bg: "#0B0C0E",
-        wide: true,
-      },
-    ],
-    summary: {
-      en: "Served as Creative Director at Chance Media (founded by actor Ahmed Akl), crafting TV scripts and Marketing Direction, notably writing and directing the 3-version ad campaign for Noorina LED bulbs factory built around the creative hook «Before changing your clothes, change your lighting», alongside launching SECTOR 09 Advertising Agency.",
-      ar: "قيادة الإدارة الإبداعية في تشانس ميديا وكتابة وتوجيه حملات التلفزيون، أبرزها حملة من 3 نسخ لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بالتوازي مع تأسيس وكالة سيكتور 09.",
-    },
-    highlights: {
-      en: [
-        "Written & directed 3-version ad campaign for Noorina LED factory: «Before changing your clothes, change your lighting»",
-        "Creative Director at Chance Media (actor Ahmed Akl) spanning TV commercial scripts, real-estate, and medical campaigns",
-        "Founded SECTOR 09 Advertising Agency and directed narrative short films",
-      ],
-      ar: [
-        "كتابة وإدارة حملة Noorina من 3 نسخ إعلانية بفكرة «قبل ما تغير لبسك، غير إضاءتك»",
-        "الإدارة الإبداعية وكتابة إعلانات التلفزيون لقطاعات العقارات والمراكز الطبية",
-        "تأسيس وكالة سيكتور 09 للدعاية والإعلان وإخراج أفلام روائية قصيرة",
-      ],
-    },
-  },
-  {
-    id: "al-attar-2018-2021",
-    period: { en: "2018 - Aug 2021", ar: "2018 - أغسطس 2021" },
-    role: {
-      en: "Marketing Direction & Commercial Campaigns",
-      ar: "التوجيه التسويقي والحملات التجارية",
-    },
-    organization: { en: "Al-Attar Group", ar: "مجموعة العطار" },
-    location: { en: "Commercial Retail", ar: "تجارة التجزئة" },
-    logos: [
-      {
-        src: "/assets/clients/attar-group.jpg",
-        alt: { en: "Al-Attar Group", ar: "شعار مجموعة العطار" },
-        bg: "#FFFFFF",
-      },
-    ],
-    summary: {
-      en: "Led Marketing Direction, content production, and high-volume campaigns for Al-Attar Group through August 2021, closing the engagement with the flagship campaign «Elly Magadedsh Mat» («Whoever Doesn't Renew Dies Out»).",
-      ar: "قيادة التوجيه التسويقي وصناعة المحتوى والحملات التجارية لمجموعة العطار لمدة ثلاث سنوات، اختُتمت في أغسطس 2021 بالحملة الشهيرة «اللي مجددش مات» الموثقة على Vimeo.",
-    },
-    highlights: {
-      en: [
-        "Led Marketing Direction and performance campaigns through August 2021",
-        "Directed closing flagship campaign «Elly Magadedsh Mat» («Whoever Doesn't Renew Dies Out») published on Vimeo",
-        "Scaled multi-year regional demand across retail and wholesale lines",
-      ],
-      ar: [
-        "قيادة التوجيه التسويقي والحملات الإعلانية لقطاعي التجزئة والجملة حتى أغسطس 2021",
-        "توجيه الحملة الختامية «اللي مجددش مات» الموثقة على Vimeo",
-        "توسيع الانتشار الإقليمي ورفع وتيرة المبيعات على مدار ثلاث سنوات",
-      ],
-    },
-    links: [
-      {
-        label: {
-          en: "Watch «Elly Magadedsh Mat» (Vimeo)",
-          ar: "شاهد حملة «اللي مجددش مات» · Vimeo",
-        },
-        url: "https://vimeo.com/476741375",
-      },
-    ],
   },
   {
     id: "majorel-vodafone-2019-2021",
@@ -491,91 +369,213 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     ],
   },
   {
-    id: "chubb-life-2022-2023",
-    period: { en: "Sep 2022 - Jul 2023", ar: "سبتمبر 2022 - يوليو 2023" },
+    id: "al-attar-2018-2021",
+    period: { en: "2018 - Aug 2021", ar: "2018 - أغسطس 2021" },
     role: {
-      en: "Team Leader · Commercial Sales & Advisory",
-      ar: "قائد فريق • المبيعات التجارية والاستشارات",
+      en: "Marketing Direction & Commercial Campaigns",
+      ar: "التوجيه التسويقي والحملات التجارية",
     },
-    organization: {
-      en: "Chubb Life Insurance Egypt",
-      ar: "تشب لتأمينات الحياة • مصر",
-    },
-    location: { en: "Egypt", ar: "مصر" },
+    organization: { en: "Al-Attar Group", ar: "مجموعة العطار" },
+    location: { en: "Commercial Retail", ar: "تجارة التجزئة" },
     logos: [
       {
-        src: "/assets/clients/chubb-life.png",
-        alt: { en: "Chubb Life Insurance", ar: "شعار تشب لتأمينات الحياة" },
+        src: "/assets/clients/attar-group.jpg",
+        alt: { en: "Al-Attar Group", ar: "شعار مجموعة العطار" },
+        bg: "#FFFFFF",
+      },
+    ],
+    summary: {
+      en: "Led Marketing Direction, content production, and high-volume campaigns for Al-Attar Group through August 2021, closing the engagement with the flagship campaign \"Elly Magadedsh Mat\" (\"Whoever Doesn't Renew Dies Out\").",
+      ar: "قيادة التوجيه التسويقي وصناعة المحتوى والحملات التجارية لمجموعة العطار لمدة ثلاث سنوات، اختُتمت في أغسطس 2021 بالحملة الشهيرة «اللي مجددش مات» الموثقة على Vimeo.",
+    },
+    highlights: {
+      en: [
+        "Led Marketing Direction and performance campaigns through August 2021",
+        "Directed closing flagship campaign \"Elly Magadedsh Mat\" (\"Whoever Doesn't Renew Dies Out\") published on Vimeo",
+        "Scaled multi-year regional demand across retail and wholesale lines",
+      ],
+      ar: [
+        "قيادة التوجيه التسويقي والحملات الإعلانية لقطاعي التجزئة والجملة حتى أغسطس 2021",
+        "توجيه الحملة الختامية «اللي مجددش مات» الموثقة على Vimeo",
+        "توسيع الانتشار الإقليمي ورفع وتيرة المبيعات على مدار ثلاث سنوات",
+      ],
+    },
+    links: [
+      {
+        label: {
+          en: "Watch \"Elly Magadedsh Mat\" (Vimeo)",
+          ar: "شاهد حملة «اللي مجددش مات» · Vimeo",
+        },
+        url: "https://vimeo.com/476741375",
+      },
+    ],
+  },
+  {
+    id: "chance-media-sector09-2018",
+    period: { en: "2018", ar: "2018" },
+    role: {
+      en: "Creative Director & Agency Founder",
+      ar: "مدير إبداعي ومؤسس وكالة مستقلة",
+    },
+    organization: {
+      en: "Chance Media (Ahmed Akl) & SECTOR 09",
+      ar: "تشانس ميديا (الفنان أحمد عقل) ووكالة سيكتور 09",
+    },
+    location: { en: "Cairo / Beni Suef", ar: "القاهرة / بني سويف" },
+    logos: [
+      {
+        src: "/assets/clients/chance-media.png",
+        alt: { en: "Chance Media", ar: "شعار تشانس ميديا" },
         bg: "#FFFFFF",
         wide: true,
       },
     ],
     summary: {
-      en: "Led commercial team operations, coaching, and target execution at Chubb Life Insurance Egypt from September 2022 to July 2023, applying enterprise discipline built across Vodafone and Majorel.",
-      ar: "قيادة فريق المبيعات الميدانية والتدريب اليومي وتحقيق المستهدفات الشهرية في تشب لتأمينات الحياة مصر.",
+      en: "Served as Creative Director at Chance Media (founded by actor Ahmed Akl), crafting TV scripts and Marketing Direction, notably writing and directing the 3-version ad campaign for Noorina LED bulbs factory built around the creative hook \"Before changing your clothes, change your lighting\", alongside launching SECTOR 09 Advertising Agency.",
+      ar: "قيادة الإدارة الإبداعية في تشانس ميديا وكتابة وتوجيه حملات التلفزيون، أبرزها حملة من 3 نسخ لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بالتوازي مع تأسيس وكالة سيكتور 09.",
     },
     highlights: {
       en: [
-        "Led commercial sales team execution and coaching across life protection offerings",
-        "Tracked KPI discipline, daily pipeline conversions, and consultative advisory quality",
+        "Written & directed 3-version ad campaign for Noorina LED factory: \"Before changing your clothes, change your lighting\"",
+        "Creative Director at Chance Media (actor Ahmed Akl) spanning TV commercial scripts, real-estate, and medical campaigns",
+        "Founded SECTOR 09 Advertising Agency and directed narrative short films",
       ],
       ar: [
-        "قيادة وتدريب الفريق التجاري يومياً على بيع حلول التأمين والحماية المالية",
-        "رفع جودة الاستشارات البيعية والالتزام بمؤشرات الأداء والمحافظ الشهرية",
+        "كتابة وإدارة حملة Noorina من 3 نسخ إعلانية بفكرة «قبل ما تغير لبسك، غير إضاءتك»",
+        "الإدارة الإبداعية وكتابة إعلانات التلفزيون لقطاعات العقارات والمراكز الطبية",
+        "تأسيس وكالة سيكتور 09 للدعاية والإعلان وإخراج أفلام روائية قصيرة",
       ],
     },
   },
   {
-    id: "independent-director-2020",
-    period: { en: "2020 - Present", ar: "2020 - حتى الآن" },
+    id: "vodafone-wasla-2017",
+    period: { en: "2017", ar: "2017" },
     role: {
-      en: "Marketing Direction Architect & Creative Partner",
-      ar: "شريك نمو وتوجيه تسويقي",
+      en: "Corporate Authorized Customer Operations (Queue 247)",
+      ar: "خدمة مفوضي الشركات (Authorized) • أكونت 247",
     },
     organization: {
-      en: "Hossam Fekry (Since 2020) · Al-Qersh Mobile · Mohamed Samy · EL3SAL · Khatwa · Sanhok · Yasmine Salah",
-      ar: "منصة حسام فكري • القرش موبايل • محمد سامي • العسال • خطوة",
+      en: "Vodafone Business 247 · Authorized Corporate Accounts (Wasla)",
+      ar: "فودافون بيزنس 247 • شركة وصلة",
     },
-    location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
+    location: {
+      en: "Al-Korba, Heliopolis, Cairo",
+      ar: "الكوربة، مصر الجديدة، القاهرة",
+    },
+    logos: [
+      {
+        src: "/assets/clients/vodafone.png",
+        alt: { en: "Vodafone", ar: "شعار فودافون" },
+        bg: "#ED1E24",
+      },
+    ],
     summary: {
-      en: "Leading end-to-end Marketing Direction since 2020 (starting with Hossam Fekry Platform management, center integration & rewards system), alongside building brand identity and growth systems for Al-Qersh Mobile, Mohamed Samy Works, EL3SAL, and Khatwa Nursery.",
-      ar: "قيادة التوجيه التسويقي الشامل لشركاء في قطاعات متنوعة منذ 2020: بدءاً من إدارة منصة حسام فكري وتكامل طلاب السنتر، وصولاً إلى بناء الهوية وحملات النمو للقرش موبايل ومحمد سامي للديكور ومطعم العسال وأكاديمية خطوة.",
+      en: "Served on Vodafone Business Queue 247 in Cairo handling Corporate Authorized representatives exclusively, mastering high-stakes B2B account resolution, objection handling, and direct decision-maker communication.",
+      ar: "العمل على أكونت 247 لقطاع الأعمال في فودافون بيزنس بالقاهرة، وإدارة التواصل المباشر وحل المشكلات مع مفوضي الشركات وصناع القرار.",
     },
     highlights: {
       en: [
-        "Full platform management & Marketing Direction for Hossam Fekry since 2020 (center QR integration & Rewards Store economy)",
-        "Marketing Direction built from the ground up for Mohamed Samy Works, Al-Qersh Mobile (3 branches), EL3SAL, and Khatwa Nursery",
+        "Vodafone Business Queue 247 · Corporate Authorized Representatives desk at Al-Korba, Heliopolis",
+        "High-stakes B2B account communication and direct objection resolution",
+        "Real-world fluency with corporate decision-makers prior to leading agency and HR accounts",
       ],
       ar: [
-        "إدارة منصة حسام فكري بالكامل منذ 2020 مع ربط طلاب السنتر ونظام المكافآت",
-        "تأسيس الهوية والحملات البيعية لمحمد سامي للديكور والقرش موبايل (3 فروع) والعسال وخطوة",
+        "إدارة حسابات وطلبات مفوضي الشركات (Authorized) بمقر الكوربة، مصر الجديدة",
+        "التفاوض وحل الاعتراضات والتعامل المباشر مع مسؤولي قطاع الأعمال",
+        "اكتساب انضباط التواصل المؤسسي قبل الانتقال لإدارة الوكالات والتوظيف",
       ],
     },
   },
   {
-    id: "ai-systems-2023",
-    period: { en: "2023 - Present", ar: "2023 - حتى الآن" },
+    id: "tecno-digital-2016-2017",
+    period: { en: "2016 - 2017", ar: "2016 - 2017" },
     role: {
-      en: "AI Creative & Production Systems Architect",
-      ar: "الإبداع وأنظمة الإنتاج بالذكاء الاصطناعي",
+      en: "Pre-Release Software Beta Tester & Forum Moderator",
+      ar: "اختبار البرمجيات التجريبية وإدارة المنتدى الرسمي",
     },
     organization: {
-      en: "Obolus (@obolus.explains) · THE ARCHITECT OF REALITY · AI Production Studio",
-      ar: "THE ARCHITECT OF REALITY • Obolus • منظومة الإنتاج المحلية",
+      en: "TECNO Mobile (Camon C9 Firmware QA & Forum Moderation)",
+      ar: "تكنو موبايل • كامون C9",
     },
-    location: { en: "Global Audiences", ar: "جمهور عالمي ومحلي" },
+    location: { en: "Egypt", ar: "مصر" },
+    logos: [
+      {
+        src: "/assets/clients/tecno.png",
+        alt: { en: "TECNO Mobile", ar: "شعار تكنو موبايل" },
+        bg: "#FFFFFF",
+        wide: true,
+      },
+    ],
     summary: {
-      en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels, programmatic motion pipelines, and custom interactive web systems.",
-      ar: "إتقان عملي لأدوات الإنتاج بالذكاء الاصطناعي منذ 2023، وتصميم قنوات وثائقية إنجليزية مؤتمتة وخطوط إنتاج برمجية متكاملة للفيديو ومواقع الويب.",
+      en: "In parallel with launching independent Facebook campaigns in 2016, tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 software build alongside moderating the official TECNO forum.",
+      ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل طرحها رسمياً، مع مساهمة مباشرة في تطوير إصدار كامون C9 (حملة «السيلفي حكاية») وإدارة المنتدى الرسمي.",
     },
     highlights: {
       en: [
-        "End-to-end English documentary systems (Obolus & THE ARCHITECT OF REALITY)",
-        "Programmatic video, voice alignment, and custom web production engines built for speed and visual consistency",
+        "Tested pre-release TECNO firmware builds per hardware model prior to rollout",
+        "Directly contributed to refining the flagship TECNO Camon C9 software release",
+        "Moderated the official TECNO Mobile community and structured launch feedback loops",
       ],
       ar: [
-        "بناء وإدارة قنوات وثائقية إنجليزية بالكامل (Obolus وTHE ARCHITECT OF REALITY)",
-        "دمج الأتمتة البرمجية وتوليد الفيديو والبحث الموثق في خط إنتاج واحد",
+        "فحص نسخ السوفت وير التجريبية لكل طراز وتوثيق الأعطال قبل الإطلاق الرسمي",
+        "مساهمة مباشرة في تحسين استقرار نظام هاتف تكنو كامون C9",
+        "إدارة المنتدى الرسمي لتكنو موبايل ورفع تقارير الجودة من المستخدمين",
+      ],
+    },
+  },
+  {
+    id: "digital-marketing-origin-2016",
+    period: { en: "2016", ar: "2016" },
+    role: {
+      en: "Self-Started Digital Marketer & Paid Media Buyer",
+      ar: "الانطلاقة الأولى في التسويق الرقمي",
+    },
+    organization: {
+      en: "Independent Personal Facebook Ad Campaigns",
+      ar: "حملات ممولة مستقلة على فيسبوك",
+    },
+    location: { en: "Independent Practice", ar: "مبادرة ذاتية مستقلة" },
+    summary: {
+      en: "Entered digital marketing independently in 2016 during university, launching and managing my own Facebook advertising campaigns hands-on before joining any agency or enterprise team.",
+      ar: "بالتوازي مع سنوات الجامعة، بدأت إطلاق وإدارة حملات إعلانية ممولة على فيسبوك بشكل مستقل تماماً قبل العمل في أي وكالة أو شركة.",
+    },
+    highlights: {
+      en: [
+        "Launched personal paid Facebook ad campaigns in 2016 through hands-on experimentation",
+        "Mastered audience targeting, ad copy testing, and early digital buyer behavior independently",
+        "Laid the real-world foundation that later shaped agency and client growth work",
+      ],
+      ar: [
+        "إدارة حملات ممولة وتجارب استهداف فعلية بميزانيات حقيقية منذ 2016",
+        "فهم سلوك المشتري الرقمي وصياغة الرسائل البيعية من الميدان مباشرة",
+        "بناء الخبرة العملية التي مهّدت لاحقاً لإدارة الوكالات ونمو العلامات التجارية",
+      ],
+    },
+  },
+  {
+    id: "bsc-commerce-2013-2017",
+    period: { en: "2013 - 2017", ar: "2013 - 2017" },
+    role: {
+      en: "B.Sc. in Commerce & Business Administration",
+      ar: "بكالوريوس تجارة وإدارة أعمال",
+    },
+    organization: {
+      en: "Beni Suef University",
+      ar: "جامعة بني سويف",
+    },
+    location: { en: "Beni Suef, Egypt", ar: "بني سويف، مصر" },
+    summary: {
+      en: "Earned a Bachelor's degree in Commerce & Business Administration from Beni Suef University, grounding my field campaigns and Marketing Direction work in solid commercial fundamentals.",
+      ar: "تأسيس القاعدة التجارية والإدارية في جامعة بني سويف، وهي الخلفية التي ربطت لاحقاً بين الإبداع الإعلاني وفهم الأرقام والمبيعات.",
+    },
+    highlights: {
+      en: [
+        "B.Sc. in Commerce & Business Administration, Beni Suef University (2013 - 2017)",
+        "Practical grounding in business administration, marketing fundamentals, and commercial operations",
+      ],
+      ar: [
+        "بكالوريوس تجارة وإدارة أعمال، جامعة بني سويف (2013 – 2017)",
+        "بناء الفهم العملي لإدارة الأعمال والسوق والمبيعات الميدانية",
       ],
     },
   },
@@ -616,13 +616,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/alqersh.jpg",
     isMedallion: true,
     summary: {
-      en: "Full Marketing Direction and commercial campaigns for the mobile accessories & electronics brand across 3 Beni Suef branches since 2022, evolving across flagship slogans from «Met-heseb-hash» («Don't Overcalculate»), through «Don't Overthink It, Call El-Qersh», to «Your Phone Deserves More.. Choose Right».",
+      en: "Full Marketing Direction and commercial campaigns for the mobile accessories & electronics brand across 3 Beni Suef branches since 2022, evolving across flagship slogans from \"Met-heseb-hash\" (\"Don't Overcalculate\"), through \"Don't Overthink It, Call El-Qersh\", to \"Your Phone Deserves More.. Choose Right\".",
       ar: "قيادة التوجيه التسويقي والحملات الإعلانية للقرش موبايل عبر 3 فروع في بني سويف منذ 2022؛ بداية من «متحسبهاش»، ثم «متفكرش.. كلم القرش» (#كلم_القرش)، وصولاً إلى الحملة الأحدث «موبايلك يستاهل أكتر.. اختار صح».",
     },
     deliverables: {
       en: [
-        "Cohesive Marketing Direction & slogan arc: «Met-heseb-hash» -> «Don't Overthink It, Call El-Qersh» -> «Your Phone Deserves More.. Choose Right»",
-        "Scripted product & launch motion reels («Metro El-Qersh», «El-Basma», 8th Anniversary × Black Friday) across 3 Beni Suef branches",
+        "Cohesive Marketing Direction & slogan arc: \"Met-heseb-hash\" -> \"Don't Overthink It, Call El-Qersh\" -> \"Your Phone Deserves More.. Choose Right\"",
+        "Scripted product & launch motion reels (\"Metro El-Qersh\", \"El-Basma\", 8th Anniversary × Black Friday) across 3 Beni Suef branches",
         "Audio launches (itel BudsGo / Ace / N63) and clear after-sales warranty trust campaigns",
       ],
       ar: [
@@ -655,7 +655,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/mohamed-samy.png",
     isWhitePlate: true,
     summary: {
-      en: "Architected the digital brand presence from the ground up and lead its Marketing Direction (mohamedsamyworks.com), positioning residential villas and commercial venues (After 8 Cafe, BUNO Cafe, Pyramids Heights, Zahraa El-Maadi) around engineered build precision («Bel-Qalam Wel Mastara»).",
+      en: "Architected the digital brand presence from the ground up and lead its Marketing Direction (mohamedsamyworks.com), positioning residential villas and commercial venues (After 8 Cafe, BUNO Cafe, Pyramids Heights, Zahraa El-Maadi) around engineered build precision (\"Bel-Qalam Wel Mastara\").",
       ar: "تأسيس الهوية التجارية والحضور الرقمي لمحمد سامي للديكور بالكامل عبر mohamedsamyworks.com، لإبراز دقة التنفيذ الهندسي («بالقلم والمسطرة») في مشاريع الفيلات والمنشآت مثل After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي.",
     },
     deliverables: {
@@ -735,20 +735,20 @@ export const CASE_STUDIES: CaseStudy[] = [
     period: { en: "QSR Partner", ar: "شريك قطاع المطاعم" },
     category: "retail_hospitality",
     discipline: {
-      en: "Marketing Direction · 50% Takeaway «Khud We Emshy» · 140+ Menu",
+      en: "Marketing Direction · 50% Takeaway \"Khud We Emshy\" · 140+ Menu",
       ar: "توجيه تسويقي • حملة خد وامشي 50% • قائمة 140+ صنف",
     },
     image: "/assets/clients/el3sal.jpg",
     isMedallion: true,
     summary: {
-      en: "Marketing Direction and conversion funnels for EL3SAL in Beni Suef: highlighted by the 2nd Anniversary campaign «Khud We Emshy» («Grab & Go» 50% off takeaway), complete 140+ item menu redesign, and high-tempo food reels feeding Meta order funnels.",
+      en: "Marketing Direction and conversion funnels for EL3SAL in Beni Suef: highlighted by the 2nd Anniversary campaign \"Khud We Emshy\" (\"Grab & Go\" 50% off takeaway), complete 140+ item menu redesign, and high-tempo food reels feeding Meta order funnels.",
       ar: "قيادة التوجيه التسويقي وبناء مسارات الطلب لمطعم العسال في بني سويف؛ أبرزها حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على التيك أواي، وإعادة ترتيب قائمة تضم أكثر من 140 صنفاً مع ريلز المطبخ لزيادة الطلبات المباشرة.",
     },
     deliverables: {
       en: [
-        "Directed 2nd Anniversary «Khud We Emshy» («Grab & Go») campaign built around 50% off takeaway volume peaks",
+        "Directed 2nd Anniversary \"Khud We Emshy\" (\"Grab & Go\") campaign built around 50% off takeaway volume peaks",
         "Full Marketing Direction & 140+ item menu restructuring maximizing add-ons and average basket value",
-        "High-tempo food craft reels («EL3SAL × System», Chicken Ranch, Doner Crunchy) paired with Meta CTR Messages funnels",
+        "High-tempo food craft reels (\"EL3SAL × System\", Chicken Ranch, Doner Crunchy) paired with Meta CTR Messages funnels",
       ],
       ar: [
         "قيادة حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على طلبات التيك أواي لتنشيط الإقبال المباشر على الفرع",
@@ -786,7 +786,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     deliverables: {
       en: [
         "Stage-by-stage parent messaging clarity across Post-Infancy, Foundation / Noor Al-Bayan, and KG tracks",
-        "Unstaged real classroom activity reels grounded in mother psychology and safety reassurance («Step by Step»)",
+        "Unstaged real classroom activity reels grounded in mother psychology and safety reassurance (\"Step by Step\")",
         "Direct Meta Messenger & WhatsApp parent inquiry qualification workflows linked with khatwa.site",
       ],
       ar: [
@@ -825,7 +825,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     deliverables: {
       en: [
         "In-house Obolus Visual Engine v2.1 driving custom lineless editorial vectors and historical scene lighting",
-        "Flagship documented scripts: «Why Money Stopped Being Real in 1971» and «1602 Stock Market Origins»",
+        "Flagship documented scripts: \"Why Money Stopped Being Real in 1971\" and \"1602 Stock Market Origins\"",
         "Automated research verification, voice-aligned subtitle timing, and custom scored sound mastering",
       ],
       ar: [
@@ -936,13 +936,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/attar-group.jpg",
     isWhitePlate: true,
     summary: {
-      en: "Led Marketing Direction, performance advertising, and brand content for Al-Attar Group through August 2021, concluding the engagement with the bold flagship campaign «Elly Magadedsh Mat» («Whoever Doesn't Renew Dies Out»), documented on Vimeo.",
+      en: "Led Marketing Direction, performance advertising, and brand content for Al-Attar Group through August 2021, concluding the engagement with the bold flagship campaign \"Elly Magadedsh Mat\" (\"Whoever Doesn't Renew Dies Out\"), documented on Vimeo.",
       ar: "قيادة التوجيه التسويقي والحملات الممولة وصناعة المحتوى لمجموعة العطار حتى أغسطس 2021، في مسيرة تُوّجت بالحملة الختامية «اللي مجددش مات» الموثقة على Vimeo.",
     },
     deliverables: {
       en: [
         "Multi-year Marketing Direction and performance campaigns running cleanly through August 2021",
-        "Scripted & directed closing flagship campaign «Whoever Doesn't Renew Dies Out» (archived on Vimeo)",
+        "Scripted & directed closing flagship campaign \"Whoever Doesn't Renew Dies Out\" (archived on Vimeo)",
         "Product showcase direction & regional retail/wholesale buyer acquisition",
       ],
       ar: [
@@ -977,13 +977,14 @@ export const CASE_STUDIES: CaseStudy[] = [
       ar: "مدير إبداعي • حملة Noorina (3 نسخ) • نصوص تلفزيونية",
     },
     image: "/assets/clients/chance-media.png",
+    isWhitePlate: true,
     summary: {
-      en: "Creative Director at Chance Media (founded by actor Ahmed Akl) alongside SECTOR 09. Wrote and directed the 3-version ad campaign for Noorina LED bulbs factory built around the everyday lighting insight «Before changing your clothes, change your lighting», plus TV commercial scripts for real-estate and medical accounts.",
+      en: "Creative Director at Chance Media (founded by actor Ahmed Akl) alongside SECTOR 09. Wrote and directed the 3-version ad campaign for Noorina LED bulbs factory built around the everyday lighting insight \"Before changing your clothes, change your lighting\", plus TV commercial scripts for real-estate and medical accounts.",
       ar: "الإدارة الإبداعية في تشانس ميديا (تأسيس الفنان أحمد عقل) بالتوازي مع سيكتور 09، مع كتابة وتوجيه حملة Noorina من 3 نسخ إعلانية بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بجانب نصوص تلفزيونية لعقارات ومراكز طبية.",
     },
     deliverables: {
       en: [
-        "Noorina LED Factory Campaign (3 Ad Versions): shifted customer perspective with the sharp hook «Before changing your clothes, change your lighting»",
+        "Noorina LED Factory Campaign (3 Ad Versions): shifted customer perspective with the sharp hook \"Before changing your clothes, change your lighting\"",
         "Television commercial scriptwriting and creative concepting tailored for mass Egyptian audiences",
         "Real-estate launch & medical center campaign direction paired with short films under SECTOR 09",
       ],
@@ -1017,7 +1018,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/tecno.png",
     isWhitePlate: true,
     summary: {
-      en: "Executed pre-release device firmware stress-testing per hardware model for TECNO Mobile, directly shaping software stability prior to the flagship TECNO Camon C9 release («El-Selfie Hekaya») while moderating the official brand forum.",
+      en: "Executed pre-release device firmware stress-testing per hardware model for TECNO Mobile, directly shaping software stability prior to the flagship TECNO Camon C9 release (\"El-Selfie Hekaya\") while moderating the official brand forum.",
       ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل طرحها رسمياً، مع مساهمة مباشرة في تحسين استقرار هاتف كامون C9 (حملة «السيلفي حكاية») وإدارة المنتدى الرسمي للمستخدمين.",
     },
     deliverables: {

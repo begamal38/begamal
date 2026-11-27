@@ -19,7 +19,7 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
       <header className="fixed inset-x-0 top-0 z-50 px-4 pt-[max(0.85rem,env(safe-area-inset-top))] sm:px-6">
         <nav
           aria-label="Primary Navigation"
-          className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/15 bg-[#14171F]/88 px-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl sm:px-6"
+          className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/[0.18] bg-[#0B0D12]/94 px-3.5 shadow-[0_10px_34px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl sm:px-6"
         >
           <button
             type="button"
@@ -58,6 +58,7 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
               href={PORTFOLIO_IDENTITY.vimeoUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
               className="inline-flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#D4D7DD] transition-colors duration-200 hover:text-[#F4F5F7] whitespace-nowrap sm:text-xs sm:tracking-[0.1em]"
             >
               <span>{UI_COPY.nav.showreel[lang]}</span>
@@ -67,7 +68,7 @@ export function Navbar({ lang, onNavigate }: NavbarProps) {
             <button
               type="button"
               onClick={() => onNavigate("contact")}
-              className="btn-titanium group inline-flex items-center gap-1.5 rounded-full py-1.5 ps-3 pe-1.5 text-[11px] font-semibold tracking-wide transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] whitespace-nowrap sm:gap-2 sm:ps-4 sm:text-xs"
+              className="btn-titanium group inline-flex items-center gap-1.5 rounded-full py-1.5 ps-3 pe-1.5 text-[11px] font-semibold tracking-wide text-[#050505] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] whitespace-nowrap sm:gap-2 sm:ps-4 sm:text-xs"
             >
               <span>{UI_COPY.nav.cta[lang]}</span>
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 sm:h-6 sm:w-6">
