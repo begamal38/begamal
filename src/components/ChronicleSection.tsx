@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CAREER_CHRONICLE, Lang, UI_COPY } from "../data/portfolioData";
 import { BiDiText } from "./BiDiText";
+import { RichInlineText } from "./SignatureGlowLink";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -243,6 +244,32 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                       </li>
                     ))}
                   </ul>
+
+                  {entry.mentorship && (
+                    <div className="mt-5 rounded-e-md border border-white/[0.06] border-s border-s-white/25 bg-white/[0.025] px-4 py-3.5">
+                      <p
+                        className={`mb-2 text-[10px] sm:text-[11px] font-medium text-[#A1A6B0] ${
+                          lang === "en"
+                            ? "font-mono-code uppercase tracking-[0.18em]"
+                            : "font-display tracking-normal"
+                        }`}
+                      >
+                        {entry.mentorship.eyebrow[lang]}
+                      </p>
+                      <p className="text-[13.5px] sm:text-[14px] leading-relaxed text-[#D1D5DB]">
+                        <RichInlineText
+                          text={entry.mentorship.body[lang]}
+                          lang={lang}
+                          links={[
+                            {
+                              match: entry.mentorship.entity.label[lang],
+                              url: entry.mentorship.entity.url,
+                            },
+                          ]}
+                        />
+                      </p>
+                    </div>
+                  )}
 
                   {entry.links && entry.links.length > 0 && (
                     <div className="mt-5 flex flex-wrap gap-2.5 border-t border-white/[0.07] pt-4">

@@ -22,6 +22,15 @@ export interface OrganizationLogo {
   wide?: boolean;
 }
 
+export interface ChronicleMentorship {
+  eyebrow: LocalizedText;
+  body: LocalizedText;
+  entity: {
+    label: LocalizedText;
+    url: string;
+  };
+}
+
 export interface ChronicleEntry {
   id: string;
   period: LocalizedText;
@@ -34,6 +43,7 @@ export interface ChronicleEntry {
     en: string[];
     ar: string[];
   };
+  mentorship?: ChronicleMentorship;
   links?: ClientLink[];
 }
 
@@ -130,6 +140,8 @@ export const PORTFOLIO_IDENTITY = {
     ar: "السوق مزدحم بعلامات تكرر نفس الكلام بنفس النبرة. الفارق الحقيقي يبدأ عندما تخرج خطوة للخلف، ترى ما يغيب عن الزحام، وتصنع للعلامة صوتاً لا يُخلط بغيره.",
   },
   inspirationLabel: { en: "Creative Influence", ar: "الإلهام الإبداعي" },
+  inspirationUrl: "https://www.instagram.com/tameemyouness?hvrq=a2Q3NTkwcnBvdjcx",
+  inspirationEntity: { en: "Tameem Youness", ar: "تميم يونس" },
   inspirationText: {
     en: "Resonates with Egyptian director Tameem Youness for tearing up safe advertising templates in favor of one unexpected, human idea.",
     ar: "أقرب ما يكون لذائقتي الإعلانية هو مدرسة تميم يونس في الإخراج: كسر القوالب المستهلكة بفكرة واحدة ذكية، صادقة، وغير متوقعة.",
@@ -357,6 +369,20 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         "تحقيق نحو 550 تعييناً في 2020 (الأعلى تحقيقاً) لحسابات أوبر (Rider, Driver, Eats) وفودافون (Cash, CVM, ADSL, 888)",
         "إخراج وإنتاج فيلم ترويجي يبرز أجواء القرية الذكية في بني سويف لجذب الكفاءات",
       ],
+    },
+    mentorship: {
+      eyebrow: {
+        en: "TALENT ARCHITECTURE & MENTORSHIP",
+        ar: "تأسيس الكوادر وصناعة الصف الثاني",
+      },
+      body: {
+        en: "Beyond hitting hiring targets, I helped build the local HR foundation from the ground up—training and mentoring multiple HR trainees who went on to earn official company certifications. Among them, I championed and mentored Esraa Saad into the HR team; when the department later navigated a major team transition, she stepped up to lead the function and manage core company accounts solo—a lasting testament to building people, not just filling seats.",
+        ar: "لم يقتصر دوري على تحقيق أرقام التوظيف، بل شاركت في تأسيس نواة فريق الموارد البشرية وتدريب وتأهيل عدد من المتدربين (HR Trainees) الذين نالوا شهادات معتمدة من الشركة. ومن أبرز محطات هذه الفترة دعمي وتوجيهي لـ إسراء سعد منذ انضمامها للفريق؛ لتثبت لاحقاً كفاءة استثنائية وتقود القسم وتدير حسابات الشركة الرئيسية بمفردها خلال مرحلة انتقالية حاسمة—تجسيداً لقناعتي بأن الأثر الحقيقي يُقاس ببناء الأشخاص، لا بمجرد سد الشواغر.",
+      },
+      entity: {
+        label: { en: "Esraa Saad", ar: "إسراء سعد" },
+        url: "https://eg.linkedin.com/in/esraa-saad-9246a214a",
+      },
     },
     links: [
       {

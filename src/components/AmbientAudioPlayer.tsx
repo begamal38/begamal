@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { SpeakerSimpleHigh, SpeakerSimpleX } from "@phosphor-icons/react";
+import { SpeakerSimpleHigh, SpeakerSimpleX, X } from "@phosphor-icons/react";
 import { Lang } from "../data/portfolioData";
 
 interface AmbientAudioPlayerProps {
@@ -20,13 +20,7 @@ const FADE_OUT_DURATION = 0.8;
  */
 export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showPrompt, setShowPrompt] = useState(() => {
-    try {
-      return sessionStorage.getItem(STORAGE_PROMPT_KEY) !== "1";
-    } catch {
-      return true;
-    }
-  });
+  const [promptVisible, setPromptVisible] = useState(false);
 
   const ctxRef = useRef<AudioContext | null>(null);
   const gainRef = useRef<GainNode | null>(null);
@@ -42,20 +36,37 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (!showPrompt) return;
-    const timer = window.setTimeout(() => {
-      setShowPrompt(false);
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(STORAGE_PROMPT_KEY) === "1";
+    } catch {
+      seen = false;
+    }
+    if (seen) return;
+
+    const showTimer = window.setTimeout(() => {
+      if (!isPlayingRef.current) {
+        setPromptVisible(true);
+      }
+    }, 900);
+
+    const hideTimer = window.setTimeout(() => {
+      setPromptVisible(false);
       try {
         sessionStorage.setItem(STORAGE_PROMPT_KEY, "1");
       } catch {
         // Ignore storage restrictions
       }
-    }, 6500);
-    return () => window.clearTimeout(timer);
-  }, [showPrompt]);
+    }, 15000);
+
+    return () => {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+    };
+  }, []);
 
   const dismissPrompt = useCallback(() => {
-    setShowPrompt(false);
+    setPromptVisible(false);
     try {
       sessionStorage.setItem(STORAGE_PROMPT_KEY, "1");
     } catch {
@@ -263,22 +274,70 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
         ? "كتم الصوت المحيطي"
         : "تشغيل الصوت المحيطي";
 
-  const promptText =
-    lang === "en" ? "SOUND · IMMERSIVE MODE" : "الصوت · أجواء سينمائية";
+  const cueEyebrow = lang === "en" ? "AMBIENT SCORE" : "تجربة صوتية";
+  const cueBody =
+    lang === "en"
+      ? "Tap to experience with organ sound"
+      : "اضغط لتشغيل الموسيقى المحيطية";
+  const mobileCue =
+    lang === "en" ? "TAP FOR AMBIENT SCORE" : "تجربة صوتية · اضغط للتشغيل";
+  const dismissLabel = lang === "en" ? "Dismiss sound hint" : "إخفاء تنبيه الصوت";
+  const pillHint = lang === "en" ? "SOUND" : "الصوت";
 
   return (
-    <div className="fixed bottom-[max(4.75rem,calc(4.5rem+env(safe-area-inset-bottom)))] end-4 z-40 md:bottom-6 md:end-6">
+    <div className="fixed bottom-[max(4.75rem,calc(4.5rem+env(safe-area-inset-bottom)))] end-4 z-40 flex flex-col items-end md:bottom-6 md:end-6">
+      {/* Desktop: Luxury Editorial Whisper Card above the speaker control */}
+      <div
+        role="status"
+        aria-live="polite"
+        className={`relative mb-2.5 hidden w-max max-w-[270px] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] md:block ${
+          promptVisible && !isPlaying
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-2 opacity-0"
+        }`}
+      >
+        <div
+          onClick={handleToggle}
+          className="group relative cursor-pointer rounded-2xl border border-[#A1A6B0]/35 bg-[#0D1017]/95 px-3.5 py-2.5 pe-8 shadow-[0_14px_38px_rgba(0,0,0,0.78),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl transition-colors duration-200 hover:border-[#E5E7EB]/60"
+        >
+          <div className="flex items-center gap-2">
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E5E7EB] shadow-[0_0_8px_rgba(229,231,235,0.85)]"
+            />
+            <span className="font-mono-code text-[10px] font-semibold uppercase tracking-[0.14em] text-[#D4D7DD]">
+              {cueEyebrow}
+            </span>
+          </div>
+          <p className="mt-1 text-xs leading-snug text-[#F4F5F7]">
+            {cueBody}
+          </p>
+
+          <button
+            type="button"
+            aria-label={dismissLabel}
+            onClick={(e) => {
+              e.stopPropagation();
+              dismissPrompt();
+            }}
+            className="absolute end-2 top-2 flex h-5 w-5 items-center justify-center rounded-full text-[#9CA3AF] transition-colors hover:bg-white/10 hover:text-[#F4F5F7]"
+          >
+            <X size={11} weight="bold" />
+          </button>
+        </div>
+      </div>
+
       <button
         type="button"
         onClick={handleToggle}
         aria-label={ariaLabel}
         aria-pressed={isPlaying}
-        className="group relative flex h-10 items-center gap-2.5 rounded-full border border-[#A1A6B0]/30 bg-[#0A0A0C]/85 px-3 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:border-[#E5E7EB]/60 hover:bg-[#111318]/92 active:scale-[0.97]"
+        className="group relative flex h-10 items-center gap-2.5 rounded-full border border-[#A1A6B0]/35 bg-[#0A0A0C]/88 px-3.5 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.09)] backdrop-blur-md transition-all duration-300 hover:border-[#E5E7EB]/65 hover:bg-[#111318]/95 active:scale-[0.97]"
       >
-        {showPrompt && (
+        {!isPlaying && (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -inset-[3px] rounded-full border border-[#E5E7EB]/35 animate-pulse"
+            className="audio-halo-ring pointer-events-none absolute inset-0 rounded-full border border-[#E5E7EB]/45"
           />
         )}
 
@@ -286,7 +345,7 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
           {isPlaying ? (
             <SpeakerSimpleHigh size={15} weight="regular" />
           ) : (
-            <SpeakerSimpleX size={15} weight="regular" className="text-[#A1A6B0]" />
+            <SpeakerSimpleX size={15} weight="regular" className="text-[#D4D7DD]" />
           )}
         </span>
 
@@ -297,35 +356,34 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
         >
           <span
             className={`w-[2px] rounded-full bg-[#E5E7EB] transition-all duration-300 ${
-              isPlaying ? "audio-bar audio-bar-1 h-3" : "h-[3px] opacity-40"
+              isPlaying ? "audio-bar audio-bar-1 h-3" : "h-[4px] opacity-55"
             }`}
           />
           <span
             className={`w-[2px] rounded-full bg-[#E5E7EB] transition-all duration-300 ${
-              isPlaying ? "audio-bar audio-bar-2 h-3.5" : "h-[3px] opacity-40"
+              isPlaying ? "audio-bar audio-bar-2 h-3.5" : "h-[7px] opacity-70"
             }`}
           />
           <span
             className={`w-[2px] rounded-full bg-[#E5E7EB] transition-all duration-300 ${
-              isPlaying ? "audio-bar audio-bar-3 h-2.5" : "h-[3px] opacity-40"
+              isPlaying ? "audio-bar audio-bar-3 h-2.5" : "h-[5px] opacity-55"
             }`}
           />
           <span
             className={`w-[2px] rounded-full bg-[#E5E7EB] transition-all duration-300 ${
-              isPlaying ? "audio-bar audio-bar-4 h-3" : "h-[3px] opacity-40"
+              isPlaying ? "audio-bar audio-bar-4 h-3" : "h-[3px] opacity-45"
             }`}
           />
         </span>
 
-        {/* First-visit subtle micro-label that auto-collapses */}
-        <span
-          className={`overflow-hidden whitespace-nowrap font-mono-code text-[10px] font-medium tracking-[0.14em] text-[#D4D7DD] transition-all duration-500 ${
-            showPrompt
-              ? "max-w-[200px] opacity-100 ps-0.5 pe-1"
-              : "max-w-0 opacity-0"
-          }`}
-        >
-          {promptText}
+        {/* Mobile inline whisper text (stays in single h-10 row, zero overlap with hero CTAs) */}
+        <span className="font-mono-code text-[10px] font-medium tracking-[0.12em] text-[#D4D7DD] md:hidden">
+          {promptVisible && !isPlaying ? mobileCue : pillHint}
+        </span>
+
+        {/* Desktop compact pill label */}
+        <span className="hidden font-mono-code text-[10px] font-medium tracking-[0.14em] text-[#D4D7DD] md:inline">
+          {pillHint}
         </span>
       </button>
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
+import { RichInlineText } from "./SignatureGlowLink";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,7 +116,16 @@ export function StatementSection({ lang }: StatementSectionProps) {
                   {PORTFOLIO_IDENTITY.inspirationLabel[lang]}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-[#E4E4E7]/90">
-                  {PORTFOLIO_IDENTITY.inspirationText[lang]}
+                  <RichInlineText
+                    text={PORTFOLIO_IDENTITY.inspirationText[lang]}
+                    lang={lang}
+                    links={[
+                      {
+                        match: PORTFOLIO_IDENTITY.inspirationEntity[lang],
+                        url: PORTFOLIO_IDENTITY.inspirationUrl,
+                      },
+                    ]}
+                  />
                 </p>
               </div>
               <div>
