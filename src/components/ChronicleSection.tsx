@@ -163,7 +163,7 @@ export function ChronicleSection({
                   onMouseEnter={() => setActiveStageIndex(idx)}
                   onFocus={() => setActiveStageIndex(idx)}
                   onClick={() => openStage(idx)}
-                  className={`group relative z-10 flex shrink-0 items-center gap-2 rounded-xl border px-3 py-1.5 font-mono-code text-[11px] transition-all duration-300 ease-out whitespace-nowrap ${
+                  className={`group relative z-10 flex shrink-0 items-center gap-2 min-h-11 rounded-xl border px-3.5 py-2 font-mono-code text-[12px] transition-all duration-300 ease-out whitespace-nowrap ${
                     isActive
                       ? "border-white/25 bg-[#191D28] text-[#F4F5F7] shadow-[0_0_20px_rgba(229,231,235,0.1)]"
                       : "border-transparent bg-[#0D0F14]/90 text-[#A1A6B0] hover:border-white/15 hover:text-[#F4F5F7]"

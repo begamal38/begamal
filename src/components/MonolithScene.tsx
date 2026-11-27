@@ -182,11 +182,14 @@ export function MonolithScene({
         <video
           ref={videoRef}
           src="/video/gargantua-bg-loop.mp4"
+          poster="/video/gargantua-poster.jpg"
+          disablePictureInPicture
+          disableRemotePlayback
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-hidden="true"
           className="h-full w-full object-cover object-[75%_18%] md:object-center md:mix-blend-screen"
         />

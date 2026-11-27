@@ -201,7 +201,7 @@ export function SystemsAndContactSection({
               <button
                 type="button"
                 onClick={() => onNavigate("hero")}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#111215] px-3 py-1 font-mono-code text-[11px] text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#111215] min-h-11 px-4 py-2 font-mono-code text-[12px] text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
               >
                 <ArrowUp size={11} weight="bold" />
                 <span>{lang === "en" ? "Back to Top" : "للأعلى"}</span>
@@ -211,7 +211,7 @@ export function SystemsAndContactSection({
                 type="button"
                 onClick={onToggleLang}
                 aria-label={lang === "en" ? "Switch to Arabic" : "Switch to English"}
-                className="font-arabic-toggle rounded-full border border-white/15 bg-[#111215] px-3.5 py-1 text-xs font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
+                className="font-arabic-toggle rounded-full border border-white/15 bg-[#111215] min-h-11 px-4 py-2 text-[13px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
               >
                 {lang === "en" ? "العربية" : "EN"}
               </button>
