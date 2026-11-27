@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v6.0-cinema-video";
+const CACHE_NAME = "belal-gamal-v6.1-footer-pointer-fix";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

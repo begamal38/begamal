@@ -52,7 +52,7 @@ export function ScrollTelemetry({
 
       <nav
         aria-label={lang === "en" ? "Section Progress" : "مؤشر الأقسام"}
-        className="fixed end-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-3.5 2xl:flex"
+        className="pointer-events-none fixed end-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-3.5 2xl:flex"
       >
         {SCROLL_SECTIONS.map((item) => {
           const isActive = activeSection === item.id;
@@ -62,7 +62,7 @@ export function ScrollTelemetry({
               type="button"
               onClick={() => onNavigate(item.id)}
               aria-current={isActive ? "true" : undefined}
-              className="group flex items-center justify-end gap-2.5 text-end focus:outline-none"
+              className="pointer-events-auto group flex items-center justify-end gap-2.5 text-end focus:outline-none"
             >
               <span
                 className={`font-mono-code text-[10px] tracking-[0.14em] transition-all duration-300 ease-out ${

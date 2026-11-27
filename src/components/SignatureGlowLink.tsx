@@ -27,10 +27,9 @@ export function SignatureGlowLink({
       <span className="border-b border-white/25 pb-[1px] transition-colors duration-300 ease-out group-hover:border-white/60 group-focus-visible:border-white/60">
         {children}
       </span>
-      <span aria-hidden="true">{"\u00A0"}</span>
       <span
         aria-hidden="true"
-        className="inline-block text-[0.8em] opacity-60 transition-all duration-300 ease-out group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] group-hover:opacity-100 group-focus-visible:translate-x-[1.5px] group-focus-visible:-translate-y-[1.5px] group-focus-visible:opacity-100 rtl:-scale-x-100 rtl:group-hover:-translate-x-[1.5px] rtl:group-focus-visible:-translate-x-[1.5px]"
+        className="ms-1 inline-block text-[0.8em] opacity-60 transition-all duration-300 ease-out group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] group-hover:opacity-100 group-focus-visible:translate-x-[1.5px] group-focus-visible:-translate-y-[1.5px] group-focus-visible:opacity-100 rtl:-scale-x-100 rtl:group-hover:-translate-x-[1.5px] rtl:group-focus-visible:-translate-x-[1.5px]"
       >
         ↗
       </span>

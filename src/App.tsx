@@ -146,12 +146,22 @@ export default function App() {
   }, []);
 
   const handleNavigate = useCallback((sectionId: string) => {
+    setActiveSection(sectionId);
+    if (sectionId === "hero") {
+      if (lenisRef.current) {
+        lenisRef.current.start();
+        lenisRef.current.scrollTo(0, { duration: 1.05 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+
     const el = document.getElementById(sectionId);
     if (!el) return;
-    setActiveSection(sectionId);
-    const navOffset = sectionId === "hero" ? 0 : -72;
     if (lenisRef.current) {
-      lenisRef.current.scrollTo(el, { offset: navOffset, duration: 1.05 });
+      lenisRef.current.start();
+      lenisRef.current.scrollTo(el, { offset: -72, duration: 1.05 });
     } else {
       el.scrollIntoView({ behavior: "smooth" });
     }

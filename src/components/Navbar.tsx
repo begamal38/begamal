@@ -22,10 +22,10 @@ export function Navbar({ lang, activeSection, onNavigate }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-[max(0.85rem,env(safe-area-inset-top))] sm:px-6">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-[max(0.85rem,env(safe-area-inset-top))] sm:px-6">
         <nav
           aria-label="Primary Navigation"
-          className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/[0.18] bg-[#0B0D12]/94 px-3.5 shadow-[0_10px_34px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl sm:px-6"
+          className="pointer-events-auto mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-full border border-white/[0.18] bg-[#0B0D12]/94 px-3.5 shadow-[0_10px_34px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl sm:px-6"
         >
           <button
             type="button"
