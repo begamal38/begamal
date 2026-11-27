@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v14-ios";
+const CACHE_NAME = "belal-gamal-v15-portrait";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

@@ -104,22 +104,17 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
 
         {/* Right/End: Studio Monochrome Portrait dissolved seamlessly into #050505 void */}
         <div className="hero-portrait-parallax order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
-          <div className="relative mx-auto h-44 w-44 sm:h-52 sm:w-52 md:mx-0 md:h-auto md:w-[292px] lg:w-[376px]">
-            {/* Mobile pure-obsidian radial backing halo separating portrait from Gargantua plasma arcs */}
+          <div className="relative mx-auto -mb-12 w-[230px] sm:w-[260px] md:mx-0 md:mb-0 md:w-[292px] lg:w-[376px]">
+            {/* Directional silver rim-glow aligned with the Interstellar horizon (same treatment on mobile and desktop) */}
             <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -inset-5 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(5,5,5,0.94)_42%,rgba(5,5,5,0.65)_66%,transparent_88%)] md:hidden"
-            />
-            {/* Desktop directional silver rim-glow aligned with off-center Interstellar horizon */}
-            <div
-              className="pointer-events-none absolute -inset-12 hidden rounded-full opacity-25 blur-3xl md:block"
+              className="pointer-events-none absolute -inset-8 rounded-full opacity-25 blur-3xl md:-inset-12"
               style={{
                 background:
                   "radial-gradient(circle at 64% 32%, rgba(229, 231, 235, 0.34), rgba(161, 166, 176, 0.12) 45%, rgba(5, 5, 5, 0) 74%)",
               }}
               aria-hidden="true"
             />
-            <div className="portrait-mask relative h-full w-full overflow-hidden rounded-full md:aspect-[4/5] md:h-auto md:rounded-none">
+            <div className="portrait-mask relative aspect-[4/5] w-full overflow-hidden">
               <img
                 src={PORTFOLIO_IDENTITY.portraitPath}
                 alt={UI_COPY.hero.portraitAlt[lang]}
