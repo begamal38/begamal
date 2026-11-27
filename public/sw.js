@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v16-majorel-photo";
+const CACHE_NAME = "belal-gamal-v17-majorel-top-email";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

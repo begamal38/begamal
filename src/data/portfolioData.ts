@@ -48,6 +48,12 @@ export interface ChronicleEntry {
     alt: LocalizedText;
     caption: LocalizedText;
   };
+  highlightProof?: {
+    src: string;
+    eyebrow: LocalizedText;
+    alt: LocalizedText;
+    caption: LocalizedText;
+  };
   summary: LocalizedText;
   highlights: {
     en: string[];
@@ -457,6 +463,21 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       caption: {
         en: "@majorelegypt · International Workers' Day · Smart Village",
         ar: "@majorelegypt · يوم العمال العالمي · القرية الذكية",
+      },
+    },
+    highlightProof: {
+      src: "/assets/clients/majorel-top-achiever-2020-email.jpg",
+      eyebrow: {
+        en: "INTERNAL PERFORMANCE RECOGNITION · 2020",
+        ar: "توثيق التقييم السنوي الداخلي · 2020",
+      },
+      alt: {
+        en: "Majorel internal 2020 total performance email highlighting Belal Gamal as Top One for the Beni Suef Team",
+        ar: "إيميل شركة ماجوريل الداخلي لأداء عام 2020 يوثّق اختيار بلال جمال كالأعلى أداءً (Top One) لفريق بني سويف",
+      },
+      caption: {
+        en: "Internal email from On-Shore Recruitment Senior Supervisor naming Belal Gamal Top One — Beni Suef Team (2020).",
+        ar: "رسالة البريد الداخلي الرسمية لعام 2020 من إدارة التوظيف بتكريم بلال جمال كالأول (Top One) على فريق بني سويف.",
       },
     },
   },

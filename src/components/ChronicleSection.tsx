@@ -545,6 +545,35 @@ export function ChronicleSection({
                       </ul>
                     </div>
 
+                    {selectedEntry.highlightProof && (
+                      <figure className="overflow-hidden rounded-xl border border-white/12 bg-[#0A0C10]/95 p-3 shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
+                        <figcaption
+                          className={`mb-2 text-[10px] font-medium text-[#A1A6B0] ${
+                            lang === "en"
+                              ? "font-mono-code uppercase tracking-[0.16em]"
+                              : "font-display tracking-normal"
+                          }`}
+                        >
+                          {selectedEntry.highlightProof.eyebrow[lang]}
+                        </figcaption>
+                        <div className="overflow-hidden rounded-lg border border-white/[0.08] bg-[#0A0C10]">
+                          <img
+                            src={selectedEntry.highlightProof.src}
+                            alt={selectedEntry.highlightProof.alt[lang]}
+                            loading="lazy"
+                            decoding="async"
+                            className="block w-full object-contain"
+                          />
+                        </div>
+                        <p className="mt-2 text-[11.5px] leading-relaxed text-[#9CA3AF]">
+                          <BiDiText
+                            text={selectedEntry.highlightProof.caption[lang]}
+                            lang={lang}
+                          />
+                        </p>
+                      </figure>
+                    )}
+
                     {selectedEntry.mentorship && (
                       <div className="rounded-e-lg border border-white/[0.06] border-s border-s-white/25 bg-white/[0.03] px-4 py-3.5">
                         <p
