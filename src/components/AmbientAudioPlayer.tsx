@@ -21,6 +21,7 @@ const FADE_OUT_DURATION = 0.8;
 export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [promptVisible, setPromptVisible] = useState(false);
+  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
 
   const ctxRef = useRef<AudioContext | null>(null);
   const gainRef = useRef<GainNode | null>(null);
@@ -34,6 +35,15 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
   useEffect(() => {
     isPlayingRef.current = isPlaying;
   }, [isPlaying]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolledPastHero(window.scrollY > 220);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     let seen = false;
@@ -279,18 +289,18 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
     lang === "en"
       ? "Tap to experience with organ sound"
       : "اضغط لتشغيل الموسيقى المحيطية";
-  const mobileCue =
-    lang === "en" ? "TAP FOR AMBIENT SCORE" : "تجربة صوتية · اضغط للتشغيل";
+  const mobileCue = lang === "en" ? "TAP SOUND" : "شغّل الصوت";
   const dismissLabel = lang === "en" ? "Dismiss sound hint" : "إخفاء تنبيه الصوت";
   const pillHint = lang === "en" ? "SOUND" : "الصوت";
+  const showMobileLabel = promptVisible && !isPlaying && !isScrolledPastHero;
 
   return (
-    <div className="fixed bottom-[max(4.75rem,calc(4.5rem+env(safe-area-inset-bottom)))] end-4 z-40 flex flex-col items-end md:bottom-6 md:end-6">
+    <div className="fixed bottom-[max(4.65rem,calc(4.35rem+env(safe-area-inset-bottom)))] end-3 z-40 flex flex-col items-end md:bottom-6 md:end-6">
       {/* Desktop: Luxury Editorial Whisper Card above the speaker control */}
       <div
         role="status"
         aria-live="polite"
-        className={`relative mb-2.5 hidden w-max max-w-[270px] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] md:block ${
+        className={`relative mb-2.5 hidden w-max max-w-[270px] transition-all duration-500 ease-out md:block ${
           promptVisible && !isPlaying
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none translate-y-2 opacity-0"
@@ -298,7 +308,7 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
       >
         <div
           onClick={handleToggle}
-          className="group relative cursor-pointer rounded-2xl border border-[#A1A6B0]/35 bg-[#0D1017]/95 px-3.5 py-2.5 pe-8 shadow-[0_14px_38px_rgba(0,0,0,0.78),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl transition-colors duration-200 hover:border-[#E5E7EB]/60"
+          className="group relative cursor-pointer rounded-2xl border border-[#A1A6B0]/35 bg-[#0D1017]/95 px-3.5 py-2.5 pe-8 shadow-[0_14px_38px_rgba(0,0,0,0.78),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl transition-colors duration-300 ease-out hover:border-[#E5E7EB]/60"
         >
           <div className="flex items-center gap-2">
             <span
@@ -320,7 +330,7 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
               e.stopPropagation();
               dismissPrompt();
             }}
-            className="absolute end-2 top-2 flex h-5 w-5 items-center justify-center rounded-full text-[#9CA3AF] transition-colors hover:bg-white/10 hover:text-[#F4F5F7]"
+            className="absolute end-2 top-2 flex h-5 w-5 items-center justify-center rounded-full text-[#9CA3AF] transition-colors duration-200 hover:bg-white/10 hover:text-[#F4F5F7]"
           >
             <X size={11} weight="bold" />
           </button>
@@ -332,7 +342,7 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
         onClick={handleToggle}
         aria-label={ariaLabel}
         aria-pressed={isPlaying}
-        className="group relative flex h-10 items-center gap-2.5 rounded-full border border-[#A1A6B0]/35 bg-[#0A0A0C]/88 px-3.5 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.09)] backdrop-blur-md transition-all duration-300 hover:border-[#E5E7EB]/65 hover:bg-[#111318]/95 active:scale-[0.97]"
+        className="group relative flex h-9 items-center gap-2 rounded-full border border-[#A1A6B0]/35 bg-[#0A0A0C]/90 px-2.5 text-[#E5E7EB] shadow-[0_10px_28px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.09)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#E5E7EB]/65 hover:bg-[#111318]/95 active:scale-[0.97] md:h-10 md:gap-2.5 md:px-3.5"
       >
         {!isPlaying && (
           <span
@@ -376,9 +386,13 @@ export function AmbientAudioPlayer({ lang }: AmbientAudioPlayerProps) {
           />
         </span>
 
-        {/* Mobile inline whisper text (stays in single h-10 row, zero overlap with hero CTAs) */}
-        <span className="font-mono-code text-[10px] font-medium tracking-[0.12em] text-[#D4D7DD] md:hidden">
-          {promptVisible && !isPlaying ? mobileCue : pillHint}
+        {/* Mobile: ultra-compact hint on first hero view, collapses to icon+bars on scroll */}
+        <span
+          className={`overflow-hidden whitespace-nowrap font-mono-code text-[10px] font-medium tracking-[0.1em] text-[#D4D7DD] transition-all duration-300 ease-out md:hidden ${
+            showMobileLabel ? "max-w-[96px] opacity-100 pe-0.5" : "max-w-0 opacity-0"
+          }`}
+        >
+          {mobileCue}
         </span>
 
         {/* Desktop compact pill label */}

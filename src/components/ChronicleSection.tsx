@@ -86,7 +86,7 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
     <section
       id="chronicle"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.1] bg-[#0B0D12]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-36"
+      className="relative z-10 border-t border-white/10 bg-[#0B0D12]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
     >
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
         {/* Sticky Index (Desktop) / Static Header (Mobile) */}
@@ -260,12 +260,10 @@ export function ChronicleSection({ lang }: ChronicleSectionProps) {
                         <RichInlineText
                           text={entry.mentorship.body[lang]}
                           lang={lang}
-                          links={[
-                            {
-                              match: entry.mentorship.entity.label[lang],
-                              url: entry.mentorship.entity.url,
-                            },
-                          ]}
+                          links={entry.mentorship.entities.map((ent) => ({
+                            match: ent.label[lang],
+                            url: ent.url,
+                          }))}
                         />
                       </p>
                     </div>

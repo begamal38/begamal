@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Lang, PORTFOLIO_IDENTITY } from "./data/portfolioData";
+import { Lang, PORTFOLIO_IDENTITY, SCROLL_SECTIONS } from "./data/portfolioData";
 import { MonolithScene } from "./components/MonolithScene";
 import { Navbar } from "./components/Navbar";
 import { ScrollTelemetry } from "./components/ScrollTelemetry";
@@ -17,6 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
+  const [activeSection, setActiveSection] = useState<string>(SCROLL_SECTIONS[0].id);
   const scrollProgressRef = useRef<number>(0);
   const scrollVelocityRef = useRef<number>(0);
   const lenisRef = useRef<Lenis | null>(null);
@@ -35,6 +36,40 @@ export default function App() {
     return () => {
       cancelled = true;
       window.cancelAnimationFrame(id);
+    };
+  }, [lang]);
+
+  useEffect(() => {
+    const triggers: ScrollTrigger[] = [];
+    SCROLL_SECTIONS.forEach((section) => {
+      const el = document.getElementById(section.id);
+      if (!el) return;
+      const st = ScrollTrigger.create({
+        trigger: el,
+        start: "top 45%",
+        end: "bottom 45%",
+        onEnter: () => setActiveSection(section.id),
+        onEnterBack: () => setActiveSection(section.id),
+      });
+      triggers.push(st);
+    });
+
+    const handleBottomCheck = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 48;
+      if (nearBottom) {
+        setActiveSection("contact");
+      } else if (window.scrollY < 120) {
+        setActiveSection("hero");
+      }
+    };
+    window.addEventListener("scroll", handleBottomCheck, { passive: true });
+    handleBottomCheck();
+
+    return () => {
+      triggers.forEach((st) => st.kill());
+      window.removeEventListener("scroll", handleBottomCheck);
     };
   }, [lang]);
 
@@ -106,8 +141,10 @@ export default function App() {
   const handleNavigate = useCallback((sectionId: string) => {
     const el = document.getElementById(sectionId);
     if (!el) return;
+    setActiveSection(sectionId);
+    const navOffset = sectionId === "hero" ? 0 : -72;
     if (lenisRef.current) {
-      lenisRef.current.scrollTo(el, { offset: -18, duration: 1.1 });
+      lenisRef.current.scrollTo(el, { offset: navOffset, duration: 1.05 });
     } else {
       el.scrollIntoView({ behavior: "smooth" });
     }
@@ -127,10 +164,15 @@ export default function App() {
       />
       <ScrollTelemetry
         lang={lang}
+        activeSection={activeSection}
         scrollProgressRef={scrollProgressRef}
         onNavigate={handleNavigate}
       />
-      <Navbar lang={lang} onNavigate={handleNavigate} />
+      <Navbar
+        lang={lang}
+        activeSection={activeSection}
+        onNavigate={handleNavigate}
+      />
 
       <main className="relative z-10 w-full overflow-x-clip">
         <HeroSection lang={lang} onNavigate={handleNavigate} />

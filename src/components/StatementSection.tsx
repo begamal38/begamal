@@ -40,16 +40,17 @@ export function StatementSection({ lang }: StatementSectionProps) {
 
       gsap.fromTo(
         ".milestone-card",
-        { y: 18, opacity: 0.55 },
+        { y: 14, opacity: 0.55 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.08,
-          duration: 0.6,
+          stagger: 0.05,
+          duration: 0.5,
           ease: "power3.out",
+          clearProps: "transform,opacity",
           scrollTrigger: {
             trigger: ".milestone-grid",
-            start: "top 88%",
+            start: "top 90%",
             once: true,
           },
         }
@@ -63,7 +64,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
     <section
       id="perspective"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/38 px-5 py-20 sm:px-8 sm:py-24 md:py-36"
+      className="relative z-10 border-t border-white/10 bg-[#0F1218]/38 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl space-y-10">
         {/* Double-Bezel Editorial Manifesto Card */}
@@ -97,7 +98,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
             <line x1="187.5" y1="81" x2="52.5" y2="159" opacity="0.6" />
           </svg>
           <div className="statement-block relative rounded-[calc(2rem-0.375rem)] bg-[#11141B]/94 p-6 sm:p-10">
-            <p className="mb-4 font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#9CA3AF]">
+            <p className="mb-4 font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.statement.eyebrow[lang]}
             </p>
             <h2 className="font-editorial text-2xl font-medium leading-[1.45] tracking-[-0.01em] text-[#F4F5F7] sm:text-4xl lg:text-[2.35rem]">
@@ -110,9 +111,9 @@ export function StatementSection({ lang }: StatementSectionProps) {
             </h2>
 
             {/* Creative Influence (Tameem Youness) & Analytical Lens */}
-            <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/[0.08] pt-6 md:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/10 pt-6 md:grid-cols-2">
               <div>
-                <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#D4D7DD]">
+                <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
                   {PORTFOLIO_IDENTITY.inspirationLabel[lang]}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-[#E4E4E7]/90">
@@ -129,7 +130,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
                 </p>
               </div>
               <div>
-                <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#D4D7DD]">
+                <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
                   {PORTFOLIO_IDENTITY.lensLabel[lang]}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-[#E4E4E7]/90">
@@ -141,9 +142,9 @@ export function StatementSection({ lang }: StatementSectionProps) {
         </div>
 
         {/* Verified Milestones & Academic Foundation */}
-        <div className="milestone-grid grid grid-cols-1 gap-6 border-t border-white/[0.1] pt-10 md:grid-cols-3 md:gap-8">
+        <div className="milestone-grid grid grid-cols-1 gap-6 border-t border-white/10 pt-10 md:grid-cols-3 md:gap-8">
           <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#D4D7DD]">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.statement.origin[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F4F5F7]">
@@ -155,7 +156,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
           </div>
 
           <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#D4D7DD]">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.statement.education[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F4F5F7]">
@@ -167,7 +168,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
           </div>
 
           <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#D4D7DD]">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.statement.scope[lang]}
             </p>
             <p className="mt-2 text-base font-medium text-[#F4F5F7]">

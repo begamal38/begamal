@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v5.5-mentorship-links";
+const CACHE_NAME = "belal-gamal-v5.6-cohesion-polish";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

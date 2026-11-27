@@ -225,16 +225,17 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     mm.add("(min-width: 768px)", () => {
       gsap.fromTo(
         ".works-card",
-        { y: 12, opacity: 0.92 },
+        { y: 14, opacity: 0.65 },
         {
           y: 0,
           opacity: 1,
           stagger: 0.04,
-          duration: 0.45,
+          duration: 0.5,
           ease: "power3.out",
+          clearProps: "transform,opacity",
           scrollTrigger: {
             trigger: ".works-grid",
-            start: "top 96%",
+            start: "top 92%",
             once: true,
           },
         }
@@ -281,7 +282,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     <section
       id="works"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/[0.1] bg-[#0F1218]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-36"
+      className="relative z-10 border-t border-white/10 bg-[#0F1218]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl">
         {/* Featured 16:9 Cinema Vimeo Showreel Showcase */}
@@ -290,7 +291,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
-          className="group mb-16 block rounded-[2rem] border border-white/[0.12] bg-[#171B24]/95 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] transition-all duration-300 hover:border-[#D4D7DD]/50"
+          className="group mb-16 block rounded-[2rem] border border-white/[0.12] bg-[#171B24]/95 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
         >
           <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
             <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -307,7 +308,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
 
               {/* Centered Metallic Titanium Play Badge */}
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                <span className="btn-titanium flex h-16 w-16 items-center justify-center rounded-full text-[#050505] shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
+                <span className="btn-titanium flex h-16 w-16 items-center justify-center rounded-full text-[#050505] shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-20 sm:w-20">
                   <Play size={24} weight="fill" className="translate-x-0.5 text-[#050505]" />
                 </span>
               </div>
@@ -315,7 +316,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
               {/* Bottom Cinema Overlay Metadata */}
               <div className="absolute inset-x-0 bottom-0 flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-end sm:p-8">
                 <div>
-                  <p className="font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#D4D7DD]">
+                  <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
                     {UI_COPY.works.showreelEyebrow[lang]}
                   </p>
                   <h3 className="mt-1.5 font-display text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
@@ -326,7 +327,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                   </p>
                 </div>
 
-                <span className="btn-titanium inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-[#050505] transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
+                <span className="btn-titanium inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-[#050505] transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
                   <span>{UI_COPY.works.showreelCta[lang]}</span>
                   <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
                 </span>
@@ -338,7 +339,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
         {/* Section Header + Category Filters */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#D4D7DD]">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.works.eyebrow[lang]}
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold uppercase tracking-[0.06em] text-[#F4F5F7] sm:text-4xl">

@@ -41,17 +41,17 @@ export function SystemsAndContactSection({
     mm.add("(min-width: 768px)", () => {
       gsap.fromTo(
         ".system-pillar-inner",
-        { y: 12, opacity: 0.6 },
+        { y: 14, opacity: 0.55 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.04,
-          duration: 0.45,
+          stagger: 0.05,
+          duration: 0.5,
           ease: "power3.out",
           clearProps: "transform,opacity",
           scrollTrigger: {
             trigger: ".system-pillar-grid",
-            start: "top 92%",
+            start: "top 90%",
             once: true,
           },
         }
@@ -67,7 +67,7 @@ export function SystemsAndContactSection({
       <section
         id="systems"
         ref={systemsRef}
-        className="relative z-10 border-t border-white/[0.1] bg-[#0F1219]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-36"
+        className="relative z-10 border-t border-white/10 bg-[#0F1219]/42 px-5 py-20 sm:px-8 sm:py-24 md:py-32"
       >
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
@@ -83,11 +83,11 @@ export function SystemsAndContactSection({
             {AI_PRODUCTION_STACK.map((pillar) => (
               <div
                 key={pillar.name.en}
-                className="system-pillar bg-[#151822]/96 p-7 transition-colors duration-300 hover:bg-[#1B1F2C]"
+                className="system-pillar bg-[#151822]/96 p-7 transition-colors duration-300 ease-out hover:bg-[#1B1F2C]"
               >
                 <div className="system-pillar-inner flex h-full flex-col justify-between">
                   <div>
-                    <p className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#D4D7DD]">
+                    <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
                       {pillar.domain[lang]}
                     </p>
                     <h3 className="mt-3 text-xl font-semibold text-[#F4F5F7]">
@@ -107,12 +107,12 @@ export function SystemsAndContactSection({
       {/* Direct Channel & Minimal Footer with Language Switch */}
       <footer
         id="contact"
-        className="relative z-10 border-t border-white/[0.11] bg-[#0C0E13]/88 px-5 pb-[max(8rem,calc(7rem+env(safe-area-inset-bottom)))] pt-20 sm:px-8 sm:pt-24 md:pb-14 md:pt-32"
+        className="relative z-10 border-t border-white/10 bg-[#0C0E13]/88 px-5 pb-[max(8rem,calc(7rem+env(safe-area-inset-bottom)))] pt-20 sm:px-8 sm:pt-24 md:pb-14 md:pt-28"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
             <div className="w-full min-w-0 max-w-2xl">
-              <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#D4D7DD]">
+              <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
                 {UI_COPY.contact.eyebrow[lang]}
               </p>
               <h2 className="mt-3 block font-display text-[clamp(1.85rem,4.5vw,3rem)] font-semibold uppercase leading-[1.2] tracking-[0.04em] text-[#F4F5F7]">

@@ -36,9 +36,14 @@ html {
   background-color: var(--bg-void);
   color: var(--ink-titanium);
   scroll-behavior: auto;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 5rem;
   overflow-x: clip;
   color-scheme: dark;
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 4.5rem;
 }
 
 button:not(:disabled),

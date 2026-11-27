@@ -1,12 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 import { Lang, SCROLL_SECTIONS } from "../data/portfolioData";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollTelemetryProps {
   lang: Lang;
+  activeSection: string;
   scrollProgressRef: React.MutableRefObject<number>;
   onNavigate: (sectionId: string) => void;
 }
@@ -17,11 +14,11 @@ interface ScrollTelemetryProps {
  */
 export function ScrollTelemetry({
   lang,
+  activeSection,
   scrollProgressRef,
   onNavigate,
 }: ScrollTelemetryProps) {
   const barRef = useRef<HTMLDivElement>(null);
-  const [activeId, setActiveId] = useState<string>(SCROLL_SECTIONS[0].id);
 
   useEffect(() => {
     let rafId = 0;
@@ -36,23 +33,6 @@ export function ScrollTelemetry({
     rafId = window.requestAnimationFrame(updateBar);
     return () => window.cancelAnimationFrame(rafId);
   }, [scrollProgressRef]);
-
-  useEffect(() => {
-    const triggers: ScrollTrigger[] = [];
-    SCROLL_SECTIONS.forEach((section) => {
-      const el = document.getElementById(section.id);
-      if (!el) return;
-      const st = ScrollTrigger.create({
-        trigger: el,
-        start: "top 48%",
-        end: "bottom 48%",
-        onEnter: () => setActiveId(section.id),
-        onEnterBack: () => setActiveId(section.id),
-      });
-      triggers.push(st);
-    });
-    return () => triggers.forEach((st) => st.kill());
-  }, [lang]);
 
   return (
     <>
@@ -75,7 +55,7 @@ export function ScrollTelemetry({
         className="fixed end-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-3.5 2xl:flex"
       >
         {SCROLL_SECTIONS.map((item) => {
-          const isActive = activeId === item.id;
+          const isActive = activeSection === item.id;
           return (
             <button
               key={item.id}
@@ -85,7 +65,7 @@ export function ScrollTelemetry({
               className="group flex items-center justify-end gap-2.5 text-end focus:outline-none"
             >
               <span
-                className={`font-mono-code text-[10px] tracking-[0.14em] transition-all duration-300 ${
+                className={`font-mono-code text-[10px] tracking-[0.14em] transition-all duration-300 ease-out ${
                   isActive
                     ? "translate-x-0 text-[#F4F5F7] opacity-100"
                     : "pointer-events-none translate-x-1 text-[#9CA3AF] opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
@@ -94,7 +74,7 @@ export function ScrollTelemetry({
                 {item.index} · {item.label[lang]}
               </span>
               <span
-                className={`block rounded-full transition-all duration-300 ${
+                className={`block rounded-full transition-all duration-300 ease-out ${
                   isActive
                     ? "h-2.5 w-2.5 bg-[#F4F5F7] shadow-[0_0_10px_rgba(244,245,247,0.75)]"
                     : "h-1.5 w-1.5 bg-white/25 group-hover:bg-[#D4D7DD]"
