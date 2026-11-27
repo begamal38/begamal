@@ -22,14 +22,15 @@ export function SignatureGlowLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`signature-glow-link group inline font-medium text-[#F3F4F6] transition-all duration-300 ease-out hover:text-white focus-visible:text-white ${className}`}
+      className={`signature-glow-link group inline-flex items-baseline whitespace-nowrap font-medium text-[#F3F4F6] transition-all duration-300 ease-out hover:text-white focus-visible:text-white ${className}`}
     >
       <span className="border-b border-white/25 pb-[1px] transition-colors duration-300 ease-out group-hover:border-white/60 group-focus-visible:border-white/60">
         {children}
-      </span>{" "}
+      </span>
+      <span aria-hidden="true">{"\u00A0"}</span>
       <span
         aria-hidden="true"
-        className="ms-0.5 inline-block text-[0.8em] opacity-60 transition-all duration-300 ease-out group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] group-hover:opacity-100 group-focus-visible:translate-x-[1.5px] group-focus-visible:-translate-y-[1.5px] group-focus-visible:opacity-100 rtl:-scale-x-100 rtl:group-hover:-translate-x-[1.5px] rtl:group-focus-visible:-translate-x-[1.5px]"
+        className="inline-block text-[0.8em] opacity-60 transition-all duration-300 ease-out group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] group-hover:opacity-100 group-focus-visible:translate-x-[1.5px] group-focus-visible:-translate-y-[1.5px] group-focus-visible:opacity-100 rtl:-scale-x-100 rtl:group-hover:-translate-x-[1.5px] rtl:group-focus-visible:-translate-x-[1.5px]"
       >
         ↗
       </span>

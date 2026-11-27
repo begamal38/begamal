@@ -398,7 +398,7 @@ export function ChronicleSection({
                   className="dossier-stage-fade grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8"
                 >
                   {/* Left Metadata Rail */}
-                  <aside className="flex flex-col justify-between gap-5 border-b border-white/[0.08] pb-5 lg:col-span-4 lg:border-b-0 lg:border-e lg:border-white/10 lg:pb-0 lg:pe-6">
+                  <aside className="flex flex-col gap-5 border-b border-white/[0.08] pb-5 lg:col-span-4 lg:gap-6 lg:border-b-0 lg:border-e lg:border-white/10 lg:pb-0 lg:pe-6">
                     <div className="space-y-4">
                       {selectedEntry.logos && selectedEntry.logos.length > 0 && (
                         <div className="flex flex-wrap items-center gap-2.5">
@@ -437,9 +437,13 @@ export function ChronicleSection({
                             lang={lang}
                           />
                         </p>
-                        <p className="mt-1 font-mono-code text-[11px] text-[#A1A6B0]">
-                          {selectedEntry.location[lang]}
-                        </p>
+                        {!selectedEntry.organization[lang].includes(
+                          selectedEntry.location[lang]
+                        ) && (
+                          <p className="mt-1 font-mono-code text-[11px] text-[#A1A6B0]">
+                            {selectedEntry.location[lang]}
+                          </p>
+                        )}
                       </div>
 
                       {selectedEntry.kpis && selectedEntry.kpis[lang].length > 0 && (
@@ -469,11 +473,11 @@ export function ChronicleSection({
                                 new CustomEvent("begamal:showreel-play")
                               )
                             }
-                            className="inline-flex w-full items-center justify-between gap-2 rounded-xl border border-white/20 bg-white/[0.06] px-3.5 py-2.5 text-xs font-medium text-[#F4F5F7] transition-all duration-200 hover:border-[#E5E7EB] hover:bg-[#E5E7EB] hover:text-[#050505]"
+                            className="inline-flex w-full items-center justify-between gap-2.5 rounded-xl border border-white/20 bg-white/[0.06] px-3.5 py-2.5 text-xs font-medium text-[#F4F5F7] transition-all duration-200 hover:border-[#E5E7EB] hover:bg-[#E5E7EB] hover:text-[#050505]"
                           >
-                            <span className="inline-flex items-center gap-2 min-w-0">
+                            <span className="inline-flex items-center gap-2">
                               <Play size={12} weight="fill" className="shrink-0" />
-                              <span className="truncate">
+                              <span>
                                 <BiDiText text={link.label[lang]} lang={lang} />
                               </span>
                             </span>

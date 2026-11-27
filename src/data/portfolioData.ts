@@ -429,8 +429,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     links: [
       {
         label: {
-          en: "Watch Smart Village Atmosphere Film (Vimeo)",
-          ar: "شاهد فيديو بيئة العمل في القرية الذكية · Vimeo",
+          en: "Smart Village Promo Film",
+          ar: "فيلم القرية الذكية",
         },
         url: "https://vimeo.com/397536977",
       },
