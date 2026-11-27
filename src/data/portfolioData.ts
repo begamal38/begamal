@@ -43,6 +43,11 @@ export interface ChronicleEntry {
     ar: string[];
   };
   logos?: OrganizationLogo[];
+  archivePhoto?: {
+    src: string;
+    alt: LocalizedText;
+    caption: LocalizedText;
+  };
   summary: LocalizedText;
   highlights: {
     en: string[];
@@ -443,6 +448,17 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         url: "https://vimeo.com/397536977",
       },
     ],
+    archivePhoto: {
+      src: "/assets/clients/majorel-smart-village-team.jpg",
+      alt: {
+        en: "Majorel Egypt Smart Village team photo published by @majorelegypt for International Workers' Day (#OneMajorel)",
+        ar: "صورة فريق ماجوريل بالقرية الذكية المنشورة على حساب @majorelegypt بمناسبة يوم العمال العالمي (#OneMajorel)",
+      },
+      caption: {
+        en: "@majorelegypt · International Workers' Day · Smart Village",
+        ar: "@majorelegypt · يوم العمال العالمي · القرية الذكية",
+      },
+    },
   },
   {
     id: "al-attar-2018-2021",

@@ -490,6 +490,26 @@ export function ChronicleSection({
                         ))}
                       </div>
                     )}
+
+                    {selectedEntry.archivePhoto && (
+                      <figure className="group max-w-[205px] overflow-hidden rounded-xl border border-white/12 bg-[#0B0D12]/90 p-1.5 shadow-sm">
+                        <div className="overflow-hidden rounded-lg">
+                          <img
+                            src={selectedEntry.archivePhoto.src}
+                            alt={selectedEntry.archivePhoto.alt[lang]}
+                            loading="lazy"
+                            decoding="async"
+                            className="aspect-square w-full object-cover grayscale contrast-[1.08] brightness-[0.94] transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:grayscale-0"
+                          />
+                        </div>
+                        <figcaption className="mt-1.5 px-1 pb-0.5 font-mono-code text-[9.5px] leading-snug text-[#A1A6B0]">
+                          <BiDiText
+                            text={selectedEntry.archivePhoto.caption[lang]}
+                            lang={lang}
+                          />
+                        </figcaption>
+                      </figure>
+                    )}
                   </aside>
 
                   {/* Right Narrative Column */}
