@@ -11,7 +11,6 @@ import {
   CaseStudyCategoryId,
   ClientStatus,
   Lang,
-  PORTFOLIO_IDENTITY,
   UI_COPY,
 } from "../data/portfolioData";
 import { BiDiText } from "./BiDiText";
@@ -305,56 +304,69 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
       />
       <div className="mx-auto max-w-6xl">
-        {/* Featured 16:9 Cinema Vimeo Showreel Showcase */}
-        <a
-          href={PORTFOLIO_IDENTITY.vimeoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
-          className="group mb-12 block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
-        >
-          <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
-            <div className="relative aspect-[16/9] w-full overflow-hidden">
-              <img
-                src={PORTFOLIO_IDENTITY.showreelPosterPath}
-                alt={UI_COPY.works.showreelTitle[lang]}
-                loading="lazy"
-                className="h-full w-full object-cover brightness-[0.76] contrast-[1.08] grayscale-[55%] transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080C] via-[#090C12]/80 via-45% to-transparent"
-                aria-hidden="true"
-              />
-
-              {/* Centered Metallic Titanium Play Badge */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                <span className="btn-titanium flex h-16 w-16 items-center justify-center rounded-full text-[#050505] shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-20 sm:w-20">
-                  <Play size={24} weight="fill" className="translate-x-0.5 text-[#050505]" />
-                </span>
-              </div>
-
-              {/* Bottom Cinema Overlay Metadata */}
-              <div className="absolute inset-x-0 bottom-0 flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-end sm:p-8">
-                <div>
-                  <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
-                    {UI_COPY.works.showreelEyebrow[lang]}
-                  </p>
-                  <h3 className="mt-1.5 font-display text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
-                    {UI_COPY.works.showreelTitle[lang]}
-                  </h3>
-                  <p className="mt-1 hidden max-w-xl text-sm text-[#D4D7DD]/90 sm:block">
-                    {UI_COPY.works.showreelSubtitle[lang]}
-                  </p>
-                </div>
-
-                <span className="btn-titanium inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-[#050505] transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
-                  <span>{UI_COPY.works.showreelCta[lang]}</span>
-                  <ArrowUpRight size={14} weight="bold" className="inline-block rtl:-scale-x-100" />
-                </span>
-              </div>
-            </div>
+        {/* Featured films: header + two 16:9 cinema cards in one identity */}
+        <div className="mb-12">
+          <div className="mb-5">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
+              {UI_COPY.works.showreelEyebrow[lang]}
+            </p>
+            <h3 className="mt-2 font-display text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
+              {UI_COPY.works.showreelTitle[lang]}
+            </h3>
+            <p className="mt-1.5 max-w-2xl text-sm text-[#D4D7DD]/90">
+              {UI_COPY.works.showreelSubtitle[lang]}
+            </p>
           </div>
-        </a>
+          <div className="grid gap-4 md:grid-cols-2">
+            {UI_COPY.works.films.map((film) => (
+              <a
+                key={film.id}
+                href={film.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
+                className="group block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
+              >
+                <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden">
+                    <img
+                      src={film.poster}
+                      alt={film.title[lang]}
+                      loading="lazy"
+                      className="h-full w-full object-cover brightness-[0.8] contrast-[1.08] grayscale-[55%] transition-all duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-95 group-hover:grayscale-0"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080C] via-[#090C12]/70 via-40% to-transparent"
+                      aria-hidden="true"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="btn-titanium flex h-14 w-14 items-center justify-center rounded-full text-[#050505] shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-16 sm:w-16">
+                        <Play size={22} weight="fill" className="translate-x-0.5 text-[#050505]" />
+                      </span>
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-5">
+                      <div className="min-w-0">
+                        <p className="font-mono-code text-[10px] uppercase tracking-[0.16em] text-[#A1A6B0] sm:text-[11px]">
+                          {film.eyebrow[lang]}
+                        </p>
+                        <p className="mt-1 font-display text-base font-semibold text-[#F4F5F7] sm:text-lg">
+                          {film.title[lang]}
+                        </p>
+                      </div>
+                      <span
+                        className="btn-titanium inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#050505] transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                        title={film.cta[lang]}
+                      >
+                        <span className="sr-only">{film.cta[lang]}</span>
+                        <ArrowUpRight size={16} weight="bold" className="inline-block rtl:-scale-x-100" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
 
         {/* Section Header + Category Filters */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

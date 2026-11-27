@@ -228,6 +228,25 @@ export const UI_COPY = {
       en: "Watch Full Showreel on Vimeo",
       ar: "شاهد الأعمال على Vimeo",
     },
+    /** Featured films shown side by side under the showreel header */
+    films: [
+      {
+        id: "mohamed-samy-vimeo",
+        url: "https://vimeo.com/begamal",
+        poster: "/assets/showreel-poster.jpg",
+        eyebrow: { en: "Mohamed Samy Works · Vimeo", ar: "محمد سامي للديكور • Vimeo" },
+        title: { en: "Project Films", ar: "أفلام المشاريع" },
+        cta: { en: "Watch on Vimeo", ar: "شاهد على Vimeo" },
+      },
+      {
+        id: "qersh-black-friday-rap",
+        url: "https://www.facebook.com/reel/1166865936289409",
+        poster: "/assets/qersh-system-poster.jpg",
+        eyebrow: { en: "Al-Qersh Mobile · Black Friday", ar: "القرش موبايل • بلاك فرايداي" },
+        title: { en: "“New Tech. We Are the Trend.”", ar: "«تكنولوچيا جديدة.. احنا الموضة»" },
+        cta: { en: "Watch on Facebook", ar: "شاهد على فيسبوك" },
+      },
+    ],
     eyebrow: { en: "Client Orbit · Case Studies", ar: "مدار العملاء ودراسات الحالة" },
     title: { en: "Selected Works", ar: "أعمال مختارة" },
     openDossier: { en: "Open Dossier", ar: "افتح الملف" },
