@@ -24,7 +24,8 @@ interface DustParticle {
 
 /**
  * Featherweight 2D Canvas overlay rendering 3-depth monochrome Cold Brushed Titanium
- * cosmic dust and micro-twinkle starlight glints synced with Lenis scrollVelocity.
+ * cosmic dust and micro-twinkle starlight glints. Locked to `100lvh` so mobile URL
+ * bar resize never clears or snaps particles; reads native scrollY passively on touch devices.
  */
 export function CosmicDustCanvas({
   scrollVelocityRef,
@@ -40,13 +41,16 @@ export function CosmicDustCanvas({
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    const isTouchDevice =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.innerWidth < 1024;
 
     let width = window.innerWidth;
-    let height = window.innerHeight;
-    let dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    let height = Math.max(window.innerHeight, document.documentElement.clientHeight);
+    let dpr = Math.min(window.devicePixelRatio || 1, width < 768 ? 1.25 : 1.5);
 
     const createParticles = (w: number, h: number): DustParticle[] => {
-      const count = w < 768 ? 45 : 95;
+      const count = w < 768 ? 40 : 95;
       const list: DustParticle[] = [];
 
       for (let i = 0; i < count; i++) {
@@ -59,19 +63,19 @@ export function CosmicDustCanvas({
 
         if (roll < 0.45) {
           stratum = "far";
-          size = 0.6 + Math.random() * 0.4; // 0.6px - 1px
+          size = 0.6 + Math.random() * 0.4;
           baseAlpha = 0.22 + Math.random() * 0.28;
           depthSpeed = 0.14;
           driftY = -(0.02 + Math.random() * 0.05);
         } else if (roll < 0.83) {
           stratum = "mid";
-          size = 1.2 + Math.random() * 0.6; // 1.2px - 1.8px
+          size = 1.2 + Math.random() * 0.6;
           baseAlpha = 0.18 + Math.random() * 0.27;
           depthSpeed = 0.42;
           driftY = -(0.05 + Math.random() * 0.1);
         } else {
           stratum = "near";
-          size = 2.2 + Math.random() * 1.0; // 2.2px - 3.2px bokeh
+          size = 2.2 + Math.random() * 1.0;
           baseAlpha = 0.1 + Math.random() * 0.12;
           depthSpeed = 0.85;
           driftY = -(0.08 + Math.random() * 0.14);
@@ -88,7 +92,7 @@ export function CosmicDustCanvas({
           twinkleSpeed: 0.6 + Math.random() * 1.1,
           depthSpeed,
           stratum,
-          hasCrossGlint: stratum === "far" && Math.random() < 0.14, // ~6% overall
+          hasCrossGlint: stratum === "far" && Math.random() < 0.14,
           isBrightSilver: Math.random() < 0.65,
         });
       }
@@ -97,12 +101,11 @@ export function CosmicDustCanvas({
 
     const resizeCanvas = () => {
       width = window.innerWidth;
-      height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      height = canvas.clientHeight || window.innerHeight;
+      const maxDpr = width < 768 ? 1.25 : 1.5;
+      dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
@@ -110,6 +113,10 @@ export function CosmicDustCanvas({
     let particles = createParticles(width, height);
 
     const handleResize = () => {
+      // Ignore vertical-only URL bar show/hide resizes on mobile to avoid canvas clear & jitter
+      if (window.innerWidth === width && width < 1024) {
+        return;
+      }
       const prevMobile = width < 768;
       resizeCanvas();
       const nowMobile = width < 768;
@@ -125,9 +132,10 @@ export function CosmicDustCanvas({
         renderFrame(0, 0);
       }
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     let smoothedVelocity = 0;
+    let prevScrollY = window.scrollY;
     let frameId = 0;
     let isVisible = !document.hidden;
     const startTime = performance.now();
@@ -166,7 +174,6 @@ export function CosmicDustCanvas({
           alpha = Math.min(0.85, p.baseAlpha + velocityBoost);
         }
 
-        // Subtle vertical warp streak for mid & near strata when scrolling quickly
         if (isWarping && p.stratum !== "far" && streakLength > 0.6) {
           const halfStreak = streakLength * 0.5;
           const grad = ctx.createLinearGradient(
@@ -186,7 +193,6 @@ export function CosmicDustCanvas({
           ctx.lineTo(p.x, p.y + halfStreak);
           ctx.stroke();
         } else if (p.stratum === "near") {
-          // Soft out-of-focus bokeh titanium speck
           const rad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 1.4);
           rad.addColorStop(0, `rgba(${rgb}, ${alpha.toFixed(3)})`);
           rad.addColorStop(0.55, `rgba(${rgb}, ${(alpha * 0.45).toFixed(3)})`);
@@ -196,21 +202,16 @@ export function CosmicDustCanvas({
           ctx.arc(p.x, p.y, p.size * 1.4, 0, Math.PI * 2);
           ctx.fill();
         } else {
-          // Sharp pinpoint star or fine mid dust mote
           ctx.fillStyle = `rgba(${rgb}, ${alpha.toFixed(3)})`;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size * 0.55, 0, Math.PI * 2);
           ctx.fill();
         }
 
-        // Occasional delicate 4-point cross shimmer on ~6% of stars
         if (p.hasCrossGlint) {
-          const pulse = Math.max(
-            0,
-            Math.sin(elapsedSec * 0.9 + p.phase * 2.1)
-          );
+          const pulse = Math.max(0, Math.sin(elapsedSec * 0.9 + p.phase * 2.1));
           const shimmerAlpha =
-            (pulse > 0.72 || isWarping)
+            pulse > 0.72 || isWarping
               ? Math.min(0.55, 0.18 + pulse * 0.25 + velocityBoost)
               : 0;
           if (shimmerAlpha > 0.04) {
@@ -231,10 +232,17 @@ export function CosmicDustCanvas({
     const tick = (now: number) => {
       if (!isVisible || prefersReducedMotion) return;
       const elapsedSec = (now - startTime) * 0.001;
-      const rawV = scrollVelocityRef.current;
-      smoothedVelocity += (rawV - smoothedVelocity) * 0.16;
-      // Gently decay residual velocity so motion rests gracefully when Lenis stops
-      scrollVelocityRef.current *= 0.92;
+
+      if (isTouchDevice) {
+        const currentY = window.scrollY;
+        const deltaY = Math.max(-45, Math.min(45, currentY - prevScrollY));
+        prevScrollY = currentY;
+        smoothedVelocity += (deltaY - smoothedVelocity) * 0.08;
+      } else {
+        const rawV = scrollVelocityRef.current;
+        smoothedVelocity += (rawV - smoothedVelocity) * 0.16;
+        scrollVelocityRef.current *= 0.92;
+      }
 
       renderFrame(elapsedSec, smoothedVelocity);
       frameId = window.requestAnimationFrame(tick);
@@ -249,6 +257,7 @@ export function CosmicDustCanvas({
     const handleVisibility = () => {
       isVisible = !document.hidden;
       if (isVisible && !prefersReducedMotion) {
+        prevScrollY = window.scrollY;
         if (!frameId) {
           frameId = window.requestAnimationFrame(tick);
         }
@@ -270,7 +279,7 @@ export function CosmicDustCanvas({
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1] h-full w-full"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[1] h-[100lvh] min-h-screen w-full"
     />
   );
 }

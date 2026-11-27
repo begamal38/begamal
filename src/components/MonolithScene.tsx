@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Lang } from "../data/portfolioData";
 
 interface MonolithSceneProps {
@@ -14,10 +14,10 @@ const READING_OPACITY = 0.22;
 const DOSSIER_OPACITY = 0.12;
 
 /**
- * Ambient monochrome Interstellar cinema video background (`/video/gargantua-bg-loop.mp4`)
- * blended seamlessly into `#050505` void via `mix-blend-screen`, driven on GPU with
- * Lenis-synced scroll opacity/parallax, subtle pointer parallax, reduced-motion pause,
- * and automatic background-tab pause.
+ * Ambient monochrome Interstellar cinema video background (`/video/gargantua-bg-loop.mp4`).
+ * Locked to `100lvh` so mobile URL bar resize never snaps/jumps during reverse scroll.
+ * Desktop (`>= 768px`) runs smooth Lenis GPU scroll parallax + pointer drift + screen blend.
+ * Mobile (`< 768px`) skips per-frame JS transforms & screen-blend repaints for native 120Hz fluidity.
  */
 export function MonolithScene({
   scrollProgressRef,
@@ -28,6 +28,9 @@ export function MonolithScene({
   const layerRef = useRef<HTMLDivElement>(null);
   const isDossierOpenRef = useRef<boolean>(isDossierOpen);
   const langDirRef = useRef<number>(lang === "ar" ? -1 : 1);
+  const [isMobileViewport, setIsMobileViewport] = useState<boolean>(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
 
   useEffect(() => {
     isDossierOpenRef.current = isDossierOpen;
@@ -36,6 +39,18 @@ export function MonolithScene({
   useEffect(() => {
     langDirRef.current = lang === "ar" ? -1 : 1;
   }, [lang]);
+
+  useEffect(() => {
+    let lastWidth = window.innerWidth;
+    const onResize = () => {
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        setIsMobileViewport(window.innerWidth < 768);
+      }
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -64,12 +79,21 @@ export function MonolithScene({
     };
     document.addEventListener("visibilitychange", handleVisibility);
 
+    // Mobile (`< 768px`): zero per-frame JS transform/opacity mutations for native 120Hz touch inertia
+    if (isMobileViewport) {
+      layer.style.transform = "";
+      layer.style.opacity = "";
+      return () => {
+        document.removeEventListener("visibilitychange", handleVisibility);
+      };
+    }
+
     const targetPointer = { x: 0, y: 0 };
     const currentPointer = { x: 0, y: 0 };
 
     const handlePointerMove = (e: PointerEvent) => {
-      targetPointer.x = (e.clientX / window.innerWidth - 0.5) * 20; // +/- 10px
-      targetPointer.y = (e.clientY / window.innerHeight - 0.5) * 20; // +/- 10px
+      targetPointer.x = (e.clientX / window.innerWidth - 0.5) * 20;
+      targetPointer.y = (e.clientY / window.innerHeight - 0.5) * 20;
     };
 
     if (hasFinePointer && !prefersReducedMotion) {
@@ -90,7 +114,7 @@ export function MonolithScene({
         currentPointer.x += (targetPointer.x - currentPointer.x) * 0.06;
         currentPointer.y += (targetPointer.y - currentPointer.y) * 0.06;
 
-        // Ease smoothly from 0.42 in Hero down to 0.22 across reading sections, or 0.12 behind Dossiers
+        // Desktop: 0.42 in Hero -> 0.22 across reading sections, or 0.12 behind Dossiers
         const scrollRatio = Math.min(1, smoothedScroll / 0.16);
         const scrollTargetOpacity =
           HERO_OPACITY - scrollRatio * (HERO_OPACITY - READING_OPACITY);
@@ -130,20 +154,30 @@ export function MonolithScene({
         window.removeEventListener("pointermove", handlePointerMove);
       }
     };
-  }, [scrollProgressRef]);
+  }, [scrollProgressRef, isMobileViewport]);
 
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#050505]"
+      className="pointer-events-none fixed inset-x-0 top-0 z-0 h-[100lvh] min-h-screen overflow-hidden bg-[#050505]"
     >
       <div
         ref={layerRef}
-        className="h-full w-full will-change-transform"
-        style={{
-          opacity: isDossierOpen ? DOSSIER_OPACITY : HERO_OPACITY,
-          transform: "translate3d(0px, 0px, 0) scale(1.03)",
-        }}
+        className={`h-full w-full transition-opacity duration-300 md:will-change-transform md:transition-none ${
+          isMobileViewport
+            ? isDossierOpen
+              ? "opacity-[0.12]"
+              : "opacity-[0.26]"
+            : ""
+        }`}
+        style={
+          isMobileViewport
+            ? undefined
+            : {
+                opacity: isDossierOpen ? DOSSIER_OPACITY : HERO_OPACITY,
+                transform: "translate3d(0px, 0px, 0) scale(1.03)",
+              }
+        }
       >
         <video
           ref={videoRef}
@@ -154,11 +188,17 @@ export function MonolithScene({
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="h-full w-full object-cover object-right md:object-center mix-blend-screen"
+          className="h-full w-full object-cover object-[75%_18%] md:object-center md:mix-blend-screen"
         />
       </div>
 
-      {/* Soft radial + edge obsidian vignette preserving 100% left/center typography legibility */}
+      {/* Mobile lower vertical scrim ensuring razor-sharp contrast beneath Hero & reading copy */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[#050505] via-[#050505]/75 to-transparent md:hidden"
+      />
+
+      {/* Soft radial + edge obsidian vignette preserving 100% typography legibility */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"

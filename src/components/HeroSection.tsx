@@ -54,17 +54,17 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative z-10 flex min-h-[86svh] items-center bg-transparent px-5 pb-16 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-8 sm:pb-14 lg:pt-24"
+      className="relative z-10 flex items-center bg-transparent px-5 pt-24 pb-28 md:min-h-[86svh] md:px-8 md:pb-14 md:pt-24"
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-5 sm:gap-8 lg:grid-cols-12">
         {/* Left/Start: Typography Stack (Immediately visible at scroll = 0, opacity: 1) */}
         <div className="order-2 flex flex-col items-start opacity-100 lg:order-1 lg:col-span-7">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-[#0A0A0C]/85 px-3.5 py-1">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#0A0A0C]/85 px-3 py-1.5 md:gap-2.5 md:px-3.5 md:py-1">
             <span
               className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
               aria-hidden="true"
             />
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.2em] text-[#D4D7DD]">
+            <p className="font-mono-code text-[9.5px] uppercase tracking-[0.14em] text-[#D4D7DD] md:text-[11px] md:tracking-[0.2em]">
               {PORTFOLIO_IDENTITY.heroEyebrow[lang]}
             </p>
           </div>
@@ -76,7 +76,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
             </span>
           </h1>
 
-          <p className="mt-3 max-w-[50ch] text-[15px] leading-relaxed text-[#E4E4E7] sm:mt-4 sm:text-[17px]">
+          <p className="mt-3 max-w-[50ch] text-[13.5px] leading-[1.65] text-[#E4E4E7] md:mt-4 md:text-[17px] md:leading-relaxed">
             {PORTFOLIO_IDENTITY.heroSubtext[lang]}
           </p>
 
@@ -104,17 +104,22 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
 
         {/* Right/End: Studio Monochrome Portrait dissolved seamlessly into #050505 void */}
         <div className="hero-portrait-parallax order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
-          <div className="relative w-[196px] sm:w-[292px] lg:w-[376px]">
-            {/* Directional silver rim-glow aligned with off-center Interstellar horizon */}
+          <div className="relative mx-auto h-44 w-44 sm:h-52 sm:w-52 md:mx-0 md:h-auto md:w-[292px] lg:w-[376px]">
+            {/* Mobile pure-obsidian radial backing halo separating portrait from Gargantua plasma arcs */}
             <div
-              className="pointer-events-none absolute -inset-12 rounded-full opacity-25 blur-3xl"
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-5 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(5,5,5,0.94)_42%,rgba(5,5,5,0.65)_66%,transparent_88%)] md:hidden"
+            />
+            {/* Desktop directional silver rim-glow aligned with off-center Interstellar horizon */}
+            <div
+              className="pointer-events-none absolute -inset-12 hidden rounded-full opacity-25 blur-3xl md:block"
               style={{
                 background:
                   "radial-gradient(circle at 64% 32%, rgba(229, 231, 235, 0.34), rgba(161, 166, 176, 0.12) 45%, rgba(5, 5, 5, 0) 74%)",
               }}
               aria-hidden="true"
             />
-            <div className="portrait-mask relative aspect-[4/5] w-full overflow-hidden">
+            <div className="portrait-mask relative h-full w-full overflow-hidden rounded-full md:aspect-[4/5] md:h-auto md:rounded-none">
               <img
                 src={PORTFOLIO_IDENTITY.portraitPath}
                 alt={UI_COPY.hero.portraitAlt[lang]}

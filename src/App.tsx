@@ -15,6 +15,7 @@ import { SystemsAndContactSection } from "./components/SystemsAndContactSection"
 import { AmbientAudioPlayer } from "./components/AmbientAudioPlayer";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
@@ -86,8 +87,11 @@ export default function App() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    const isTouchDevice =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.innerWidth < 1024;
 
-    const updateFallbackProgress = () => {
+    const updateNativeProgress = () => {
       const maxScroll = Math.max(
         1,
         document.documentElement.scrollHeight - window.innerHeight
@@ -95,10 +99,24 @@ export default function App() {
       scrollProgressRef.current = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     };
 
-    if (prefersReducedMotion) {
-      window.addEventListener("scroll", updateFallbackProgress, { passive: true });
-      updateFallbackProgress();
-      return () => window.removeEventListener("scroll", updateFallbackProgress);
+    if (prefersReducedMotion || isTouchDevice) {
+      window.addEventListener("scroll", updateNativeProgress, { passive: true });
+      updateNativeProgress();
+
+      // Only refresh ScrollTrigger on genuine horizontal width changes (orientation/breakpoint), never mobile URL bar height jitter
+      let lastWidth = window.innerWidth;
+      const handleWidthResize = () => {
+        if (window.innerWidth !== lastWidth) {
+          lastWidth = window.innerWidth;
+          ScrollTrigger.refresh();
+        }
+      };
+      window.addEventListener("resize", handleWidthResize, { passive: true });
+
+      return () => {
+        window.removeEventListener("scroll", updateNativeProgress);
+        window.removeEventListener("resize", handleWidthResize);
+      };
     }
 
     const lenis = new Lenis({
