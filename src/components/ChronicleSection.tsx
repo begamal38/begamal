@@ -114,8 +114,12 @@ export function ChronicleSection({
     <section
       id="chronicle"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/10 bg-transparent px-5 py-20 sm:px-8 sm:py-24 md:py-32"
+      className="relative z-10 bg-transparent px-5 py-14 sm:px-8 md:py-20"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+      />
       <div className="mx-auto max-w-6xl">
         {/* Section Header + Quick Year-Jump Timeline Node Rail */}
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -296,7 +300,7 @@ export function ChronicleSection({
         </div>
       </div>
 
-      {/* Focused Obsidian Glass Era Dossier (Modal / Mobile Bottom Sheet) */}
+      {/* Focused Obsidian Glass Era Dossier (Editorial 2-Column Split Modal / Mobile Sheet) */}
       {selectedEntry &&
         selectedIndex !== null &&
         createPortal(
@@ -311,7 +315,7 @@ export function ChronicleSection({
             onClick={handleClose}
           >
             <div
-              className="dossier-enter relative flex max-h-[92dvh] w-full max-w-3xl flex-col overflow-hidden rounded-t-[1.5rem] border border-white/15 bg-[#08080A]/96 shadow-[0_28px_80px_rgba(0,0,0,0.85)] sm:max-h-[88dvh] sm:rounded-[1.5rem]"
+              className="dossier-enter relative flex max-h-[92dvh] w-full max-w-4xl flex-col overflow-hidden rounded-t-2xl border border-white/12 bg-[#07070A]/94 shadow-[0_32px_90px_rgba(0,0,0,0.85)] backdrop-blur-2xl sm:max-h-[88dvh] sm:rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Subtle Ambient Silver Top Hairline */}
@@ -320,193 +324,229 @@ export function ChronicleSection({
                 className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#E5E7EB]/45 to-transparent"
               />
 
-              {/* Dossier Header */}
-              <div className="flex shrink-0 items-start justify-between gap-4 border-b border-white/[0.08] px-5 pb-4 pt-5 sm:px-8 sm:pt-6">
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 font-mono-code text-[11px] text-[#A1A6B0]">
-                    <span
-                      dir="ltr"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-0.5 font-semibold tabular-nums text-[#F4F5F7]"
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#E5E7EB] shadow-[0_0_8px_rgba(229,231,235,0.85)]" />
-                      {String(selectedIndex + 1).padStart(2, "0")} /{" "}
-                      {String(total).padStart(2, "0")}
-                    </span>
-                    <span className="text-[#D4D7DD]">
-                      {selectedEntry.period[lang]}
-                    </span>
-                    <span aria-hidden="true" className="text-white/25">
-                      ·
-                    </span>
-                    <span>{selectedEntry.location[lang]}</span>
-                  </div>
-                  <h3
-                    id="era-dossier-title"
-                    className="mt-2.5 text-lg font-semibold leading-snug text-[#F4F5F7] sm:text-2xl"
-                  >
-                    <BiDiText text={selectedEntry.role[lang]} lang={lang} />
-                  </h3>
-                  <p className="mt-1 text-xs font-medium text-[#D4D7DD] sm:text-sm">
-                    <BiDiText
-                      text={selectedEntry.organization[lang]}
-                      lang={lang}
-                    />
-                  </p>
+              {/* Single-Row Clean Dossier Header */}
+              <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] px-5 py-3.5 sm:px-7">
+                <div
+                  dir="ltr"
+                  className="flex min-w-0 items-center gap-2 font-mono-code text-[11px] text-[#A1A6B0]"
+                >
+                  <span className="inline-flex shrink-0 items-center gap-1.5 font-semibold tabular-nums text-[#F4F5F7]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#E5E7EB] shadow-[0_0_8px_rgba(229,231,235,0.85)]" />
+                    {String(selectedIndex + 1).padStart(2, "0")} /{" "}
+                    {String(total).padStart(2, "0")}
+                  </span>
+                  <span aria-hidden="true" className="text-white/25">
+                    ·
+                  </span>
+                  <span className="truncate text-[#D4D7DD]">
+                    {selectedEntry.period[lang]}
+                  </span>
+                </div>
+
+                {/* Subtle Center Progress Indicator */}
+                <div
+                  aria-label={UI_COPY.chronicle.railAria[lang]}
+                  className="hidden items-center gap-1.5 sm:flex"
+                >
+                  {CAREER_CHRONICLE.map((node, idx) => {
+                    const isCurrent = idx === selectedIndex;
+                    return (
+                      <button
+                        key={`dot-${node.id}`}
+                        type="button"
+                        onClick={() => openStage(idx)}
+                        aria-label={`${String(idx + 1).padStart(2, "0")} · ${node.railYear[lang]} — ${node.organization[lang]}`}
+                        title={`${node.period[lang]} — ${node.organization[lang]}`}
+                        className="group flex h-4 items-center px-0.5"
+                      >
+                        <span
+                          className={`block rounded-full transition-all duration-200 ${
+                            isCurrent
+                              ? "h-1.5 w-5 bg-[#E5E7EB] shadow-[0_0_8px_rgba(229,231,235,0.65)]"
+                              : "h-1.5 w-1.5 bg-white/20 group-hover:bg-white/55"
+                          }`}
+                        />
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <button
                   type="button"
                   aria-label={UI_COPY.chronicle.closeDossier[lang]}
                   onClick={handleClose}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-[#111319] text-[#F4F5F7] transition-colors duration-300 ease-out hover:border-white/40 hover:text-white"
+                  className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-[#111319]/90 px-3 text-[#E5E7EB] transition-colors duration-200 hover:border-white/40 hover:text-white"
                 >
-                  <X size={16} weight="bold" />
+                  <span className="hidden font-mono-code text-[10px] uppercase tracking-wider text-[#A1A6B0] sm:inline">
+                    ESC
+                  </span>
+                  <X size={14} weight="bold" />
                 </button>
               </div>
 
-              {/* Mini Year-Node Skipper Strip with Glowing Beacon Lamp (all 01–10 visible) */}
-              <div className="shrink-0 border-b border-white/[0.07] bg-white/[0.015] px-5 py-2.5 sm:px-8">
-                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar sm:flex-wrap sm:overflow-visible">
-                  {CAREER_CHRONICLE.map((node, idx) => {
-                    const isCurrent = idx === selectedIndex;
-                    return (
-                      <button
-                        key={`skip-${node.id}`}
-                        type="button"
-                        onClick={() => openStage(idx)}
-                        title={`${node.period[lang]} — ${node.organization[lang]}`}
-                        className={`relative flex shrink-0 items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono-code text-[10px] transition-all duration-200 whitespace-nowrap ${
-                          isCurrent
-                            ? "border-white/30 bg-white/[0.1] text-[#F4F5F7]"
-                            : "border-white/[0.07] bg-transparent text-[#A1A6B0] hover:border-white/20 hover:text-[#F4F5F7]"
-                        }`}
-                      >
-                        <span
-                          aria-hidden="true"
-                          className={`h-1.5 w-1.5 rounded-full ${
-                            isCurrent
-                              ? "beacon-lamp bg-[#FFFFFF]"
-                              : "bg-white/25"
-                          }`}
-                        />
-                        <span dir="ltr" className="tabular-nums">
-                          {String(idx + 1).padStart(2, "0")} · {node.railYear[lang]}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Scrollable Rich Dossier Body */}
+              {/* Editorial 2-Column Scrollable Dossier Body */}
               <div
                 ref={modalBodyRef}
                 data-lenis-prevent=""
                 data-lenis-prevent-wheel=""
                 data-lenis-prevent-touch=""
-                className="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-pan-y px-5 py-5 pb-20 sm:px-8 sm:py-6"
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-pan-y px-5 py-6 sm:px-8 sm:py-7"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                <div key={selectedEntry.id} className="dossier-stage-fade">
-                  {selectedEntry.logos && selectedEntry.logos.length > 0 && (
-                    <div className="mb-5 flex flex-wrap items-center gap-3">
-                      {selectedEntry.logos.map((logo) => (
-                        <div
-                          key={`${selectedEntry.id}-dossier-${logo.src}`}
-                          className="flex h-11 min-w-[48px] shrink-0 items-center justify-center rounded-xl border border-white/15 px-3.5 py-1.5 shadow-sm"
-                          style={{ backgroundColor: logo.bg ?? "#0B0C0E" }}
-                        >
-                          <img
-                            src={logo.src}
-                            alt={logo.alt[lang]}
-                            loading="eager"
-                            decoding="sync"
-                            className={`block object-contain ${
-                              logo.wide
-                                ? "h-auto max-h-6 w-auto max-w-[140px]"
-                                : "h-8 w-auto"
-                            }`}
-                          />
+                <div
+                  key={selectedEntry.id}
+                  className="dossier-stage-fade grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8"
+                >
+                  {/* Left Metadata Rail */}
+                  <aside className="flex flex-col justify-between gap-5 border-b border-white/[0.08] pb-5 lg:col-span-4 lg:border-b-0 lg:border-e lg:border-white/10 lg:pb-0 lg:pe-6">
+                    <div className="space-y-4">
+                      {selectedEntry.logos && selectedEntry.logos.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-2.5">
+                          {selectedEntry.logos.map((logo) => (
+                            <div
+                              key={`${selectedEntry.id}-dossier-${logo.src}`}
+                              className="flex h-10 min-w-[44px] shrink-0 items-center justify-center rounded-xl border border-white/15 px-3 py-1.5 shadow-sm"
+                              style={{ backgroundColor: logo.bg ?? "#0B0C0E" }}
+                            >
+                              <img
+                                src={logo.src}
+                                alt={logo.alt[lang]}
+                                loading="eager"
+                                decoding="sync"
+                                className={`block object-contain ${
+                                  logo.wide
+                                    ? "h-auto max-h-5 w-auto max-w-[120px]"
+                                    : "h-7 w-auto"
+                                }`}
+                              />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      )}
 
-                  <p className="text-sm leading-relaxed text-[#E4E4E7]/90 sm:text-[15px]">
-                    <BiDiText text={selectedEntry.summary[lang]} lang={lang} />
-                  </p>
-
-                  <ul className="mt-5 space-y-2.5 border-t border-white/[0.08] pt-4">
-                    {selectedEntry.highlights[lang].map((highlight) => (
-                      <li
-                        key={highlight}
-                        className="flex items-start gap-3 text-xs leading-relaxed text-[#F4F5F7]/85 sm:text-sm"
-                      >
-                        <span
-                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4D7DD]"
-                          aria-hidden="true"
-                        />
-                        <span>
-                          <BiDiText text={highlight} lang={lang} />
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {selectedEntry.mentorship && (
-                    <div className="mt-5 rounded-e-md border border-white/[0.06] border-s border-s-white/25 bg-white/[0.025] px-4 py-3.5">
-                      <p
-                        className={`mb-2 text-[10px] font-medium text-[#A1A6B0] sm:text-[11px] ${
-                          lang === "en"
-                            ? "font-mono-code uppercase tracking-[0.18em]"
-                            : "font-display tracking-normal"
-                        }`}
-                      >
-                        {selectedEntry.mentorship.eyebrow[lang]}
-                      </p>
-                      <p className="text-[13.5px] leading-relaxed text-[#D1D5DB] sm:text-[14px]">
-                        <RichInlineText
-                          text={selectedEntry.mentorship.body[lang]}
-                          lang={lang}
-                          links={selectedEntry.mentorship.entities.map(
-                            (ent) => ({
-                              match: ent.label[lang],
-                              url: ent.url,
-                            })
-                          )}
-                        />
-                      </p>
-                    </div>
-                  )}
-
-                  {selectedEntry.links && selectedEntry.links.length > 0 && (
-                    <div className="mt-5 flex flex-wrap gap-2.5 border-t border-white/[0.08] pt-4">
-                      {selectedEntry.links.map((link) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() =>
-                            window.dispatchEvent(
-                              new CustomEvent("begamal:showreel-play")
-                            )
-                          }
-                          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#1B1F2C]/90 px-4 py-2 text-xs font-medium text-[#F4F5F7] transition-all duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                      <div>
+                        <h3
+                          id="era-dossier-title"
+                          className="text-lg font-semibold leading-snug text-[#F4F5F7] sm:text-xl"
                         >
-                          <Play size={12} weight="fill" />
-                          <span>
-                            <BiDiText text={link.label[lang]} lang={lang} />
-                          </span>
-                          <ArrowUpRight
-                            size={13}
-                            weight="bold"
-                            className="inline-block rtl:-scale-x-100"
+                          <BiDiText text={selectedEntry.role[lang]} lang={lang} />
+                        </h3>
+                        <p className="mt-1.5 text-sm font-medium text-[#D4D7DD]">
+                          <BiDiText
+                            text={selectedEntry.organization[lang]}
+                            lang={lang}
                           />
-                        </a>
-                      ))}
+                        </p>
+                        <p className="mt-1 font-mono-code text-[11px] text-[#A1A6B0]">
+                          {selectedEntry.location[lang]}
+                        </p>
+                      </div>
+
+                      {selectedEntry.kpis && selectedEntry.kpis[lang].length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {selectedEntry.kpis[lang].map((kpi) => (
+                            <span
+                              key={kpi}
+                              className="inline-flex items-center rounded-full border border-white/12 bg-white/[0.04] px-2.5 py-1 font-mono-code text-[10px] font-medium tracking-wide text-[#E5E7EB]"
+                            >
+                              {kpi}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  )}
+
+                    {selectedEntry.links && selectedEntry.links.length > 0 && (
+                      <div className="flex flex-col gap-2 pt-2">
+                        {selectedEntry.links.map((link) => (
+                          <a
+                            key={link.url}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() =>
+                              window.dispatchEvent(
+                                new CustomEvent("begamal:showreel-play")
+                              )
+                            }
+                            className="inline-flex w-full items-center justify-between gap-2 rounded-xl border border-white/20 bg-white/[0.06] px-3.5 py-2.5 text-xs font-medium text-[#F4F5F7] transition-all duration-200 hover:border-[#E5E7EB] hover:bg-[#E5E7EB] hover:text-[#050505]"
+                          >
+                            <span className="inline-flex items-center gap-2 min-w-0">
+                              <Play size={12} weight="fill" className="shrink-0" />
+                              <span className="truncate">
+                                <BiDiText text={link.label[lang]} lang={lang} />
+                              </span>
+                            </span>
+                            <ArrowUpRight
+                              size={13}
+                              weight="bold"
+                              className="shrink-0 inline-block rtl:-scale-x-100"
+                            />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </aside>
+
+                  {/* Right Narrative Column */}
+                  <div className="min-w-0 space-y-5 lg:col-span-8">
+                    <div>
+                      <p className="mb-2 font-mono-code text-[10px] uppercase tracking-[0.18em] text-[#A1A6B0]">
+                        {UI_COPY.chronicle.executiveLeadLabel[lang]}
+                      </p>
+                      <p className="text-[15px] leading-relaxed text-[#E5E7EB]">
+                        <BiDiText text={selectedEntry.summary[lang]} lang={lang} />
+                      </p>
+                    </div>
+
+                    <div className="border-t border-white/[0.08] pt-4">
+                      <p className="mb-3 font-mono-code text-[10px] uppercase tracking-[0.18em] text-[#A1A6B0]">
+                        {UI_COPY.chronicle.impactHighlightsLabel[lang]}
+                      </p>
+                      <ul className="space-y-2.5">
+                        {selectedEntry.highlights[lang].map((highlight) => (
+                          <li
+                            key={highlight}
+                            className="flex items-start gap-3 text-sm leading-relaxed text-[#C7CBD3]"
+                          >
+                            <span
+                              className="mt-2.5 h-px w-3 shrink-0 bg-[#A1A6B0]/70"
+                              aria-hidden="true"
+                            />
+                            <span>
+                              <BiDiText text={highlight} lang={lang} />
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {selectedEntry.mentorship && (
+                      <div className="rounded-e-lg border border-white/[0.06] border-s border-s-white/25 bg-white/[0.03] px-4 py-3.5">
+                        <p
+                          className={`mb-2 text-[10px] font-medium text-[#A1A6B0] sm:text-[11px] ${
+                            lang === "en"
+                              ? "font-mono-code uppercase tracking-[0.18em]"
+                              : "font-display tracking-normal"
+                          }`}
+                        >
+                          {selectedEntry.mentorship.eyebrow[lang]}
+                        </p>
+                        <p className="text-[13.5px] leading-relaxed text-[#D1D5DB] sm:text-[14px]">
+                          <RichInlineText
+                            text={selectedEntry.mentorship.body[lang]}
+                            lang={lang}
+                            links={selectedEntry.mentorship.entities.map(
+                              (ent) => ({
+                                match: ent.label[lang],
+                                url: ent.url,
+                              })
+                            )}
+                          />
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 

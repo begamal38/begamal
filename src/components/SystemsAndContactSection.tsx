@@ -67,23 +67,27 @@ export function SystemsAndContactSection({
       <section
         id="systems"
         ref={systemsRef}
-        className="relative z-10 border-t border-white/10 bg-transparent px-5 py-20 sm:px-8 sm:py-24 md:py-32"
+        className="relative z-10 bg-transparent px-5 py-14 sm:px-8 md:py-20"
       >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        />
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
             <h2 className="font-display text-[clamp(1.75rem,3.6vw,2.5rem)] font-semibold uppercase tracking-[0.06em] text-[#F4F5F7]">
               {UI_COPY.systems.title[lang]}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-[#E4E4E7]/85">
+            <p className="mt-3 text-base leading-relaxed text-[#E4E4E7]/85">
               {UI_COPY.systems.subtitle[lang]}
             </p>
           </div>
 
-          <div className="system-pillar-grid mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.1] shadow-[0_18px_48px_-24px_rgba(0,0,0,0.75)] backdrop-blur-md lg:grid-cols-3">
+          <div className="system-pillar-grid mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.1] shadow-[0_18px_48px_-24px_rgba(0,0,0,0.75)] backdrop-blur-md lg:grid-cols-3">
             {AI_PRODUCTION_STACK.map((pillar) => (
               <div
                 key={pillar.name.en}
-                className="system-pillar bg-[#0A0A0C]/75 p-7 transition-colors duration-300 ease-out hover:bg-[#13161F]/85"
+                className="system-pillar bg-[#0A0A0C]/76 p-6 transition-colors duration-300 ease-out hover:bg-[#13161F]/85 sm:p-7"
               >
                 <div className="system-pillar-inner flex h-full flex-col justify-between">
                   <div>
@@ -94,7 +98,7 @@ export function SystemsAndContactSection({
                       {pillar.name[lang]}
                     </h3>
                   </div>
-                  <p className="mt-5 text-sm leading-relaxed text-[#9CA3AF]">
+                  <p className="mt-4 text-sm leading-relaxed text-[#9CA3AF]">
                     {pillar.role[lang]}
                   </p>
                 </div>
@@ -107,10 +111,14 @@ export function SystemsAndContactSection({
       {/* Direct Channel & Minimal Footer with Language Switch (Safe-Zone Cleared for Floating Audio Toggle) */}
       <footer
         id="contact"
-        className="relative z-10 border-t border-white/10 bg-[#0A0A0C]/78 px-5 pb-28 pt-20 backdrop-blur-md sm:px-8 sm:pb-24 sm:pt-24 md:pt-28"
+        className="relative z-10 bg-[#0A0A0C]/76 px-5 pb-28 pt-14 backdrop-blur-md sm:px-8 sm:pb-24 md:pt-20"
       >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        />
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <div className="w-full min-w-0 max-w-2xl">
               <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
                 {UI_COPY.contact.eyebrow[lang]}

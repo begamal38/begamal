@@ -10,12 +10,141 @@ interface MonolithSceneProps {
   isAudioPlayingRef?: React.MutableRefObject<boolean>;
 }
 
+const HORIZON_VERTEX_SHADER = /* glsl */ `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = vec4(position.xy, 0.0, 1.0);
+  }
+`;
+
+const HORIZON_FRAGMENT_SHADER = /* glsl */ `
+  precision highp float;
+
+  varying vec2 vUv;
+
+  uniform float uTime;
+  uniform float uScroll;
+  uniform vec2 uPointer;
+  uniform vec2 uResolution;
+  uniform float uDir;
+  uniform float uAudio;
+
+  float hash21(vec2 p) {
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+  }
+
+  float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    float a = hash21(i);
+    float b = hash21(i + vec2(1.0, 0.0));
+    float c = hash21(i + vec2(0.0, 1.0));
+    float d = hash21(i + vec2(1.0, 1.0));
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+  }
+
+  float fbm(vec2 p) {
+    float v = 0.0;
+    float a = 0.52;
+    mat2 rot = mat2(0.82, -0.57, 0.57, 0.82);
+    for (int i = 0; i < 5; i++) {
+      v += a * noise(p);
+      p = rot * p * 2.03 + vec2(13.1, 7.7);
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  void main() {
+    float aspect = uResolution.x / max(uResolution.y, 1.0);
+    vec2 uv = vUv;
+    vec2 p = (uv - 0.5) * vec2(aspect, 1.0);
+
+    // Subtle depth zoom & scroll evolution along the cosmic horizon
+    float zoom = mix(1.0, 0.84, uScroll);
+    p *= zoom;
+
+    // Off-center gravitational anchor (sweeping diagonally across upper-right third in LTR, mirrored smoothly in RTL)
+    vec2 center = vec2(0.68 * aspect * uDir, 0.44 - uScroll * 0.24) + uPointer * vec2(0.045, 0.032);
+    vec2 rel = p - center;
+
+    // Diagonal anamorphic tilt shifting gently with scroll
+    float tilt = (-0.28 + uScroll * 0.14) * uDir;
+    float cs = cos(tilt);
+    float sn = sin(tilt);
+    vec2 rotRel = vec2(rel.x * cs - rel.y * sn, rel.x * sn + rel.y * cs);
+
+    float dist = length(rotRel);
+    float angle = atan(rotRel.y, rotRel.x);
+
+    // Monumental partially-cropped event horizon radius
+    float horizonR = mix(0.62, 0.72, uScroll);
+
+    // FBM flowing light-plasma along orbital phase
+    float flowTime = uTime * 0.065;
+    vec2 plasmaCoord = vec2(angle * 2.4 + flowTime * 0.85, (dist - horizonR) * 5.2 - flowTime * 0.3);
+    float streaks = fbm(plasmaCoord + vec2(fbm(plasmaCoord * 1.6 + flowTime * 0.2), 0.0));
+    float microStreaks = fbm(vec2(angle * 7.5 - flowTime * 1.1, (dist - horizonR) * 14.0));
+
+    // Primary relativistic lensing arc hugging the upper-right singularity shadow
+    float outerBand = exp(-abs(dist - (horizonR + 0.035 + (streaks - 0.5) * 0.05)) * 18.0);
+    float coronaMist = exp(-max(0.0, dist - horizonR) * 3.1) * (0.45 + 0.55 * streaks);
+    float sharpRim = exp(-abs(dist - (horizonR + 0.012)) * 54.0);
+
+    // Sweeping diagonal accretion ribbon (Interstellar-inspired bent plane)
+    float planeDist = abs(rotRel.y - sin(rotRel.x * 1.15) * 0.04);
+    float accretionRibbon = exp(-planeDist * 11.5) * smoothstep(horizonR * 0.72, horizonR + 0.55, dist);
+    float ribbonFlow = fbm(vec2(rotRel.x * 3.8 + flowTime * 1.4, rotRel.y * 12.0));
+    accretionRibbon *= (0.45 + 0.75 * ribbonFlow) * exp(-max(0.0, dist - horizonR) * 0.65);
+
+    // Subtle anamorphic horizontal lens flare grazing the horizon limb
+    float flareY = abs(rotRel.y + 0.08);
+    float anamorphicFlare = exp(-flareY * 26.0) * exp(-abs(rotRel.x + 0.35 * uDir) * 1.45) * 0.32;
+
+    // Singularity shadow carving darkness inside the upper-right arc
+    float shadowMask = smoothstep(horizonR - 0.025, horizonR + 0.035, dist);
+
+    // Monochrome Obsidian (#050505) + Cold Brushed Titanium (#A1A6B0 -> #E5E7EB)
+    float breath = 1.0 + uAudio * (0.06 + 0.03 * sin(uTime * 1.35));
+    float midIntensity = (coronaMist * 0.38 + accretionRibbon * 0.52 + anamorphicFlare) * breath;
+    float coreIntensity = (outerBand * (0.34 + 0.38 * microStreaks) + sharpRim * 0.72) * breath;
+
+    // Attenuate slightly toward far left/edge so typography stays razor sharp
+    float sweepFade = smoothstep(-0.95 * aspect, 0.55 * aspect, p.x * uDir);
+    midIntensity *= (0.42 + 0.58 * sweepFade);
+    coreIntensity *= (0.35 + 0.65 * sweepFade);
+
+    vec3 colVoid = vec3(0.0196, 0.0196, 0.0216);      // #050505
+    vec3 colSlate = vec3(0.1529, 0.1608, 0.1804);     // #27292E
+    vec3 colSilver = vec3(0.6314, 0.6510, 0.6902);    // #A1A6B0
+    vec3 colTitanium = vec3(0.8980, 0.9059, 0.9216);  // #E5E7EB
+
+    vec3 color = colVoid;
+    color = mix(color, colSlate, clamp(midIntensity * 0.95, 0.0, 1.0));
+    color += colSilver * midIntensity * 0.42;
+    color += colTitanium * coreIntensity * 0.52;
+
+    // Apply monumental black event horizon shadow core (keeping subtle grazing flare in front)
+    color = mix(colVoid, color, shadowMask);
+    color += colTitanium * anamorphicFlare * 0.18;
+
+    // Whisper-thin filmic anamorphic grain (~0.025) to prevent dark-display banding
+    float grain = (hash21(uv * uResolution + fract(uTime * 17.3)) - 0.5) * 0.025;
+    color = max(vec3(0.015), color + grain);
+
+    gl_FragColor = vec4(color, 1.0);
+  }
+`;
+
 /**
- * Generates a soft radial white-to-transparent glow texture in memory
- * for relativistic disk particles, lensed arc dust, and starfield points.
+ * Generates a soft monochrome radial glow sprite texture in memory for cosmic dust particles.
  */
-function createProceduralGlowTexture(): THREE.CanvasTexture {
-  const size = 128;
+function createDustTexture(): THREE.CanvasTexture {
+  const size = 64;
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
@@ -25,8 +154,8 @@ function createProceduralGlowTexture(): THREE.CanvasTexture {
     const half = size / 2;
     const grad = ctx.createRadialGradient(half, half, 0, half, half, half);
     grad.addColorStop(0, "rgba(255, 255, 255, 1)");
-    grad.addColorStop(0.28, "rgba(229, 231, 235, 0.72)");
-    grad.addColorStop(0.62, "rgba(161, 166, 176, 0.2)");
+    grad.addColorStop(0.35, "rgba(229, 231, 235, 0.65)");
+    grad.addColorStop(0.75, "rgba(161, 166, 176, 0.15)");
     grad.addColorStop(1, "rgba(255, 255, 255, 0)");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, size, size);
@@ -38,9 +167,8 @@ function createProceduralGlowTexture(): THREE.CanvasTexture {
 }
 
 /**
- * Monochrome Interstellar Gargantua + Tesseract 3D Spatial Background.
- * Strictly calibrated in Pure Void Black (#050505) and Cold Brushed Titanium
- * (#E5E7EB / #A1A6B0 / #27292E) for editorial subtlety and text legibility.
+ * Filmic monochrome Interstellar Gravitational Horizon (GLSL ShaderMaterial)
+ * paired with drifting volumetric cosmic dust particles.
  */
 export function MonolithScene({
   scrollProgressRef,
@@ -63,276 +191,121 @@ export function MonolithScene({
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const isMobile = window.innerWidth < 768;
-
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x050505, 0.028);
-
-    const camera = new THREE.PerspectiveCamera(
-      isMobile ? 48 : 40,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      80
-    );
-    camera.position.set(0, 0.4, 15.5);
+    const initialW = window.innerWidth;
+    const initialH = window.innerHeight;
+    const isMobile = initialW < 768;
 
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({
-        antialias: true,
+        antialias: !isMobile,
+        alpha: false,
         powerPreference: "high-performance",
       });
     } catch {
       return;
     }
 
-    renderer.setClearColor(0x050505, 1);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.domElement.style.pointerEvents = "none";
+    renderer.setSize(initialW, initialH);
+    renderer.setClearColor(0x050505, 1);
+    renderer.autoClear = false;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    renderer.domElement.style.display = "block";
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
     container.appendChild(renderer.domElement);
 
-    const glowTexture = createProceduralGlowTexture();
     const geometriesToDispose: THREE.BufferGeometry[] = [];
     const materialsToDispose: THREE.Material[] = [];
+    const dustTexture = createDustTexture();
 
-    // 1. Gargantua Monochrome Singularity Rig
-    const gargantuaGroup = new THREE.Group();
-    gargantuaGroup.rotation.set(0.24, 0, -0.18);
-    gargantuaGroup.position.set(isMobile ? 0 : 1.65 * langDirRef.current, 0.2, 0);
-    scene.add(gargantuaGroup);
+    // Pass 1: Fullscreen GLSL Gravitational Horizon Shader Scene
+    const bgScene = new THREE.Scene();
+    const bgCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const shaderUniforms = {
+      uTime: { value: 0 },
+      uScroll: { value: scrollProgressRef.current },
+      uPointer: { value: new THREE.Vector2(0, 0) },
+      uResolution: { value: new THREE.Vector2(initialW, initialH) },
+      uDir: { value: langDirRef.current },
+      uAudio: { value: 0 },
+    };
 
-    // Event horizon pure obsidian sphere
-    const horizonGeom = new THREE.SphereGeometry(1.85, 48, 48);
-    const horizonMat = new THREE.MeshBasicMaterial({ color: 0x020203 });
-    geometriesToDispose.push(horizonGeom);
+    const quadGeom = new THREE.PlaneGeometry(2, 2);
+    const horizonMat = new THREE.ShaderMaterial({
+      vertexShader: HORIZON_VERTEX_SHADER,
+      fragmentShader: HORIZON_FRAGMENT_SHADER,
+      uniforms: shaderUniforms,
+      depthTest: false,
+      depthWrite: false,
+    });
+    geometriesToDispose.push(quadGeom);
     materialsToDispose.push(horizonMat);
-    const horizonSphere = new THREE.Mesh(horizonGeom, horizonMat);
-    gargantuaGroup.add(horizonSphere);
+    bgScene.add(new THREE.Mesh(quadGeom, horizonMat));
 
-    // Razor-thin Cold Titanium photon ring
-    const photonRingGeom = new THREE.RingGeometry(1.89, 2.0, 128);
-    const photonRingMat = new THREE.MeshBasicMaterial({
-      color: 0xe5e7eb,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.58,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    geometriesToDispose.push(photonRingGeom);
-    materialsToDispose.push(photonRingMat);
-    const photonRing = new THREE.Mesh(photonRingGeom, photonRingMat);
-    gargantuaGroup.add(photonRing);
+    // Pass 2: Volumetric Drifting Deep-Space Titanium Dust
+    const dustScene = new THREE.Scene();
+    const dustCamera = new THREE.PerspectiveCamera(
+      isMobile ? 50 : 42,
+      initialW / Math.max(initialH, 1),
+      0.1,
+      80
+    );
+    dustCamera.position.set(0, 0, 12);
 
-    // Gravitational lensing vertical halo + subtle secondary outer ring
-    const lensedHaloGeom = new THREE.TorusGeometry(2.08, 0.042, 16, 128);
-    const lensedHaloMat = new THREE.MeshBasicMaterial({
-      color: 0xd1d5db,
-      transparent: true,
-      opacity: 0.28,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    geometriesToDispose.push(lensedHaloGeom);
-    materialsToDispose.push(lensedHaloMat);
-    const lensedHalo = new THREE.Mesh(lensedHaloGeom, lensedHaloMat);
-    gargantuaGroup.add(lensedHalo);
+    const dustCount = isMobile ? 400 : 900;
+    const dustPositions = new Float32Array(dustCount * 3);
+    const dustBasePositions = new Float32Array(dustCount * 3);
+    const dustColors = new Float32Array(dustCount * 3);
+    const dustPhases = new Float32Array(dustCount);
 
-    const secondaryRingGeom = new THREE.TorusGeometry(2.52, 0.025, 12, 128);
-    const secondaryRingMat = new THREE.MeshBasicMaterial({
-      color: 0xa1a6b0,
-      transparent: true,
-      opacity: 0.16,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    geometriesToDispose.push(secondaryRingGeom);
-    materialsToDispose.push(secondaryRingMat);
-    const secondaryRing = new THREE.Mesh(secondaryRingGeom, secondaryRingMat);
-    secondaryRing.rotation.x = Math.PI * 0.44;
-    gargantuaGroup.add(secondaryRing);
+    const cLight = new THREE.Color(0xe5e7eb);
+    const cMid = new THREE.Color(0xa1a6b0);
+    const cDark = new THREE.Color(0x525763);
 
-    // Swirling relativistic accretion disk (differential orbital rotation)
-    const diskCount = isMobile ? 1400 : 3600;
-    const diskPositions = new Float32Array(diskCount * 3);
-    const diskColors = new Float32Array(diskCount * 3);
-    const diskRadii = new Float32Array(diskCount);
-    const diskAngles = new Float32Array(diskCount);
-    const diskSpeeds = new Float32Array(diskCount);
-    const diskHeights = new Float32Array(diskCount);
-
-    const colInner = new THREE.Color(0xe5e7eb);
-    const colOuter = new THREE.Color(0xa1a6b0);
-    const colTemp = new THREE.Color();
-
-    for (let i = 0; i < diskCount; i++) {
-      const t = Math.pow(Math.random(), 1.65);
-      const r = 2.15 + t * 5.8;
-      const angle = Math.random() * Math.PI * 2;
-      const y = (Math.random() - 0.5) * (0.08 + t * 0.22);
-
-      diskRadii[i] = r;
-      diskAngles[i] = angle;
-      diskHeights[i] = y;
-      // Faster orbital velocity closer to the event horizon
-      diskSpeeds[i] = (0.34 / Math.pow(r * 0.48, 1.35)) * (0.85 + Math.random() * 0.3);
-
+    for (let i = 0; i < dustCount; i++) {
       const i3 = i * 3;
-      diskPositions[i3] = Math.cos(angle) * r;
-      diskPositions[i3 + 1] = y;
-      diskPositions[i3 + 2] = Math.sin(angle) * r;
+      const x = (Math.random() - 0.5) * 26;
+      const y = (Math.random() - 0.5) * 16;
+      const z = (Math.random() - 0.5) * 22 - 4;
+      dustBasePositions[i3] = x;
+      dustBasePositions[i3 + 1] = y;
+      dustBasePositions[i3 + 2] = z;
+      dustPositions[i3] = x;
+      dustPositions[i3 + 1] = y;
+      dustPositions[i3 + 2] = z;
+      dustPhases[i] = Math.random() * Math.PI * 2;
 
-      colTemp.copy(colInner).lerp(colOuter, t);
-      const brightness = 1.0 - t * 0.42;
-      diskColors[i3] = colTemp.r * brightness;
-      diskColors[i3 + 1] = colTemp.g * brightness;
-      diskColors[i3 + 2] = colTemp.b * brightness;
+      const paletteRoll = Math.random();
+      const chosen =
+        paletteRoll < 0.22 ? cLight : paletteRoll < 0.7 ? cMid : cDark;
+      dustColors[i3] = chosen.r;
+      dustColors[i3 + 1] = chosen.g;
+      dustColors[i3 + 2] = chosen.b;
     }
 
-    const diskGeom = new THREE.BufferGeometry();
-    diskGeom.setAttribute("position", new THREE.BufferAttribute(diskPositions, 3));
-    diskGeom.setAttribute("color", new THREE.BufferAttribute(diskColors, 3));
-    const diskMat = new THREE.PointsMaterial({
-      size: isMobile ? 0.11 : 0.095,
-      map: glowTexture,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    geometriesToDispose.push(diskGeom);
-    materialsToDispose.push(diskMat);
-    const accretionDisk = new THREE.Points(diskGeom, diskMat);
-    gargantuaGroup.add(accretionDisk);
+    const dustGeom = new THREE.BufferGeometry();
+    dustGeom.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
+    dustGeom.setAttribute("color", new THREE.BufferAttribute(dustColors, 3));
 
-    // Subtle vertical lensed arc dust wrapping above & below horizon
-    const arcCount = isMobile ? 500 : 1200;
-    const arcPositions = new Float32Array(arcCount * 3);
-    const arcColors = new Float32Array(arcCount * 3);
-    for (let i = 0; i < arcCount; i++) {
-      const i3 = i * 3;
-      const r = 1.98 + Math.pow(Math.random(), 1.4) * 1.35;
-      const theta = Math.random() * Math.PI * 2;
-      const spreadZ = (Math.random() - 0.5) * 0.32;
-      arcPositions[i3] = Math.cos(theta) * r;
-      arcPositions[i3 + 1] = Math.sin(theta) * r * 1.06;
-      arcPositions[i3 + 2] = spreadZ;
-
-      const fade = 0.6 + Math.random() * 0.4;
-      arcColors[i3] = colInner.r * fade;
-      arcColors[i3 + 1] = colInner.g * fade;
-      arcColors[i3 + 2] = colInner.b * fade;
-    }
-
-    const arcGeom = new THREE.BufferGeometry();
-    arcGeom.setAttribute("position", new THREE.BufferAttribute(arcPositions, 3));
-    arcGeom.setAttribute("color", new THREE.BufferAttribute(arcColors, 3));
-    const arcMat = new THREE.PointsMaterial({
+    const dustMat = new THREE.PointsMaterial({
       size: isMobile ? 0.085 : 0.075,
-      map: glowTexture,
+      map: dustTexture,
       vertexColors: true,
       transparent: true,
-      opacity: 0.38,
+      opacity: 0.42,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
-    geometriesToDispose.push(arcGeom);
-    materialsToDispose.push(arcMat);
-    const lensedArc = new THREE.Points(arcGeom, arcMat);
-    gargantuaGroup.add(lensedArc);
 
-    // 2. Tesseract Dimensional Lattice (Layered Wireframe Strata & Vertical Time Rays)
-    const tesseractGroup = new THREE.Group();
-    tesseractGroup.position.set(0, 0, -9);
-    scene.add(tesseractGroup);
+    geometriesToDispose.push(dustGeom);
+    materialsToDispose.push(dustMat);
+    const dustPoints = new THREE.Points(dustGeom, dustMat);
+    dustScene.add(dustPoints);
 
-    const gridSpecs = [
-      { size: 28, divs: 18, y: -3.8, z: 2.0, rx: 0.14, ry: 0.08, op: 0.09 },
-      { size: 32, divs: 20, y: 4.2, z: -2.5, rx: -0.12, ry: -0.1, op: 0.075 },
-      { size: 36, divs: 16, y: 0, z: -6.5, rx: Math.PI * 0.42, ry: 0.22, op: 0.1 },
-    ];
-    gridSpecs.forEach((spec) => {
-      const grid = new THREE.GridHelper(spec.size, spec.divs, 0xe5e7eb, 0x27292e);
-      grid.position.set(0, spec.y, spec.z);
-      grid.rotation.set(spec.rx, spec.ry, 0);
-      const mats = Array.isArray(grid.material) ? grid.material : [grid.material];
-      mats.forEach((m) => {
-        m.transparent = true;
-        m.opacity = spec.op;
-        m.depthWrite = false;
-        materialsToDispose.push(m);
-      });
-      geometriesToDispose.push(grid.geometry);
-      tesseractGroup.add(grid);
-    });
-
-    // Vertical light-pillar time rays behind Gargantua
-    const rayCount = isMobile ? 24 : 48;
-    const rayCoords = new Float32Array(rayCount * 6);
-    for (let i = 0; i < rayCount; i++) {
-      const i6 = i * 6;
-      const x = (Math.random() - 0.5) * 28;
-      const z = (Math.random() - 0.5) * 14 - 2;
-      const h = 8 + Math.random() * 14;
-      const yCenter = (Math.random() - 0.5) * 6;
-      rayCoords[i6] = x;
-      rayCoords[i6 + 1] = yCenter - h * 0.5;
-      rayCoords[i6 + 2] = z;
-      rayCoords[i6 + 3] = x;
-      rayCoords[i6 + 4] = yCenter + h * 0.5;
-      rayCoords[i6 + 5] = z;
-    }
-    const raysGeom = new THREE.BufferGeometry();
-    raysGeom.setAttribute("position", new THREE.BufferAttribute(rayCoords, 3));
-    const raysMat = new THREE.LineBasicMaterial({
-      color: 0xe5e7eb,
-      transparent: true,
-      opacity: 0.09,
-      depthWrite: false,
-    });
-    geometriesToDispose.push(raysGeom);
-    materialsToDispose.push(raysMat);
-    const timeRays = new THREE.LineSegments(raysGeom, raysMat);
-    tesseractGroup.add(timeRays);
-
-    // 3. Deep Relativistic Starfield
-    const starCount = isMobile ? 650 : 1400;
-    const starPositions = new Float32Array(starCount * 3);
-    const starColors = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      const i3 = i * 3;
-      const r = 10 + Math.random() * 26;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      starPositions[i3] = r * Math.sin(phi) * Math.cos(theta);
-      starPositions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      starPositions[i3 + 2] = r * Math.cos(phi) - 6;
-
-      const c = i % 4 === 0 ? colInner : colOuter;
-      starColors[i3] = c.r;
-      starColors[i3 + 1] = c.g;
-      starColors[i3 + 2] = c.b;
-    }
-    const starGeom = new THREE.BufferGeometry();
-    starGeom.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
-    starGeom.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
-    const starMat = new THREE.PointsMaterial({
-      size: isMobile ? 0.09 : 0.08,
-      map: glowTexture,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.45,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    geometriesToDispose.push(starGeom);
-    materialsToDispose.push(starMat);
-    const starfield = new THREE.Points(starGeom, starMat);
-    scene.add(starfield);
-
-    // Pointer parallax (desktop fine pointer)
+    // Desktop fine pointer parallax
     const targetPointer = { x: 0, y: 0 };
     const currentPointer = { x: 0, y: 0 };
     const hasFinePointer = window.matchMedia(
@@ -354,9 +327,10 @@ export function MonolithScene({
       const w = window.innerWidth;
       const h = window.innerHeight;
       const mobile = w < 768;
-      camera.aspect = w / h;
-      camera.fov = mobile ? 48 : 40;
-      camera.updateProjectionMatrix();
+      dustCamera.aspect = w / Math.max(h, 1);
+      dustCamera.fov = mobile ? 50 : 42;
+      dustCamera.updateProjectionMatrix();
+      shaderUniforms.uResolution.value.set(w, h);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.setSize(w, h);
     };
@@ -364,20 +338,20 @@ export function MonolithScene({
 
     let smoothedScroll = scrollProgressRef.current;
     let smoothedDir = langDirRef.current;
+    let smoothedAudio = 0;
     let frameId = 0;
     let isVisible = !document.hidden;
     let contextLost = false;
     const clock = new THREE.Clock();
 
-    const updateScene = (dt: number, elapsed: number) => {
-      const mobile = window.innerWidth < 768;
+    const updateFrame = (_dt: number, elapsed: number) => {
       smoothedScroll = THREE.MathUtils.lerp(
         smoothedScroll,
         scrollProgressRef.current,
         0.08
       );
       scrollVelocityRef.current *= 0.92;
-      smoothedDir = THREE.MathUtils.lerp(smoothedDir, langDirRef.current, 0.14);
+      smoothedDir = THREE.MathUtils.lerp(smoothedDir, langDirRef.current, 0.12);
 
       currentPointer.x = THREE.MathUtils.lerp(
         currentPointer.x,
@@ -390,53 +364,42 @@ export function MonolithScene({
         0.04
       );
 
-      // Differential orbital rotation for accretion disk particles
-      const posAttr = diskGeom.getAttribute("position") as THREE.BufferAttribute;
+      const audioTarget = isAudioPlayingRef?.current ? 1.0 : 0.0;
+      smoothedAudio = THREE.MathUtils.lerp(smoothedAudio, audioTarget, 0.05);
+
+      shaderUniforms.uTime.value = elapsed;
+      shaderUniforms.uScroll.value = smoothedScroll;
+      shaderUniforms.uPointer.value.set(currentPointer.x, -currentPointer.y);
+      shaderUniforms.uDir.value = smoothedDir;
+      shaderUniforms.uAudio.value = smoothedAudio;
+
+      // Subtle volumetric dust drift & parallax
+      const posAttr = dustGeom.attributes.position as THREE.BufferAttribute;
       const arr = posAttr.array as Float32Array;
-      for (let i = 0; i < diskCount; i++) {
-        const angle = diskAngles[i] + diskSpeeds[i] * dt;
-        diskAngles[i] = angle;
-        const r = diskRadii[i];
+      const driftTime = elapsed * 0.16;
+      for (let i = 0; i < dustCount; i++) {
         const i3 = i * 3;
-        arr[i3] = Math.cos(angle) * r;
-        arr[i3 + 2] = Math.sin(angle) * r;
+        const phase = dustPhases[i];
+        arr[i3] = dustBasePositions[i3] + Math.sin(driftTime + phase) * 0.28;
+        arr[i3 + 1] =
+          dustBasePositions[i3 + 1] +
+          Math.cos(driftTime * 0.8 + phase * 1.3) * 0.22 +
+          smoothedScroll * 1.6;
+        arr[i3 + 2] = dustBasePositions[i3 + 2];
       }
       posAttr.needsUpdate = true;
 
-      // Subtle vertical lensed arc rotation
-      lensedArc.rotation.z = elapsed * 0.045;
-      lensedHalo.rotation.z = -elapsed * 0.03;
-      secondaryRing.rotation.z = elapsed * 0.025;
+      dustCamera.position.x = currentPointer.x * 0.45 * smoothedDir;
+      dustCamera.position.y = -currentPointer.y * 0.35;
+      dustCamera.position.z = THREE.MathUtils.lerp(12, 9.6, smoothedScroll);
+      dustCamera.lookAt(0, 0, -4);
+    };
 
-      // Subtle photon ring breathing when ambient audio is playing (±2%)
-      if (isAudioPlayingRef?.current) {
-        const breath = 1 + Math.sin(elapsed * 1.45) * 0.02;
-        photonRing.scale.setScalar(breath);
-      } else {
-        photonRing.scale.setScalar(1);
-      }
-
-      // Gargantua gentle scroll choreography (frames right/left in Hero, drifts subtly with scroll)
-      const heroShiftX = mobile ? 0 : (1.75 - smoothedScroll * 2.4) * smoothedDir;
-      gargantuaGroup.position.x = heroShiftX + currentPointer.x * 0.45;
-      gargantuaGroup.position.y =
-        (mobile ? 0.65 : 0.15) - smoothedScroll * 0.6 - currentPointer.y * 0.3;
-      gargantuaGroup.rotation.y = smoothedScroll * 0.45 + currentPointer.x * 0.08;
-      gargantuaGroup.rotation.x = 0.24 + smoothedScroll * 0.14 - currentPointer.y * 0.05;
-
-      // Tesseract strata slow drift & scroll rotation
-      tesseractGroup.rotation.y = elapsed * 0.018 + smoothedScroll * 0.55;
-      tesseractGroup.rotation.x = Math.sin(elapsed * 0.04) * 0.05 + smoothedScroll * 0.18;
-
-      // Starfield spherical drift
-      starfield.rotation.y = elapsed * 0.01 + smoothedScroll * 0.22;
-      starfield.rotation.x = smoothedScroll * 0.08;
-
-      // Camera glides smoothly z: 15.5 -> 11.8 with subtle Y/angle drift
-      camera.position.z = THREE.MathUtils.lerp(15.5, 11.8, smoothedScroll);
-      camera.position.y = 0.4 - smoothedScroll * 0.55 - currentPointer.y * 0.22;
-      camera.position.x = currentPointer.x * 0.35;
-      camera.lookAt(currentPointer.x * 0.12, -currentPointer.y * 0.08, 0);
+    const renderScene = () => {
+      renderer.clear();
+      renderer.render(bgScene, bgCamera);
+      renderer.clearDepth();
+      renderer.render(dustScene, dustCamera);
     };
 
     const stepFrame = () => {
@@ -444,17 +407,9 @@ export function MonolithScene({
       frameId = window.requestAnimationFrame(stepFrame);
       const dt = Math.min(clock.getDelta(), 0.05);
       const elapsed = clock.elapsedTime;
-      updateScene(dt, elapsed);
-      renderer.render(scene, camera);
+      updateFrame(dt, elapsed);
+      renderScene();
     };
-
-    if (prefersReducedMotion) {
-      updateScene(0, 0);
-      renderer.render(scene, camera);
-    } else {
-      clock.start();
-      stepFrame();
-    }
 
     const handleContextLost = (e: Event) => {
       e.preventDefault();
@@ -464,18 +419,29 @@ export function MonolithScene({
         frameId = 0;
       }
     };
+
     const handleContextRestored = () => {
       contextLost = false;
-      if (!document.hidden && !prefersReducedMotion) {
-        clock.getDelta();
+      clock.getDelta();
+      if (isVisible && !prefersReducedMotion) {
         stepFrame();
+      } else {
+        renderScene();
       }
     };
+
     renderer.domElement.addEventListener("webglcontextlost", handleContextLost);
     renderer.domElement.addEventListener(
       "webglcontextrestored",
       handleContextRestored
     );
+
+    if (prefersReducedMotion) {
+      updateFrame(0, 1.2);
+      renderScene();
+    } else if (isVisible) {
+      stepFrame();
+    }
 
     const handleVisibility = () => {
       isVisible = !document.hidden;
@@ -505,7 +471,7 @@ export function MonolithScene({
         window.removeEventListener("pointermove", handlePointerMove);
       }
 
-      glowTexture.dispose();
+      dustTexture.dispose();
       geometriesToDispose.forEach((g) => g.dispose());
       materialsToDispose.forEach((m) => m.dispose());
       renderer.dispose();
@@ -530,7 +496,7 @@ export function MonolithScene({
         className="pointer-events-none fixed inset-0 z-[1]"
         style={{
           background:
-            "radial-gradient(ellipse 75% 65% at 50% 45%, rgba(5,5,5,0) 35%, rgba(5,5,5,0.44) 76%, rgba(5,5,5,0.82) 100%)",
+            "radial-gradient(ellipse 76% 68% at 54% 44%, rgba(5,5,5,0) 32%, rgba(5,5,5,0.42) 74%, rgba(5,5,5,0.8) 100%)",
         }}
       />
     </>

@@ -38,6 +38,10 @@ export interface ChronicleEntry {
   role: LocalizedText;
   organization: LocalizedText;
   location: LocalizedText;
+  kpis?: {
+    en: string[];
+    ar: string[];
+  };
   logos?: OrganizationLogo[];
   summary: LocalizedText;
   highlights: {
@@ -193,9 +197,11 @@ export const UI_COPY = {
     openEra: { en: "Open Era", ar: "استعراض المرحلة" },
     backToGrid: { en: "All Eras", ar: "العودة للشبكة" },
     newerStage: { en: "Newer Stage", ar: "المرحلة الأحدث" },
-    olderStage: { en: "Next: Older Stage", ar: "المرحلة الأقدم" },
+    olderStage: { en: "Older Stage", ar: "المرحلة الأقدم" },
     closeDossier: { en: "Close era dossier", ar: "إغلاق ملف المرحلة" },
     railAria: { en: "Timeline Year Jump Rail", ar: "شريط التنقل الزمني السريع" },
+    executiveLeadLabel: { en: "Executive Lead", ar: "الملخص التنفيذي" },
+    impactHighlightsLabel: { en: "Impact Highlights", ar: "أبرز الإنجازات" },
   },
   works: {
     showreelEyebrow: { en: "Featured Cinema Reel", ar: "الأعمال المرئية" },
@@ -257,6 +263,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "THE ARCHITECT OF REALITY • Obolus • منظومة الإنتاج المحلية",
     },
     location: { en: "Global Audiences", ar: "جمهور عالمي ومحلي" },
+    kpis: {
+      en: ["Obolus & Architect", "Programmatic Video", "Since 2023"],
+      ar: ["Obolus وArchitect", "خطوط فيديو برمجية", "منذ 2023"],
+    },
     summary: {
       en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels, programmatic motion pipelines, and custom interactive web systems.",
       ar: "إتقان عملي لأدوات الإنتاج بالذكاء الاصطناعي منذ 2023، وتصميم قنوات وثائقية إنجليزية مؤتمتة وخطوط إنتاج برمجية متكاملة للفيديو ومواقع الويب.",
@@ -285,6 +295,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "منصة حسام فكري • القرش موبايل • محمد سامي • العسال • خطوة",
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
+    kpis: {
+      en: ["7+ Client Brands", "Since 2020", "Multi-Sector"],
+      ar: ["أكثر من 7 علامات", "منذ 2020", "قطاعات متعددة"],
+    },
     summary: {
       en: "Leading end-to-end Marketing Direction since 2020 (starting with Hossam Fekry Platform management, center integration & rewards system), alongside building brand identity and growth systems for Al-Qersh Mobile, Mohamed Samy Works, EL3SAL, and Khatwa Nursery.",
       ar: "قيادة التوجيه التسويقي الشامل لشركاء في قطاعات متنوعة منذ 2020: بدءاً من إدارة منصة حسام فكري وتكامل طلاب السنتر، وصولاً إلى بناء الهوية وحملات النمو للقرش موبايل ومحمد سامي للديكور ومطعم العسال وأكاديمية خطوة.",
@@ -313,6 +327,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "تشب لتأمينات الحياة • مصر",
     },
     location: { en: "Egypt", ar: "مصر" },
+    kpis: {
+      en: ["Team Leader", "Sep 2022 – Jul 2023", "Sales & Advisory"],
+      ar: ["قائد فريق", "سبتمبر 2022 – يوليو 2023", "مبيعات واستشارات"],
+    },
     logos: [
       {
         src: "/assets/clients/chubb-life.png",
@@ -349,6 +367,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "ماجوريل مصر • القرية الذكية، بني سويف",
     },
     location: { en: "Smart Village, Beni Suef", ar: "القرية الذكية، بني سويف" },
+    kpis: {
+      en: ["~550 Hires", "Top Achiever", "Smart Village"],
+      ar: ["~550 تعييناً", "الأعلى تحقيقاً", "القرية الذكية"],
+    },
     logos: [
       {
         src: "/assets/clients/majorel.jpg",
@@ -424,6 +446,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     },
     organization: { en: "Al-Attar Group", ar: "مجموعة العطار" },
     location: { en: "Commercial Retail", ar: "تجارة التجزئة" },
+    kpis: {
+      en: ["3-Year Direction", "Through Aug 2021", "Retail & Wholesale"],
+      ar: ["إدارة 3 سنوات", "حتى أغسطس 2021", "تجزئة وجملة"],
+    },
     logos: [
       {
         src: "/assets/clients/attar-group.jpg",
@@ -470,6 +496,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "تشانس ميديا (الفنان أحمد عقل) ووكالة سيكتور 09",
     },
     location: { en: "Cairo / Beni Suef", ar: "القاهرة / بني سويف" },
+    kpis: {
+      en: ["Creative Director", "3-Version TV Ad", "SECTOR 09 Founder"],
+      ar: ["مدير إبداعي", "حملة 3 نسخ TV", "مؤسس سيكتور 09"],
+    },
     logos: [
       {
         src: "/assets/clients/chance-media.png",
@@ -511,6 +541,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       en: "Al-Korba, Heliopolis, Cairo",
       ar: "الكوربة، مصر الجديدة، القاهرة",
     },
+    kpis: {
+      en: ["Queue 247", "Corporate Authorized", "Heliopolis, Cairo"],
+      ar: ["أكونت 247", "مفوضو الشركات", "الكوربة، القاهرة"],
+    },
     logos: [
       {
         src: "/assets/clients/vodafone.png",
@@ -548,6 +582,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "تكنو موبايل • كامون C9",
     },
     location: { en: "Egypt", ar: "مصر" },
+    kpis: {
+      en: ["Camon C9 QA", "Pre-Release Firmware", "Forum Moderator"],
+      ar: ["كامون C9 QA", "سوفت وير تجريبي", "إدارة المنتدى"],
+    },
     logos: [
       {
         src: "/assets/clients/tecno.png",
@@ -586,6 +624,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "حملات ممولة مستقلة على فيسبوك",
     },
     location: { en: "Independent Practice", ar: "مبادرة ذاتية مستقلة" },
+    kpis: {
+      en: ["Self-Started 2016", "Paid Social Ads", "Independent Launch"],
+      ar: ["انطلاقة 2016", "إعلانات ممولة", "ممارسة مستقلة"],
+    },
     summary: {
       en: "Entered digital marketing independently in 2016 during university, launching and managing my own Facebook advertising campaigns hands-on before joining any agency or enterprise team.",
       ar: "بالتوازي مع سنوات الجامعة، بدأت إطلاق وإدارة حملات إعلانية ممولة على فيسبوك بشكل مستقل تماماً قبل العمل في أي وكالة أو شركة.",
@@ -616,6 +658,10 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "جامعة بني سويف",
     },
     location: { en: "Beni Suef, Egypt", ar: "بني سويف، مصر" },
+    kpis: {
+      en: ["B.Sc. Commerce", "2013 – 2017", "Beni Suef Univ."],
+      ar: ["بكالوريوس تجارة", "2013 – 2017", "جامعة بني سويف"],
+    },
     summary: {
       en: "Earned a Bachelor's degree in Commerce & Business Administration from Beni Suef University, grounding my field campaigns and Marketing Direction work in solid commercial fundamentals.",
       ar: "تأسيس القاعدة التجارية والإدارية في جامعة بني سويف، وهي الخلفية التي ربطت لاحقاً بين الإبداع الإعلاني وفهم الأرقام والمبيعات.",

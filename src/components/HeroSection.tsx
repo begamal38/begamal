@@ -54,7 +54,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative z-10 flex min-h-[100svh] supports-[min-height:100dvh]:min-h-[100dvh] items-center px-5 pb-24 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-8 sm:pb-16 lg:pb-14 lg:pt-24"
+      className="relative z-10 flex min-h-[86svh] items-center bg-transparent px-5 pb-16 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-8 sm:pb-14 lg:pt-24"
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-5 sm:gap-8 lg:grid-cols-12">
         {/* Left/Start: Typography Stack (Immediately visible at scroll = 0, opacity: 1) */}
@@ -102,18 +102,19 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Right/End: Studio Monochrome Portrait framed inside orbital halo */}
+        {/* Right/End: Studio Monochrome Portrait dissolved seamlessly into #050505 void */}
         <div className="hero-portrait-parallax order-1 flex justify-center opacity-100 lg:order-2 lg:col-span-5 lg:justify-end">
-          <div className="relative w-[176px] sm:w-[278px] lg:w-[368px]">
+          <div className="relative w-[196px] sm:w-[292px] lg:w-[376px]">
+            {/* Directional silver rim-glow aligned with off-center Interstellar horizon */}
             <div
-              className="pointer-events-none absolute -inset-8 rounded-full opacity-55 blur-3xl"
+              className="pointer-events-none absolute -inset-12 rounded-full opacity-25 blur-3xl"
               style={{
                 background:
-                  "radial-gradient(circle at 52% 44%, rgba(196, 206, 224, 0.16), rgba(10, 11, 14, 0) 70%)",
+                  "radial-gradient(circle at 64% 32%, rgba(229, 231, 235, 0.34), rgba(161, 166, 176, 0.12) 45%, rgba(5, 5, 5, 0) 74%)",
               }}
               aria-hidden="true"
             />
-            <div className="portrait-mask relative aspect-[4/5] w-full overflow-hidden rounded-[2rem]">
+            <div className="portrait-mask relative aspect-[4/5] w-full overflow-hidden">
               <img
                 src={PORTFOLIO_IDENTITY.portraitPath}
                 alt={UI_COPY.hero.portraitAlt[lang]}
@@ -121,14 +122,19 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
                 height={925}
                 loading="eager"
                 decoding="sync"
-                className="h-full w-full object-cover object-top grayscale contrast-[1.16] brightness-[0.98] opacity-100"
+                className="h-full w-full scale-[1.03] object-cover object-top grayscale contrast-[1.12] brightness-[0.86] opacity-100"
               />
+              {/* Bottom and perimeter obsidian scrims erasing headrest/car window edges */}
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(ellipse 72% 76% at 50% 45%, rgba(10,11,14,0) 52%, rgba(10,11,14,0.58) 80%, rgba(10,11,14,0.98) 100%)",
+                    "radial-gradient(ellipse 66% 70% at 50% 38%, rgba(5,5,5,0) 40%, rgba(5,5,5,0.62) 72%, rgba(5,5,5,1) 96%)",
                 }}
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent"
                 aria-hidden="true"
               />
             </div>

@@ -35,6 +35,7 @@ export function AmbientAudioPlayer({
   const loadingPromiseRef = useRef<Promise<AudioBuffer | null> | null>(null);
   const userEnabledRef = useRef<boolean>(false);
   const isPlayingRef = useRef<boolean>(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     isPlayingRef.current = isPlaying;
@@ -50,6 +51,15 @@ export function AmbientAudioPlayer({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const dismissPrompt = useCallback(() => {
+    setPromptVisible(false);
+    try {
+      sessionStorage.setItem(STORAGE_PROMPT_KEY, "1");
+    } catch {
+      // Ignore storage restrictions
+    }
+  }, []);
+
   useEffect(() => {
     let seen = false;
     try {
@@ -59,35 +69,32 @@ export function AmbientAudioPlayer({
     }
     if (seen) return;
 
+    let hideTimer: number | null = null;
+    const onScrollDismiss = () => {
+      dismissPrompt();
+    };
+    const onPointerDownOutside = (e: PointerEvent) => {
+      if (wrapperRef.current && e.target instanceof Node && !wrapperRef.current.contains(e.target)) {
+        dismissPrompt();
+      }
+    };
+
     const showTimer = window.setTimeout(() => {
-      if (!isPlayingRef.current) {
+      if (!isPlayingRef.current && window.scrollY < 160) {
         setPromptVisible(true);
+        window.addEventListener("scroll", onScrollDismiss, { passive: true, once: true });
+        window.addEventListener("pointerdown", onPointerDownOutside, { passive: true });
+        hideTimer = window.setTimeout(dismissPrompt, 5000);
       }
     }, 900);
 
-    const hideTimer = window.setTimeout(() => {
-      setPromptVisible(false);
-      try {
-        sessionStorage.setItem(STORAGE_PROMPT_KEY, "1");
-      } catch {
-        // Ignore storage restrictions
-      }
-    }, 15000);
-
     return () => {
       window.clearTimeout(showTimer);
-      window.clearTimeout(hideTimer);
+      if (hideTimer !== null) window.clearTimeout(hideTimer);
+      window.removeEventListener("scroll", onScrollDismiss);
+      window.removeEventListener("pointerdown", onPointerDownOutside);
     };
-  }, []);
-
-  const dismissPrompt = useCallback(() => {
-    setPromptVisible(false);
-    try {
-      sessionStorage.setItem(STORAGE_PROMPT_KEY, "1");
-    } catch {
-      // Ignore storage restrictions
-    }
-  }, []);
+  }, [dismissPrompt]);
 
   const ensureAudioReady = useCallback(async (): Promise<{
     ctx: AudioContext;
@@ -300,12 +307,15 @@ export function AmbientAudioPlayer({
   const showMobileLabel = promptVisible && !isPlaying && !isScrolledPastHero;
 
   return (
-    <div className="fixed bottom-[max(4.65rem,calc(4.35rem+env(safe-area-inset-bottom)))] end-3 z-[110] flex flex-col items-end md:bottom-6 md:end-6">
-      {/* Desktop: Luxury Editorial Whisper Card above the speaker control */}
+    <div
+      ref={wrapperRef}
+      className="fixed bottom-[max(4.65rem,calc(4.35rem+env(safe-area-inset-bottom)))] end-3 z-[110] flex flex-col items-end md:bottom-6 md:end-6"
+    >
+      {/* Desktop: Compact Editorial Whisper Card above the speaker control (auto-dismisses in 5s or on scroll/click) */}
       <div
         role="status"
         aria-live="polite"
-        className={`relative mb-2.5 hidden w-max max-w-[270px] transition-all duration-500 ease-out md:block ${
+        className={`relative mb-2 hidden w-max max-w-[235px] transition-all duration-300 ease-out md:block ${
           promptVisible && !isPlaying
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none translate-y-2 opacity-0"
@@ -313,7 +323,7 @@ export function AmbientAudioPlayer({
       >
         <div
           onClick={handleToggle}
-          className="group relative cursor-pointer rounded-2xl border border-[#A1A6B0]/35 bg-[#0D1017]/95 px-3.5 py-2.5 pe-8 shadow-[0_14px_38px_rgba(0,0,0,0.78),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl transition-colors duration-300 ease-out hover:border-[#E5E7EB]/60"
+          className="group relative cursor-pointer rounded-xl border border-[#A1A6B0]/30 bg-[#0D1017]/92 px-3 py-2 pe-7 shadow-[0_12px_32px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl transition-colors duration-300 ease-out hover:border-[#E5E7EB]/60"
         >
           <div className="flex items-center gap-2">
             <span

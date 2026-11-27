@@ -64,9 +64,13 @@ export function StatementSection({ lang }: StatementSectionProps) {
     <section
       id="perspective"
       ref={sectionRef}
-      className="relative z-10 border-t border-white/10 bg-transparent px-5 py-20 sm:px-8 sm:py-24 md:py-32"
+      className="relative z-10 bg-transparent px-5 py-14 sm:px-8 md:py-20"
     >
-      <div className="mx-auto max-w-6xl space-y-10">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+      />
+      <div className="mx-auto max-w-6xl space-y-8">
         {/* Double-Bezel Editorial Manifesto Card */}
         <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md">
           {/* Subtle architectural 13-node geometric filigree (purely visual, zero copy) */}
@@ -142,7 +146,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
         </div>
 
         {/* Verified Milestones & Academic Foundation */}
-        <div className="milestone-grid grid grid-cols-1 gap-6 border-t border-white/10 pt-10 md:grid-cols-3 md:gap-8">
+        <div className="milestone-grid grid grid-cols-1 gap-5 border-t border-white/10 pt-7 md:grid-cols-3 md:gap-6">
           <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.statement.origin[lang]}
