@@ -100,13 +100,13 @@ export function MonolithScene({
 
         currentOpacity += (targetOpacity - currentOpacity) * 0.08;
 
-        const translateYPercent = -(smoothedScroll * 4).toFixed(4);
-        const scaleVal = (1.04 + smoothedScroll * 0.05).toFixed(4);
+        const translateYPercent = -(smoothedScroll * 5);
+        const scaleVal = 1.03 + smoothedScroll * 0.08;
         const px = prefersReducedMotion ? 0 : currentPointer.x;
         const py = prefersReducedMotion ? 0 : currentPointer.y;
 
         layer.style.opacity = currentOpacity.toFixed(4);
-        layer.style.transform = `translate3d(${px.toFixed(2)}px, calc(${translateYPercent}% + ${py.toFixed(2)}px), 0) scale(${scaleVal})`;
+        layer.style.transform = `translate3d(${px.toFixed(2)}px, calc(${translateYPercent.toFixed(4)}% + ${py.toFixed(2)}px), 0) scale(${scaleVal.toFixed(4)})`;
       }
 
       if (!prefersReducedMotion) {
@@ -118,7 +118,7 @@ export function MonolithScene({
       layer.style.opacity = String(
         isDossierOpenRef.current ? DOSSIER_OPACITY : HERO_OPACITY
       );
-      layer.style.transform = "translate3d(0px, 0px, 0) scale(1.04)";
+      layer.style.transform = "translate3d(0px, 0px, 0) scale(1.03)";
     } else {
       frameId = window.requestAnimationFrame(tick);
     }
@@ -142,7 +142,7 @@ export function MonolithScene({
         className="h-full w-full will-change-transform"
         style={{
           opacity: isDossierOpen ? DOSSIER_OPACITY : HERO_OPACITY,
-          transform: "translate3d(0px, 0px, 0) scale(1.04)",
+          transform: "translate3d(0px, 0px, 0) scale(1.03)",
         }}
       >
         <video

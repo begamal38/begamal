@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lang, PORTFOLIO_IDENTITY, SCROLL_SECTIONS } from "./data/portfolioData";
 import { MonolithScene } from "./components/MonolithScene";
+import { CosmicDustCanvas } from "./components/CosmicDustCanvas";
 import { Navbar } from "./components/Navbar";
 import { ScrollTelemetry } from "./components/ScrollTelemetry";
 import { HeroSection } from "./components/HeroSection";
@@ -30,10 +31,16 @@ export default function App() {
     document.title = PORTFOLIO_IDENTITY.pageTitle[lang];
     let cancelled = false;
     const id = window.requestAnimationFrame(() => {
-      if (!cancelled) ScrollTrigger.refresh();
+      if (!cancelled) {
+        lenisRef.current?.resize();
+        ScrollTrigger.refresh();
+      }
     });
     document.fonts?.ready?.then(() => {
-      if (!cancelled) ScrollTrigger.refresh();
+      if (!cancelled) {
+        lenisRef.current?.resize();
+        ScrollTrigger.refresh();
+      }
     });
     return () => {
       cancelled = true;
@@ -95,11 +102,10 @@ export default function App() {
     }
 
     const lenis = new Lenis({
-      duration: 1.05,
+      duration: 1.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: false,
-      wheelMultiplier: 0.95,
+      touchMultiplier: 1.5,
     });
     lenisRef.current = lenis;
     (window as Window & { __lenis?: Lenis }).__lenis = lenis;
@@ -150,7 +156,7 @@ export default function App() {
     if (sectionId === "hero") {
       if (lenisRef.current) {
         lenisRef.current.start();
-        lenisRef.current.scrollTo(0, { duration: 1.05 });
+        lenisRef.current.scrollTo(0, { duration: 1.2 });
       } else {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
@@ -180,6 +186,10 @@ export default function App() {
         lang={lang}
         isDossierOpen={isDossierOpen}
         isAudioPlayingRef={isAudioPlayingRef}
+      />
+      <CosmicDustCanvas
+        scrollProgressRef={scrollProgressRef}
+        scrollVelocityRef={scrollVelocityRef}
       />
       <ScrollTelemetry
         lang={lang}
