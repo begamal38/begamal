@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v20-eras-starlight";
+const CACHE_NAME = "belal-gamal-v21-pov-rewrite";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

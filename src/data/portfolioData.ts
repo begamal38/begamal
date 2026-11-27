@@ -152,8 +152,8 @@ export const PORTFOLIO_IDENTITY = {
     ar: "الاتصالات • اختبار البرمجيات • التأمين • التلفزيون • التجزئة • المطاعم • التجميل • التعليم • وميديا الذكاء الاصطناعي",
   },
   pointOfView: {
-    en: "Most brands orbit the same script, in the same voice, at the same distance from their buyer. Real difference starts with altitude: rise above the noise, see what the crowd cannot, and give the brand a gravity of its own.",
-    ar: "أغلب العلامات تدور في المدار نفسه: الكلام ذاته، والنبرة ذاتها، والمسافة ذاتها من المشتري. والفارق الحقيقي يبدأ حين ترتفع فوق الضجيج، فترى ما يفوت الزحام، وتمنح العلامة جاذبيتها الخاصة.",
+    en: "Most brands say the same thing in the same tone, and their voice gets lost in the crowd. I take a step back, see the whole market, then build each brand a message no one else can claim.",
+    ar: "معظم العلامات التجارية تقول الكلام نفسه بالنبرة نفسها، فيضيع صوتها وسط الزحام. أنا أرجع خطوة للخلف، أرى السوق كاملاً، ثم أبني لكل علامة رسالة لا يملكها غيرها.",
   },
   inspirationLabel: { en: "Creative Influence", ar: "الإلهام الإبداعي" },
   inspirationUrl: "https://www.instagram.com/tameemyouness?hvrq=a2Q3NTkwcnBvdjcx",
