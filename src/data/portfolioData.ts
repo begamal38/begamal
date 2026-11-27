@@ -302,26 +302,26 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: "شريك نمو وتوجيه تسويقي",
     },
     organization: {
-      en: "Hossam Fekry (Since 2020) · Al-Qersh Mobile · Mohamed Samy · EL3SAL · Khatwa · Sanhok · Yasmine Salah",
-      ar: "منصة حسام فكري • القرش موبايل • محمد سامي • العسال • خطوة",
+      en: "Hossam Fekry 2020 · Al-Qersh Mobile 2022 · Mohamed Samy 2022 · El3sal Foods 2024 · Khatwa · Sanhok · Yasmine Salah",
+      ar: "حسام فكري 2020 • القرش موبايل 2022 • محمد سامي 2022 • العسال فودز 2024 • خطوة • سانهوك • ياسمين صلاح",
     },
     location: { en: "Multi-Sector", ar: "قطاعات متعددة" },
     kpis: {
-      en: ["7+ Client Brands", "Since 2020", "Multi-Sector"],
-      ar: ["أكثر من 7 علامات", "منذ 2020", "قطاعات متعددة"],
+      en: ["Hossam Fekry · 2020", "Al-Qersh & Samy · 2022", "El3sal Foods · 2024"],
+      ar: ["حسام فكري • 2020", "القرش ومحمد سامي • 2022", "العسال فودز • 2024"],
     },
     summary: {
-      en: "Leading end-to-end Marketing Direction since 2020 (starting with Hossam Fekry Platform management, center integration & rewards system), alongside building brand identity and growth systems for Al-Qersh Mobile, Mohamed Samy Works, EL3SAL, and Khatwa Nursery.",
-      ar: "قيادة التوجيه التسويقي الشامل لشركاء في قطاعات متنوعة منذ 2020: بدءاً من إدارة منصة حسام فكري وتكامل طلاب السنتر، وصولاً إلى بناء الهوية وحملات النمو للقرش موبايل ومحمد سامي للديكور ومطعم العسال وأكاديمية خطوة.",
+      en: "An independent practice that grew one client at a time: Hossam Fekry Platform in 2020 (full platform management, center integration and rewards system), Al-Qersh Mobile and Mohamed Samy Works in 2022, then El3sal Foods in 2024, alongside Khatwa, Sanhok and Yasmine Salah.",
+      ar: "ممارسة مستقلة نمت عميلاً بعد عميل: منصة حسام فكري عام 2020 (إدارة المنصة بالكامل وربط طلاب السنتر ونظام المكافآت)، ثم القرش موبايل ومحمد سامي للديكور عام 2022، ثم العسال فودز عام 2024، إلى جانب خطوة وسانهوك وياسمين صلاح.",
     },
     highlights: {
       en: [
         "Full platform management & Marketing Direction for Hossam Fekry since 2020 (center QR integration & Rewards Store economy)",
-        "Marketing Direction built from the ground up for Mohamed Samy Works, Al-Qersh Mobile (3 branches), EL3SAL, and Khatwa Nursery",
+        "Marketing Direction built from the ground up for Al-Qersh Mobile (3 branches) and Mohamed Samy Works since 2022, and El3sal Foods since 2024",
       ],
       ar: [
         "إدارة منصة حسام فكري بالكامل منذ 2020 مع ربط طلاب السنتر ونظام المكافآت",
-        "تأسيس الهوية والحملات البيعية لمحمد سامي للديكور والقرش موبايل (3 فروع) والعسال وخطوة",
+        "تأسيس الهوية والحملات البيعية للقرش موبايل (3 فروع) ومحمد سامي للديكور منذ 2022، والعسال فودز منذ 2024",
       ],
     },
   },
@@ -883,9 +883,9 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: "el3sal",
-    title: { en: "EL3SAL Crepe & Pizza", ar: "مطعم العسال" },
+    title: { en: "El3sal Foods", ar: "العسال فودز" },
     status: "active",
-    period: { en: "QSR Partner", ar: "شريك قطاع المطاعم" },
+    period: { en: "Since 2024", ar: "منذ 2024" },
     category: "retail_hospitality",
     discipline: {
       en: "Marketing Direction · 50% Takeaway \"Khud We Emshy\" · 140+ Menu",
@@ -894,14 +894,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/el3sal.jpg",
     isMedallion: true,
     summary: {
-      en: "Marketing Direction and conversion funnels for EL3SAL in Beni Suef: highlighted by the 2nd Anniversary campaign \"Khud We Emshy\" (\"Grab & Go\" 50% off takeaway), complete 140+ item menu redesign, and high-tempo food reels feeding Meta order funnels.",
-      ar: "قيادة التوجيه التسويقي وبناء مسارات الطلب لمطعم العسال في بني سويف؛ أبرزها حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على التيك أواي، وإعادة ترتيب قائمة تضم أكثر من 140 صنفاً مع ريلز المطبخ لزيادة الطلبات المباشرة.",
+      en: "Marketing Direction and conversion funnels for El3sal Foods in Beni Suef since 2024: highlighted by the 2nd Anniversary campaign \"Khud We Emshy\" (\"Grab & Go\" 50% off takeaway), complete 140+ item menu redesign, and high-tempo food reels feeding Meta order funnels.",
+      ar: "قيادة التوجيه التسويقي وبناء مسارات الطلب للعسال فودز في بني سويف منذ 2024؛ أبرزها حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على التيك أواي، وإعادة ترتيب قائمة تضم أكثر من 140 صنفاً مع ريلز المطبخ لزيادة الطلبات المباشرة.",
     },
     deliverables: {
       en: [
         "Directed 2nd Anniversary \"Khud We Emshy\" (\"Grab & Go\") campaign built around 50% off takeaway volume peaks",
         "140+ item menu restructuring maximizing add-ons and average basket value",
-        "High-tempo food craft reels (\"EL3SAL × System\", Chicken Ranch, Doner Crunchy) paired with Meta CTR Messages funnels",
+        "High-tempo food craft reels (\"El3sal × System\", Chicken Ranch, Doner Crunchy) paired with Meta CTR Messages funnels",
       ],
       ar: [
         "قيادة حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على طلبات التيك أواي لتنشيط الإقبال المباشر على الفرع",

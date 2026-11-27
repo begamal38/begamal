@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v21-pov-rewrite";
+const CACHE_NAME = "belal-gamal-v22-client-timeline";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",
