@@ -142,6 +142,26 @@ export function StatementSection({ lang }: StatementSectionProps) {
                 </p>
               </div>
             </div>
+
+            {/* Operating Doctrine: three-step method in record style */}
+            <div className="mt-8 border-t border-white/10 pt-6">
+              <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
+                {PORTFOLIO_IDENTITY.doctrineLabel[lang]}
+              </p>
+              <ol className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+                {PORTFOLIO_IDENTITY.doctrine.map((step) => (
+                  <li
+                    key={step.index}
+                    className="rounded-xl border border-white/[0.09] bg-[#0B0D12]/70 p-4"
+                  >
+                    <p className="font-mono-code text-[11px] tracking-[0.16em] text-[#A1A6B0]">
+                      {step.index} · <span className="text-[#F4F5F7]">{step.title[lang]}</span>
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-[#E4E4E7]/90">{step.text[lang]}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </div>
 

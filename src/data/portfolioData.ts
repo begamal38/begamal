@@ -164,9 +164,37 @@ export const PORTFOLIO_IDENTITY = {
   },
   lensLabel: { en: "Market Lens", ar: "عدسة السوق" },
   lensText: {
-    en: "Reads the market calmly, from outside the noise: field sales experience, creative direction and production systems combined into one commercial path measured by results.",
-    ar: "قراءة السوق بهدوء ومن خارج الضوضاء: دمج الخبرة البيعية الميدانية مع التوجيه الإبداعي وأنظمة الإنتاج في مسار تجاري واضح يقاس بالنتيجة.",
+    en: "I read the market from outside the noise. Field sales experience, creative direction and production systems run as one commercial path, held accountable to results.",
+    ar: "أقرأ السوق من خارج الضجيج. خبرة بيع ميدانية، وتوجيه إبداعي، وأنظمة إنتاج، في مسار تجاري واحد يُحاسَب بالنتيجة.",
   },
+  signature: "Lost Among Stars",
+  doctrineLabel: { en: "Operating Doctrine", ar: "منهج العمل" },
+  doctrine: [
+    {
+      index: "01",
+      title: { en: "Recon", ar: "الرصد" },
+      text: {
+        en: "Read the market, the competitor and the audience before any idea.",
+        ar: "أقرأ السوق والمنافس والجمهور قبل أي فكرة.",
+      },
+    },
+    {
+      index: "02",
+      title: { en: "Position", ar: "التموضع" },
+      text: {
+        en: "One place in the market no one else can claim.",
+        ar: "أحدد للعلامة موقعاً واحداً لا ينازعها فيه أحد.",
+      },
+    },
+    {
+      index: "03",
+      title: { en: "Execute", ar: "التنفيذ" },
+      text: {
+        en: "One clear campaign, measured in messages and sales, not likes.",
+        ar: "حملة واحدة واضحة، تُقاس بالرسائل والمبيعات لا بالإعجابات.",
+      },
+    },
+  ],
   portraitPath: "/assets/portrait.jpg",
   showreelPosterPath: "/assets/showreel-poster.jpg",
   liveDomain: "https://begamal.pages.dev",
@@ -202,8 +230,8 @@ export const UI_COPY = {
   chronicle: {
     title: { en: "Chronicle of Eras", ar: "حِقب المسيرة" },
     subtitle: {
-      en: "Ten years of hands-on progression—from independent Facebook ad campaigns and TECNO Camon C9 firmware QA in 2016 through Vodafone Business, Chance Media, Al-Attar, Majorel Smart Village HR, Chubb Life leadership, and AI production systems. Open any era to read its full log.",
-      ar: "عشر سنوات من التدرج العملي: من الحملات الممولة المستقلة واختبار برمجيات هواتف تكنو عام 2016، مروراً بفودافون بيزنس وتشانس ميديا ومجموعة العطار وماجوريل بالقرية الذكية وقيادة المبيعات في تشب، وصولاً إلى أنظمة الإنتاج بالذكاء الاصطناعي. افتح أي حقبة لقراءة سجلها الكامل.",
+      en: "Ten years on record. 2016: my own Facebook ad campaigns and TECNO Camon C9 firmware QA. Then Vodafone Business, Chance Media, Al-Attar, Majorel Smart Village HR and Chubb Life leadership. Today: AI production systems. Open any era to read its full log.",
+      ar: "عشر سنوات في السجل. 2016: حملات ممولة أديرها بنفسي واختبار برمجيات هواتف تكنو. ثم فودافون بيزنس، وتشانس ميديا، ومجموعة العطار، وماجوريل بالقرية الذكية، وقيادة المبيعات في تشب. واليوم: أنظمة الإنتاج بالذكاء الاصطناعي. افتح أي حقبة لقراءة سجلها الكامل.",
     },
     openEra: { en: "Open Era", ar: "افتح الحقبة" },
     backToGrid: { en: "All Eras", ar: "كل الحِقب" },
@@ -261,16 +289,16 @@ export const UI_COPY = {
   systems: {
     title: { en: "AI Production Architecture", ar: "أنظمة الإنتاج بالذكاء الاصطناعي" },
     subtitle: {
-      en: "Since the 2023 wave, I have built full production engines combining strategic storytelling, programmatic motion systems, and grounded AI research to ship documentaries, commercials, and custom web experiences at scale.",
-      ar: "منذ موجة الذكاء الاصطناعي في 2023، طورت خطوط إنتاج متكاملة تجمع بين البرمجة والأتمتة لإنتاج الوثائقيات والإعلانات التجارية ومنصات الويب بسرعة وجودة ثابتة.",
+      en: "Since 2023 I build my own production lines: research, writing, programmatic motion and web in one system. Documentaries, commercials and platforms ship faster, at a consistent standard.",
+      ar: "منذ 2023 أبني خطوط الإنتاج بنفسي: البحث، والكتابة، والتحريك البرمجي، والويب، في منظومة واحدة. الوثائقيات والإعلانات والمنصات تخرج أسرع، وبمستوى ثابت.",
     },
   },
   contact: {
     eyebrow: { en: "Open Channel", ar: "القناة مفتوحة" },
-    title: { en: "Work With Belal", ar: "لنبدأ العمل" },
+    title: { en: "Open Your File", ar: "افتح ملفك" },
     subtitle: {
-      en: "For marketing direction built on clear positioning and commercial growth, or AI media production systems, reach me directly below.",
-      ar: "سواء لتوجيه علامتك التجارية وبناء حملات تحقق مبيعات حقيقية، أو لتطوير منظومة إنتاج بالذكاء الاصطناعي — تواصل معي مباشرة.",
+      en: "Send three things: your business, your city, and the outcome you need. I read every file and reply with a clear plan, or a clear no.",
+      ar: "أرسل ثلاثة أشياء: نشاطك، مدينتك، والهدف الذي تريد تحقيقه. أقرأ كل ملف، وأرد بخطة واضحة أو أعتذر بوضوح.",
     },
     whatsappCta: { en: "WhatsApp", ar: "واتساب" },
     facebookCta: { en: "Facebook", ar: "فيسبوك" },
@@ -298,8 +326,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: ["Obolus وArchitect", "خطوط فيديو برمجية", "منذ 2023"],
     },
     summary: {
-      en: "Deep hands-on mastery of AI production since the 2023 wave, architecting automated English documentary channels, programmatic motion pipelines, and custom interactive web systems.",
-      ar: "إتقان عملي لأدوات الإنتاج بالذكاء الاصطناعي منذ 2023، وتصميم قنوات وثائقية إنجليزية مؤتمتة وخطوط إنتاج برمجية متكاملة للفيديو ومواقع الويب.",
+      en: "AI production since 2023: automated English documentary channels, programmatic motion pipelines and custom interactive web systems, built and run by me.",
+      ar: "الإنتاج بالذكاء الاصطناعي منذ 2023: قنوات وثائقية إنجليزية مؤتمتة، وخطوط فيديو برمجية، ومواقع ويب تفاعلية، أبنيها وأشغّلها بنفسي.",
     },
     highlights: {
       en: [
@@ -370,8 +398,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Led commercial team operations, coaching, and target execution at Chubb Life Insurance Egypt from September 2022 to July 2023, applying enterprise discipline built across Vodafone and Majorel.",
-      ar: "قيادة فريق المبيعات الميدانية والتدريب اليومي وتحقيق المستهدفات الشهرية في تشب لتأمينات الحياة مصر.",
+      en: "September 2022 to July 2023 at Chubb Life Insurance Egypt: led the commercial team, coached it daily and drove its monthly targets, with the enterprise discipline built at Vodafone and Majorel.",
+      ar: "قدت فريق المبيعات الميدانية في تشب لتأمينات الحياة مصر من سبتمبر 2022 إلى يوليو 2023. تدريب يومي، ومستهدفات شهرية تتحقق.",
     },
     highlights: {
       en: [
@@ -429,8 +457,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Started at Smart Village in Beni Suef in 2019 on Vodafone's 888 queue, then promoted to HR Recruitment Specialist at global BPO leader Majorel through August 2021. Solved high-attrition and retention-challenged call center staffing for Vodafone and Uber, hiring ~550 employees in 2020 as Top Achiever, and even produced an employer-branding promo film showcasing the Smart Village work environment to attract and retain talent.",
-      ar: "بدأت في القرية الذكية ببني سويف عام 2019 على خط 888 في فودافون، ثم ترقيت لأخصائي توظيف في ماجوريل العالمية حتى أغسطس 2021. قدت التعيينات لحسابات أوبر وفودافون وسط تحديات الدوران الوظيفي العالي، وحققت ~550 تعييناً في 2020 كالأعلى أداءً، كما أخرجت فيلماً ترويجياً لبيئة العمل بالقرية الذكية.",
+      en: "2019: Smart Village, Beni Suef, on Vodafone's 888 queue. Promoted to HR Recruitment Specialist at Majorel, held through August 2021. Staffed high-attrition call-center accounts for Vodafone and Uber: ~550 hires in 2020, Top Achiever. Also produced an employer-branding film on the Smart Village work environment to attract and retain talent.",
+      ar: "2019: القرية الذكية ببني سويف، على خط 888 في فودافون. ثم ترقية إلى أخصائي توظيف في ماجوريل حتى أغسطس 2021. تعيينات حسابات أوبر وفودافون في بيئة دوران وظيفي عالٍ: نحو 550 تعييناً في 2020، والأعلى أداءً. وأخرجت فيلماً ترويجياً لبيئة العمل بالقرية الذكية لجذب الكفاءات.",
     },
     highlights: {
       en: [
@@ -450,8 +478,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
         ar: "تأسيس الكوادر وصناعة الصف الثاني",
       },
       body: {
-        en: "Beyond hitting hiring targets, I helped build the local HR foundation from the ground up—training and mentoring multiple HR trainees who earned official company certifications, including Mostafa Badr, who grew from trainee into a full-time hire at the company. I also championed and mentored Esraa Saad into the HR team; when the department later navigated a major team transition, she stepped up to lead the function and manage core company accounts solo—a lasting testament to building people, not just filling seats.",
-        ar: "لم يقتصر دوري على تحقيق أرقام التوظيف، بل شاركت في تأسيس نواة فريق الموارد البشرية وتدريب وتأهيل عدد من المتدربين (HR Trainees) الذين نالوا شهادات معتمدة من الشركة—من بينهم مصطفى بدر الذي تدرّج وتطوّر حتى تم تعيينه رسمياً في الشركة. كما دعمت ووجّهت إسراء سعد منذ انضمامها للفريق؛ لتثبت لاحقاً كفاءة استثنائية وتقود القسم وتدير حسابات الشركة الرئيسية بمفردها خلال مرحلة انتقالية حاسمة—تجسيداً لقناعتي بأن الأثر الحقيقي يُقاس ببناء الأشخاص، لا بمجرد سد الشواغر.",
+        en: "The role went beyond hiring numbers. I helped build the local HR foundation and trained several HR trainees who earned official company certifications, including Mostafa Badr, who grew from trainee into a full-time hire. I mentored Esraa Saad from the day she joined the HR team; when the department went through a major team transition, she led the function and ran the core company accounts solo. Impact is measured by the people you build, not the seats you fill.",
+        ar: "لم يتوقف الدور عند أرقام التوظيف. شاركت في تأسيس نواة فريق الموارد البشرية، ودربت عدداً من المتدربين (HR Trainees) حصلوا على شهادات معتمدة من الشركة، منهم مصطفى بدر الذي تدرّج حتى تعيينه رسمياً. ووجّهت إسراء سعد منذ انضمامها للفريق؛ وحين مر القسم بمرحلة انتقالية كبيرة، قادته وأدارت حسابات الشركة الرئيسية بمفردها. الأثر يُقاس ببناء الأشخاص، لا بسد الشواغر.",
       },
       entities: [
         {
@@ -522,8 +550,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Led Marketing Direction, content production, and high-volume campaigns for Al-Attar Group through August 2021, closing the engagement with the flagship campaign \"Elly Magadedsh Mat\" (\"Whoever Doesn't Renew Dies Out\").",
-      ar: "قيادة التوجيه التسويقي وصناعة المحتوى والحملات التجارية لمجموعة العطار لمدة ثلاث سنوات، اختُتمت في أغسطس 2021 بالحملة الشهيرة «اللي مجددش مات» الموثقة على Vimeo.",
+      en: "Three years leading Marketing Direction, content and campaigns for Al-Attar Group. The file closed in August 2021 with the campaign \"Elly Magadedsh Mat\" (\"Whoever Doesn't Renew Dies Out\").",
+      ar: "ثلاث سنوات على رأس التوجيه التسويقي والمحتوى والحملات لمجموعة العطار. أُغلق الملف في أغسطس 2021 بحملة «اللي مجددش مات»، الموثقة على Vimeo.",
     },
     highlights: {
       en: [
@@ -577,8 +605,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Served as Creative Director at Chance Media (founded by actor Ahmed Akl), crafting TV scripts and Marketing Direction, notably writing and directing the 3-version ad campaign for Noorina LED bulbs factory built around the creative hook \"Before changing your clothes, change your lighting\", alongside launching SECTOR 09 Advertising Agency.",
-      ar: "قيادة الإدارة الإبداعية في تشانس ميديا وكتابة وتوجيه حملات التلفزيون، أبرزها حملة من 3 نسخ لمصنع لمبات الليد Noorina بفكرة «قبل ما تغير لبسك، غير إضاءتك»، بالتوازي مع تأسيس وكالة سيكتور 09.",
+      en: "Creative Director at Chance Media (founded by actor Ahmed Akl): TV scripts and Marketing Direction. Wrote and directed the 3-version campaign for the Noorina LED bulbs factory on one hook: \"Before changing your clothes, change your lighting\". In parallel, founded SECTOR 09 Advertising Agency.",
+      ar: "الإدارة الإبداعية في تشانس ميديا: كتابة وتوجيه حملات التلفزيون. كتبت ووجهت حملة من 3 نسخ لمصنع لمبات الليد Noorina على فكرة واحدة: «قبل ما تغير لبسك، غير إضاءتك». وبالتوازي، أسست وكالة سيكتور 09.",
     },
     highlights: {
       en: [
@@ -627,8 +655,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "Served on Vodafone Business Queue 247 in Cairo handling Corporate Authorized representatives exclusively, mastering high-stakes B2B account resolution, objection handling, and direct decision-maker communication.",
-      ar: "العمل على أكونت 247 لقطاع الأعمال في فودافون بيزنس بالقاهرة، وإدارة التواصل المباشر وحل المشكلات مع مفوضي الشركات وصناع القرار.",
+      en: "Vodafone Business Queue 247, Cairo: corporate authorized representatives only. B2B account resolution, objection handling and direct contact with decision-makers.",
+      ar: "فودافون بيزنس، أكونت 247 بالقاهرة: مفوضو الشركات فقط. حل المشكلات، والتفاوض، والتواصل المباشر مع صناع القرار.",
     },
     highlights: {
       en: [
@@ -669,8 +697,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "In parallel with launching independent Facebook campaigns in 2016, tested pre-release TECNO Mobile firmware per device model, contributing directly to improving the TECNO Camon C9 software build (\"El-Selfie Hekaya\" campaign) alongside moderating the official TECNO forum.",
-      ar: "اختبار نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل طرحها رسمياً، مع مساهمة مباشرة في تطوير إصدار كامون C9 (حملة «السيلفي حكاية») وإدارة المنتدى الرسمي.",
+      en: "Alongside my first Facebook campaigns in 2016: tested pre-release TECNO Mobile firmware per device model, contributed directly to the TECNO Camon C9 software build (\"El-Selfie Hekaya\" campaign) and moderated the official TECNO forum.",
+      ar: "بالتوازي مع حملاتي الأولى عام 2016: اختبرت نسخ السوفت وير التجريبية لهواتف تكنو موبايل قبل طرحها، وساهمت مباشرة في تطوير إصدار كامون C9 (حملة «السيلفي حكاية»)، وأدرت المنتدى الرسمي.",
     },
     highlights: {
       en: [
@@ -703,8 +731,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: ["انطلاقة 2016", "إعلانات ممولة", "ممارسة مستقلة"],
     },
     summary: {
-      en: "Entered digital marketing independently in 2016 during university, launching and managing my own Facebook advertising campaigns hands-on before joining any agency or enterprise team.",
-      ar: "بالتوازي مع سنوات الجامعة، بدأت إطلاق وإدارة حملات إعلانية ممولة على فيسبوك بشكل مستقل تماماً قبل العمل في أي وكالة أو شركة.",
+      en: "2016, during university: my own Facebook ad campaigns, launched and run hands-on before any agency or company.",
+      ar: "2016، خلال سنوات الجامعة: حملات إعلانية ممولة على فيسبوك أطلقها وأديرها بنفسي، قبل أي وكالة أو شركة.",
     },
     highlights: {
       en: [
@@ -737,8 +765,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       ar: ["بكالوريوس تجارة", "2013 – 2017", "جامعة بني سويف"],
     },
     summary: {
-      en: "Earned a Bachelor's degree in Commerce & Business Administration from Beni Suef University, grounding my field campaigns and Marketing Direction work in solid commercial fundamentals.",
-      ar: "تأسيس القاعدة التجارية والإدارية في جامعة بني سويف، وهي الخلفية التي ربطت لاحقاً بين الإبداع الإعلاني وفهم الأرقام والمبيعات.",
+      en: "Bachelor's in Commerce & Business Administration, Beni Suef University. The commercial base under every campaign since.",
+      ar: "بكالوريوس تجارة وإدارة أعمال من جامعة بني سويف. القاعدة التي ربطت الإبداع الإعلاني بالأرقام والمبيعات.",
     },
     highlights: {
       en: [
@@ -788,8 +816,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/alqersh.jpg",
     isMedallion: true,
     summary: {
-      en: "Full Marketing Direction and commercial campaigns for the mobile accessories & electronics brand across 3 Beni Suef branches since 2022, evolving across flagship slogans from \"Met-heseb-hash\" (\"Don't Overcalculate\"), through \"Don't Overthink It, Call El-Qersh\", to \"Your Phone Deserves More.. Choose Right\".",
-      ar: "قيادة التوجيه التسويقي والحملات الإعلانية للقرش موبايل عبر 3 فروع في بني سويف منذ 2022؛ بداية من «متحسبهاش»، ثم «متفكرش.. كلم القرش» (#كلم_القرش)، وصولاً إلى الحملة الأحدث «موبايلك يستاهل أكتر.. اختار صح».",
+      en: "Marketing Direction and campaigns for Al-Qersh Mobile across 3 Beni Suef branches since 2022. The slogan line on record: \"Met-heseb-hash\" (\"Don't Overcalculate\"), then \"Don't Overthink It, Call El-Qersh\", then \"Your Phone Deserves More.. Choose Right\".",
+      ar: "أدير التوجيه التسويقي والحملات للقرش موبايل في 3 فروع ببني سويف منذ 2022. تسلسل الشعارات في السجل: «متحسبهاش»، ثم «متفكرش.. كلم القرش» (#كلم_القرش)، ثم «موبايلك يستاهل أكتر.. اختار صح».",
     },
     deliverables: {
       en: [
@@ -827,8 +855,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/mohamed-samy.png",
     isWhitePlate: true,
     summary: {
-      en: "Architected the digital brand presence from the ground up and lead its Marketing Direction (mohamedsamyworks.com), positioning residential villas and commercial venues (After 8 Cafe, BUNO Cafe, Pyramids Heights, Zahraa El-Maadi) around engineered build precision (\"Bel-Qalam Wel Mastara\").",
-      ar: "تأسيس الهوية التجارية والحضور الرقمي لمحمد سامي للديكور بالكامل عبر mohamedsamyworks.com، لإبراز دقة التنفيذ الهندسي («بالقلم والمسطرة») في مشاريع الفيلات والمنشآت مثل After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي.",
+      en: "Built the brand and digital presence from zero and run its Marketing Direction (mohamedsamyworks.com). One position: engineered build precision (\"Bel-Qalam Wel Mastara\"), shown on villas and venues: After 8 Cafe, BUNO Cafe, Pyramids Heights, Zahraa El-Maadi.",
+      ar: "بنيت الهوية التجارية والحضور الرقمي لمحمد سامي للديكور من الصفر عبر mohamedsamyworks.com. موقع واحد في السوق: دقة التنفيذ الهندسي («بالقلم والمسطرة»)، على مشاريع الفيلات والمنشآت مثل After 8 Cafe وBUNO Cafe وبيراميدز هايتس وزهراء المعادي.",
     },
     deliverables: {
       en: [
@@ -870,8 +898,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/hossam-fekry.png",
     isWhitePlate: true,
     summary: {
-      en: "Managing the Hossam Fekry Platform and leading its Marketing Direction since 2020: unifying offline center student attendance (QR self check-in & group enrollment sync) with online learning, server-verified points, and the Rewards Store economy on hossamfekry.com.",
-      ar: "إدارة منصة حسام فكري والتوجيه التسويقي لها منذ 2020 بشكل متكامل: ربط طلاب السنتر بالتعلم الإلكتروني عبر حضور QR والمجموعات، وتشغيل نظام النقاط ومتجر الجوائز عبر hossamfekry.com.",
+      en: "Platform management and Marketing Direction for Hossam Fekry since 2020: center attendance (QR self check-in and group sync) tied to online learning, server-verified points and the Rewards Store on hossamfekry.com.",
+      ar: "أدير منصة حسام فكري وتوجيهها التسويقي منذ 2020: حضور السنتر بالـ QR ومزامنة المجموعات مربوطة بالتعلم الإلكتروني، ونظام نقاط موثق ومتجر جوائز على hossamfekry.com.",
     },
     deliverables: {
       en: [
@@ -913,8 +941,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/el3sal.jpg",
     isMedallion: true,
     summary: {
-      en: "Marketing Direction and conversion funnels for El3sal Foods in Beni Suef since 2024: highlighted by the 2nd Anniversary campaign \"Khud We Emshy\" (\"Grab & Go\" 50% off takeaway), complete 140+ item menu redesign, and high-tempo food reels feeding Meta order funnels.",
-      ar: "قيادة التوجيه التسويقي وبناء مسارات الطلب للعسال فودز في بني سويف منذ 2024؛ أبرزها حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على التيك أواي، وإعادة ترتيب قائمة تضم أكثر من 140 صنفاً مع ريلز المطبخ لزيادة الطلبات المباشرة.",
+      en: "Marketing Direction and order funnels for El3sal Foods in Beni Suef since 2024. On record: the 2nd Anniversary campaign \"Khud We Emshy\" (\"Grab & Go\", 50% off takeaway), a 140+ item menu rebuilt for clear choice, and fast food-prep reels feeding Meta message funnels.",
+      ar: "أدير التوجيه التسويقي ومسارات الطلب للعسال فودز في بني سويف منذ 2024. في السجل: حملة عيد الميلاد الثاني «خد وامشي» بخصم 50% على التيك أواي، وقائمة من أكثر من 140 صنفاً أُعيد ترتيبها لوضوح الاختيار، وريلز مطبخ سريعة مربوطة برسائل الطلب.",
     },
     deliverables: {
       en: [
@@ -952,8 +980,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/khatwa.png",
     isWhitePlate: true,
     summary: {
-      en: "Mother-first educational marketing, khatwa.site web direction, and real-classroom documentation reels for Khatwa Nursery in New Beni Suef, translating Post-Infancy, Noor Al-Bayan Foundation, and KG milestones into qualified parent enrollment leads.",
-      ar: "استراتيجية تسويق تعليمي تخاطب الأمهات بوضوح في بني سويف الجديدة مع توجيه موقع khatwa.site وتوثيق الأنشطة اليومية لثلاث مراحل (ما بعد الرضاعة، نور البيان، والتمهيدي KG) لتحويل الاستفسارات إلى تسجيلات فعلية.",
+      en: "Education marketing for Khatwa Nursery in New Beni Suef that speaks to mothers first: khatwa.site direction and real-classroom reels that turn Post-Infancy, Noor Al-Bayan Foundation and KG milestones into qualified enrollment inquiries.",
+      ar: "تسويق تعليمي لحضانة خطوة في بني سويف الجديدة يخاطب الأمهات أولاً: توجيه موقع khatwa.site، وريلز من داخل الفصول للمراحل الثلاث (ما بعد الرضاعة، نور البيان، والتمهيدي KG)، تحوّل الاستفسارات إلى تسجيلات فعلية.",
     },
     deliverables: {
       en: [
@@ -991,8 +1019,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/obolus-mark.jpg",
     isMedallion: true,
     summary: {
-      en: "English economic history documentary channel in 2D animation for Tier-1 audiences, powered by the custom Obolus Visual Engine v2.1, producing primary-source films on the 1971 Bretton Woods collapse and the 1602 Dutch East India stock market.",
-      ar: "قناة وثائقية إنجليزية بالرسوم المتحركة ثنائية الأبعاد تتناول التاريخ الاقتصادي والأنظمة النقدية عبر محرك Obolus Visual Engine v2.1، بأفلام موثقة حول فك ارتباط الدولار بالذهب عام 1971 ونشأة أول سوق أسهم عام 1602.",
+      en: "English economic-history documentary channel in 2D animation for Tier-1 audiences, built on my own Obolus Visual Engine v2.1. On record: source-verified films on the 1971 Bretton Woods collapse and the 1602 Dutch East India stock market.",
+      ar: "قناة وثائقية إنجليزية بالرسوم المتحركة ثنائية الأبعاد في التاريخ الاقتصادي والأنظمة النقدية، على محرك Obolus Visual Engine v2.1. في السجل: أفلام موثقة المصادر عن فك ارتباط الدولار بالذهب عام 1971، ونشأة أول سوق أسهم عام 1602.",
     },
     deliverables: {
       en: [
@@ -1030,8 +1058,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/architect-of-reality.png",
     isWhitePlate: true,
     summary: {
-      en: "International English psychology and philosophical cinema channel (featuring THE MIND MANUAL series), engineered on a custom programmatic Remotion rendering pipeline before winding down toward archive sunset as studio focus consolidates onto Obolus.",
-      ar: "قناة إنجليزية في السرد النفسي والفلسفي (سلسلة THE MIND MANUAL) مبنية على محرك تحريك برمجي مخصص، قبل دخولها المرحلة الختامية لتوجيه تركيز الاستوديو بالكامل نحو Obolus.",
+      en: "English psychology and philosophy channel (THE MIND MANUAL series) on a custom programmatic Remotion pipeline. Now in its final run, as the studio focus moves fully to Obolus.",
+      ar: "قناة إنجليزية في السرد النفسي والفلسفي (سلسلة THE MIND MANUAL) على محرك تحريك برمجي مخصص. في مرحلتها الختامية الآن، مع انتقال تركيز الاستوديو بالكامل إلى Obolus.",
     },
     deliverables: {
       en: [
@@ -1069,8 +1097,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/sanhok.jpg",
     isMedallion: true,
     summary: {
-      en: "A Ramadan 2025 campaign for Sanhok: youth-culture social positioning, fast-cut promotional video hooks, and hyper-local Meta footfall campaigns keeping PlayStation arenas and café seating filled across weekday and tournament hours.",
-      ar: "حملة رمضان 2025 لسانهوك: بناء حضور اجتماعي يشبه لغة الشباب عبر فيديوهات سريعة الإيقاع وحملات استهداف جغرافي على ميتا، لضمان امتلاء صالات البلايستيشن والكافيه طوال الأسبوع والبطولات.",
+      en: "A Ramadan 2025 campaign for Sanhok: youth-language social presence, fast-cut video hooks and hyper-local Meta campaigns to fill the PlayStation arenas and café through the week and tournament hours.",
+      ar: "حملة رمضان 2025 لسانهوك: حضور اجتماعي بلغة الشباب، وفيديوهات سريعة الإيقاع، وحملات ميتا باستهداف جغرافي دقيق، لملء صالات البلايستيشن والكافيه طوال الأسبوع وفي البطولات.",
     },
     deliverables: {
       en: [
@@ -1112,8 +1140,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: "/assets/clients/yasmine-salah.jpg",
     isPortraitMedallion: true,
     summary: {
-      en: "Refined personal brand positioning and Instagram visual presentation for Makeup Artist Yasmine Salah, curating signature bridal transformation showcases that attract qualified seasonal booking inquiries.",
-      ar: "تطوير الهوية البصرية على إنستجرام لخبيرة التجميل ياسمين صلاح، وإبراز تفاصيل إطلالات العرائس بأسلوب راقٍ يرفع معدل طلبات الحجز الجادة.",
+      en: "Brand positioning and Instagram presentation for makeup artist Yasmine Salah: bridal transformations curated to bring in serious seasonal booking inquiries.",
+      ar: "تموضع وهوية بصرية على إنستجرام لخبيرة التجميل ياسمين صلاح: إطلالات العرائس معروضة بتفاصيلها لجذب طلبات الحجز الجادة في المواسم.",
     },
     deliverables: {
       en: [

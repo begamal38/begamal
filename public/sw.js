@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v27-seo-share";
+const CACHE_NAME = "belal-gamal-v28-doctrine-voice";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

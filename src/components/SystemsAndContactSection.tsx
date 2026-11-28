@@ -120,6 +120,9 @@ export function SystemsAndContactSection({
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <div className="w-full min-w-0 max-w-2xl">
+              <p className="mb-6 font-editorial text-lg font-medium italic tracking-[0.04em] text-[#D4D7DD]/70" lang="en" dir="ltr">
+                — {PORTFOLIO_IDENTITY.signature}
+              </p>
               <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
                 {UI_COPY.contact.eyebrow[lang]}
               </p>
@@ -188,6 +191,9 @@ export function SystemsAndContactSection({
             <div className="flex flex-wrap items-center gap-3">
               <span className="font-display text-xs tracking-[0.22em] text-[#9CA3AF]">
                 © {PORTFOLIO_IDENTITY.brandMark[lang]}
+              </span>
+              <span className="font-editorial text-sm font-medium italic tracking-[0.04em] text-[#D4D7DD]/80" lang="en" dir="ltr">
+                {PORTFOLIO_IDENTITY.signature}
               </span>
             </div>
 

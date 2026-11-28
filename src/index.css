@@ -128,6 +128,14 @@ html[lang="ar"] .font-editorial {
   letter-spacing: 0 !important;
 }
 
+/* His English signature keeps its Latin serif voice in both language views */
+.font-editorial[lang="en"],
+html[lang="ar"] .font-editorial[lang="en"] {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic !important;
+  letter-spacing: 0.04em !important;
+}
+
 .font-sans-body {
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
 }
