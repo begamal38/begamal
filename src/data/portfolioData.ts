@@ -426,7 +426,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     period: { en: "2019 - Aug 2021", ar: "2019 - أغسطس 2021" },
     role: {
       en: "Talent Acquisition Specialist · High-Attrition BPO Hiring (Top Achiever)",
-      ar: "أخصائي استقطاب المواهب • الأعلى تحقيقاً",
+      ar: "Talent Acquisition Specialist • الأعلى تحقيقاً",
     },
     organization: {
       en: "Majorel Egypt (Global CX & BPO) · Smart Village, Beni Suef",
@@ -458,7 +458,7 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     ],
     summary: {
       en: "2019: Smart Village, Beni Suef, on Vodafone's 888 queue. Promoted to Talent Acquisition Specialist at Majorel, held through August 2021. Staffed high-attrition call-center accounts for Vodafone and Uber: ~550 hires in 2020, Top Achiever. Also produced an employer-branding film on the Smart Village work environment to attract and retain talent.",
-      ar: "2019: القرية الذكية ببني سويف، على خط 888 في فودافون. ثم ترقية إلى أخصائي استقطاب المواهب في ماجوريل حتى أغسطس 2021. تعيينات حسابات أوبر وفودافون في بيئة دوران وظيفي عالٍ: نحو 550 تعييناً في 2020، والأعلى أداءً. وأخرجت فيلماً ترويجياً لبيئة العمل بالقرية الذكية لجذب الكفاءات.",
+      ar: "2019: القرية الذكية ببني سويف، على خط 888 في فودافون. ثم ترقية إلى Talent Acquisition Specialist في ماجوريل حتى أغسطس 2021. تعيينات حسابات أوبر وفودافون في بيئة دوران وظيفي عالٍ: نحو 550 تعييناً في 2020، والأعلى أداءً. وأخرجت فيلماً ترويجياً لبيئة العمل بالقرية الذكية لجذب الكفاءات.",
     },
     highlights: {
       en: [

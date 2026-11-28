@@ -28,14 +28,11 @@ const FEATURED_WORKS = CASE_STUDIES.slice(0, 3);
 /** The Smart Village era (Majorel) and the earlier Vodafone Business era it must not be confused with. */
 const MAJOREL_ERA = CAREER_CHRONICLE.find((e) => e.id === "majorel-vodafone-2019-2021")!;
 const VODAFONE_LOGO = MAJOREL_ERA.logos!.find((l) => l.src.includes("vodafone"))!;
-const RECORD_LOGOS = [
-  VODAFONE_LOGO,
-  ...MAJOREL_ERA.logos!.filter((l) => !l.src.includes("vodafone")),
-];
+const RECORD_LOGOS = MAJOREL_ERA.logos!;
 
 const RECORD = {
-  title: { en: "Smart Village · Talent Acquisition", ar: "القرية الذكية • استقطاب المواهب" },
-  role: { en: "Talent Acquisition Specialist · Majorel", ar: "أخصائي استقطاب المواهب • ماجوريل" },
+  title: { en: "Smart Village · Talent Acquisition", ar: "القرية الذكية • Talent Acquisition" },
+  role: { en: "Talent Acquisition Specialist · Majorel", ar: "Talent Acquisition Specialist • ماجوريل" },
   place: {
     en: "Smart Village, Beni Suef · 2019 – Aug 2021",
     ar: "القرية الذكية، بني سويف • 2019 – أغسطس 2021",
@@ -44,9 +41,9 @@ const RECORD = {
     { value: { en: "~550", ar: "نحو 550" }, label: { en: "hires in 2020", ar: "تعييناً في 2020" } },
     {
       value: { en: "Top Achiever", ar: "الأعلى أداءً" },
-      label: { en: "2020, internal email on record", ar: "2020، بإيميل داخلي موثق" },
+      label: { en: "2020, documented by internal company email", ar: "موثّق ببريد الشركة الداخلي، 2020" },
     },
-    { value: { en: "Vodafone · Uber", ar: "فودافون • أوبر" }, label: { en: "accounts staffed", ar: "حسابات التوظيف" } },
+    { value: { en: "Vodafone · Uber", ar: "فودافون • أوبر" }, label: { en: "accounts", ar: "الحسابات" } },
   ],
   split: [
     {
@@ -59,10 +56,10 @@ const RECORD = {
     },
     {
       when: { en: "2019 – 2021 · Beni Suef", ar: "2019 – 2021 • بني سويف" },
-      what: { en: "Talent acquisition", ar: "استقطاب المواهب" },
+      what: { en: "Talent acquisition", ar: "استقطاب الكفاءات" },
       text: {
         en: "Smart Village: started on Vodafone's 888 queue, then Talent Acquisition at Majorel for the Vodafone and Uber accounts.",
-        ar: "القرية الذكية: البداية على خط 888 في فودافون، ثم استقطاب المواهب في ماجوريل لحسابات فودافون وأوبر.",
+        ar: "القرية الذكية: البداية على خط 888 في فودافون، ثم استقطاب الكفاءات لحسابات فودافون وأوبر في ماجوريل.",
       },
     },
   ],
@@ -213,8 +210,8 @@ export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
 
             <div className="flex flex-col justify-center rounded-[1.75rem] border border-white/[0.12] bg-[#0D0F14]/80 p-6 text-center sm:p-8">
               <div className="flex flex-wrap items-center justify-center gap-2.5">
-                {RECORD_LOGOS.map((logo, i) => (
-                  <LogoTile key={logo.src} logo={logo} lang={lang} large={i === 0} />
+                {RECORD_LOGOS.map((logo) => (
+                  <LogoTile key={logo.src} logo={logo} lang={lang} />
                 ))}
               </div>
               <p className="mt-6 text-xl font-semibold text-[#F4F5F7] sm:text-2xl">{RECORD.role[lang]}</p>
@@ -240,9 +237,8 @@ export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
             {RECORD.split.map((item) => (
               <div
                 key={item.when.en}
-                className="doctrine-card flex items-start gap-4 rounded-2xl border border-white/[0.11] bg-[#0D0F14]/80 p-5 text-start"
+                className="doctrine-card rounded-2xl border border-white/[0.11] bg-[#0D0F14]/80 p-5 text-start"
               >
-                <LogoTile logo={VODAFONE_LOGO} lang={lang} />
                 <div className="min-w-0">
                   <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#A1A6B0]">
                     {item.when[lang]} · <span className="text-[#F4F5F7]">{item.what[lang]}</span>

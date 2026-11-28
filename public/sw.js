@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v33-field-record";
+const CACHE_NAME = "belal-gamal-v34-wording";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",
