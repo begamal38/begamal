@@ -1,4 +1,4 @@
-const CACHE_NAME = "belal-gamal-v32-home-journey";
+const CACHE_NAME = "belal-gamal-v33-field-record";
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",

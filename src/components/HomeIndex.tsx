@@ -17,13 +17,79 @@ export const HOME_CHAPTERS: TelemetryChapter[] = [
   { id: "hero", index: "01", label: { en: "Overview", ar: "المقدمة" } },
   { id: "home-ethos", index: "02", label: { en: "Ethos", ar: "الرؤية" } },
   { id: "home-latest", index: "03", label: { en: "Works", ar: "الأعمال" } },
-  { id: "home-trajectory", index: "04", label: { en: "Chronicle", ar: "المسيرة" } },
-  { id: "home-doctrine", index: "05", label: { en: "Doctrine", ar: "منهج العمل" } },
-  { id: "home-contact", index: "06", label: { en: "Contact", ar: "التواصل" } },
+  { id: "home-record", index: "04", label: { en: "Field Record", ar: "سجل ميداني" } },
+  { id: "home-trajectory", index: "05", label: { en: "Chronicle", ar: "المسيرة" } },
+  { id: "home-doctrine", index: "06", label: { en: "Doctrine", ar: "منهج العمل" } },
+  { id: "home-contact", index: "07", label: { en: "Contact", ar: "التواصل" } },
 ];
 
 /** First three works in Belal's own order on the Works page. */
 const FEATURED_WORKS = CASE_STUDIES.slice(0, 3);
+/** The Smart Village era (Majorel) and the earlier Vodafone Business era it must not be confused with. */
+const MAJOREL_ERA = CAREER_CHRONICLE.find((e) => e.id === "majorel-vodafone-2019-2021")!;
+const VODAFONE_LOGO = MAJOREL_ERA.logos!.find((l) => l.src.includes("vodafone"))!;
+const RECORD_LOGOS = [
+  VODAFONE_LOGO,
+  ...MAJOREL_ERA.logos!.filter((l) => !l.src.includes("vodafone")),
+];
+
+const RECORD = {
+  title: { en: "Smart Village · Talent Acquisition", ar: "القرية الذكية • استقطاب المواهب" },
+  role: { en: "Talent Acquisition Specialist · Majorel", ar: "أخصائي استقطاب المواهب • ماجوريل" },
+  place: {
+    en: "Smart Village, Beni Suef · 2019 – Aug 2021",
+    ar: "القرية الذكية، بني سويف • 2019 – أغسطس 2021",
+  },
+  stats: [
+    { value: { en: "~550", ar: "نحو 550" }, label: { en: "hires in 2020", ar: "تعييناً في 2020" } },
+    {
+      value: { en: "Top Achiever", ar: "الأعلى أداءً" },
+      label: { en: "2020, internal email on record", ar: "2020، بإيميل داخلي موثق" },
+    },
+    { value: { en: "Vodafone · Uber", ar: "فودافون • أوبر" }, label: { en: "accounts staffed", ar: "حسابات التوظيف" } },
+  ],
+  split: [
+    {
+      when: { en: "2017 · Cairo", ar: "2017 • القاهرة" },
+      what: { en: "Customer service", ar: "خدمة العملاء" },
+      text: {
+        en: "Vodafone Business, Queue 247: corporate authorized representatives (Wasla, Al-Korba).",
+        ar: "فودافون بيزنس، أكونت 247: خدمة مفوضي الشركات (وصلة، الكوربة).",
+      },
+    },
+    {
+      when: { en: "2019 – 2021 · Beni Suef", ar: "2019 – 2021 • بني سويف" },
+      what: { en: "Talent acquisition", ar: "استقطاب المواهب" },
+      text: {
+        en: "Smart Village: started on Vodafone's 888 queue, then Talent Acquisition at Majorel for the Vodafone and Uber accounts.",
+        ar: "القرية الذكية: البداية على خط 888 في فودافون، ثم استقطاب المواهب في ماجوريل لحسابات فودافون وأوبر.",
+      },
+    },
+  ],
+};
+
+/** Client mark on its own original background (never recoloured). */
+function LogoTile({ logo, lang, large = false }: { logo: typeof VODAFONE_LOGO; lang: Lang; large?: boolean }) {
+  return (
+    <span
+      className={`flex shrink-0 items-center justify-center rounded-xl border border-white/15 shadow-sm ${
+        large ? "h-14 min-w-[56px] px-3" : "h-10 min-w-[44px] px-2.5"
+      }`}
+      style={{ backgroundColor: logo.bg ?? "#0B0C0E" }}
+    >
+      <img
+        src={logo.src}
+        alt={logo.alt[lang]}
+        loading="lazy"
+        decoding="async"
+        className={`block object-contain ${
+          logo.wide ? (large ? "max-h-7 max-w-[130px]" : "max-h-5 max-w-[100px]") : large ? "h-9 w-auto" : "h-6 w-auto"
+        }`}
+      />
+    </span>
+  );
+}
+
 /** Oldest era first: the trajectory reads like a flight path. */
 const TRAJECTORY = [...CAREER_CHRONICLE].reverse();
 
@@ -128,7 +194,72 @@ export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
         </div>
       </section>
 
-      {/* 04 · Trajectory: every era on one flight path, oldest first */}
+      {/* 04 · Field record: the Smart Village / talent acquisition period, kept apart from 2017 */}
+      <section id="home-record" className={sectionShell}>
+        {hairline}
+        <div className="mx-auto max-w-6xl">
+          <ChapterHeader id="home-record" title={RECORD.title[lang]} lang={lang} />
+
+          <div className="mt-10 grid grid-cols-1 items-stretch gap-5 md:grid-cols-2">
+            <figure className="group relative flex items-center overflow-hidden rounded-[1.75rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5">
+              <img
+                src="/assets/clients/majorel-smart-village-photo.jpg"
+                alt={lang === "en" ? "Majorel team at Smart Village, Beni Suef" : "فريق ماجوريل بالقرية الذكية، بني سويف"}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[720/300] h-full w-full rounded-[calc(1.75rem-0.375rem)] object-cover grayscale contrast-[1.06] brightness-[0.85] transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:brightness-95"
+              />
+            </figure>
+
+            <div className="flex flex-col justify-center rounded-[1.75rem] border border-white/[0.12] bg-[#0D0F14]/80 p-6 text-center sm:p-8">
+              <div className="flex flex-wrap items-center justify-center gap-2.5">
+                {RECORD_LOGOS.map((logo, i) => (
+                  <LogoTile key={logo.src} logo={logo} lang={lang} large={i === 0} />
+                ))}
+              </div>
+              <p className="mt-6 text-xl font-semibold text-[#F4F5F7] sm:text-2xl">{RECORD.role[lang]}</p>
+              <p className="mt-1.5 font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#A1A6B0]">
+                {RECORD.place[lang]}
+              </p>
+              <dl className="mt-7 grid grid-cols-1 gap-3 border-t border-white/10 pt-6 sm:grid-cols-3 sm:gap-2">
+                {RECORD.stats.map((stat) => (
+                  <div key={stat.label.en} className="flex items-baseline justify-between gap-4 text-start sm:block sm:text-center">
+                    <dt className="sr-only">{stat.label[lang]}</dt>
+                    <dd className="whitespace-nowrap font-display text-base font-semibold leading-tight text-[#F4F5F7] sm:whitespace-normal sm:text-lg">
+                      {stat.value[lang]}
+                    </dd>
+                    <dd className="text-[12px] leading-snug text-[#9CA3AF] sm:mt-1.5 sm:text-xs">{stat.label[lang]}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+
+          {/* Two Vodafone chapters, two different jobs */}
+          <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {RECORD.split.map((item) => (
+              <div
+                key={item.when.en}
+                className="doctrine-card flex items-start gap-4 rounded-2xl border border-white/[0.11] bg-[#0D0F14]/80 p-5 text-start"
+              >
+                <LogoTile logo={VODAFONE_LOGO} lang={lang} />
+                <div className="min-w-0">
+                  <p className="font-mono-code text-[11px] uppercase tracking-[0.16em] text-[#A1A6B0]">
+                    {item.when[lang]} · <span className="text-[#F4F5F7]">{item.what[lang]}</span>
+                  </p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-[#D4D7DD]/90">{item.text[lang]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <ChapterLink to={PAGE_PATHS.chronicle}>
+            {lang === "en" ? "Open the full era" : "افتح الحقبة كاملة"}
+          </ChapterLink>
+        </div>
+      </section>
+
+      {/* 05 · Trajectory: every era on one flight path, oldest first */}
       <section id="home-trajectory" className={sectionShell}>
         {hairline}
         <div className="mx-auto max-w-6xl">
@@ -174,7 +305,7 @@ export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
         </div>
       </section>
 
-      {/* 05 · Operating doctrine */}
+      {/* 06 · Operating doctrine */}
       <section id="home-doctrine" className={sectionShell}>
         {hairline}
         <div className="mx-auto max-w-6xl">
@@ -201,7 +332,7 @@ export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
         </div>
       </section>
 
-      {/* 06 · Contact: the single loud button of the page */}
+      {/* 07 · Contact: the single loud button of the page */}
       <section id="home-contact" className={`${sectionShell} pb-20 md:pb-28`}>
         {hairline}
         <div className="mx-auto max-w-3xl text-center">

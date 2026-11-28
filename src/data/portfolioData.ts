@@ -230,7 +230,7 @@ export const UI_COPY = {
   chronicle: {
     title: { en: "Chronicle of Eras", ar: "حِقب المسيرة" },
     subtitle: {
-      en: "Ten years on record. 2016: my own Facebook ad campaigns and TECNO Camon C9 firmware QA. Then Vodafone Business, Chance Media, Al-Attar, Majorel Smart Village HR and Chubb Life leadership. Today: AI production systems. Open any era to read its full log.",
+      en: "Ten years on record. 2016: my own Facebook ad campaigns and TECNO Camon C9 firmware QA. Then Vodafone Business, Chance Media, Al-Attar, Majorel Smart Village talent acquisition and Chubb Life leadership. Today: AI production systems. Open any era to read its full log.",
       ar: "عشر سنوات في السجل. 2016: حملات ممولة أديرها بنفسي واختبار برمجيات هواتف تكنو. ثم فودافون بيزنس، وتشانس ميديا، ومجموعة العطار، وماجوريل بالقرية الذكية، وقيادة المبيعات في تشب. واليوم: أنظمة الإنتاج بالذكاء الاصطناعي. افتح أي حقبة لقراءة سجلها الكامل.",
     },
     openEra: { en: "Open Era", ar: "افتح الحقبة" },
@@ -295,10 +295,10 @@ export const UI_COPY = {
   },
   contact: {
     eyebrow: { en: "Open Channel", ar: "القناة مفتوحة" },
-    title: { en: "Open Your File", ar: "افتح ملفك" },
+    title: { en: "Work With Belal", ar: "اعمل مع بلال" },
     subtitle: {
-      en: "Send three things: your business, your city, and the outcome you need. I read every file and reply with a clear plan, or a clear no.",
-      ar: "أرسل ثلاثة أشياء: نشاطك، مدينتك، والهدف الذي تريد تحقيقه. أقرأ كل ملف، وأرد بخطة واضحة أو أعتذر بوضوح.",
+      en: "For Marketing Direction anchored in clear positioning and commercial growth, or automated AI media pipelines, initiate direct contact below.",
+      ar: "سواء لتوجيه علامتك التجارية وبناء حملات تحقق مبيعات حقيقية، أو لتطوير منظومة إنتاج بالذكاء الاصطناعي — تواصل معي مباشرة.",
     },
     whatsappCta: { en: "WhatsApp", ar: "واتساب" },
     facebookCta: { en: "Facebook", ar: "فيسبوك" },
@@ -425,8 +425,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
     railYear: { en: "19–21", ar: "19–21" },
     period: { en: "2019 - Aug 2021", ar: "2019 - أغسطس 2021" },
     role: {
-      en: "HR Recruitment Specialist · High-Attrition BPO Hiring (Top Achiever)",
-      ar: "أخصائي توظيف وموارد بشرية • الأعلى تحقيقاً",
+      en: "Talent Acquisition Specialist · High-Attrition BPO Hiring (Top Achiever)",
+      ar: "أخصائي استقطاب المواهب • الأعلى تحقيقاً",
     },
     organization: {
       en: "Majorel Egypt (Global CX & BPO) · Smart Village, Beni Suef",
@@ -457,8 +457,8 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
       },
     ],
     summary: {
-      en: "2019: Smart Village, Beni Suef, on Vodafone's 888 queue. Promoted to HR Recruitment Specialist at Majorel, held through August 2021. Staffed high-attrition call-center accounts for Vodafone and Uber: ~550 hires in 2020, Top Achiever. Also produced an employer-branding film on the Smart Village work environment to attract and retain talent.",
-      ar: "2019: القرية الذكية ببني سويف، على خط 888 في فودافون. ثم ترقية إلى أخصائي توظيف في ماجوريل حتى أغسطس 2021. تعيينات حسابات أوبر وفودافون في بيئة دوران وظيفي عالٍ: نحو 550 تعييناً في 2020، والأعلى أداءً. وأخرجت فيلماً ترويجياً لبيئة العمل بالقرية الذكية لجذب الكفاءات.",
+      en: "2019: Smart Village, Beni Suef, on Vodafone's 888 queue. Promoted to Talent Acquisition Specialist at Majorel, held through August 2021. Staffed high-attrition call-center accounts for Vodafone and Uber: ~550 hires in 2020, Top Achiever. Also produced an employer-branding film on the Smart Village work environment to attract and retain talent.",
+      ar: "2019: القرية الذكية ببني سويف، على خط 888 في فودافون. ثم ترقية إلى أخصائي استقطاب المواهب في ماجوريل حتى أغسطس 2021. تعيينات حسابات أوبر وفودافون في بيئة دوران وظيفي عالٍ: نحو 550 تعييناً في 2020، والأعلى أداءً. وأخرجت فيلماً ترويجياً لبيئة العمل بالقرية الذكية لجذب الكفاءات.",
     },
     highlights: {
       en: [
