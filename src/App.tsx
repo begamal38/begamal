@@ -2,34 +2,36 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Lang, PORTFOLIO_IDENTITY, SCROLL_SECTIONS } from "./data/portfolioData";
+import { Lang } from "./data/portfolioData";
 import { MonolithScene } from "./components/MonolithScene";
 import { CosmicDustCanvas } from "./components/CosmicDustCanvas";
 import { Navbar } from "./components/Navbar";
-import { ScrollTelemetry } from "./components/ScrollTelemetry";
 import { HeroSection } from "./components/HeroSection";
+import { HomeIndex } from "./components/HomeIndex";
 import { StatementSection } from "./components/StatementSection";
 import { ChronicleSection } from "./components/ChronicleSection";
 import { WorksSection } from "./components/WorksSection";
 import { SystemsAndContactSection } from "./components/SystemsAndContactSection";
 import { AmbientAudioPlayer } from "./components/AmbientAudioPlayer";
+import { PAGE_PATHS, SECTION_TO_PAGE, closeWork, navigate, useRoute } from "./lib/router";
+import { applyPageMeta } from "./lib/pageMeta";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
-  const [activeSection, setActiveSection] = useState<string>(SCROLL_SECTIONS[0].id);
   const [isDossierOpen, setIsDossierOpen] = useState(false);
   const scrollProgressRef = useRef<number>(0);
   const scrollVelocityRef = useRef<number>(0);
   const isAudioPlayingRef = useRef<boolean>(false);
   const lenisRef = useRef<Lenis | null>(null);
+  const route = useRoute();
+  const page = route.page;
 
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    document.title = PORTFOLIO_IDENTITY.pageTitle[lang];
     let cancelled = false;
     const id = window.requestAnimationFrame(() => {
       if (!cancelled) {
@@ -49,39 +51,21 @@ export default function App() {
     };
   }, [lang]);
 
+  // Title, description and canonical follow the page (and the open work dossier)
   useEffect(() => {
-    const triggers: ScrollTrigger[] = [];
-    SCROLL_SECTIONS.forEach((section) => {
-      const el = document.getElementById(section.id);
-      if (!el) return;
-      const st = ScrollTrigger.create({
-        trigger: el,
-        start: "top 45%",
-        end: "bottom 45%",
-        onEnter: () => setActiveSection(section.id),
-        onEnterBack: () => setActiveSection(section.id),
-      });
-      triggers.push(st);
+    applyPageMeta(route, lang);
+  }, [route, lang]);
+
+  // A new page opens at the top; opening/closing a dossier over a page keeps its scroll
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+    window.scrollTo(0, 0);
+    const id = window.requestAnimationFrame(() => {
+      lenisRef.current?.resize();
+      ScrollTrigger.refresh();
     });
-
-    const handleBottomCheck = () => {
-      const nearBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 48;
-      if (nearBottom) {
-        setActiveSection("contact");
-      } else if (window.scrollY < 120) {
-        setActiveSection("hero");
-      }
-    };
-    window.addEventListener("scroll", handleBottomCheck, { passive: true });
-    handleBottomCheck();
-
-    return () => {
-      triggers.forEach((st) => st.kill());
-      window.removeEventListener("scroll", handleBottomCheck);
-    };
-  }, [lang]);
+    return () => window.cancelAnimationFrame(id);
+  }, [page]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -169,31 +153,57 @@ export default function App() {
     isAudioPlayingRef.current = playing;
   }, []);
 
+  /** Section ids from older buttons: an in-page anchor scrolls, anything else goes to its page. */
   const handleNavigate = useCallback((sectionId: string) => {
-    setActiveSection(sectionId);
-    if (sectionId === "hero") {
+    const el = document.getElementById(sectionId);
+    if (el && !SECTION_TO_PAGE[sectionId]) {
       if (lenisRef.current) {
         lenisRef.current.start();
-        lenisRef.current.scrollTo(0, { duration: 1.2 });
+        lenisRef.current.scrollTo(el, { offset: -72, duration: 1.05 });
       } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        el.scrollIntoView({ behavior: "smooth" });
       }
       return;
     }
-
-    const el = document.getElementById(sectionId);
-    if (!el) return;
-    if (lenisRef.current) {
-      lenisRef.current.start();
-      lenisRef.current.scrollTo(el, { offset: -72, duration: 1.05 });
-    } else {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    const target = SECTION_TO_PAGE[sectionId];
+    if (target) navigate(PAGE_PATHS[target]);
   }, []);
+
+  const handleOpenWork = useCallback(
+    (slug: string) => {
+      const state = window.history.state as { bg?: string; inApp?: boolean } | null;
+      if (route.workSlug) {
+        // Already in a dossier: swap it in place, keep the page underneath
+        navigate(`/work/${slug}`, { replace: true, state: { bg: page, inApp: state?.inApp } });
+      } else {
+        navigate(`/work/${slug}`, { state: { bg: page } });
+      }
+    },
+    [route.workSlug, page]
+  );
+
+  const handleStepWork = useCallback(
+    (slug: string) => {
+      const state = window.history.state as { bg?: string; inApp?: boolean } | null;
+      navigate(`/work/${slug}`, { replace: true, state: { bg: page, inApp: state?.inApp } });
+    },
+    [page]
+  );
+
+  const handleCloseWork = useCallback(() => closeWork(route), [route]);
 
   const handleToggleLang = useCallback(() => {
     setLang((prev) => (prev === "en" ? "ar" : "en"));
   }, []);
+
+  const worksProps = {
+    lang,
+    onModalOpenChange: handleModalOpenChange,
+    openSlug: route.workSlug,
+    onOpenWork: handleOpenWork,
+    onStepWork: handleStepWork,
+    onCloseWork: handleCloseWork,
+  };
 
   return (
     <div className="relative min-h-[100dvh] text-[#F4F5F7]">
@@ -204,34 +214,35 @@ export default function App() {
         lang={lang}
         isDossierOpen={isDossierOpen}
         isAudioPlayingRef={isAudioPlayingRef}
+        routeKey={page}
       />
       <CosmicDustCanvas
         scrollProgressRef={scrollProgressRef}
         scrollVelocityRef={scrollVelocityRef}
       />
-      <ScrollTelemetry
-        lang={lang}
-        activeSection={activeSection}
-        scrollProgressRef={scrollProgressRef}
-        onNavigate={handleNavigate}
-      />
-      <Navbar
-        lang={lang}
-        activeSection={activeSection}
-        onNavigate={handleNavigate}
-      />
+      <Navbar lang={lang} activePage={page} onOpenWork={handleOpenWork} />
 
-      <main className="relative z-10 w-full overflow-x-clip">
-        <HeroSection lang={lang} onNavigate={handleNavigate} />
-        <StatementSection lang={lang} />
-        <ChronicleSection lang={lang} onModalOpenChange={handleModalOpenChange} />
-        <WorksSection lang={lang} onModalOpenChange={handleModalOpenChange} />
+      <main key={page} className={`relative z-10 w-full overflow-x-clip ${page === "home" ? "" : "pt-20 md:pt-24"}`}>
+        {page === "home" && (
+          <>
+            <HeroSection lang={lang} onNavigate={handleNavigate} />
+            <HomeIndex lang={lang} onOpenWork={handleOpenWork} />
+          </>
+        )}
+        {page === "about" && <StatementSection lang={lang} />}
+        {page === "chronicle" && (
+          <ChronicleSection lang={lang} onModalOpenChange={handleModalOpenChange} />
+        )}
+        {page === "work" && <WorksSection {...worksProps} variant="full" />}
         <SystemsAndContactSection
           lang={lang}
           onToggleLang={handleToggleLang}
-          onNavigate={handleNavigate}
+          show={page === "systems" ? "systems" : page === "contact" ? "contact" : "none"}
+          activePage={page}
         />
       </main>
+      {/* A work opened over another page (home cards, nav menu) */}
+      {page !== "work" && route.workSlug && <WorksSection {...worksProps} variant="dossierOnly" />}
       <AmbientAudioPlayer
         lang={lang}
         onPlayingChange={handleAudioPlayingChange}

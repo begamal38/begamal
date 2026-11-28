@@ -7,6 +7,8 @@ interface MonolithSceneProps {
   lang: Lang;
   isDossierOpen?: boolean;
   isAudioPlayingRef?: React.MutableRefObject<boolean>;
+  /** Current page; the mobile horizon re-anchors (or falls back to cover) when it changes. */
+  routeKey?: string;
 }
 
 const HERO_OPACITY = 0.42;
@@ -23,6 +25,7 @@ export function MonolithScene({
   scrollProgressRef,
   lang,
   isDossierOpen = false,
+  routeKey = "home",
 }: MonolithSceneProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
@@ -48,7 +51,11 @@ export function MonolithScene({
     let raf = 0;
     const place = () => {
       const anchorEl = document.querySelector<HTMLElement>("[data-horizon-anchor]");
-      if (!anchorEl) return;
+      if (!anchorEl) {
+        // Pages without the hero portrait use the plain full-screen cover framing
+        setMobileVideoStyle(undefined);
+        return;
+      }
       const r = anchorEl.getBoundingClientRect();
       if (!r.width) return;
       const cx = r.left + r.width / 2;
@@ -80,7 +87,7 @@ export function MonolithScene({
       ro?.disconnect();
       window.removeEventListener("orientationchange", schedule);
     };
-  }, [isMobileViewport, lang]);
+  }, [isMobileViewport, lang, routeKey]);
 
   useEffect(() => {
     isDossierOpenRef.current = isDossierOpen;

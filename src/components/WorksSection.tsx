@@ -21,6 +21,13 @@ gsap.registerPlugin(ScrollTrigger);
 interface WorksSectionProps {
   lang: Lang;
   onModalOpenChange?: (isOpen: boolean) => void;
+  /** "full" draws the films row + grid; "dossierOnly" only hosts the dossier over another page. */
+  variant?: "full" | "dossierOnly";
+  /** Slug from the URL (/work/<slug>); null when no dossier is open. */
+  openSlug: string | null;
+  onOpenWork: (slug: string) => void;
+  onStepWork: (slug: string) => void;
+  onCloseWork: () => void;
 }
 
 /**
@@ -78,7 +85,7 @@ function getBentoSpanClass(index: number, total: number): string {
   return index % 2 === 0 ? "lg:col-span-7" : "lg:col-span-5";
 }
 
-function ClientStatusBadge({
+export function ClientStatusBadge({
   status,
   lang,
 }: {
@@ -118,7 +125,7 @@ function ClientStatusBadge({
   );
 }
 
-function CaseStudyVisualStage({
+export function CaseStudyVisualStage({
   study,
   lang,
   tall = false,
@@ -199,11 +206,18 @@ function CaseStudyVisualStage({
   );
 }
 
-export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
+export function WorksSection({
+  lang,
+  onModalOpenChange,
+  variant = "full",
+  openSlug,
+  onOpenWork,
+  onStepWork,
+  onCloseWork,
+}: WorksSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const modalBodyRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<CaseStudyCategoryId>("all");
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const filteredStudies = useMemo(() => {
     if (activeCategory === "all") return CASE_STUDIES;
@@ -216,9 +230,18 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     return map;
   }, [lang]);
 
+  // The open dossier comes from the URL. A deep link to a work hidden by the filter resets it to "All".
+  const selectedIndex = useMemo(() => {
+    if (!openSlug) return null;
+    const idx = filteredStudies.findIndex((s) => s.id === openSlug);
+    return idx === -1 ? null : idx;
+  }, [openSlug, filteredStudies]);
+
   useEffect(() => {
-    setSelectedIndex(null);
-  }, [activeCategory]);
+    if (openSlug && selectedIndex === null && activeCategory !== "all") {
+      setActiveCategory("all");
+    }
+  }, [openSlug, selectedIndex, activeCategory]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -257,15 +280,15 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
     };
   }, [activeCategory, lang]);
 
-  const handleClose = useCallback(() => setSelectedIndex(null), []);
+  const handleClose = useCallback(() => onCloseWork(), [onCloseWork]);
   const handlePrev = useCallback(() => {
-    setSelectedIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : prev));
-  }, []);
+    if (selectedIndex !== null && selectedIndex > 0) onStepWork(filteredStudies[selectedIndex - 1].id);
+  }, [selectedIndex, filteredStudies, onStepWork]);
   const handleNext = useCallback(() => {
-    setSelectedIndex((prev) =>
-      prev !== null && prev < filteredStudies.length - 1 ? prev + 1 : prev
-    );
-  }, [filteredStudies.length]);
+    if (selectedIndex !== null && selectedIndex < filteredStudies.length - 1) {
+      onStepWork(filteredStudies[selectedIndex + 1].id);
+    }
+  }, [selectedIndex, filteredStudies, onStepWork]);
 
   useDossierNavigation({
     isOpen: selectedIndex !== null,
@@ -293,202 +316,8 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
       ? filteredStudies[selectedIndex + 1]
       : null;
 
-  return (
-    <section
-      id="works"
-      ref={sectionRef}
-      className="relative z-10 bg-transparent px-5 py-14 sm:px-8 md:py-20"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-      />
-      <div className="mx-auto max-w-6xl">
-        {/* Featured films: header + two 16:9 cinema cards in one identity */}
-        <div className="mb-12">
-          <div className="mb-5">
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
-              {UI_COPY.works.showreelEyebrow[lang]}
-            </p>
-            <h3 className="mt-2 font-display text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
-              {UI_COPY.works.showreelTitle[lang]}
-            </h3>
-            <p className="mt-1.5 max-w-2xl text-sm text-[#D4D7DD]/90">
-              {UI_COPY.works.showreelSubtitle[lang]}
-            </p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {UI_COPY.works.films.map((film) => (
-              <a
-                key={film.id}
-                href={film.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
-                className="film-card group block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
-              >
-                <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
-                  <div className="relative aspect-[16/9] w-full overflow-hidden">
-                    <img
-                      src={film.poster}
-                      alt={film.title[lang]}
-                      loading="lazy"
-                      className="h-full w-full object-cover brightness-[0.8] contrast-[1.08] grayscale-[55%] transition-all duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-95 group-hover:grayscale-0"
-                    />
-                    <div
-                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080C] via-[#090C12]/70 via-40% to-transparent"
-                      aria-hidden="true"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="btn-titanium flex h-14 w-14 items-center justify-center rounded-full text-[#050505] shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-16 sm:w-16">
-                        <Play size={22} weight="fill" className="translate-x-0.5 text-[#050505]" />
-                      </span>
-                    </div>
-                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-5">
-                      <div className="min-w-0">
-                        <p className="font-mono-code text-[10px] uppercase tracking-[0.16em] text-[#A1A6B0] sm:text-[11px]">
-                          {film.eyebrow[lang]}
-                        </p>
-                        <p className="mt-1 font-display text-base font-semibold text-[#F4F5F7] sm:text-lg">
-                          {film.title[lang]}
-                        </p>
-                      </div>
-                      <span
-                        className="btn-titanium inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#050505] transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
-                        title={film.cta[lang]}
-                      >
-                        <span className="sr-only">{film.cta[lang]}</span>
-                        <ArrowUpRight size={16} weight="bold" className="inline-block rtl:-scale-x-100" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Section Header + Category Filters */}
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
-              {UI_COPY.works.eyebrow[lang]}
-            </p>
-            <h2 className="mt-3 font-display text-[clamp(1.75rem,3.6vw,2.5rem)] font-semibold uppercase tracking-[0.06em] text-[#F4F5F7]">
-              {UI_COPY.works.title[lang]}
-            </h2>
-          </div>
-
-          <div
-            role="tablist"
-            aria-label={UI_COPY.works.title[lang]}
-            className="flex flex-wrap gap-2"
-          >
-            {CASE_STUDY_CATEGORIES.map((category) => {
-              const selected = activeCategory === category.id;
-              return (
-                <button
-                  key={category.id}
-                  role="tab"
-                  type="button"
-                  aria-selected={selected}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`min-h-11 rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap ${
-                    selected
-                      ? "btn-titanium border-[#F4F5F7] font-semibold"
-                      : "border-white/15 bg-[#0D0F14]/80 text-[#A7B0BE] backdrop-blur-md hover:border-white/30 hover:text-[#F4F5F7]"
-                  }`}
-                >
-                  {category.label[lang]}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Clean Uniform Scannable Bento Grid (Progressive Disclosure) */}
-        <div className="works-grid mt-10 grid grid-flow-dense grid-cols-1 gap-5 lg:grid-cols-12">
-          {filteredStudies.map((study, index) => {
-            const spanClass = getBentoSpanClass(index, filteredStudies.length);
-            const primaryLink = study.links[0];
-            return (
-              <article
-                key={study.id}
-                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.11] bg-[#0D0F14]/75 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25`}
-              >
-                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#0A0A0C]/75 p-5 backdrop-blur-md transition-colors duration-300 ease-out group-hover:bg-[#11131A]/85 sm:p-6">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedIndex(index)}
-                    className="w-full text-start"
-                  >
-                    <div className="mb-4">
-                      <CaseStudyVisualStage study={study} lang={lang} />
-                    </div>
-
-                    <div className="flex min-h-[2rem] flex-nowrap items-center justify-between gap-2">
-                      <div className="flex min-w-0 flex-nowrap items-center gap-1.5">
-                        <ClientStatusBadge status={study.status} lang={lang} />
-                        <span className="truncate font-mono-code text-[10px] uppercase tracking-[0.08em] text-[#D4D7DD] whitespace-nowrap">
-                          {study.period[lang]}
-                        </span>
-                      </div>
-                      <span className="shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.04em] text-[#A1A6B0]">
-                        {categoryLabelMap.get(study.category)}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-2.5 line-clamp-1 text-lg font-semibold text-[#F4F5F7] sm:text-xl">
-                      <BiDiText text={study.title[lang]} lang={lang} />
-                    </h3>
-
-                    <p className="mt-1 line-clamp-1 text-xs font-medium text-[#A1A6B0]">
-                      <BiDiText text={study.discipline[lang]} lang={lang} />
-                    </p>
-
-                    <p className="mt-3 line-clamp-2 text-xs leading-relaxed text-[#9CA3AF] sm:text-[13px]">
-                      <BiDiText text={study.summary[lang]} lang={lang} />
-                    </p>
-                  </button>
-
-                  {/* Compact Action Row */}
-                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.06] pt-3.5">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedIndex(index)}
-                      className="-my-2 inline-flex min-h-11 items-center gap-1.5 text-[13px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:text-white"
-                    >
-                      <span>{UI_COPY.works.openDossier[lang]}</span>
-                      <ArrowUpRight
-                        size={13}
-                        weight="bold"
-                        className="inline-block opacity-75 rtl:-scale-x-100"
-                      />
-                    </button>
-
-                    {primaryLink && (
-                      <a
-                        href={primaryLink.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/15 bg-[#161923] px-3.5 py-2.5 text-[12px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
-                      >
-                        <span>{primaryLink.label[lang]}</span>
-                        <ArrowUpRight
-                          size={12}
-                          weight="bold"
-                          className="inline-block rtl:-scale-x-100"
-                        />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-
+  const dossier = (
+    <>
       {/* Obsidian Case Dossier Modal (Editorial 2-Column Split Layout) */}
       {selectedStudy &&
         selectedIndex !== null &&
@@ -540,7 +369,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                       <button
                         key={`work-dot-${item.id}`}
                         type="button"
-                        onClick={() => setSelectedIndex(idx)}
+                        onClick={() => onStepWork(filteredStudies[idx].id)}
                         aria-label={item.title[lang]}
                         title={item.title[lang]}
                         className="group flex h-4 items-center px-0.5"
@@ -735,6 +564,208 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
           </div>,
           document.body
         )}
+    </>
+  );
+
+  if (variant === "dossierOnly") return dossier;
+
+  return (
+    <section
+      id="works"
+      ref={sectionRef}
+      className="relative z-10 bg-transparent px-5 py-14 sm:px-8 md:py-20"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+      />
+      <div className="mx-auto max-w-6xl">
+        {/* Featured films: header + two 16:9 cinema cards in one identity */}
+        <div className="mb-12">
+          <div className="mb-5">
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
+              {UI_COPY.works.showreelEyebrow[lang]}
+            </p>
+            <h3 className="mt-2 font-display text-xl font-semibold text-[#F4F5F7] sm:text-2xl">
+              {UI_COPY.works.showreelTitle[lang]}
+            </h3>
+            <p className="mt-1.5 max-w-2xl text-sm text-[#D4D7DD]/90">
+              {UI_COPY.works.showreelSubtitle[lang]}
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {UI_COPY.works.films.map((film) => (
+              <a
+                key={film.id}
+                href={film.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
+                className="film-card group block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
+              >
+                <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden">
+                    <img
+                      src={film.poster}
+                      alt={film.title[lang]}
+                      loading="lazy"
+                      className="h-full w-full object-cover brightness-[0.8] contrast-[1.08] grayscale-[55%] transition-all duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-95 group-hover:grayscale-0"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080C] via-[#090C12]/70 via-40% to-transparent"
+                      aria-hidden="true"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="btn-titanium flex h-14 w-14 items-center justify-center rounded-full text-[#050505] shadow-[0_12px_36px_rgba(0,0,0,0.75)] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-16 sm:w-16">
+                        <Play size={22} weight="fill" className="translate-x-0.5 text-[#050505]" />
+                      </span>
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-5">
+                      <div className="min-w-0">
+                        <p className="font-mono-code text-[10px] uppercase tracking-[0.16em] text-[#A1A6B0] sm:text-[11px]">
+                          {film.eyebrow[lang]}
+                        </p>
+                        <p className="mt-1 font-display text-base font-semibold text-[#F4F5F7] sm:text-lg">
+                          {film.title[lang]}
+                        </p>
+                      </div>
+                      <span
+                        className="btn-titanium inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#050505] transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                        title={film.cta[lang]}
+                      >
+                        <span className="sr-only">{film.cta[lang]}</span>
+                        <ArrowUpRight size={16} weight="bold" className="inline-block rtl:-scale-x-100" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Section Header + Category Filters */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
+              {UI_COPY.works.eyebrow[lang]}
+            </p>
+            <h2 className="mt-3 font-display text-[clamp(1.75rem,3.6vw,2.5rem)] font-semibold uppercase tracking-[0.06em] text-[#F4F5F7]">
+              {UI_COPY.works.title[lang]}
+            </h2>
+          </div>
+
+          <div
+            role="tablist"
+            aria-label={UI_COPY.works.title[lang]}
+            className="flex flex-wrap gap-2"
+          >
+            {CASE_STUDY_CATEGORIES.map((category) => {
+              const selected = activeCategory === category.id;
+              return (
+                <button
+                  key={category.id}
+                  role="tab"
+                  type="button"
+                  aria-selected={selected}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`min-h-11 rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ease-out active:scale-[0.98] whitespace-nowrap ${
+                    selected
+                      ? "btn-titanium border-[#F4F5F7] font-semibold"
+                      : "border-white/15 bg-[#0D0F14]/80 text-[#A7B0BE] backdrop-blur-md hover:border-white/30 hover:text-[#F4F5F7]"
+                  }`}
+                >
+                  {category.label[lang]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Clean Uniform Scannable Bento Grid (Progressive Disclosure) */}
+        <div className="works-grid mt-10 grid grid-flow-dense grid-cols-1 gap-5 lg:grid-cols-12">
+          {filteredStudies.map((study, index) => {
+            const spanClass = getBentoSpanClass(index, filteredStudies.length);
+            const primaryLink = study.links[0];
+            return (
+              <article
+                key={study.id}
+                className={`${spanClass} works-card group flex flex-col justify-between rounded-[1.5rem] border border-white/[0.11] bg-[#0D0F14]/75 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25`}
+              >
+                <div className="flex h-full flex-col justify-between rounded-[1.15rem] bg-[#0A0A0C]/75 p-5 backdrop-blur-md transition-colors duration-300 ease-out group-hover:bg-[#11131A]/85 sm:p-6">
+                  <button
+                    type="button"
+                    onClick={() => onOpenWork(study.id)}
+                    className="w-full text-start"
+                  >
+                    <div className="mb-4">
+                      <CaseStudyVisualStage study={study} lang={lang} />
+                    </div>
+
+                    <div className="flex min-h-[2rem] flex-nowrap items-center justify-between gap-2">
+                      <div className="flex min-w-0 flex-nowrap items-center gap-1.5">
+                        <ClientStatusBadge status={study.status} lang={lang} />
+                        <span className="truncate font-mono-code text-[10px] uppercase tracking-[0.08em] text-[#D4D7DD] whitespace-nowrap">
+                          {study.period[lang]}
+                        </span>
+                      </div>
+                      <span className="shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.04em] text-[#A1A6B0]">
+                        {categoryLabelMap.get(study.category)}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-2.5 line-clamp-1 text-lg font-semibold text-[#F4F5F7] sm:text-xl">
+                      <BiDiText text={study.title[lang]} lang={lang} />
+                    </h3>
+
+                    <p className="mt-1 line-clamp-1 text-xs font-medium text-[#A1A6B0]">
+                      <BiDiText text={study.discipline[lang]} lang={lang} />
+                    </p>
+
+                    <p className="mt-3 line-clamp-2 text-xs leading-relaxed text-[#9CA3AF] sm:text-[13px]">
+                      <BiDiText text={study.summary[lang]} lang={lang} />
+                    </p>
+                  </button>
+
+                  {/* Compact Action Row */}
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.06] pt-3.5">
+                    <button
+                      type="button"
+                      onClick={() => onOpenWork(study.id)}
+                      className="-my-2 inline-flex min-h-11 items-center gap-1.5 text-[13px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:text-white"
+                    >
+                      <span>{UI_COPY.works.openDossier[lang]}</span>
+                      <ArrowUpRight
+                        size={13}
+                        weight="bold"
+                        className="inline-block opacity-75 rtl:-scale-x-100"
+                      />
+                    </button>
+
+                    {primaryLink && (
+                      <a
+                        href={primaryLink.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/15 bg-[#161923] px-3.5 py-2.5 text-[12px] font-medium text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:bg-[#D4D7DD] hover:text-[#050505]"
+                      >
+                        <span>{primaryLink.label[lang]}</span>
+                        <ArrowUpRight
+                          size={12}
+                          weight="bold"
+                          className="inline-block rtl:-scale-x-100"
+                        />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+
+      {dossier}
     </section>
   );
 }

@@ -145,7 +145,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
       {/* Minimal Scroll Exploration Cue */}
       <button
         type="button"
-        onClick={() => onNavigate("perspective")}
+        onClick={() => onNavigate("home-latest")}
         className="hero-scroll-cue absolute bottom-5 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-[#111215]/80 px-4 py-1.5 font-mono-code text-[10px] uppercase tracking-[0.18em] text-[#D4D7DD] backdrop-blur-md transition-colors hover:border-white/40 hover:text-[#F4F5F7] sm:inline-flex"
       >
         <span>{lang === "en" ? "Begin the Journey" : "ابدأ الرحلة"}</span>

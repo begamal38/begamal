@@ -15,19 +15,32 @@ import {
   PORTFOLIO_IDENTITY,
   UI_COPY,
 } from "../data/portfolioData";
+import { PAGE_PATHS, PageKey, onInternalLinkClick } from "../lib/router";
+import { PAGE_LABELS } from "../lib/pageMeta";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface SystemsAndContactSectionProps {
   lang: Lang;
   onToggleLang: () => void;
-  onNavigate: (sectionId: string) => void;
+  /** Which block this page shows above the footer. The footer itself is on every page. */
+  show: "systems" | "contact" | "none";
+  activePage: PageKey;
+}
+
+const FOOTER_PAGES: PageKey[] = ["home", "about", "chronicle", "work", "systems", "contact"];
+
+function scrollToTop() {
+  const lenis = (window as Window & { __lenis?: { scrollTo: (t: number) => void } }).__lenis;
+  if (lenis) lenis.scrollTo(0);
+  else window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 export function SystemsAndContactSection({
   lang,
   onToggleLang,
-  onNavigate,
+  show,
+  activePage,
 }: SystemsAndContactSectionProps) {
   const systemsRef = useRef<HTMLElement>(null);
 
@@ -64,6 +77,7 @@ export function SystemsAndContactSection({
   return (
     <>
       {/* AI Production Systems Architecture */}
+      {show === "systems" && (
       <section
         id="systems"
         ref={systemsRef}
@@ -107,17 +121,21 @@ export function SystemsAndContactSection({
           </div>
         </div>
       </section>
+      )}
 
       {/* Direct Channel & Minimal Footer with Language Switch (Safe-Zone Cleared for Floating Audio Toggle) */}
       <footer
         id="contact"
-        className="relative z-10 bg-[#0A0A0C]/76 px-5 pb-28 pt-14 backdrop-blur-md sm:px-8 sm:pb-24 md:pt-20"
+        className={`relative z-10 bg-[#0A0A0C]/76 px-5 pb-28 backdrop-blur-md sm:px-8 sm:pb-24 ${
+          show === "contact" ? "pt-14 md:pt-20" : "pt-4 md:pt-6"
+        }`}
       >
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
         />
         <div className="mx-auto max-w-6xl">
+          {show === "contact" && (
           <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <div className="w-full min-w-0 max-w-2xl">
               <p className="mb-6 font-editorial text-lg font-medium italic tracking-[0.04em] text-[#D4D7DD]/70" lang="en" dir="ltr">
@@ -185,9 +203,30 @@ export function SystemsAndContactSection({
               </a>
             </div>
           </div>
+          )}
+
+          {/* Page links (every page reachable from every page) */}
+          <nav
+            aria-label={lang === "en" ? "Site pages" : "صفحات الموقع"}
+            className={`relative z-20 flex flex-wrap gap-x-5 gap-y-1 ${show === "contact" ? "mt-14" : "mt-2"}`}
+          >
+            {FOOTER_PAGES.map((key) => (
+              <a
+                key={key}
+                href={PAGE_PATHS[key]}
+                onClick={(e) => onInternalLinkClick(e, PAGE_PATHS[key])}
+                aria-current={activePage === key ? "page" : undefined}
+                className={`inline-flex min-h-11 items-center font-mono-code text-[12px] uppercase tracking-[0.14em] transition-colors duration-300 ease-out ${
+                  activePage === key ? "text-[#F4F5F7]" : "text-[#9CA3AF] hover:text-[#F4F5F7]"
+                }`}
+              >
+                {PAGE_LABELS[key][lang]}
+              </a>
+            ))}
+          </nav>
 
           {/* Discreet Footer Closing Row + Copyright + Back to Top + العربية / EN Switch */}
-          <div className="relative z-20 mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] pt-6 pe-0 sm:pe-36">
+          <div className="relative z-20 mt-4 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] pt-6 pe-0 sm:pe-36">
             <div className="flex flex-wrap items-center gap-3">
               <span className="font-display text-xs tracking-[0.22em] text-[#9CA3AF]">
                 © {PORTFOLIO_IDENTITY.brandMark[lang]}
@@ -206,7 +245,7 @@ export function SystemsAndContactSection({
 
               <button
                 type="button"
-                onClick={() => onNavigate("hero")}
+                onClick={scrollToTop}
                 className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#111215] min-h-11 px-4 py-2 font-mono-code text-[12px] text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-[#D4D7DD] hover:text-[#F4F5F7] whitespace-nowrap"
               >
                 <ArrowUp size={11} weight="bold" />
