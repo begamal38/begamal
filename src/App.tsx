@@ -2,19 +2,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Lang } from "./data/portfolioData";
+import { Lang, SCROLL_SECTIONS } from "./data/portfolioData";
 import { MonolithScene } from "./components/MonolithScene";
 import { CosmicDustCanvas } from "./components/CosmicDustCanvas";
 import { Navbar } from "./components/Navbar";
-import { HeroSection } from "./components/HeroSection";
-import { HOME_CHAPTERS, HomeIndex } from "./components/HomeIndex";
 import { ScrollTelemetry } from "./components/ScrollTelemetry";
+import { HeroSection } from "./components/HeroSection";
 import { StatementSection } from "./components/StatementSection";
 import { ChronicleSection } from "./components/ChronicleSection";
 import { WorksSection } from "./components/WorksSection";
 import { SystemsAndContactSection } from "./components/SystemsAndContactSection";
+import { WorkPage } from "./components/WorkPage";
+import { EraPage } from "./components/EraPage";
 import { AmbientAudioPlayer } from "./components/AmbientAudioPlayer";
-import { PAGE_PATHS, SECTION_TO_PAGE, closeWork, navigate, useRoute } from "./lib/router";
+import { PAGE_PATHS, PAGE_SECTION_ID, PageKey, SECTION_TO_PAGE, navigate, useRoute } from "./lib/router";
 import { applyPageMeta } from "./lib/pageMeta";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -22,40 +23,15 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 
 export default function App() {
   const [lang, setLang] = useState<Lang>("en");
-  const [isDossierOpen, setIsDossierOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>(SCROLL_SECTIONS[0].id);
   const scrollProgressRef = useRef<number>(0);
   const scrollVelocityRef = useRef<number>(0);
   const isAudioPlayingRef = useRef<boolean>(false);
   const lenisRef = useRef<Lenis | null>(null);
   const route = useRoute();
-  const page = route.page;
-  const [activeChapter, setActiveChapter] = useState<string>(HOME_CHAPTERS[0].id);
-
-  // Home is a scroll journey: track which chapter is in view for the side rail
-  useEffect(() => {
-    if (page !== "home") return;
-    const triggers: ScrollTrigger[] = [];
-    const id = window.requestAnimationFrame(() => {
-      HOME_CHAPTERS.forEach((chapter) => {
-        const el = document.getElementById(chapter.id);
-        if (!el) return;
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: el,
-            start: "top 45%",
-            end: "bottom 45%",
-            onEnter: () => setActiveChapter(chapter.id),
-            onEnterBack: () => setActiveChapter(chapter.id),
-          })
-        );
-      });
-    });
-    setActiveChapter(HOME_CHAPTERS[0].id);
-    return () => {
-      window.cancelAnimationFrame(id);
-      triggers.forEach((t) => t.kill());
-    };
-  }, [page, lang]);
+  const isLongPage = !route.workSlug && !route.eraId;
+  const viewKey = isLongPage ? "long" : route.path;
+  const lastViewKeyRef = useRef<string | null>(null);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -79,21 +55,84 @@ export default function App() {
     };
   }, [lang]);
 
-  // Title, description and canonical follow the page (and the open work dossier)
+  // Title, description and canonical follow the route
   useEffect(() => {
     applyPageMeta(route, lang);
   }, [route, lang]);
 
-  // A new page opens at the top; opening/closing a dossier over a page keeps its scroll
+  // Detail pages open at the top. Section paths scroll the long page to their section:
+  // instantly when the long page has just been drawn, smoothly when it was already on screen.
   useEffect(() => {
-    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
-    window.scrollTo(0, 0);
-    const id = window.requestAnimationFrame(() => {
-      lenisRef.current?.resize();
-      ScrollTrigger.refresh();
+    const freshView = lastViewKeyRef.current !== viewKey;
+    lastViewKeyRef.current = viewKey;
+    let raf1 = 0;
+    let raf2 = 0;
+    const go = () => {
+      const lenis = lenisRef.current;
+      lenis?.start();
+      if (freshView) {
+        lenis?.resize();
+        ScrollTrigger.refresh();
+      }
+      const sectionId = isLongPage ? PAGE_SECTION_ID[route.page] : null;
+      const el = sectionId ? document.getElementById(sectionId) : null;
+      if (!el) {
+        if (lenis) lenis.scrollTo(0, { immediate: freshView, force: true, duration: 1.05 });
+        else window.scrollTo({ top: 0, behavior: freshView ? "auto" : "smooth" });
+        return;
+      }
+      if (lenis) {
+        lenis.scrollTo(el, { offset: 80, immediate: freshView, force: true, duration: 1.05 });
+      } else {
+        const top = el.getBoundingClientRect().top + window.scrollY - 72;
+        window.scrollTo({ top, behavior: freshView ? "auto" : "smooth" });
+      }
+    };
+    raf1 = window.requestAnimationFrame(() => {
+      raf2 = window.requestAnimationFrame(go);
     });
-    return () => window.cancelAnimationFrame(id);
-  }, [page]);
+    // A fresh load can be pushed around by the browser's own hash jump and late images: settle once more
+    const settle = freshView ? window.setTimeout(go, 450) : 0;
+    return () => {
+      window.cancelAnimationFrame(raf1);
+      window.cancelAnimationFrame(raf2);
+      window.clearTimeout(settle);
+    };
+  }, [route, viewKey, isLongPage]);
+
+  // Which section of the long page is in view (side rail + nav highlight)
+  useEffect(() => {
+    if (!isLongPage) return;
+    const triggers: ScrollTrigger[] = [];
+    const id = window.requestAnimationFrame(() => {
+      SCROLL_SECTIONS.forEach((section) => {
+        const el = document.getElementById(section.id);
+        if (!el) return;
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 45%",
+            end: "bottom 45%",
+            onEnter: () => setActiveSection(section.id),
+            onEnterBack: () => setActiveSection(section.id),
+          })
+        );
+      });
+    });
+    const handleBottomCheck = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 48;
+      if (nearBottom) setActiveSection("contact");
+      else if (window.scrollY < 120) setActiveSection("hero");
+    };
+    window.addEventListener("scroll", handleBottomCheck, { passive: true });
+    handleBottomCheck();
+    return () => {
+      window.cancelAnimationFrame(id);
+      triggers.forEach((t) => t.kill());
+      window.removeEventListener("scroll", handleBottomCheck);
+    };
+  }, [isLongPage, lang]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -168,84 +207,28 @@ export default function App() {
     };
   }, []);
 
-  const handleModalOpenChange = useCallback((isOpen: boolean) => {
-    setIsDossierOpen(isOpen);
-    if (isOpen) {
-      lenisRef.current?.stop();
-    } else {
-      lenisRef.current?.start();
-    }
-  }, []);
-
   const handleAudioPlayingChange = useCallback((playing: boolean) => {
     isAudioPlayingRef.current = playing;
   }, []);
 
-  /** Section ids from older buttons: an in-page anchor scrolls, anything else goes to its page. */
+  /** Section ids from the hero buttons and the side rail: go to that section's path. */
   const handleNavigate = useCallback((sectionId: string) => {
-    const el = document.getElementById(sectionId);
-    if (el && !SECTION_TO_PAGE[sectionId]) {
-      if (lenisRef.current) {
-        lenisRef.current.start();
-        lenisRef.current.scrollTo(el, { offset: -72, duration: 1.05 });
-      } else {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-      return;
-    }
     const target = SECTION_TO_PAGE[sectionId];
     if (!target) return;
-    if (target === page) {
-      // Already here: glide to the section (or the top) instead of re-navigating
-      const dest = el && sectionId !== "hero" ? el : 0;
-      if (lenisRef.current) {
-        lenisRef.current.start();
-        lenisRef.current.scrollTo(dest, { offset: dest === 0 ? 0 : -72, duration: 1.05 });
-      } else if (dest === 0) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        dest.scrollIntoView({ behavior: "smooth" });
-      }
-      return;
-    }
-    navigate(PAGE_PATHS[target]);
-  }, [page]);
+    const to = PAGE_PATHS[target];
+    navigate(to, { replace: window.location.pathname === to });
+  }, []);
 
-  const handleOpenWork = useCallback(
-    (slug: string) => {
-      const state = window.history.state as { bg?: string; inApp?: boolean } | null;
-      if (route.workSlug) {
-        // Already in a dossier: swap it in place, keep the page underneath
-        navigate(`/work/${slug}`, { replace: true, state: { bg: page, inApp: state?.inApp } });
-      } else {
-        navigate(`/work/${slug}`, { state: { bg: page } });
-      }
-    },
-    [route.workSlug, page]
-  );
-
-  const handleStepWork = useCallback(
-    (slug: string) => {
-      const state = window.history.state as { bg?: string; inApp?: boolean } | null;
-      navigate(`/work/${slug}`, { replace: true, state: { bg: page, inApp: state?.inApp } });
-    },
-    [page]
-  );
-
-  const handleCloseWork = useCallback(() => closeWork(route), [route]);
+  const handleOpenWork = useCallback((slug: string) => navigate(`/work/${slug}`), []);
 
   const handleToggleLang = useCallback(() => {
     setLang((prev) => (prev === "en" ? "ar" : "en"));
   }, []);
 
-  const worksProps = {
-    lang,
-    onModalOpenChange: handleModalOpenChange,
-    openSlug: route.workSlug,
-    onOpenWork: handleOpenWork,
-    onStepWork: handleStepWork,
-    onCloseWork: handleCloseWork,
-  };
+  // Nav highlight: the section in view on the long page, or the section a detail page belongs to
+  const activePage: PageKey = isLongPage
+    ? SECTION_TO_PAGE[activeSection] ?? "home"
+    : route.page;
 
   return (
     <div className="relative min-h-[100dvh] text-[#F4F5F7]">
@@ -254,9 +237,9 @@ export default function App() {
         scrollProgressRef={scrollProgressRef}
         scrollVelocityRef={scrollVelocityRef}
         lang={lang}
-        isDossierOpen={isDossierOpen}
+        isDossierOpen={false}
         isAudioPlayingRef={isAudioPlayingRef}
-        routeKey={page}
+        routeKey={viewKey}
       />
       <CosmicDustCanvas
         scrollProgressRef={scrollProgressRef}
@@ -264,34 +247,33 @@ export default function App() {
       />
       <ScrollTelemetry
         lang={lang}
-        activeSection={activeChapter}
+        activeSection={activeSection}
         scrollProgressRef={scrollProgressRef}
         onNavigate={handleNavigate}
-        chapters={page === "home" ? HOME_CHAPTERS : []}
+        chapters={isLongPage ? SCROLL_SECTIONS : []}
       />
-      <Navbar lang={lang} activePage={page} onOpenWork={handleOpenWork} />
+      <Navbar lang={lang} activePage={activePage} onOpenWork={handleOpenWork} />
 
-      <main key={page} className={`relative z-10 w-full overflow-x-clip ${page === "home" ? "" : "pt-20 md:pt-24"}`}>
-        {page === "home" && (
+      <main key={viewKey} className={`relative z-10 w-full overflow-x-clip ${isLongPage ? "" : "pt-24 md:pt-28"}`}>
+        {isLongPage ? (
           <>
             <HeroSection lang={lang} onNavigate={handleNavigate} />
-            <HomeIndex lang={lang} onOpenWork={handleOpenWork} />
+            <StatementSection lang={lang} />
+            <ChronicleSection lang={lang} />
+            <WorksSection lang={lang} />
           </>
+        ) : route.workSlug ? (
+          <WorkPage slug={route.workSlug} lang={lang} />
+        ) : (
+          route.eraId && <EraPage id={route.eraId} lang={lang} />
         )}
-        {page === "about" && <StatementSection lang={lang} />}
-        {page === "chronicle" && (
-          <ChronicleSection lang={lang} onModalOpenChange={handleModalOpenChange} />
-        )}
-        {page === "work" && <WorksSection {...worksProps} variant="full" />}
         <SystemsAndContactSection
           lang={lang}
           onToggleLang={handleToggleLang}
-          show={page === "systems" ? "systems" : page === "contact" ? "contact" : "none"}
-          activePage={page}
+          show={isLongPage ? "all" : "none"}
+          activePage={activePage}
         />
       </main>
-      {/* A work opened over another page (home cards, nav menu) */}
-      {page !== "work" && route.workSlug && <WorksSection {...worksProps} variant="dossierOnly" />}
       <AmbientAudioPlayer
         lang={lang}
         onPlayingChange={handleAudioPlayingChange}

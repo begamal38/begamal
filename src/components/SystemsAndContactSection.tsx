@@ -24,7 +24,7 @@ interface SystemsAndContactSectionProps {
   lang: Lang;
   onToggleLang: () => void;
   /** Which block this page shows above the footer. The footer itself is on every page. */
-  show: "systems" | "contact" | "none";
+  show: "all" | "systems" | "contact" | "none";
   activePage: PageKey;
 }
 
@@ -77,7 +77,7 @@ export function SystemsAndContactSection({
   return (
     <>
       {/* AI Production Systems Architecture */}
-      {show === "systems" && (
+      {(show === "systems" || show === "all") && (
       <section
         id="systems"
         ref={systemsRef}
@@ -127,7 +127,7 @@ export function SystemsAndContactSection({
       <footer
         id="contact"
         className={`relative z-10 bg-[#0A0A0C]/76 px-5 pb-28 backdrop-blur-md sm:px-8 sm:pb-24 ${
-          show === "contact" ? "pt-14 md:pt-20" : "pt-4 md:pt-6"
+          show === "contact" || show === "all" ? "pt-14 md:pt-20" : "pt-4 md:pt-6"
         }`}
       >
         <div
@@ -135,7 +135,7 @@ export function SystemsAndContactSection({
           className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
         />
         <div className="mx-auto max-w-6xl">
-          {show === "contact" && (
+          {(show === "contact" || show === "all") && (
           <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <div className="w-full min-w-0 max-w-2xl">
               <p className="mb-6 font-editorial text-lg font-medium italic tracking-[0.04em] text-[#D4D7DD]/70" lang="en" dir="ltr">
@@ -208,7 +208,7 @@ export function SystemsAndContactSection({
           {/* Page links (every page reachable from every page) */}
           <nav
             aria-label={lang === "en" ? "Site pages" : "صفحات الموقع"}
-            className={`relative z-20 flex flex-wrap gap-x-5 gap-y-1 ${show === "contact" ? "mt-14" : "mt-2"}`}
+            className={`relative z-20 flex flex-wrap gap-x-5 gap-y-1 ${show === "contact" || show === "all" ? "mt-14" : "mt-2"}`}
           >
             {FOOTER_PAGES.map((key) => (
               <a

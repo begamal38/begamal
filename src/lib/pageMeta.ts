@@ -1,5 +1,5 @@
-import { CASE_STUDIES, Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
-import { PAGE_PATHS, PageKey, RouteMatch } from "./router";
+import { CAREER_CHRONICLE, CASE_STUDIES, Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
+import { PageKey, RouteMatch } from "./router";
 
 const SITE = "https://begamal.pages.dev";
 
@@ -51,10 +51,16 @@ export function applyPageMeta(route: RouteMatch, lang: Lang) {
   let path: string;
 
   const study = route.workSlug ? CASE_STUDIES.find((s) => s.id === route.workSlug) : null;
+  const era = route.eraId ? CAREER_CHRONICLE.find((e) => e.id === route.eraId) : null;
   if (study) {
     title = `${study.title[lang]} · ${brand}`;
     description = clip(study.summary[lang].replace(/\\"/g, '"'));
     path = `/work/${study.id}`;
+  } else if (era) {
+    const org = era.organization[lang].split(/ [·•] /)[0];
+    title = `${org} · ${era.period[lang]} · ${brand}`;
+    description = clip(era.summary[lang].replace(/\\"/g, '"'));
+    path = `/chronicle/${era.id}`;
   } else if (route.page === "home") {
     title = PORTFOLIO_IDENTITY.pageTitle[lang];
     description = PAGE_DESCRIPTIONS.home[lang];
@@ -62,7 +68,8 @@ export function applyPageMeta(route: RouteMatch, lang: Lang) {
   } else {
     title = `${PAGE_TITLES[route.page][lang]} · ${brand}`;
     description = clip(PAGE_DESCRIPTIONS[route.page][lang]);
-    path = PAGE_PATHS[route.page];
+    // Section links show the same long page: one canonical URL for it, no duplicate content
+    path = "/";
   }
 
   document.title = title;

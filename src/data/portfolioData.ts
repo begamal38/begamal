@@ -61,6 +61,13 @@ export interface ChronicleEntry {
   };
   mentorship?: ChronicleMentorship;
   links?: ClientLink[];
+  /** Wider card on the long page, with a real photo from the era. */
+  feature?: { photo: string; alt: LocalizedText };
+  /** Short side-by-side contrast with a related era that is easy to confuse with this one. */
+  contrast?: {
+    eyebrow: LocalizedText;
+    items: { when: LocalizedText; what: LocalizedText; text: LocalizedText }[];
+  };
 }
 
 export interface ClientLink {
@@ -422,6 +429,31 @@ export const CAREER_CHRONICLE: ChronicleEntry[] = [
   },
   {
     id: "majorel-vodafone-2019-2021",
+    feature: {
+      photo: "/assets/clients/majorel-smart-village-photo.jpg",
+      alt: { en: "Majorel team at Smart Village, Beni Suef", ar: "فريق ماجوريل بالقرية الذكية، بني سويف" },
+    },
+    contrast: {
+      eyebrow: { en: "Two Vodafone chapters, two different jobs", ar: "فصلان مع فودافون، ودوران مختلفان" },
+      items: [
+        {
+          when: { en: "2017 · Cairo", ar: "2017 • القاهرة" },
+          what: { en: "Customer service", ar: "خدمة العملاء" },
+          text: {
+            en: "Vodafone Business, Queue 247: corporate authorized representatives (Wasla, Al-Korba).",
+            ar: "فودافون بيزنس، أكونت 247: خدمة مفوضي الشركات (وصلة، الكوربة).",
+          },
+        },
+        {
+          when: { en: "2019 – 2021 · Beni Suef", ar: "2019 – 2021 • بني سويف" },
+          what: { en: "Talent acquisition", ar: "استقطاب الكفاءات" },
+          text: {
+            en: "Smart Village: started on Vodafone's 888 queue, then Talent Acquisition at Majorel for the Vodafone and Uber accounts.",
+            ar: "القرية الذكية: البداية على خط 888 في فودافون، ثم استقطاب الكفاءات لحسابات فودافون وأوبر في ماجوريل.",
+          },
+        },
+      ],
+    },
     railYear: { en: "19–21", ar: "19–21" },
     period: { en: "2019 - Aug 2021", ar: "2019 - أغسطس 2021" },
     role: {
