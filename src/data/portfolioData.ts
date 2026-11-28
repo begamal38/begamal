@@ -116,8 +116,8 @@ export const SCROLL_SECTIONS: ScrollSectionMeta[] = [
 export const PORTFOLIO_IDENTITY = {
   brandMark: { en: "BELAL GAMAL", ar: "بلال جمال" },
   pageTitle: {
-    en: "Belal Gamal | Marketing Direction, Creative Director & AI Architect",
-    ar: "بلال جمال | التوجيه التسويقي والإدارة الإبداعية وأنظمة الذكاء الاصطناعي",
+    en: "Belal Gamal | Marketing & Creative Direction · AI Systems",
+    ar: "بلال جمال | التوجيه التسويقي والإبداعي وأنظمة الذكاء الاصطناعي",
   },
   name: { en: "Belal Gamal", ar: "بلال جمال" },
   primaryTitle: { en: "Creative Director", ar: "مدير إبداعي" },
