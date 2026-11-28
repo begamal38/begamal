@@ -325,7 +325,7 @@ export function WorksSection({ lang, onModalOpenChange }: WorksSectionProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => window.dispatchEvent(new CustomEvent("begamal:showreel-play"))}
-                className="group block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
+                className="film-card group block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
               >
                 <div className="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
                   <div className="relative aspect-[16/9] w-full overflow-hidden">

@@ -299,7 +299,7 @@ export function AmbientAudioPlayer({
   return (
     <div
       ref={wrapperRef}
-      className="pointer-events-none fixed bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.5rem))] end-[max(0.75rem,env(safe-area-inset-right))] z-[110] flex flex-col items-end md:bottom-6 md:end-6"
+      className="pointer-events-none fixed bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.5rem))] end-[max(0.75rem,env(safe-area-inset-right))] z-40 flex flex-col items-end md:bottom-6 md:end-6"
     >
       {/* Desktop: Compact Editorial Whisper Card above the speaker control (auto-dismisses in 5s or on scroll/click) */}
       <div

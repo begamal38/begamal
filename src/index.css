@@ -56,6 +56,11 @@ html {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
   }
+
+  /* Without glass the dossier panels go fully opaque so nothing behind can bleed through */
+  .dossier-enter {
+    background-color: #07070a !important;
+  }
 }
 
 section[id],
@@ -321,3 +326,30 @@ html[lang="ar"] .font-editorial {
     animation: none !important;
   }
 }
+
+/* Mobile flow: cards rise in as they enter the viewport. Scroll-driven (compositor only, no JS);
+   browsers without animation-timeline simply show the cards static. Desktop keeps its GSAP motion. */
+@keyframes mobile-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .works-card,
+    .era-node-card,
+    .milestone-card,
+    .film-card {
+      animation: mobile-rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+
