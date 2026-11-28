@@ -7,7 +7,8 @@ import { MonolithScene } from "./components/MonolithScene";
 import { CosmicDustCanvas } from "./components/CosmicDustCanvas";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
-import { HomeIndex } from "./components/HomeIndex";
+import { HOME_CHAPTERS, HomeIndex } from "./components/HomeIndex";
+import { ScrollTelemetry } from "./components/ScrollTelemetry";
 import { StatementSection } from "./components/StatementSection";
 import { ChronicleSection } from "./components/ChronicleSection";
 import { WorksSection } from "./components/WorksSection";
@@ -28,6 +29,33 @@ export default function App() {
   const lenisRef = useRef<Lenis | null>(null);
   const route = useRoute();
   const page = route.page;
+  const [activeChapter, setActiveChapter] = useState<string>(HOME_CHAPTERS[0].id);
+
+  // Home is a scroll journey: track which chapter is in view for the side rail
+  useEffect(() => {
+    if (page !== "home") return;
+    const triggers: ScrollTrigger[] = [];
+    const id = window.requestAnimationFrame(() => {
+      HOME_CHAPTERS.forEach((chapter) => {
+        const el = document.getElementById(chapter.id);
+        if (!el) return;
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 45%",
+            end: "bottom 45%",
+            onEnter: () => setActiveChapter(chapter.id),
+            onEnterBack: () => setActiveChapter(chapter.id),
+          })
+        );
+      });
+    });
+    setActiveChapter(HOME_CHAPTERS[0].id);
+    return () => {
+      window.cancelAnimationFrame(id);
+      triggers.forEach((t) => t.kill());
+    };
+  }, [page, lang]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -166,8 +194,22 @@ export default function App() {
       return;
     }
     const target = SECTION_TO_PAGE[sectionId];
-    if (target) navigate(PAGE_PATHS[target]);
-  }, []);
+    if (!target) return;
+    if (target === page) {
+      // Already here: glide to the section (or the top) instead of re-navigating
+      const dest = el && sectionId !== "hero" ? el : 0;
+      if (lenisRef.current) {
+        lenisRef.current.start();
+        lenisRef.current.scrollTo(dest, { offset: dest === 0 ? 0 : -72, duration: 1.05 });
+      } else if (dest === 0) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        dest.scrollIntoView({ behavior: "smooth" });
+      }
+      return;
+    }
+    navigate(PAGE_PATHS[target]);
+  }, [page]);
 
   const handleOpenWork = useCallback(
     (slug: string) => {
@@ -219,6 +261,13 @@ export default function App() {
       <CosmicDustCanvas
         scrollProgressRef={scrollProgressRef}
         scrollVelocityRef={scrollVelocityRef}
+      />
+      <ScrollTelemetry
+        lang={lang}
+        activeSection={activeChapter}
+        scrollProgressRef={scrollProgressRef}
+        onNavigate={handleNavigate}
+        chapters={page === "home" ? HOME_CHAPTERS : []}
       />
       <Navbar lang={lang} activePage={page} onOpenWork={handleOpenWork} />
 

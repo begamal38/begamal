@@ -1,87 +1,104 @@
+import { ReactNode } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
-import { CASE_STUDIES, Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
-import { PAGE_PATHS, PageKey, onInternalLinkClick } from "../lib/router";
-import { PAGE_LABELS } from "../lib/pageMeta";
+import {
+  CAREER_CHRONICLE,
+  CASE_STUDIES,
+  Lang,
+  PORTFOLIO_IDENTITY,
+  UI_COPY,
+} from "../data/portfolioData";
+import { PAGE_PATHS, onInternalLinkClick } from "../lib/router";
 import { CaseStudyVisualStage, ClientStatusBadge } from "./WorksSection";
+import { StatementSection } from "./StatementSection";
+import type { TelemetryChapter } from "./ScrollTelemetry";
+
+/** The home page is one short scroll journey; these are its chapters (also drive the side rail). */
+export const HOME_CHAPTERS: TelemetryChapter[] = [
+  { id: "hero", index: "01", label: { en: "Overview", ar: "المقدمة" } },
+  { id: "home-ethos", index: "02", label: { en: "Ethos", ar: "الرؤية" } },
+  { id: "home-latest", index: "03", label: { en: "Works", ar: "الأعمال" } },
+  { id: "home-trajectory", index: "04", label: { en: "Chronicle", ar: "المسيرة" } },
+  { id: "home-doctrine", index: "05", label: { en: "Doctrine", ar: "منهج العمل" } },
+  { id: "home-contact", index: "06", label: { en: "Contact", ar: "التواصل" } },
+];
+
+/** First three works in Belal's own order on the Works page. */
+const FEATURED_WORKS = CASE_STUDIES.slice(0, 3);
+/** Oldest era first: the trajectory reads like a flight path. */
+const TRAJECTORY = [...CAREER_CHRONICLE].reverse();
+
+function chapterLabel(id: string, lang: Lang) {
+  const c = HOME_CHAPTERS.find((x) => x.id === id)!;
+  return `${c.index} · ${c.label[lang]}`;
+}
+
+function ChapterHeader({ id, title, lang }: { id: string; title: string; lang: Lang }) {
+  return (
+    <div className="mx-auto max-w-3xl text-center">
+      <p className="font-mono-code text-[11px] uppercase tracking-[0.22em] text-[#A1A6B0]">
+        {chapterLabel(id, lang)}
+      </p>
+      <h2 className="mt-3 font-display text-[clamp(1.6rem,3.4vw,2.4rem)] font-semibold uppercase tracking-[0.06em] text-[#F4F5F7]">
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+/** Quiet text link: the one loud button on this page is the final Connect. */
+function ChapterLink({ to, children }: { to: string; children: ReactNode }) {
+  return (
+    <div className="mt-8 flex justify-center">
+      <a
+        href={to}
+        onClick={(e) => onInternalLinkClick(e, to)}
+        className="group inline-flex min-h-11 items-center gap-2 border-b border-white/20 font-mono-code text-[12px] uppercase tracking-[0.16em] text-[#D4D7DD] transition-colors duration-300 ease-out hover:border-white/60 hover:text-[#F4F5F7]"
+      >
+        <span>{children}</span>
+        <ArrowUpRight
+          size={13}
+          weight="bold"
+          className="transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
+        />
+      </a>
+    </div>
+  );
+}
+
+const sectionShell = "relative z-10 px-5 py-16 sm:px-8 md:py-24";
+const hairline = (
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+  />
+);
 
 interface HomeIndexProps {
   lang: Lang;
   onOpenWork: (slug: string) => void;
 }
 
-/** First three works in Belal's own order on the Works page. */
-const FEATURED_WORKS = CASE_STUDIES.slice(0, 3);
-
-/** First sentence of a localized copy line (the home cards carry exactly one sentence). */
-function firstSentence(text: string): string {
-  const match = text.match(/^.*?[.!؟?](\s|$)/);
-  return (match ? match[0] : text).trim();
-}
-
-const PAGE_CARDS: {
-  key: PageKey;
-  image: string;
-  imageClass: string;
-  line: { en: string; ar: string };
-}[] = [
-  {
-    key: "work",
-    image: "/assets/showreel-poster.jpg",
-    imageClass: "object-cover",
-    line: UI_COPY.works.showreelSubtitle,
-  },
-  {
-    key: "chronicle",
-    image: "/assets/clients/majorel-smart-village-team.jpg",
-    imageClass: "object-cover",
-    line: UI_COPY.chronicle.subtitle,
-  },
-  {
-    key: "about",
-    image: "/assets/portrait.jpg",
-    imageClass: "object-cover object-[50%_35%]",
-    line: PORTFOLIO_IDENTITY.lensText,
-  },
-  {
-    key: "systems",
-    image: "/video/gargantua-poster.jpg",
-    imageClass: "object-cover object-[73%_50%]",
-    line: UI_COPY.systems.subtitle,
-  },
-];
-
 export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
   return (
     <>
-      {/* Selected works preview */}
-      <section id="home-latest" className="relative z-10 px-5 py-14 sm:px-8 md:py-20">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-        />
-        <div className="mx-auto max-w-6xl">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
-                {UI_COPY.works.eyebrow[lang]}
-              </p>
-              <h2 className="mt-3 font-display text-[clamp(1.6rem,3.2vw,2.25rem)] font-semibold uppercase tracking-[0.06em] text-[#F4F5F7]">
-                {UI_COPY.works.title[lang]}
-              </h2>
-            </div>
-            <a
-              href={PAGE_PATHS.work}
-              onClick={(e) => onInternalLinkClick(e, PAGE_PATHS.work)}
-              className="btn-titanium group inline-flex min-h-11 items-center gap-2 rounded-full ps-5 pe-2 text-sm font-semibold text-[#050505]"
-            >
-              <span>{lang === "en" ? "All Works" : "كل الأعمال"}</span>
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
-                <ArrowUpRight size={14} weight="bold" className="rtl:-scale-x-100" />
-              </span>
-            </a>
-          </div>
+      {/* 02 · Ethos: the manifesto whose words light up with the scroll */}
+      <StatementSection
+        lang={lang}
+        variant="manifesto"
+        header={<ChapterHeader id="home-ethos" title={UI_COPY.statement.eyebrow[lang]} lang={lang} />}
+        footer={
+          <ChapterLink to={PAGE_PATHS.about}>
+            {lang === "en" ? "Read the full ethos" : "اقرأ المنهج كاملاً"}
+          </ChapterLink>
+        }
+      />
 
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+      {/* 03 · Selected works */}
+      <section id="home-latest" className={sectionShell}>
+        {hairline}
+        <div className="mx-auto max-w-6xl">
+          <ChapterHeader id="home-latest" title={UI_COPY.works.title[lang]} lang={lang} />
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
             {FEATURED_WORKS.map((study) => (
               <a
                 key={study.id}
@@ -93,9 +110,9 @@ export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
                 }}
                 className="works-card group flex flex-col rounded-[1.5rem] border border-white/[0.11] bg-[#0D0F14]/75 p-1.5 shadow-[0_12px_36px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25"
               >
-                <div className="flex h-full flex-col rounded-[1.15rem] bg-[#0A0A0C]/75 p-4">
+                <div className="flex h-full flex-col items-center rounded-[1.15rem] bg-[#0A0A0C]/75 p-4 text-center">
                   <CaseStudyVisualStage study={study} lang={lang} />
-                  <div className="mt-4 flex items-center gap-2">
+                  <div className="mt-4 flex items-center justify-center gap-2">
                     <ClientStatusBadge status={study.status} lang={lang} />
                     <span className="font-mono-code text-[11px] uppercase tracking-[0.14em] text-[#A1A6B0]">
                       {study.period[lang]}
@@ -107,67 +124,107 @@ export function HomeIndex({ lang, onOpenWork }: HomeIndexProps) {
               </a>
             ))}
           </div>
+          <ChapterLink to={PAGE_PATHS.work}>{lang === "en" ? "All Works" : "كل الأعمال"}</ChapterLink>
         </div>
       </section>
 
-      {/* Doors to the other pages */}
-      <section className="relative z-10 px-5 pb-14 sm:px-8 md:pb-20">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2">
-          {PAGE_CARDS.map((card) => (
-            <a
-              key={card.key}
-              href={PAGE_PATHS[card.key]}
-              onClick={(e) => onInternalLinkClick(e, PAGE_PATHS[card.key])}
-              className="film-card group block rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 ease-out hover:border-[#D4D7DD]/50"
-            >
-              <div className="relative aspect-[16/9] overflow-hidden rounded-[calc(2rem-0.375rem)] bg-[#10131B]">
-                <img
-                  src={card.image}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className={`h-full w-full ${card.imageClass} brightness-[0.72] contrast-[1.08] grayscale-[55%] transition-all duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-90 group-hover:grayscale-0`}
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080C] via-[#090C12]/70 via-45% to-transparent"
-                />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5">
-                  <div className="min-w-0">
-                    <p className="font-display text-xl font-semibold uppercase tracking-[0.06em] text-[#F4F5F7]">
-                      {PAGE_LABELS[card.key][lang]}
-                    </p>
-                    <p className="mt-1.5 line-clamp-2 text-sm text-[#D4D7DD]/90">
-                      {firstSentence(card.line[lang])}
-                    </p>
-                  </div>
-                  <span className="btn-titanium inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#050505]">
-                    <ArrowUpRight size={16} weight="bold" className="rtl:-scale-x-100" />
-                  </span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        {/* Closing line to the contact page */}
-        <div className="mx-auto mt-12 flex max-w-6xl flex-wrap items-center justify-between gap-5 border-t border-white/10 pt-10">
-          <div>
-            <p className="font-editorial text-lg font-medium italic text-[#D4D7DD]/70" lang="en" dir="ltr">
-              — {PORTFOLIO_IDENTITY.signature}
-            </p>
-            <p className="mt-2 font-display text-[clamp(1.6rem,3.6vw,2.4rem)] font-semibold uppercase tracking-[0.04em] text-[#F4F5F7]">
-              {UI_COPY.contact.title[lang]}
-            </p>
+      {/* 04 · Trajectory: every era on one flight path, oldest first */}
+      <section id="home-trajectory" className={sectionShell}>
+        {hairline}
+        <div className="mx-auto max-w-6xl">
+          <ChapterHeader id="home-trajectory" title={UI_COPY.chronicle.title[lang]} lang={lang} />
+          <div className="relative mt-10">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-[7px] h-px bg-gradient-to-r from-white/5 via-white/25 to-white/5"
+            />
+            <ol className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-10 md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
+              {TRAJECTORY.map((era, i) => {
+                const isLatest = i === TRAJECTORY.length - 1;
+                return (
+                  <li key={era.id} className="w-[132px] shrink-0 snap-start md:w-auto">
+                    <a
+                      href={PAGE_PATHS.chronicle}
+                      onClick={(e) => onInternalLinkClick(e, PAGE_PATHS.chronicle)}
+                      className="group flex flex-col items-center text-center"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`block rounded-full transition-all duration-300 ease-out ${
+                          isLatest
+                            ? "h-[15px] w-[15px] bg-[#F4F5F7] shadow-[0_0_14px_rgba(244,245,247,0.8)]"
+                            : "mt-[3px] h-[9px] w-[9px] bg-white/40 group-hover:bg-[#F4F5F7] group-hover:shadow-[0_0_10px_rgba(244,245,247,0.7)]"
+                        }`}
+                      />
+                      <span className="mt-4 font-mono-code text-[12px] tracking-[0.12em] text-[#F4F5F7]">
+                        {era.railYear[lang]}
+                      </span>
+                      <span className="mt-1.5 line-clamp-3 text-[12px] leading-snug text-[#9CA3AF] transition-colors duration-300 group-hover:text-[#D4D7DD]">
+                        {era.organization[lang]}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
+          <ChapterLink to={PAGE_PATHS.chronicle}>
+            {lang === "en" ? "Open the full log" : "افتح السجل الكامل"}
+          </ChapterLink>
+        </div>
+      </section>
+
+      {/* 05 · Operating doctrine */}
+      <section id="home-doctrine" className={sectionShell}>
+        {hairline}
+        <div className="mx-auto max-w-6xl">
+          <ChapterHeader id="home-doctrine" title={PORTFOLIO_IDENTITY.doctrineLabel[lang]} lang={lang} />
+          <ol className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {PORTFOLIO_IDENTITY.doctrine.map((step) => (
+              <li
+                key={step.index}
+                className="doctrine-card rounded-2xl border border-white/[0.11] bg-[#0D0F14]/80 p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+              >
+                <p className="font-mono-code text-[11px] tracking-[0.2em] text-[#A1A6B0]">{step.index}</p>
+                <p className="mt-2 font-display text-xl font-semibold uppercase tracking-[0.08em] text-[#F4F5F7]">
+                  {step.title[lang]}
+                </p>
+                <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-[#D4D7DD]/85">
+                  {step.text[lang]}
+                </p>
+              </li>
+            ))}
+          </ol>
+          <ChapterLink to={PAGE_PATHS.systems}>
+            {lang === "en" ? "The production systems" : "أنظمة الإنتاج"}
+          </ChapterLink>
+        </div>
+      </section>
+
+      {/* 06 · Contact: the single loud button of the page */}
+      <section id="home-contact" className={`${sectionShell} pb-20 md:pb-28`}>
+        {hairline}
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="font-mono-code text-[11px] uppercase tracking-[0.22em] text-[#A1A6B0]">
+            {chapterLabel("home-contact", lang)}
+          </p>
+          <p className="mt-6 font-editorial text-xl font-medium italic text-[#D4D7DD]/75" lang="en" dir="ltr">
+            — {PORTFOLIO_IDENTITY.signature}
+          </p>
+          <h2 className="mt-4 font-display text-[clamp(2rem,5vw,3.25rem)] font-semibold uppercase tracking-[0.05em] text-[#F4F5F7]">
+            {UI_COPY.contact.title[lang]}
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-[#E4E4E7]/85">
+            {UI_COPY.contact.subtitle[lang]}
+          </p>
           <a
             href={PAGE_PATHS.contact}
             onClick={(e) => onInternalLinkClick(e, PAGE_PATHS.contact)}
-            className="btn-titanium group inline-flex min-h-11 items-center gap-2 rounded-full ps-5 pe-2 text-sm font-semibold text-[#050505]"
+            className="btn-titanium group mt-8 inline-flex min-h-12 items-center gap-2.5 rounded-full ps-6 pe-2 text-sm font-semibold text-[#050505]"
           >
             <span>{UI_COPY.nav.cta[lang]}</span>
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
-              <ArrowUpRight size={14} weight="bold" className="rtl:-scale-x-100" />
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#050505]/15 transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
+              <ArrowUpRight size={15} weight="bold" className="rtl:-scale-x-100" />
             </span>
           </a>
         </div>

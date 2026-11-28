@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lang, PORTFOLIO_IDENTITY, UI_COPY } from "../data/portfolioData";
@@ -8,9 +8,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface StatementSectionProps {
   lang: Lang;
+  /** "manifesto" = the home chapter: only the point-of-view card with its scroll-lit words. */
+  variant?: "full" | "manifesto";
+  header?: ReactNode;
+  footer?: ReactNode;
 }
 
-export function StatementSection({ lang }: StatementSectionProps) {
+export function StatementSection({ lang, variant = "full", header, footer }: StatementSectionProps) {
+  const isFull = variant === "full";
   const sectionRef = useRef<HTMLElement>(null);
   const words = PORTFOLIO_IDENTITY.pointOfView[lang].split(" ");
 
@@ -38,6 +43,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
         }
       );
 
+      if (!isFull) return;
       gsap.fromTo(
         ".milestone-card",
         { y: 14, opacity: 0.55 },
@@ -58,11 +64,11 @@ export function StatementSection({ lang }: StatementSectionProps) {
     });
 
     return () => mm.revert();
-  }, [lang]);
+  }, [lang, isFull]);
 
   return (
     <section
-      id="perspective"
+      id={isFull ? "perspective" : "home-ethos"}
       ref={sectionRef}
       className="relative z-10 bg-transparent px-5 py-14 sm:px-8 md:py-20"
     >
@@ -71,6 +77,7 @@ export function StatementSection({ lang }: StatementSectionProps) {
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
       />
       <div className="mx-auto max-w-6xl space-y-8">
+        {header}
         {/* Double-Bezel Editorial Manifesto Card */}
         <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.12] bg-[#0D0F14]/75 p-1.5 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md">
           {/* Subtle architectural 13-node geometric filigree (purely visual, zero copy) */}
@@ -102,9 +109,11 @@ export function StatementSection({ lang }: StatementSectionProps) {
             <line x1="187.5" y1="81" x2="52.5" y2="159" opacity="0.6" />
           </svg>
           <div className="statement-block relative rounded-[calc(2rem-0.375rem)] bg-[#11141B]/94 p-6 sm:p-10">
+            {isFull && (
             <p className="mb-4 font-mono-code text-[11px] uppercase tracking-[0.18em] text-[#A1A6B0]">
               {UI_COPY.statement.eyebrow[lang]}
             </p>
+            )}
             <h2 className="font-editorial text-2xl font-medium leading-[1.45] tracking-[-0.01em] text-[#F4F5F7] sm:text-4xl lg:text-[2.35rem]">
               {words.map((word, index) => (
                 <span key={`${lang}-${word}-${index}`}>
@@ -114,6 +123,8 @@ export function StatementSection({ lang }: StatementSectionProps) {
               ))}
             </h2>
 
+            {isFull && (
+            <>
             {/* Creative Influence (Tameem Youness) & Analytical Lens */}
             <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/10 pt-6 md:grid-cols-2">
               <div>
@@ -162,9 +173,13 @@ export function StatementSection({ lang }: StatementSectionProps) {
                 ))}
               </ol>
             </div>
+            </>
+            )}
           </div>
         </div>
 
+        {isFull && (
+        <>
         {/* Verified Milestones & Academic Foundation */}
         <div className="milestone-grid grid grid-cols-1 gap-5 border-t border-white/10 pt-7 md:grid-cols-3 md:gap-6">
           <div className="milestone-card rounded-2xl border border-white/[0.11] bg-[#151821]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
@@ -203,6 +218,9 @@ export function StatementSection({ lang }: StatementSectionProps) {
             </p>
           </div>
         </div>
+        </>
+        )}
+        {footer}
       </div>
     </section>
   );

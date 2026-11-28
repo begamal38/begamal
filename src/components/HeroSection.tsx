@@ -94,7 +94,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
 
             <button
               type="button"
-              onClick={() => onNavigate("works")}
+              onClick={() => onNavigate("home-latest")}
               className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-[#111215]/90 px-6 py-3 text-sm font-medium text-[#F4F5F7] transition-colors duration-200 hover:border-[#D4D7DD] hover:text-white active:scale-[0.98] whitespace-nowrap"
             >
               <span>{UI_COPY.hero.secondaryCta[lang]}</span>
@@ -145,7 +145,7 @@ export function HeroSection({ lang, onNavigate }: HeroSectionProps) {
       {/* Minimal Scroll Exploration Cue */}
       <button
         type="button"
-        onClick={() => onNavigate("home-latest")}
+        onClick={() => onNavigate("home-ethos")}
         className="hero-scroll-cue absolute bottom-5 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-[#111215]/80 px-4 py-1.5 font-mono-code text-[10px] uppercase tracking-[0.18em] text-[#D4D7DD] backdrop-blur-md transition-colors hover:border-white/40 hover:text-[#F4F5F7] sm:inline-flex"
       >
         <span>{lang === "en" ? "Begin the Journey" : "ابدأ الرحلة"}</span>

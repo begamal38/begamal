@@ -353,6 +353,7 @@ html[lang="ar"] .font-editorial[lang="en"] {
     .works-card,
     .era-node-card,
     .milestone-card,
+    .doctrine-card,
     .film-card {
       animation: mobile-rise-in linear both;
       animation-timeline: view();
